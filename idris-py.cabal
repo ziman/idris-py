@@ -1,15 +1,15 @@
-Name:           idris-php
+Name:           idris-py
 Version:        0.0.0.1
 License:        BSD3
 License-file:   CRAPL-LICENSE.txt
-Author:         Edwin Brady
-Maintainer:	Edwin Brady <ecb10@st-andrews.ac.uk>
+Author:         Matus Tejiscak
+Maintainer:	Matus Tejiscak <ziman@functor.sk>
 Build-Type:	Simple
 Cabal-Version:  >= 1.8
 Extra-source-files:
-		phprts/*.php
+		pyrts/*.py
 
-Executable idris-php
+Executable idris-py
   Main-is:        Main.hs
   hs-source-dirs: src
 
@@ -21,8 +21,9 @@ Executable idris-php
                 , haskeline >= 0.7
                 , mtl
                 , transformers
+                , pretty
 
-  other-modules: IRTS.CodegenPHP
+  other-modules: IRTS.CodegenPython
 
   if os(linux)
      cpp-options:   -DLINUX
