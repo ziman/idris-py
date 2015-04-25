@@ -10,6 +10,9 @@ import Data.Char
 
 import Text.PrettyPrint hiding (Str)
 
+indent :: Doc -> Doc
+indent = nest 2
+
 pythonPreamble :: Doc
 pythonPreamble = vcat . map text $
     [ "#!/usr/bin/env python"
@@ -35,9 +38,19 @@ codegenPython ci = writeFile (outputFile ci) (render source)
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
     definitions = vcat $ map cgDef (liftDecls ci)
 
+cgName :: Name -> Doc
+cgName = text . mangle
+
 cgDef :: (Name, LDecl) -> Doc
 cgDef (n, LConstructor name' tag arity) = empty
-cgDef (n, LFun opts name' args body) = empty
+cgDef (n, LFun opts name' args body) = header $+$ indent (cgExp body)
+  where
+    header = text "def" <+> cgName n <> lparen
+        <> hsep (punctuate comma $ map (text . mangle) args)
+        <> rparen <> colon
+
+cgExp :: LExp -> Doc
+cgExp e = empty
 
 php :: ()
 php = ()
