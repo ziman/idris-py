@@ -55,17 +55,8 @@ cgName = text . mangle
 cgTuple :: [Doc] -> Doc
 cgTuple xs = parens . hsep $ punctuate comma xs
 
-cgBigTuple :: [Doc] -> Doc
-cgBigTuple xs =
-    lparen
-    $$ (indent . vcat $ punctuate comma xs)
-    $$ rparen
-
 cgApp :: Doc -> [Doc] -> Doc
-cgApp f args =
-    (f <> lparen)
-    $$ (indent . vcat $ punctuate comma args)
-    $$ rparen
+cgApp f args = f <> parens (hsep $ punctuate comma args)
 
 cgDef :: (Name, SDecl) -> Doc
 cgDef (n, SFun name' args _ body) =
@@ -88,15 +79,6 @@ cgMatch vars val body =
   $$ rparen <> lparen
   $$ indent val
   $$ rparen
-
-cgErr :: String -> Doc
-cgErr msg = text "idris_raise" <> (parens . quotes) (text msg)
-
-varScrutinee :: Name
-varScrutinee = sUN "_case_scrutinee_"
-
-varTag :: LVar
-varTag = Loc (-1)
 
 cgError :: String -> Doc
 cgError msg = text "idris_error" <> parens (text $ show msg)
