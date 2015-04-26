@@ -114,9 +114,15 @@ cgPrim (LSDiv  _) [x, y] = x <+> text "/" <+> y
 cgPrim (LURem  _) [x, y] = x <+> text "%" <+> y
 cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
 cgPrim (LIntStr _) [x] = text "str" <> parens x  
-cgPrim (LExternal n) args = cgExtern (show n) args
-cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
+cgPrim (LStrInt _) [x] = text "int" <> parens x
+cgPrim  LStrRev    [x] = x <> brackets (text "::-1")
 cgPrim  LStrConcat [x, y] = x <+> text "+" <+> y
+cgPrim  LStrEq     [x, y] = x <+> text "==" <+> y
+
+cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
+cgPrim  LReadStr  _ = text "sys.stdin.readline()"
+
+cgPrim (LExternal n) args = cgExtern (show n) args
 cgPrim f args = cgError $ "unimplemented prim: " ++ show f ++ ", args = " ++ show args
 
 cgConst :: Const -> Doc
@@ -141,7 +147,7 @@ cgExp ret (SCon _ tag n []) = ret $ parens (int tag <> comma)
 cgExp ret (SCon _ tag n args) = ret $ cgTuple (int tag : map cgVar args)
 cgExp ret (SCase caseType var alts) = cgCase ret var alts
 cgExp ret (SChkCase var alts) = cgCase ret var alts
-cgExp ret (SProj var i) = ret (cgVar var <> brackets (int i))
+cgExp ret (SProj var i) = ret (cgVar var <> brackets (int $ i + 1))
 cgExp ret (SConst c) = ret $ cgConst c
 
 cgExp ret (SForeign fdesc rdesc args) = ret $ cgError "foreign not implemented"
@@ -150,23 +156,36 @@ cgExp ret  SNothing = ret $ text "None"
 cgExp ret (SError msg) = ret $ cgError msg
 
 cgCase :: (Doc -> Doc) -> LVar -> [SAlt] -> Doc
+cgCase ret var [SDefaultCase e] = cgExp ret e
 cgCase ret var alts =
-    vcat (map (cgAlt ret var) alts)
-    $+$ ret (cgError "unreachable case")
+    vcat (map (cgAlt ret var) $ zip ("if" : repeat "elif") alts)
+    $$ unreachableCase
+  where
+    unreachableCase
+        | (SDefaultCase _ : _) <- reverse alts
+        = empty
 
-cgAlt :: (Doc -> Doc) -> LVar -> SAlt -> Doc
-cgAlt ret v (SConCase lv tag ctorName args e) =
-  text "if" <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+        | otherwise
+        = text "else" <> colon $+$ indent (ret $ cgError "unreachable case")
+
+cgAlt :: (Doc -> Doc) -> LVar -> (String, SAlt) -> Doc
+cgAlt ret v (if_, SConCase lv tag ctorName [] e) =
+  text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+  $+$ indent (cgExp ret e)
+
+cgAlt ret v (if_, SConCase lv tag ctorName args e) =
+  text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
   $+$ indent (
-    text "_tag" <> comma
-    <+> (hsep [cgVar (Loc i) <> comma | (i, _) <- zip [lv..] args])
+    hsep [cgVar (Loc i) <> comma | (i, _) <- zip [lv..] args]
     <+> text "="
-    <+> cgVar v
+    <+> cgVar v <> text "[1:]"
     $+$ cgExp ret e
   )
 
-cgAlt ret v (SConstCase c e) =
-  text "if" <+> cgVar v <+> text "==" <+> cgConst c <> colon
+cgAlt ret v (if_, SConstCase c e) =
+  text if_ <+> cgVar v <+> text "==" <+> cgConst c <> colon
   $+$ indent (cgExp ret e)
 
-cgAlt ret v (SDefaultCase e) = cgExp ret e
+cgAlt ret v (if_, SDefaultCase e) =
+  text "else" <> colon
+  $+$ indent (cgExp ret e)
