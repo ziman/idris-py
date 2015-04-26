@@ -1,3 +1,4 @@
+{-# LANGUAGE PatternGuards #-}
 module IRTS.CodegenPython (codegenPython) where
 
 import IRTS.CodegenCommon
@@ -17,8 +18,11 @@ pythonPreamble :: Doc
 pythonPreamble = vcat . map text $
     [ "#!/usr/bin/env python"
     , ""
-    , "def idris_raise(msg):"
-    , "  raise new Exception(msg)"
+    , "class IdrisError(Exception):"
+    , "  pass"
+    , ""
+    , "def idris_error(msg):"
+    , "  raise IdrisError(msg)"
     , ""
     ]
 
@@ -61,7 +65,8 @@ cgApp f args =
 
 cgDef :: (Name, LDecl) -> Doc
 cgDef (n, LConstructor name' tag arity) = empty
-cgDef (n, LFun opts name' args body) = header $+$ indent (cgExp body) $+$ text ""
+cgDef (n, LFun opts name' [] body) = cgName n <+> text "=" <+> cgExp body
+cgDef (n, LFun opts name' args body) = header $+$ indent (text "return" <+> cgExp body) $+$ text ""
   where
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
 
@@ -99,6 +104,33 @@ varScrutinee = sUN "_case_scrutinee_"
 varTag :: Name
 varTag = sUN "_tag_"
 
+cgError :: String -> Doc
+cgError msg = text "idris_error" <> parens (text $ show msg)
+
+cgExtern :: String -> [Doc] -> Doc
+cgExtern "prim__null" args = text "None"
+cgExtern n args = cgError $ "unimplemented external: " ++ n
+
+cgPrim :: PrimFn -> [Doc] -> Doc
+cgPrim (LPlus  _) [x, y] = x <+> text "+" <+> y
+cgPrim (LMinus _) [x, y] = x <+> text "-" <+> y
+cgPrim (LTimes _) [x, y] = x <+> text "*" <+> y
+cgPrim (LUDiv  _) [x, y] = x <+> text "/" <+> y
+cgPrim (LSDiv  _) [x, y] = x <+> text "/" <+> y
+cgPrim (LURem  _) [x, y] = x <+> text "%" <+> y
+cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
+cgPrim (LIntStr _) [x] = text "unicode" <> parens x  
+cgPrim (LExternal n) args = cgExtern (show n) args
+cgPrim f args = cgError $ "unimplemented prim: " ++ show f
+
+cgConst :: Const -> Doc
+cgConst (I i) = text $ show i
+cgConst (BI i) = text $ show i
+cgConst (Fl f) = text $ show f
+cgConst (Ch c) = text $ show c
+cgConst (Str s) = text $ show s
+cgConst c = cgError $ "unimplemented constant: " ++ show c
+
 cgExp :: LExp -> Doc
 cgExp (LV var) = cgVar var
 cgExp (LApp isTail (LV var) args) = cgApp (cgVar var) (map cgExp args)
@@ -110,18 +142,32 @@ cgExp (LLet n v e) = cgLet [(n, v)] e
 cgExp (LLam ns e) = cgLam (map cgName ns) e
 cgExp (LProj e i) = parens (cgExp e) <> brackets (int $ i + 1)
 cgExp (LCon _ tag n args) = cgTuple (int tag : map cgExp args)
-cgExp (LCase caseType (LV var) alts) = parens $ vcat (map (cgAlt var) alts ++ [lastAlt])
-  where
-    lastAlt = text "__unreachable_case_alt__"
-
+cgExp (LCase caseType (LV var) alts) = cgCase var alts
 cgExp (LCase caseType e alts) = cgLet [(varScrutinee, e)] $ LCase caseType (LV $ Glob varScrutinee) alts
-cgExp _ = text "'__not_implemented__'"
+cgExp (LConst c) = cgConst c
+cgExp (LForeign fdesc rdesc args) = cgError "foreign not implemented"
+cgExp (LOp prim args) = cgPrim prim (map cgExp args)
+cgExp  LNothing = text "None"
+cgExp (LError msg) = cgError msg
+
+cgCase :: LVar -> [LAlt] -> Doc
+cgCase var [] = cgError "no case alternatives"
+cgCase var alts = lparen
+    $+$ vcat (addLastAlt $ map (cgAlt var) alts)
+    $+$ rparen
+  where
+    addLastAlt
+        | (LDefaultCase _ : _) <- reverse alts = id
+        | otherwise = (++ [indent $ cgError "unreachable case"])
 
 cgAlt :: LVar -> LAlt -> Doc
 cgAlt v (LConCase tag ctorName args e) =
-  lparen
-  $$ indent (cgMatch (varTag : args) (cgVar v) (cgExp e))
-  $$ rparen <> text "if" <+> cgVar v <> text "[0] ==" <+> int tag <> text "else"
+  indent (cgMatch (varTag : args) (cgVar v) (cgExp e))
+  $+$ rparen <+> text "if" <+> cgVar v <> text "[0] ==" <+> int tag <+> text "else" <+> lparen
+cgAlt v (LConstCase c e) =
+  indent (cgExp e)
+  $+$ rparen <+> text "if" <+> cgVar v <+> text "==" <+> cgConst c <+> text "else" <+> lparen
+cgAlt v (LDefaultCase e) = indent $ cgExp e
 
 php :: ()
 php = ()
