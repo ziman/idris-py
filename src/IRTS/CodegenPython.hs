@@ -17,6 +17,9 @@ pythonPreamble :: Doc
 pythonPreamble = vcat . map text $
     [ "#!/usr/bin/env python"
     , ""
+    , "def idris_raise(msg):"
+    , "  raise new Exception(msg)"
+    , ""
     ]
 
 pythonLauncher :: Doc
@@ -45,11 +48,20 @@ cgTuple :: [Doc] -> Doc
 cgTuple xs = parens . hsep $ punctuate comma xs
 
 cgBigTuple :: [Doc] -> Doc
-cgBigTuple xs = parens . indent . vcat $ punctuate comma xs
+cgBigTuple xs =
+    lparen
+    $$ (indent . vcat $ punctuate comma xs)
+    $$ rparen
+
+cgApp :: Doc -> [Doc] -> Doc
+cgApp f args =
+    (f <> lparen)
+    $$ (indent . vcat $ punctuate comma args)
+    $$ rparen
 
 cgDef :: (Name, LDecl) -> Doc
 cgDef (n, LConstructor name' tag arity) = empty
-cgDef (n, LFun opts name' args body) = header $+$ indent (cgExp body)
+cgDef (n, LFun opts name' args body) = header $+$ indent (cgExp body) $+$ text ""
   where
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
 
@@ -57,21 +69,59 @@ cgVar :: LVar -> Doc
 cgVar (Loc  i) = text "loc" <> int i
 cgVar (Glob n) = cgName n
 
+cgLam :: [Doc] -> LExp -> Doc
+cgLam vars e =
+  (lparen <> text "lambda" <+> hsep (punctuate comma vars) <> colon)
+  $$ indent (cgExp e)
+  $$ rparen
+
+cgMatch :: [Name] -> Doc -> Doc -> Doc
+cgMatch vars val body = 
+  (lparen <> text "lambda" <+> hsep (punctuate comma $ map cgName vars) <> colon)
+  $$ indent body
+  $$ rparen <> lparen
+  $$ indent val
+  $$ rparen
+
+cgLet :: [(Name, LExp)] -> LExp -> Doc
+cgLet vars e =
+  cgMatch
+    (map fst vars)
+    (vcat . punctuate comma $ map (cgExp . snd) vars)
+    (cgExp e)
+
+cgErr :: String -> Doc
+cgErr msg = text "idris_raise" <> (parens . quotes) (text msg)
+
+varScrutinee :: Name
+varScrutinee = sUN "_case_scrutinee_"
+
+varTag :: Name
+varTag = sUN "_tag_"
+
 cgExp :: LExp -> Doc
 cgExp (LV var) = cgVar var
-cgExp (LApp isTail (LV var) args) = cgVar var <> cgTuple (map cgExp args)
-cgExp (LApp isTail f args) = parens (cgExp f) <> cgTuple (map cgExp args)
-cgExp (LLazyApp n args) = cgName n <> cgTuple (map cgExp args)
+cgExp (LApp isTail (LV var) args) = cgApp (cgVar var) (map cgExp args)
+cgExp (LApp isTail f args) = cgApp (parens $ cgExp f) (map cgExp args)
+cgExp (LLazyApp n args) = cgApp (cgName n) (map cgExp args)
 cgExp (LLazyExp e) = parens (text "lambda:" <+> cgExp e)
 cgExp (LForce e) = cgExp e <> text "()"
-cgExp (LLet n v e) =
-    parens (text "lambda" <+> cgName n <> colon <+> cgExp e)
-    <> parens (cgExp v)
-cgExp (LLam ns e) = text "lambda"
-    <+> hsep (punctuate comma $ map cgName ns)
-    <> colon <+> cgExp e
+cgExp (LLet n v e) = cgLet [(n, v)] e
+cgExp (LLam ns e) = cgLam (map cgName ns) e
 cgExp (LProj e i) = parens (cgExp e) <> brackets (int $ i + 1)
 cgExp (LCon _ tag n args) = cgTuple (int tag : map cgExp args)
+cgExp (LCase caseType (LV var) alts) = parens $ vcat (map (cgAlt var) alts ++ [lastAlt])
+  where
+    lastAlt = text "__unreachable_case_alt__"
+
+cgExp (LCase caseType e alts) = cgLet [(varScrutinee, e)] $ LCase caseType (LV $ Glob varScrutinee) alts
+cgExp _ = text "'__not_implemented__'"
+
+cgAlt :: LVar -> LAlt -> Doc
+cgAlt v (LConCase tag ctorName args e) =
+  lparen
+  $$ indent (cgMatch (varTag : args) (cgVar v) (cgExp e))
+  $$ rparen <> text "if" <+> cgVar v <> text "[0] ==" <+> int tag <> text "else"
 
 php :: ()
 php = ()
