@@ -105,6 +105,9 @@ cgExtern :: String -> [Doc] -> Doc
 cgExtern "prim__null" args = text "None"
 cgExtern n args = cgError $ "unimplemented external: " ++ n
 
+(!) :: Doc -> String -> Doc
+x ! i = x <> brackets (text i)
+
 cgPrim :: PrimFn -> [Doc] -> Doc
 cgPrim (LPlus  _) [x, y] = x <+> text "+" <+> y
 cgPrim (LMinus _) [x, y] = x <+> text "-" <+> y
@@ -113,11 +116,17 @@ cgPrim (LUDiv  _) [x, y] = x <+> text "/" <+> y
 cgPrim (LSDiv  _) [x, y] = x <+> text "/" <+> y
 cgPrim (LURem  _) [x, y] = x <+> text "%" <+> y
 cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
+
+cgPrim (LEq    _) [x, y] = x <+> text "==" <+> y
+
 cgPrim (LIntStr _) [x] = text "str" <> parens x  
 cgPrim (LStrInt _) [x] = text "int" <> parens x
-cgPrim  LStrRev    [x] = x <> brackets (text "::-1")
+cgPrim  LStrRev    [x] = x ! "::-1"
 cgPrim  LStrConcat [x, y] = x <+> text "+" <+> y
+cgPrim  LStrCons   [x, y] = x <+> text "+" <+> y
 cgPrim  LStrEq     [x, y] = x <+> text "==" <+> y
+cgPrim  LStrHead   [x] = x ! "0"
+cgPrim  LStrTail   [x] = x ! "1:"
 
 cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
 cgPrim  LReadStr  _ = text "sys.stdin.readline()"
@@ -147,7 +156,7 @@ cgExp ret (SCon _ tag n []) = ret $ parens (int tag <> comma)
 cgExp ret (SCon _ tag n args) = ret $ cgTuple (int tag : map cgVar args)
 cgExp ret (SCase caseType var alts) = cgCase ret var alts
 cgExp ret (SChkCase var alts) = cgCase ret var alts
-cgExp ret (SProj var i) = ret (cgVar var <> brackets (int $ i + 1))
+cgExp ret (SProj var i) = ret (cgVar var ! show (i+1))
 cgExp ret (SConst c) = ret $ cgConst c
 
 cgExp ret (SForeign fdesc rdesc args) = ret $ cgError "foreign not implemented"
