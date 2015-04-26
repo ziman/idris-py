@@ -19,7 +19,7 @@ pythonPreamble :: Doc
 pythonPreamble = vcat . map text $
     [ "#!/usr/bin/env python"
     , ""
-    , "from __future__ import print_function"
+    , "import sys"
     , ""
     , "class IdrisError(Exception):"
     , "  pass"
@@ -113,9 +113,9 @@ cgPrim (LUDiv  _) [x, y] = x <+> text "/" <+> y
 cgPrim (LSDiv  _) [x, y] = x <+> text "/" <+> y
 cgPrim (LURem  _) [x, y] = x <+> text "%" <+> y
 cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
-cgPrim (LIntStr _) [x] = text "unicode" <> parens x  
+cgPrim (LIntStr _) [x] = text "str" <> parens x  
 cgPrim (LExternal n) args = cgExtern (show n) args
-cgPrim  LWriteStr [world, s] = text "print" <> parens s
+cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
 cgPrim f args = cgError $ "unimplemented prim: " ++ show f
 
 cgConst :: Const -> Doc
