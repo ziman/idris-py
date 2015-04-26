@@ -65,14 +65,13 @@ cgApp f args =
 
 cgDef :: (Name, LDecl) -> Doc
 cgDef (n, LConstructor name' tag arity) = empty
-cgDef (n, LFun opts name' [] body) = cgName n <+> text "=" <+> cgExp body
 cgDef (n, LFun opts name' args body) = header $+$ indent (text "return" <+> cgExp body) $+$ text ""
   where
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
 
 cgVar :: LVar -> Doc
 cgVar (Loc  i) = text "loc" <> int i
-cgVar (Glob n) = cgName n
+cgVar (Glob n) = cgName n <> text "()"
 
 cgLam :: [Doc] -> LExp -> Doc
 cgLam vars e =
