@@ -4,6 +4,7 @@ module IRTS.CodegenPython (codegenPython) where
 import IRTS.CodegenCommon
 import IRTS.Lang
 import IRTS.Simplified
+import IRTS.Defunctionalise
 import Idris.Core.TT
 
 import Data.Maybe
@@ -39,11 +40,12 @@ mangle = ("idris_" ++) . concatMap mangleChar . showCG
         | isAlpha x || isDigit x = [x]
         | otherwise = "_" ++ show (ord x) ++ "_"
 
+-- simpleDecls / defunDecls / liftDecls
 codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render source)
   where
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
-    definitions = vcat $ map cgDef (liftDecls ci)
+    definitions = vcat $ map cgDef (simpleDecls ci)
 
 cgName :: Name -> Doc
 cgName = text . mangle
@@ -63,36 +65,27 @@ cgApp f args =
     $$ (indent . vcat $ punctuate comma args)
     $$ rparen
 
-cgDef :: (Name, LDecl) -> Doc
-cgDef (n, LConstructor name' tag arity) = empty
-cgDef (n, LFun opts name' args body) = header $+$ indent (text "return" <+> cgExp body) $+$ text ""
+cgDef :: (Name, SDecl) -> Doc
+cgDef (n, SFun name' args _ body) =
+    comment $+$ header $+$ indent (cgExp (text "return" <+>) body) $+$ text ""
   where
-    header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
+    comment = text $ "# " ++ show name'
+    header = text "def" <+> cgName n <> cgTuple args' <> colon
+    args' = [cgVar (Loc i) | (i, n) <- zip [0..] args]
 
 cgVar :: LVar -> Doc
-cgVar (Loc  i) = text "loc" <> int i
+cgVar (Loc  i)
+    | i >= 0    = text "loc" <> int i
+    | otherwise = text "aux" <> int (-i)
 cgVar (Glob n) = cgName n <> text "()"
 
-cgLam :: [Doc] -> LExp -> Doc
-cgLam vars e =
-  (lparen <> text "lambda" <+> hsep (punctuate comma vars) <> colon)
-  $$ indent (cgExp e)
-  $$ rparen
-
-cgMatch :: [Name] -> Doc -> Doc -> Doc
+cgMatch :: [LVar] -> Doc -> Doc -> Doc
 cgMatch vars val body = 
-  (lparen <> text "lambda" <+> hsep (punctuate comma $ map cgName vars) <> colon)
+  (lparen <> text "lambda" <+> hsep (punctuate comma $ map cgVar vars) <> colon)
   $$ indent body
   $$ rparen <> lparen
   $$ indent val
   $$ rparen
-
-cgLet :: [(Name, LExp)] -> LExp -> Doc
-cgLet vars e =
-  cgMatch
-    (map fst vars)
-    (vcat . punctuate comma $ map (cgExp . snd) vars)
-    (cgExp e)
 
 cgErr :: String -> Doc
 cgErr msg = text "idris_raise" <> (parens . quotes) (text msg)
@@ -100,8 +93,8 @@ cgErr msg = text "idris_raise" <> (parens . quotes) (text msg)
 varScrutinee :: Name
 varScrutinee = sUN "_case_scrutinee_"
 
-varTag :: Name
-varTag = sUN "_tag_"
+varTag :: LVar
+varTag = Loc (-1)
 
 cgError :: String -> Doc
 cgError msg = text "idris_error" <> parens (text $ show msg)
@@ -130,43 +123,49 @@ cgConst (Ch c) = text $ show c
 cgConst (Str s) = text $ show s
 cgConst c = cgError $ "unimplemented constant: " ++ show c
 
-cgExp :: LExp -> Doc
-cgExp (LV var) = cgVar var
-cgExp (LApp isTail (LV var) args) = cgApp (cgVar var) (map cgExp args)
-cgExp (LApp isTail f args) = cgApp (parens $ cgExp f) (map cgExp args)
-cgExp (LLazyApp n args) = cgApp (cgName n) (map cgExp args)
-cgExp (LLazyExp e) = parens (text "lambda:" <+> cgExp e)
-cgExp (LForce e) = cgExp e <> text "()"
-cgExp (LLet n v e) = cgLet [(n, v)] e
-cgExp (LLam ns e) = cgLam (map cgName ns) e
-cgExp (LProj e i) = parens (cgExp e) <> brackets (int $ i + 1)
-cgExp (LCon _ tag n args) = cgTuple (int tag : map cgExp args)
-cgExp (LCase caseType (LV var) alts) = cgCase var alts
-cgExp (LCase caseType e alts) = cgLet [(varScrutinee, e)] $ LCase caseType (LV $ Glob varScrutinee) alts
-cgExp (LConst c) = cgConst c
-cgExp (LForeign fdesc rdesc args) = cgError "foreign not implemented"
-cgExp (LOp prim args) = cgPrim prim (map cgExp args)
-cgExp  LNothing = text "None"
-cgExp (LError msg) = cgError msg
+ret :: Doc -> Doc
+ret x = text "return" <+> x
 
-cgCase :: LVar -> [LAlt] -> Doc
-cgCase var [] = cgError "no case alternatives"
-cgCase var alts = lparen
-    $+$ vcat (addLastAlt $ map (cgAlt var) alts)
-    $+$ rparen
-  where
-    addLastAlt
-        | (LDefaultCase _ : _) <- reverse alts = id
-        | otherwise = (++ [indent $ cgError "unreachable case"])
+cgExp :: (Doc -> Doc) -> SExp -> Doc
+cgExp ret (SV var) = ret $ cgVar var
+cgExp ret (SApp isTail n args) = ret $ cgApp (cgName n) (map cgVar args)
+cgExp ret (SLet n v e) =
+  cgExp (\code -> cgVar n <+> text "=" <+> code) v
+  $+$ cgExp ret e
+cgExp ret (SUpdate n e) = ret . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
+cgExp ret (SCon _ tag n []) = ret $ parens (int tag <> comma)
+cgExp ret (SCon _ tag n args) = ret $ cgTuple (int tag : map cgVar args)
+cgExp ret (SCase caseType var alts) = cgCase ret var alts
+cgExp ret (SChkCase var alts) = cgCase ret var alts
+cgExp ret (SProj var i) = ret (cgVar var <> brackets (int i))
+cgExp ret (SConst c) = ret $ cgConst c
 
-cgAlt :: LVar -> LAlt -> Doc
-cgAlt v (LConCase tag ctorName args e) =
-  indent (cgMatch (varTag : args) (cgVar v) (cgExp e))
-  $+$ rparen <+> text "if" <+> cgVar v <> text "[0] ==" <+> int tag <+> text "else" <+> lparen
-cgAlt v (LConstCase c e) =
-  indent (cgExp e)
-  $+$ rparen <+> text "if" <+> cgVar v <+> text "==" <+> cgConst c <+> text "else" <+> lparen
-cgAlt v (LDefaultCase e) = indent $ cgExp e
+cgExp ret (SForeign fdesc rdesc args) = ret $ cgError "foreign not implemented"
+cgExp ret (SOp prim args) = ret $ cgPrim prim (map cgVar args)
+cgExp ret  SNothing = ret $ text "None"
+cgExp ret (SError msg) = ret $ cgError msg
+
+cgCase :: (Doc -> Doc) -> LVar -> [SAlt] -> Doc
+cgCase ret var alts =
+    vcat (map (cgAlt ret var) alts)
+    $+$ ret (cgError "unreachable case")
+
+cgAlt :: (Doc -> Doc) -> LVar -> SAlt -> Doc
+cgAlt ret v (SConCase arity tag ctorName args e) =
+  text "if" <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+  $+$ indent (
+    vcat [
+        cgName n <+> text "=" <+> cgVar v <> brackets (int i)
+        | (i, n) <- zip [1..] args
+    ]
+    $+$ cgExp ret e
+  )
+
+cgAlt ret v (SConstCase c e) =
+  text "if" <+> cgVar v <+> text "==" <+> cgConst c <> colon
+  $+$ indent (cgExp ret e)
+
+cgAlt ret v (SDefaultCase e) = cgExp ret e
 
 php :: ()
 php = ()
