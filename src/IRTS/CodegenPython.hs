@@ -41,16 +41,37 @@ codegenPython ci = writeFile (outputFile ci) (render source)
 cgName :: Name -> Doc
 cgName = text . mangle
 
+cgTuple :: [Doc] -> Doc
+cgTuple xs = parens . hsep $ punctuate comma xs
+
+cgBigTuple :: [Doc] -> Doc
+cgBigTuple xs = parens . indent . vcat $ punctuate comma xs
+
 cgDef :: (Name, LDecl) -> Doc
 cgDef (n, LConstructor name' tag arity) = empty
 cgDef (n, LFun opts name' args body) = header $+$ indent (cgExp body)
   where
-    header = text "def" <+> cgName n <> lparen
-        <> hsep (punctuate comma $ map (text . mangle) args)
-        <> rparen <> colon
+    header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
+
+cgVar :: LVar -> Doc
+cgVar (Loc  i) = text "loc" <> int i
+cgVar (Glob n) = cgName n
 
 cgExp :: LExp -> Doc
-cgExp e = empty
+cgExp (LV var) = cgVar var
+cgExp (LApp isTail (LV var) args) = cgVar var <> cgTuple (map cgExp args)
+cgExp (LApp isTail f args) = parens (cgExp f) <> cgTuple (map cgExp args)
+cgExp (LLazyApp n args) = cgName n <> cgTuple (map cgExp args)
+cgExp (LLazyExp e) = parens (text "lambda:" <+> cgExp e)
+cgExp (LForce e) = cgExp e <> text "()"
+cgExp (LLet n v e) =
+    parens (text "lambda" <+> cgName n <> colon <+> cgExp e)
+    <> parens (cgExp v)
+cgExp (LLam ns e) = text "lambda"
+    <+> hsep (punctuate comma $ map cgName ns)
+    <> colon <+> cgExp e
+cgExp (LProj e i) = parens (cgExp e) <> brackets (int $ i + 1)
+cgExp (LCon _ tag n args) = cgTuple (int tag : map cgExp args)
 
 php :: ()
 php = ()
