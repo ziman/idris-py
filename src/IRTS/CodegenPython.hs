@@ -100,6 +100,8 @@ cgPrim (LURem  _) [x, y] = x <+> text "%" <+> y
 cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
 
 cgPrim (LEq    _) [x, y] = x <+> text "==" <+> y
+cgPrim (LSLt   _) [x, y] = x <+> text "<" <+> y
+cgPrim (LSExt _ _)[x]    = x
 
 cgPrim (LIntStr _) [x] = text "str" <> parens x  
 cgPrim (LStrInt _) [x] = text "int" <> parens x
