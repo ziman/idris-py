@@ -151,13 +151,13 @@ cgCase ret var alts =
     $+$ ret (cgError "unreachable case")
 
 cgAlt :: (Doc -> Doc) -> LVar -> SAlt -> Doc
-cgAlt ret v (SConCase arity tag ctorName args e) =
+cgAlt ret v (SConCase lv tag ctorName args e) =
   text "if" <+> cgVar v <> text "[0] ==" <+> int tag <> colon
   $+$ indent (
-    vcat [
-        cgName n <+> text "=" <+> cgVar v <> brackets (int i)
-        | (i, n) <- zip [1..] args
-    ]
+    text "_tag" <> comma
+    <+> (hsep [cgVar (Loc i) <> comma | (i, _) <- zip [lv..] args])
+    <+> text "="
+    <+> cgVar v
     $+$ cgExp ret e
   )
 
