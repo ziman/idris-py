@@ -113,6 +113,18 @@ pythonPreamble = vcat . map text $
     , "def idris_error(msg):"
     , "  raise IdrisError(msg)"
     , ""
+    , "MODULES = dict()"
+    , ""
+    , "def idris_pymodule(name):"
+    , "  mod = MODULES.get(name)"
+    , "  if mod is None:"
+    , "    mod = __import__(name)"
+    , "    MODULES[name] = mod"
+    , "  return mod"
+    , ""
+    , "def idris_getfield(o, f):"
+    , "  return o.__attr__(f)"
+    , ""
     ]
 
 pythonLauncher :: Doc
