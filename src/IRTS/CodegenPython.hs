@@ -228,10 +228,14 @@ cgComment msg = text "#" <+> text msg
 
 cgCtor :: Int -> Name -> [Expr] -> Expr
 cgCtor tag n [] = parens (int tag <> comma) -- <+> cgComment (show n)
-cgCtor tag n args =
-  lparen <> int tag <> comma <+> cgComment (show n)
-  $+$ indent (vcat $ punctuate comma args)
-  $+$ rparen
+cgCtor tag n args
+    | length (render simple) <= 60 = simple
+    | otherwise = 
+        lparen <> int tag <> comma <+> cgComment (show n)
+        $+$ indent (vcat $ punctuate comma args)
+        $+$ rparen
+  where
+    simple = parens . hsep . punctuate comma $ int tag : args
 
 cgAssign :: LVar -> Expr -> Stmts
 cgAssign v e = cgVar v <+> text "=" <+> e
