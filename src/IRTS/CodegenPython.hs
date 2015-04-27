@@ -126,11 +126,11 @@ pythonPreamble = vcat . map text $
     , "  return o.__attr__(f)"
     , ""
     , "def idris_call(f, args):"
-    , "  as = []"
+    , "  ags = []"
     , "  while len(args) == 3:"
-    , "    as.append(args[1])"
+    , "    ags.append(args[1])"
     , "    args = args[2]"
-    , "  f(*as)"
+    , "  f(*ags)"
     ]
 
 pythonLauncher :: Doc
