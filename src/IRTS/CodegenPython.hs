@@ -9,6 +9,7 @@ import Idris.Core.TT
 
 import Data.Maybe
 import Data.Char
+import qualified Data.Text as T
 
 import Control.Monad
 import Control.Applicative hiding (empty, Const)
@@ -92,7 +93,8 @@ pythonLauncher = vcat . map text $
     ]
 
 mangle :: Name -> String
-mangle = ("idris_" ++) . concatMap mangleChar . showCG
+mangle (MN i n) = T.unpack n ++ show i
+mangle n = "idris_" ++ concatMap mangleChar (showCG n)
   where
     mangleChar x
         | isAlpha x || isDigit x = [x]
@@ -129,15 +131,14 @@ cgDef (n, DFun name' args body) =
     $+$ text ""  -- empty line separating definitions
   where
     comment = text $ "# " ++ show name'
-    header = text "def" <+> cgName n <> cgTuple args' <> colon
-    args' = [cgVar (Loc i) | (i, n) <- zip [0..] args]
+    header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
     (statements, retVal) = evalState (runCG $ cgExp body) (CGState 1)
 
 cgVar :: LVar -> Doc
 cgVar (Loc  i)
     | i >= 0    = text "loc" <> int i
     | otherwise = text "aux" <> int (-i)
-cgVar (Glob n) = cgName n <> text "()"
+cgVar (Glob n) = cgName n
 
 cgError :: String -> Doc
 cgError msg = text "idris_error" <> parens (text $ show msg)

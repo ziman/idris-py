@@ -22,6 +22,7 @@ Executable idris-py
                 , mtl
                 , transformers
                 , pretty
+                , text
 
   other-modules: IRTS.CodegenPython
 
