@@ -14,11 +14,12 @@ def idris_Prelude_46_List_46__43__43_(loc0, loc1, loc2):
     loc3, loc4, = loc1[1:]
     loc5 = None
     loc5 = idris_Prelude_46_List_46__43__43_(loc5, loc4, loc2)
-    return (1, loc3, loc5)
+    aux1 = (1, loc3, loc5)
   elif loc1[0] == 0:
-    return loc2
+    aux1 = loc2
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Basics..
 def idris_Prelude_46_Basics_46__46_(loc0, loc1, loc2, loc3, loc4, loc5):
@@ -29,9 +30,10 @@ def idris_Prelude_46_Basics_46__46_(loc0, loc1, loc2, loc3, loc4, loc5):
 def idris_Prelude_46_Classes_46__60_(loc0, loc1):
   if loc1[0] == 0:
     loc2, loc3, = loc1[1:]
-    return loc3
+    aux1 = loc3
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Algebra.<+>
 def idris_Prelude_46_Algebra_46__60__43__62_(loc0, loc1):
@@ -41,17 +43,19 @@ def idris_Prelude_46_Algebra_46__60__43__62_(loc0, loc1):
 def idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a(loc0, loc1):
   if loc1[0] == 0:
     loc2, loc3, = loc1[1:]
-    return loc2
+    aux1 = loc2
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # @@constructor of Prelude.Applicative.Alternative#Applicative f
 def idris__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f(loc0, loc1):
   if loc1[0] == 0:
     loc2, loc3, = loc1[1:]
-    return loc2
+    aux1 = loc2
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Force
 def idris_Force(loc0, loc1, loc2):
@@ -68,11 +72,12 @@ def idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(loc0)
 # Prelude.Bool.boolElim
 def idris_Prelude_46_Bool_46_boolElim(loc0, loc1, loc2, loc3):
   if loc1[0] == 0:
-    return idris__123_EVAL0_125_(loc3)
+    aux1 = idris__123_EVAL0_125_(loc3)
   elif loc1[0] == 1:
-    return idris__123_EVAL0_125_(loc2)
+    aux1 = idris__123_EVAL0_125_(loc2)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # call__IO
 def idris_call_95__95_IO(loc0, loc1, loc2):
@@ -83,9 +88,10 @@ def idris_call_95__95_IO(loc0, loc1, loc2):
 def idris_Prelude_46_Classes_46_compare(loc0, loc1):
   if loc1[0] == 0:
     loc2, loc3, = loc1[1:]
-    return loc2
+    aux1 = loc2
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Foldable.concatMap
 def idris_Prelude_46_Foldable_46_concatMap(loc0, loc1, loc2, loc3, loc4, loc5):
@@ -98,25 +104,28 @@ def idris_Prelude_46_Foldable_46_concatMap(loc0, loc1, loc2, loc3, loc4, loc5):
   loc9 = None
   if loc4[0] == 0:
     loc10, loc11, = loc4[1:]
-    loc10 = loc10
+    aux1 = loc10
   else:
-    loc10 = idris_error("unreachable case")
+    idris_error("unreachable case")
+  loc10 = aux1
   loc7 = (65630, loc7, loc8, loc9, loc10, loc5)
   loc6 = idris__123_APPLY0_125_(loc6, loc7)
   if loc4[0] == 0:
     loc7, loc8, = loc4[1:]
-    loc7 = loc8
+    aux2 = loc8
   else:
-    loc7 = idris_error("unreachable case")
+    idris_error("unreachable case")
+  loc7 = aux2
   return idris__123_APPLY0_125_(loc6, loc7)
 
 # Prelude.Applicative.empty
 def idris_Prelude_46_Applicative_46_empty(loc0, loc1, loc2):
   if loc2[0] == 0:
     loc3, loc4, = loc2[1:]
-    return idris__123_APPLY0_125_(loc4, loc1)
+    aux1 = idris__123_APPLY0_125_(loc4, loc1)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Foldable.foldr
 def idris_Prelude_46_Foldable_46_foldr(loc0, loc1, loc2, loc3):
@@ -134,11 +143,12 @@ def idris_Prelude_46_List_46_foldrImpl(loc0, loc1, loc2, loc3, loc4, loc5):
     loc12 = None
     loc13 = idris__123_APPLY0_125_(loc2, loc6)
     loc10 = (65630, loc10, loc11, loc12, loc4, loc13)
-    return idris_Prelude_46_List_46_foldrImpl(loc8, loc9, loc2, loc3, loc10, loc7)
+    aux1 = idris_Prelude_46_List_46_foldrImpl(loc8, loc9, loc2, loc3, loc10, loc7)
   elif loc5[0] == 0:
-    return idris__123_APPLY0_125_(loc4, loc3)
+    aux1 = idris__123_APPLY0_125_(loc4, loc3)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Applicative.guard
 def idris_Prelude_46_Applicative_46_guard(loc0, loc1, loc2):
@@ -146,22 +156,25 @@ def idris_Prelude_46_Applicative_46_guard(loc0, loc1, loc2):
     if loc1[0] == 0:
       loc3, loc4, = loc1[1:]
       loc5 = None
-      return idris__123_APPLY0_125_(loc4, loc5)
+      aux2 = idris__123_APPLY0_125_(loc4, loc5)
     else:
-      return idris_error("unreachable case")
+      idris_error("unreachable case")
+    aux1 = aux2
   elif loc2[0] == 1:
     loc3 = None
     loc4 = None
     if loc1[0] == 0:
       loc5, loc6, = loc1[1:]
-      loc5 = loc5
+      aux3 = loc5
     else:
-      loc5 = idris_error("unreachable case")
+      idris_error("unreachable case")
+    loc5 = aux3
     loc3 = idris_Prelude_46_Applicative_46_pure(loc3, loc4, loc5)
     loc4 = (0,)
-    return idris__123_APPLY0_125_(loc3, loc4)
+    aux1 = idris__123_APPLY0_125_(loc3, loc4)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Basics.id
 def idris_Prelude_46_Basics_46_id(loc0, loc1):
@@ -170,9 +183,10 @@ def idris_Prelude_46_Basics_46_id(loc0, loc1):
 # Prelude.Classes.intToBool
 def idris_Prelude_46_Classes_46_intToBool(loc0):
   if loc0 == 0:
-    return (0,)
+    aux1 = (0,)
   else:
-    return (1,)
+    aux1 = (1,)
+  return aux1
 
 # io_bind
 def idris_io_95_bind(loc0, loc1, loc2, loc3, loc4, loc5):
@@ -190,7 +204,7 @@ def idris_Main_46_main():
   loc1 = None
   loc2 = (65629,)
   loc1 = idris_Prelude_46_show(loc1, loc2)
-  loc2 = 100
+  loc2 = 10
   loc2 = idris_Main_46_pythag(loc2)
   loc1 = idris__123_APPLY0_125_(loc1, loc2)
   return idris_Prelude_46_putStr(loc0, loc1)
@@ -203,9 +217,10 @@ def idris_mkForeignPrim():
 def idris_Prelude_46_Algebra_46_neutral(loc0, loc1):
   if loc1[0] == 0:
     loc2, loc3, = loc1[1:]
-    return loc3
+    aux1 = loc3
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # prim__addInt
 def idris_prim_95__95_addInt(loc0, loc1):
@@ -321,92 +336,94 @@ def idris_world(loc0):
 # Prelude.Bool.||
 def idris_Prelude_46_Bool_46__124__124_(loc0, loc1):
   if loc0[0] == 0:
-    return idris__123_EVAL0_125_(loc1)
+    aux1 = idris__123_EVAL0_125_(loc1)
   elif loc0[0] == 1:
-    return (1,)
+    aux1 = (1,)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # {APPLY0}
 def idris__123_APPLY0_125_(loc0, loc1):
   if loc0[0] == 65622:
-    return idris_Main_46__123_pythag0_125_(loc1)
+    aux1 = idris_Main_46__123_pythag0_125_(loc1)
   elif loc0[0] == 65623:
-    return idris_Main_46__123_pythag1_125_(loc1)
+    aux1 = idris_Main_46__123_pythag1_125_(loc1)
   elif loc0[0] == 65624:
-    return idris_Main_46__123_pythag2_125_(loc1)
+    aux1 = idris_Main_46__123_pythag2_125_(loc1)
   elif loc0[0] == 65625:
     loc2, loc3, loc4, = loc0[1:]
-    return idris_Main_46__123_pythag3_125_(loc2, loc3, loc4, loc1)
+    aux1 = idris_Main_46__123_pythag3_125_(loc2, loc3, loc4, loc1)
   elif loc0[0] == 65626:
     loc2, loc3, = loc0[1:]
-    return idris_Main_46__123_pythag4_125_(loc2, loc3, loc1)
+    aux1 = idris_Main_46__123_pythag4_125_(loc2, loc3, loc1)
   elif loc0[0] == 65627:
     loc2, = loc0[1:]
-    return idris_Main_46__123_pythag5_125_(loc2, loc1)
+    aux1 = idris_Main_46__123_pythag5_125_(loc2, loc1)
   elif loc0[0] == 65628:
-    return idris_Main_46__123_pythag6_125_(loc1)
+    aux1 = idris_Main_46__123_pythag6_125_(loc1)
   elif loc0[0] == 65629:
-    return idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(loc1)
+    aux1 = idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(loc1)
   elif loc0[0] == 65630:
     loc2, loc3, loc4, loc5, loc6, = loc0[1:]
-    return idris_Prelude_46_Basics_46__46_(loc2, loc3, loc4, loc5, loc6, loc1)
+    aux1 = idris_Prelude_46_Basics_46__46_(loc2, loc3, loc4, loc5, loc6, loc1)
   elif loc0[0] == 65631:
     loc2, = loc0[1:]
-    return idris_Prelude_46_Basics_46_id(loc2, loc1)
+    aux1 = idris_Prelude_46_Basics_46_id(loc2, loc1)
   elif loc0[0] == 65632:
     loc2, = loc0[1:]
-    return idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord0_125_(loc2, loc1)
+    aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord0_125_(loc2, loc1)
   elif loc0[0] == 65633:
-    return idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord1_125_(loc1)
+    aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord1_125_(loc1)
   elif loc0[0] == 65634:
     loc2, = loc0[1:]
-    return idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord2_125_(loc2, loc1)
+    aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord2_125_(loc2, loc1)
   elif loc0[0] == 65635:
-    return idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord3_125_(loc1)
+    aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord3_125_(loc1)
   elif loc0[0] == 65636:
     loc2, loc3, = loc0[1:]
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_0_125_(loc2, loc3, loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_0_125_(loc2, loc3, loc1)
   elif loc0[0] == 65637:
     loc2, = loc0[1:]
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_1_125_(loc2, loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_1_125_(loc2, loc1)
   elif loc0[0] == 65638:
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_2_125_(loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_2_125_(loc1)
   elif loc0[0] == 65639:
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_3_125_(loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_3_125_(loc1)
   elif loc0[0] == 65640:
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_4_125_(loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_4_125_(loc1)
   elif loc0[0] == 65641:
     loc2, = loc0[1:]
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_5_125_(loc2, loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_5_125_(loc2, loc1)
   elif loc0[0] == 65642:
-    return idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_6_125_(loc1)
+    aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_6_125_(loc1)
   elif loc0[0] == 65643:
     loc2, = loc0[1:]
-    return idris_Prelude_46__123_putStr0_125_(loc2, loc1)
+    aux1 = idris_Prelude_46__123_putStr0_125_(loc2, loc1)
   elif loc0[0] == 65644:
-    return idris_Prelude_46__123_putStr1_125_(loc1)
+    aux1 = idris_Prelude_46__123_putStr1_125_(loc1)
   elif loc0[0] == 65645:
     loc2, loc3, loc4, loc5, loc6, = loc0[1:]
-    return idris_io_95_bind(loc2, loc3, loc4, loc5, loc6, loc1)
+    aux1 = idris_io_95_bind(loc2, loc3, loc4, loc5, loc6, loc1)
   elif loc0[0] == 65646:
     loc2, loc3, loc4, = loc0[1:]
-    return idris_io_95_return(loc2, loc3, loc4, loc1)
+    aux1 = idris_io_95_return(loc2, loc3, loc4, loc1)
   elif loc0[0] == 65647:
-    return idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_(loc1)
+    aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_(loc1)
   elif loc0[0] == 65648:
-    return idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(loc1)
+    aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(loc1)
   elif loc0[0] == 65649:
-    return idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(loc1)
+    aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(loc1)
   elif loc0[0] == 65650:
-    return idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(loc1)
+    aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(loc1)
   elif loc0[0] == 65651:
-    return idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(loc1)
+    aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(loc1)
   elif loc0[0] == 65652:
     loc2, loc3, loc4, loc5, loc6, loc7, = loc0[1:]
-    return idris__123_io_95_bind1_125_(loc2, loc3, loc4, loc5, loc6, loc7, loc1)
+    aux1 = idris__123_io_95_bind1_125_(loc2, loc3, loc4, loc5, loc6, loc7, loc1)
   else:
-    return None
+    aux1 = None
+  return aux1
 
 # {EVAL0}
 def idris__123_EVAL0_125_(loc0):
@@ -424,9 +441,10 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0
 def idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61_0_125_(loc0, loc1):
   loc2 = loc0 == loc1
   if loc2 == 0:
-    return (0,)
+    aux1 = (0,)
   else:
-    return (1,)
+    aux1 = (1,)
+  return aux1
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=0}
 def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_0_125_(loc0, loc1, loc2):
@@ -492,9 +510,10 @@ def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes
   loc2 = idris__123_APPLY0_125_(loc2, loc0)
   loc2 = idris__123_APPLY0_125_(loc2, loc1)
   if loc2[0] == 0:
-    return (1,)
+    aux1 = (1,)
   else:
-    return (0,)
+    aux1 = (0,)
+  return aux1
 
 # {PE_List a instance of Prelude.Show_f5d3ac2c2}
 def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(loc0):
@@ -565,9 +584,10 @@ def idris_Main_46__123_pythag4_125_(loc0, loc1, loc2):
   loc8 = loc1 * loc1
   loc7 = loc7 == loc8
   if loc7 == 0:
-    loc7 = (0,)
+    aux1 = (0,)
   else:
-    loc7 = (1,)
+    aux1 = (1,)
+  loc7 = aux1
   loc5 = idris_Prelude_46_Applicative_46_guard(loc5, loc6, loc7)
   loc6 = (65625, loc2, loc0, loc1)
   return idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(loc3, loc4, loc5, loc6)
@@ -618,7 +638,7 @@ def idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equ
 # Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo, go
 def idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(loc0, loc1, loc2, loc3, loc4):
   if loc3 == 0:
-    return (1, loc4, loc2)
+    aux1 = (1, loc4, loc2)
   else:
     loc5 = 1
     loc5 = loc3 - loc5
@@ -627,7 +647,8 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_
     loc8 = (1, loc4, loc2)
     loc9 = 1
     loc9 = loc4 - loc9
-    return idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(loc6, loc7, loc8, loc5, loc9)
+    aux1 = idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(loc6, loc7, loc8, loc5, loc9)
+  return aux1
 
 # Prelude.Prelude.List a instance of Prelude.Show, method show, show'
 def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(loc0, loc1, loc2, loc3, loc4, loc5):
@@ -637,7 +658,7 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_
       loc8 = None
       loc8 = idris_Prelude_46_show(loc8, loc3)
       loc8 = idris__123_APPLY0_125_(loc8, loc6)
-      return loc4 + loc8
+      aux2 = loc4 + loc8
     else:
       loc8 = None
       loc9 = None
@@ -648,26 +669,29 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_
       loc12 = ", "
       loc11 = loc11 + loc12
       loc11 = loc4 + loc11
-      return idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(loc8, loc9, loc10, loc3, loc11, loc7)
+      aux2 = idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(loc8, loc9, loc10, loc3, loc11, loc7)
+    aux1 = aux2
   elif loc5[0] == 0:
-    return loc4
+    aux1 = loc4
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo
 def idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(loc0, loc1):
   loc2 = idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0(loc0, loc1)
   if loc2[0] == 0:
-    return (0,)
+    aux1 = (0,)
   elif loc2[0] == 1:
     loc3 = None
     loc4 = None
     loc5 = (0,)
     loc6 = loc1 - loc0
     loc6 = loc6
-    return idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(loc3, loc4, loc5, loc6, loc1)
+    aux1 = idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(loc3, loc4, loc5, loc6, loc1)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Monad.Prelude.List instance of Prelude.Monad.Monad, method >>=
 def idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(loc0, loc1, loc2, loc3):
@@ -689,35 +713,40 @@ def idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_
   loc2 = idris__123_APPLY0_125_(loc2, loc0)
   loc2 = idris__123_APPLY0_125_(loc2, loc1)
   if loc2[0] == 0:
-    return idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61_0_125_(loc0, loc1)
+    aux1 = idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61_0_125_(loc0, loc1)
   elif loc2[0] == 1:
-    return (1,)
+    aux1 = (1,)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method compare
 def idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33_compare_58_0(loc0, loc1):
   loc2 = loc0 == loc1
   if loc2 == 0:
-    loc2 = (0,)
+    aux1 = (0,)
   else:
-    loc2 = (1,)
+    aux1 = (1,)
+  loc2 = aux1
   if loc2[0] == 0:
     loc3 = loc0 < loc1
     if loc3 == 0:
-      loc3 = (0,)
+      aux3 = (0,)
     else:
-      loc3 = (1,)
+      aux3 = (1,)
+    loc3 = aux3
     if loc3[0] == 0:
-      return (2,)
+      aux4 = (2,)
     elif loc3[0] == 1:
-      return (0,)
+      aux4 = (0,)
     else:
-      return idris_error("unreachable case")
+      idris_error("unreachable case")
+    aux2 = aux4
   elif loc2[0] == 1:
-    return (1,)
+    aux2 = (1,)
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux2
 
 # Prelude.Prelude.(a, b) instance of Prelude.Show, method show
 def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36__40_a_44__32_b_41__58__33_show_58_0(loc0, loc1, loc2, loc3, loc4, loc5, loc6):
@@ -735,9 +764,10 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36__40_a_44__32_b_41__58__33
     loc12 = loc12 + loc13
     loc11 = loc11 + loc12
     loc10 = loc10 + loc11
-    return loc9 + loc10
+    aux1 = loc9 + loc10
   else:
-    return idris_error("unreachable case")
+    idris_error("unreachable case")
+  return aux1
 
 # Prelude.Prelude.List a instance of Prelude.Show, method show
 def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0(loc0, loc1, loc2, loc3):
@@ -754,9 +784,10 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_
 # with block in Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <
 def idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__58_0_95_with_95_85(loc0, loc1, loc2):
   if loc0[0] == 0:
-    return (1,)
+    aux1 = (1,)
   else:
-    return (0,)
+    aux1 = (0,)
+  return aux1
 
 # Prelude.Classes.Int instance of Prelude.Classes.Ord
 def idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int():
