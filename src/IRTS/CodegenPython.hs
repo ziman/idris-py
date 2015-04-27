@@ -19,21 +19,39 @@ import Control.Monad.Trans.State.Lazy
 
 import Text.PrettyPrint hiding (Str)
 
+-- Codegen state within one Decl
 data CGState = CGState
-    { varCounter :: Int
-    , ctors :: M.Map Name Int
-    , curFun :: (Name, [Name])  -- name, args for tail calls
+    { varCounter :: Int          -- for fresh variables
+    , ctorTags :: M.Map Name Int -- constructor tags
+    , curFun :: (Name, [Name])   -- name, args for tail calls
     }
     deriving (Show)
 
+-- Make the distinction for the humans reading the code
 type Stmts = Doc  -- statements
 type Expr  = Doc  -- expressions
 
 -- A code generator for "a" generates:
--- 1. statements that prepare context for the expression "a"
--- 2. the actual expression "a"
+--
+--   1. statements that prepare context for "a"
+--   2. expression that stands for "a" afterwards
+--
+-- Note that (1.) is not part of the state;
+-- it's a part of the what the given DExp translates to.
+--
+-- (2.) is always an expression in Python
+-- and therefore composes into bigger expressions easily,
+-- while (1.) are statements and they can only be sequenced.
+--
+-- The idea is that, for example, f(x, y) compiles to:
+--   x_statements
+--   y_statements
+--   f(x_expr, y_expr)
+--
 newtype CG a = CG { runCG :: State CGState (Stmts, a) }
 
+-- Now let's say how Functor/Applicative/Monad deal
+-- with the division into (Stmt, Expr)
 instance Functor CG where
     fmap f (CG x) = CG $ do
         (stmts, expr) <- x
@@ -52,9 +70,6 @@ instance Monad CG where
         (stx, x') <- x
         (sty, y') <- runCG $ f x'
         return (stx $+$ sty, y')
-
-err :: String -> CG Expr
-err = return . cgError
 
 smap :: (Stmts -> Stmts) -> CG a -> CG a
 smap f (CG x) = CG $ do
@@ -107,7 +122,7 @@ pythonLauncher = vcat . map text $
     , ""
     ]
 
--- idris's showCG is inexhaustive
+-- Idris's showCG is inexhaustive
 showCG'' :: Name -> String
 showCG'' (UN n) = T.unpack n
 showCG'' (NS n s) = showSep "." (map T.unpack (reverse s)) ++ "." ++ showCG n
@@ -124,6 +139,8 @@ showCG'' (SN s) = showCG' s
         showCG' (InstanceCtorN n) = showCG n ++ "_ictor"
 showCG'' NErased = "_"
 
+-- Let's not mangle /that/ much. Especially function parameters
+-- like e0 and e1 are nicer when readable.
 mangle :: Name -> String
 mangle (MN i n)
     | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
@@ -134,6 +151,7 @@ mangle n = "idris_" ++ concatMap mangleChar (showCG'' n)
         | isAlpha x || isDigit x = [x]
         | otherwise = "_" ++ show (ord x) ++ "_"
 
+-- We could generate from:
 -- simpleDecls / defunDecls / liftDecls
 codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render source)
@@ -150,38 +168,44 @@ cgTuple xs = parens . hsep $ punctuate comma xs
 
 cgApp :: Expr -> [Expr] -> Expr
 cgApp f args
+    -- if one-liner is short, use it
     | length (render simple) <= 80 = simple
+
+    -- if one-liner would be long, use multiple lines
     | otherwise = 
         (f <> lparen)
         $+$ indent (vcat $ punctuate comma args)
         $+$ rparen
   where
+    -- one-line version, including the function name
     simple = f <> parens (hsep $ punctuate comma args)
 
+-- Process one definition. The caller deals with constructor declarations,
+-- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
-    comment
-    $+$ header
+    cgComment (show name')
+    $+$ (text "def" <+> cgName n <> cgTuple (map cgName args) <> colon)
     $+$ indent (
-        text "while" <+> text "True" <> colon
+        text "while" <+> text "True" <> colon  -- for tail calls
         $+$ indent (
-                -- trace $+$  -- comment this line out to disable debug
+                -- trace $+$  -- uncomment this line to enable printing traces
                 statements
                 $+$ text "return" <+> retVal
             )
         )
     $+$ text ""  -- empty line separating definitions
   where
-    comment = text $ "# " ++ show name'
-    header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
     (statements, retVal) = evalState body' initState
     body' = runCG . cgExp . tailify n $ body
     initState = CGState 1 ctors (n, args)
 
+    -- used only for debugging
     trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
                 <+> text "%" <+> cgTuple [text "repr" <> parens (cgName a) | a <- args]
     argfmt = intercalate ", " ["%s" | _ <- args]
 
+-- Mark tail-calls as such.
 tailify :: Name -> DExp -> DExp
 tailify n (DLet n' v e) = DLet n' v (tailify n e)
 tailify n (DCase ct e alts) = DCase ct e (map (tailifyA n) alts)
@@ -208,6 +232,7 @@ cgExtern :: String -> [Doc] -> Doc
 cgExtern "prim__null" args = text "None"
 cgExtern n args = cgError $ "unimplemented external: " ++ n
 
+-- Notation for python bracketed[indexing].
 (!) :: Doc -> String -> Doc
 x ! i = x <> brackets (text i)
 
@@ -251,9 +276,12 @@ cgComment :: String -> Doc
 cgComment msg = text "#" <+> text msg
 
 cgCtor :: Int -> Name -> [Expr] -> Expr
-cgCtor tag n [] = parens (int tag <> comma) -- <+> cgComment (show n)
+cgCtor tag n [] = parens (int tag <> comma) -- no-arg ctors
 cgCtor tag n args
+    -- if the code is short, just put it all on one line
     | length (render simple) <= 60 = simple
+
+    -- long code, split over multiple lines
     | otherwise = 
         lparen <> int tag <> comma <+> cgComment (show n)
         $+$ indent (vcat $ punctuate comma args)
@@ -273,6 +301,7 @@ cgAssignMany ns es =
   <+> text "="
   <+> hsep [e <> comma | e <- es]
 
+-- pattern-matching / tuple decomposition
 cgMatch :: [LVar] -> LVar -> Stmts
 cgMatch lhs rhs =
   hsep [cgVar v <> comma | v <- lhs]
@@ -290,18 +319,23 @@ cgExp (DV var) = return $ cgVar var
 cgExp (DApp isTailCall n args) = do
     tag <- ctorTag n
     case tag of
-        Just t  -> cgExp (DC Nothing t n args)
+        Just t  -> cgExp (DC Nothing t n args)  -- application of ctor
         Nothing -> do
             (curFn, argNames) <- currentFn
             if isTailCall && n == curFn
-               then cgTailCall argNames =<< mapM cgExp args
-               else cgApp (cgName n) <$> mapM cgExp args
+               then cgTailCall argNames =<< mapM cgExp args  -- tail call!
+               else cgApp (cgName n) <$> mapM cgExp args     -- ordinary call
+
 cgExp (DLet n v e) = do
     emit . cgAssignN n =<< cgExp v
     cgExp e
+
 cgExp (DUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
+
 cgExp (DC _ tag n args) = cgCtor tag n <$> mapM cgExp args
 
+-- if the scrutinee is something big, save it into a variable
+-- because we'll copy it into a possibly long chain of if-elif-...
 cgExp (DCase caseType (DV var) alts) = cgCase var alts
 cgExp (DCase caseType e alts) = do
     scrutinee <- fresh
@@ -317,6 +351,7 @@ cgExp (DChkCase e alts) = do
 cgExp (DProj e i) = do
     e <- cgExp e
     return $ e ! show (i+1)
+
 cgExp (DConst c) = return $ cgConst c
 
 cgExp (DForeign fdesc rdesc args) = return $ cgError "foreign not implemented"
@@ -324,6 +359,10 @@ cgExp (DOp prim args) = cgPrim prim <$> mapM cgExp args
 cgExp  DNothing = return $ text "None"
 cgExp (DError msg) = return $ cgError msg
 
+-- For case-expressions, we:
+-- 1. generate a fresh var
+-- 2. emit statements containing an if-elif-... chain that assigns to the var
+-- 3. use the assigned var as the expression standing for the result
 cgCase :: LVar -> [DAlt] -> CG Expr
 cgCase var [DDefaultCase e] = cgExp e
 cgCase var alts = do
@@ -341,7 +380,9 @@ cgCase var alts = do
 
 cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
 cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
-    Just tag <- ctorTag ctorName  -- in DExp, tag' above is always (-1)
+    -- DConCase does not contain useful tags yet
+    -- we need to find out by looking up by name
+    Just tag <- ctorTag ctorName
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
         <+> cgComment (show ctorName)
@@ -350,7 +391,9 @@ cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
         emit . cgAssign retVar =<< cgExp e
 
 cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
-    Just tag <- ctorTag ctorName  -- in DExp, tag' above is always (-1)
+    -- DConCase does not contain useful tags yet
+    -- we need to find out by looking up by name
+    Just tag <- ctorTag ctorName
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
         <+> cgComment (show ctorName)
