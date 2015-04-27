@@ -93,7 +93,7 @@ pythonLauncher = vcat . map text $
     ]
 
 mangle :: Name -> String
-mangle (MN i n) = T.unpack n ++ show i
+mangle (MN i n) | T.unpack n == "e" = T.unpack n ++ show i
 mangle n = "idris_" ++ concatMap mangleChar (showCG n)
   where
     mangleChar x
