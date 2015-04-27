@@ -160,10 +160,10 @@ codegenPython ci = writeFile (outputFile ci) (render source)
     ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
     definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- defunDecls ci]
 
-cgName :: Name -> Doc
+cgName :: Name -> Expr
 cgName = text . mangle
 
-cgTuple :: [Doc] -> Doc
+cgTuple :: [Expr] -> Expr
 cgTuple xs = parens . hsep $ punctuate comma xs
 
 cgApp :: Expr -> [Expr] -> Expr
@@ -219,24 +219,24 @@ tailifyA n (DConCase tag cn args e) = DConCase tag cn args (tailify n e)
 tailifyA n (DConstCase c e) = DConstCase c (tailify n e)
 tailifyA n (DDefaultCase e) = DDefaultCase (tailify n e)
 
-cgVar :: LVar -> Doc
+cgVar :: LVar -> Expr
 cgVar (Loc  i)
     | i >= 0    = text "loc" <> int i
     | otherwise = text "aux" <> int (-i)
 cgVar (Glob n) = cgName n
 
-cgError :: String -> Doc
+cgError :: String -> Expr
 cgError msg = text "idris_error" <> parens (text $ show msg)
 
-cgExtern :: String -> [Doc] -> Doc
+cgExtern :: String -> [Expr] -> Expr
 cgExtern "prim__null" args = text "None"
 cgExtern n args = cgError $ "unimplemented external: " ++ n
 
 -- Notation for python bracketed[indexing].
-(!) :: Doc -> String -> Doc
+(!) :: Expr -> String -> Expr
 x ! i = x <> brackets (text i)
 
-cgPrim :: PrimFn -> [Doc] -> Doc
+cgPrim :: PrimFn -> [Expr] -> Expr
 cgPrim (LPlus  _) [x, y] = x <+> text "+" <+> y
 cgPrim (LMinus _) [x, y] = x <+> text "-" <+> y
 cgPrim (LTimes _) [x, y] = x <+> text "*" <+> y
@@ -264,7 +264,7 @@ cgPrim  LReadStr  _ = text "sys.stdin.readline()"
 cgPrim (LExternal n) args = cgExtern (show n) args
 cgPrim f args = cgError $ "unimplemented prim: " ++ show f ++ ", args = " ++ show args
 
-cgConst :: Const -> Doc
+cgConst :: Const -> Expr
 cgConst (I i) = text $ show i
 cgConst (BI i) = text $ show i
 cgConst (Fl f) = text $ show f
