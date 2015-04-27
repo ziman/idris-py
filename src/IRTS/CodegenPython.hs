@@ -72,14 +72,6 @@ cgVar (Loc  i)
     | otherwise = text "aux" <> int (-i)
 cgVar (Glob n) = cgName n <> text "()"
 
-cgMatch :: [LVar] -> Doc -> Doc -> Doc
-cgMatch vars val body = 
-  (lparen <> text "lambda" <+> hsep (punctuate comma $ map cgVar vars) <> colon)
-  $$ indent body
-  $$ rparen <> lparen
-  $$ indent val
-  $$ rparen
-
 cgError :: String -> Doc
 cgError msg = text "idris_error" <> parens (text $ show msg)
 
@@ -125,9 +117,6 @@ cgConst (Fl f) = text $ show f
 cgConst (Ch c) = text $ show c
 cgConst (Str s) = text $ show s
 cgConst c = cgError $ "unimplemented constant: " ++ show c
-
-ret :: Doc -> Doc
-ret x = text "return" <+> x
 
 cgExp :: (Doc -> Doc) -> SExp -> Doc
 cgExp ret (SV var) = ret $ cgVar var
