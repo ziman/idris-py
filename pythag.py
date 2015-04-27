@@ -79,8 +79,7 @@ def idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(idris
   return idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0(
            None,
            None,
-           idris__123_U_95__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_1_125_(
-           ),
+           (65652,),
            idris__123_meth0_125_
          )
 
@@ -134,7 +133,7 @@ def idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
                None,
                e3
              ),
-             idris__123_U_95_Prelude_46_Basics_46__46_1_125_(
+             (65631,
                None,
                None,
                None,
@@ -176,7 +175,7 @@ def idris_Prelude_46_List_46_foldrImpl(e0, e1, e2, e3, e4, e5):
              None,
              e2,
              e3,
-             idris__123_U_95_Prelude_46_Basics_46__46_1_125_(
+             (65631,
                None,
                None,
                None,
@@ -262,7 +261,7 @@ def idris_io_95_return(e0, e1, e2, idris_w):
 
 # Main.main
 def idris_Main_46_main():
-  return idris__123_U_95_io_95_bind1_125_(
+  return (65646,
            None,
            None,
            None,
@@ -271,16 +270,14 @@ def idris_Main_46_main():
              idris__123_APPLY0_125_(
                idris_Prelude_46_show(
                  None,
-                 idris__123_U_95_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(
-                 )
+                 (65630,)
                ),
                idris_Main_46_pythag(
                  10
                )
              )
            ),
-           idris__123_U_95_Main_46__123_main0_125_1_125_(
-           )
+           (65622,)
          )
 
 # mkForeignPrim
@@ -380,15 +377,14 @@ def idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
 
 # Prelude.putStr
 def idris_Prelude_46_putStr(e0, e1):
-  return idris__123_U_95_io_95_bind1_125_(
+  return (65646,
            None,
            None,
            None,
-           idris__123_U_95_Prelude_46__123_putStr0_125_1_125_(
+           (65644,
              e1
            ),
-           idris__123_U_95_Prelude_46__123_putStr1_125_1_125_(
-           )
+           (65645,)
          )
 
 # Main.pythag
@@ -400,8 +396,7 @@ def idris_Main_46_pythag(e0):
              1,
              e0
            ),
-           idris__123_U_95_Main_46__123_pythag6_125_1_125_(
-           )
+           (65629,)
          )
 
 # run__IO
@@ -647,7 +642,7 @@ def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_
            None,
            idris__123_in2_125_,
            idris__123_in3_125_,
-           idris__123_U_95_Prelude_46_Basics_46_id1_125_(
+           (65632,
              None
            ),
            idris__123_in4_125_
@@ -690,7 +685,7 @@ def idris__123_runMain0_125_():
 
 # Prelude.Classes.{Int instance of Prelude.Classes.Ord1}
 def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord1_125_(idris__123_in0_125_):
-  return idris__123_U_95_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord0_125_1_125_(
+  return (65633,
            idris__123_in0_125_
          )
 
@@ -700,7 +695,7 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=1}
 def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_1_125_(idris__123_in2_125_, idris__123_in3_125_):
-  return idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_0_125_1_125_(
+  return (65637,
            idris__123_in2_125_,
            idris__123_in3_125_
          )
@@ -722,7 +717,7 @@ def idris__123_io_95_bind1_125_(e0, e1, e2, e3, e4, idris_w, idris__123_in0_125_
 
 # Prelude.{putStr1}
 def idris_Prelude_46__123_putStr1_125_(idris__123_in1_125_):
-  return idris__123_U_95_io_95_return1_125_(
+  return (65647,
            None,
            None,
            (0,)
@@ -730,8 +725,7 @@ def idris_Prelude_46__123_putStr1_125_(idris__123_in1_125_):
 
 # Main.{pythag1}
 def idris_Main_46__123_pythag1_125_(idris__123_in3_125_):
-  return idris__123_U_95_Main_46__123_pythag0_125_1_125_(
-         )
+  return (65623,)
 
 # Prelude.Classes.{Int instance of Prelude.Classes.Ord2}
 def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord2_125_(idris__123_in2_125_, idris__123_in3_125_):
@@ -758,13 +752,13 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=2}
 def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_2_125_(idris__123_in2_125_):
-  return idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_1_125_1_125_(
+  return (65638,
            idris__123_in2_125_
          )
 
 # {io_bind2}
 def idris__123_io_95_bind2_125_(e0, e1, e2, e3, e4, idris_w):
-  return idris__123_U_95__123_io_95_bind1_125_1_125_(
+  return (65653,
            e0,
            e1,
            e2,
@@ -779,7 +773,7 @@ def idris_Main_46__123_pythag2_125_(idris__123_in5_125_):
 
 # Prelude.Classes.{Int instance of Prelude.Classes.Ord3}
 def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord3_125_(idris__123_in2_125_):
-  return idris__123_U_95_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord2_125_1_125_(
+  return (65635,
            idris__123_in2_125_
          )
 
@@ -790,17 +784,14 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3
            None,
            None,
            None,
-           idris__123_U_95__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_1_125_(
-           ),
-           idris__123_U_95__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_1_125_(
-           ),
+           (65649,),
+           (65650,),
            idris__123_in2_125_
          )
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=3}
 def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_3_125_(idris__123_in1_125_):
-  return idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_2_125_1_125_(
-         )
+  return (65639,)
 
 # Main.{pythag3}
 def idris_Main_46__123_pythag3_125_(idris__123_in2_125_, idris__123_in1_125_, idris__123_in0_125_, idris__123_in6_125_):
@@ -822,17 +813,14 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4
            None,
            None,
            None,
-           idris__123_U_95__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_1_125_(
-           ),
-           idris__123_U_95__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_1_125_(
-           ),
+           (65648,),
+           (65651,),
            idris__123_in0_125_
          )
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=4}
 def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_4_125_(idris__123_in0_125_):
-  return idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_3_125_1_125_(
-         )
+  return (65640,)
 
 # Main.{pythag4}
 def idris_Main_46__123_pythag4_125_(idris__123_in1_125_, idris__123_in0_125_, idris__123_in2_125_):
@@ -847,14 +835,12 @@ def idris_Main_46__123_pythag4_125_(idris__123_in1_125_, idris__123_in0_125_, id
            idris_Prelude_46_Applicative_46_guard(
              None,
              (0,
-               idris__123_U_95_Main_46__123_pythag1_125_1_125_(
-               ),
-               idris__123_U_95_Main_46__123_pythag2_125_1_125_(
-               )
+               (65624,),
+               (65625,)
              ),
              aux2
            ),
-           idris__123_U_95_Main_46__123_pythag3_125_1_125_(
+           (65626,
              idris__123_in2_125_,
              idris__123_in1_125_,
              idris__123_in0_125_
@@ -878,7 +864,7 @@ def idris_Main_46__123_pythag5_125_(idris__123_in0_125_, idris__123_in1_125_):
              1,
              idris__123_in1_125_
            ),
-           idris__123_U_95_Main_46__123_pythag4_125_1_125_(
+           (65627,
              idris__123_in1_125_,
              idris__123_in0_125_
            )
@@ -886,7 +872,7 @@ def idris_Main_46__123_pythag5_125_(idris__123_in0_125_, idris__123_in1_125_):
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=6}
 def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_6_125_(idris__123_in5_125_):
-  return idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_5_125_1_125_(
+  return (65642,
            idris__123_in5_125_
          )
 
@@ -899,7 +885,7 @@ def idris_Main_46__123_pythag6_125_(idris__123_in0_125_):
              1,
              idris__123_in0_125_
            ),
-           idris__123_U_95_Main_46__123_pythag5_125_1_125_(
+           (65628,
              idris__123_in0_125_
            )
          )
@@ -1002,11 +988,9 @@ def idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_5
              None,
              None,
              None,
-             idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_4_125_1_125_(
-             ),
+             (65641,),
              (0,
-               idris__123_U_95_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_6_125_1_125_(
-               ),
+               (65643,),
                (0,)
              ),
              e3
@@ -1109,10 +1093,8 @@ def idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes
 # Prelude.Classes.Int instance of Prelude.Classes.Ord
 def idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int():
   return (0,
-           idris__123_U_95_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord1_125_1_125_(
-           ),
-           idris__123_U_95_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord3_125_1_125_(
-           )
+           (65634,),
+           (65636,)
          )
 
 # case block in Void

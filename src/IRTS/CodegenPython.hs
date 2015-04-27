@@ -10,6 +10,7 @@ import Idris.Core.TT
 import Data.Maybe
 import Data.Char
 import qualified Data.Text as T
+import qualified Data.Map as M
 
 import Control.Monad
 import Control.Applicative hiding (empty, Const)
@@ -19,6 +20,7 @@ import Text.PrettyPrint hiding (Str)
 
 data CGState = CGState
     { varCounter :: Int
+    , ctors :: M.Map Name Int
     }
     deriving (Show)
 
@@ -65,9 +67,14 @@ sindent = smap indent
 
 fresh :: CG LVar
 fresh = CG $ do
-    CGState vc <- get
-    put $ CGState (vc + 1)
+    CGState vc ctors <- get
+    put $ CGState (vc + 1) ctors
     return (empty, Loc (-vc))
+
+ctorTag :: Name -> CG (Maybe Int)
+ctorTag n = CG $ do
+    CGState vc ctors <- get
+    return (empty, M.lookup n ctors)
 
 indent :: Doc -> Doc
 indent = nest 2
@@ -122,7 +129,8 @@ codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render source)
   where
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
-    definitions = vcat $ map cgDef (defunDecls ci)
+    ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
+    definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- defunDecls ci]
 
 cgName :: Name -> Doc
 cgName = text . mangle
@@ -136,13 +144,8 @@ cgApp f args =
     $+$ indent (vcat $ punctuate comma args)
     $+$ rparen
 
-cgDef :: (Name, DDecl) -> Doc
-cgDef (n, DConstructor name' tag arity) = cgDef (n, DFun name' args body)
-  where
-    args = [sMN i "e" | i <- [0..arity-1]]
-    body = DC Nothing tag n (map (DV . Glob) args)
-
-cgDef (n, DFun name' args body) =
+cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
+cgDef ctors (n, DFun name' args body) =
     comment
     $+$ header
     $+$ indent (
@@ -153,7 +156,7 @@ cgDef (n, DFun name' args body) =
   where
     comment = text $ "# " ++ show name'
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
-    (statements, retVal) = evalState (runCG $ cgExp body) (CGState 1)
+    (statements, retVal) = evalState (runCG $ cgExp body) (CGState 1 ctors)
 
 cgVar :: LVar -> Doc
 cgVar (Loc  i)
@@ -231,7 +234,11 @@ cgMatch lhs rhs =
 
 cgExp :: DExp -> CG Expr
 cgExp (DV var) = return $ cgVar var
-cgExp (DApp isTail n args) = cgApp (cgName n) <$> mapM cgExp args
+cgExp (DApp isTail n args) = do
+    tag <- ctorTag n
+    case tag of
+        Just t  -> cgExp (DC Nothing t n args)
+        Nothing -> cgApp (cgName n) <$> mapM cgExp args
 cgExp (DLet n v e) = do
     emit . cgAssignN n =<< cgExp v
     cgExp e
