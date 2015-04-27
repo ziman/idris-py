@@ -10,6 +10,7 @@ import Idris.Core.TT
 import Data.Maybe
 import Data.Char
 
+import Control.Monad
 import Control.Applicative hiding (empty, Const)
 import Control.Monad.Trans.State.Lazy
 
@@ -102,7 +103,7 @@ codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render source)
   where
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
-    definitions = vcat $ map cgDef (simpleDecls ci)
+    definitions = vcat $ map cgDef (defunDecls ci)
 
 cgName :: Name -> Doc
 cgName = text . mangle
@@ -111,10 +112,14 @@ cgTuple :: [Doc] -> Doc
 cgTuple xs = parens . hsep $ punctuate comma xs
 
 cgApp :: Expr -> [Expr] -> Expr
-cgApp f args = f <> parens (hsep $ punctuate comma args)
+cgApp f args =
+    f <> lparen
+    $+$ indent (vcat $ punctuate comma args)
+    $+$ rparen
 
-cgDef :: (Name, SDecl) -> Doc
-cgDef (n, SFun name' args _ body) =
+cgDef :: (Name, DDecl) -> Doc
+cgDef (n, DConstructor name' tag arity) = empty
+cgDef (n, DFun name' args body) =
     comment
     $+$ header
     $+$ indent (
@@ -180,8 +185,14 @@ cgConst (Ch c) = text $ show c
 cgConst (Str s) = text $ show s
 cgConst c = cgError $ "unimplemented constant: " ++ show c
 
+cgCtor :: Int -> [Expr] -> Expr
+cgCtor tag args = cgTuple (int tag : args)
+
 cgAssign :: LVar -> Expr -> Stmts
 cgAssign v e = cgVar v <+> text "=" <+> e
+
+cgAssignN :: Name -> Expr -> Stmts
+cgAssignN n e = cgName n <+> text "=" <+> e
 
 cgMatch :: [LVar] -> LVar -> Stmts
 cgMatch lhs rhs =
@@ -189,27 +200,40 @@ cgMatch lhs rhs =
   <+> text "="
   <+> cgVar rhs <> text "[1:]"
 
-cgExp :: SExp -> CG Expr
-cgExp (SV var) = return $ cgVar var
-cgExp (SApp isTail n args) = return $ cgApp (cgName n) (map cgVar args)
-cgExp (SLet n v e) = do
-    emit . cgAssign n =<< cgExp v
+cgExp :: DExp -> CG Expr
+cgExp (DV var) = return $ cgVar var
+cgExp (DApp isTail n args) = cgApp (cgName n) <$> mapM cgExp args
+cgExp (DLet n v e) = do
+    emit . cgAssignN n =<< cgExp v
     cgExp e
-cgExp (SUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
-cgExp (SCon _ tag n []) = return $ parens (int tag <> comma)
-cgExp (SCon _ tag n args) = return $ cgTuple (int tag : map cgVar args)
-cgExp (SCase caseType var alts) = cgCase var alts
-cgExp (SChkCase var alts) = cgCase var alts
-cgExp (SProj var i) = return (cgVar var ! show (i+1))
-cgExp (SConst c) = return $ cgConst c
+cgExp (DUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
+cgExp (DC _ tag n []) = return $ parens (int tag <> comma)
+cgExp (DC _ tag n args) = cgCtor tag <$> mapM cgExp args
 
-cgExp (SForeign fdesc rdesc args) = return $ cgError "foreign not implemented"
-cgExp (SOp prim args) = return $ cgPrim prim (map cgVar args)
-cgExp  SNothing = return $ text "None"
-cgExp (SError msg) = return $ cgError msg
+cgExp (DCase caseType (DV var) alts) = cgCase var alts
+cgExp (DCase caseType e alts) = do
+    scrutinee <- fresh
+    emit . cgAssign scrutinee =<< cgExp e
+    cgCase scrutinee alts
 
-cgCase :: LVar -> [SAlt] -> CG Expr
-cgCase var [SDefaultCase e] = cgExp e
+cgExp (DChkCase (DV var) alts) = cgCase var alts
+cgExp (DChkCase e alts) = do
+    scrutinee <- fresh
+    emit . cgAssign scrutinee =<< cgExp e
+    cgCase scrutinee alts
+
+cgExp (DProj e i) = do
+    e <- cgExp e
+    return $ e ! show (i+1)
+cgExp (DConst c) = return $ cgConst c
+
+cgExp (DForeign fdesc rdesc args) = return $ cgError "foreign not implemented"
+cgExp (DOp prim args) = cgPrim prim <$> mapM cgExp args
+cgExp  DNothing = return $ text "None"
+cgExp (DError msg) = return $ cgError msg
+
+cgCase :: LVar -> [DAlt] -> CG Expr
+cgCase var [DDefaultCase e] = cgExp e
 cgCase var alts = do
     retVar <- fresh
     mapM_ (cgAlt var retVar) (zip ("if" : repeat "elif") alts)
@@ -217,30 +241,31 @@ cgCase var alts = do
     return $ cgVar retVar
   where
     emitUnreachableCase
-        | (SDefaultCase _ : _) <- reverse alts
+        | (DDefaultCase _ : _) <- reverse alts
         = return ()
 
         | otherwise
         = emit $ text "else" <> colon $+$ indent (cgError "unreachable case")
 
-cgAlt :: LVar -> LVar -> (String, SAlt) -> CG ()
-cgAlt v retVar (if_, SConCase lv tag ctorName [] e) = do
+cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
+cgAlt v retVar (if_, DConCase tag ctorName [] e) = do
     emit $ text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
     sindent $ do
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, SConCase lv tag ctorName args e) = do
+cgAlt v retVar (if_, DConCase tag ctorName args e) = do
     emit $ text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
     sindent $ do
-        emit $ cgMatch [Loc i | (i,_) <- zip [lv..] args] v
+        argNames <- replicateM (length args) fresh
+        emit $ cgMatch argNames v
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, SConstCase c e) = do
+cgAlt v retVar (if_, DConstCase c e) = do
     emit $ text if_ <+> cgVar v <+> text "==" <+> cgConst c <> colon
     sindent $
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, SDefaultCase e) = do
+cgAlt v retVar (if_, DDefaultCase e) = do
     emit $ text "else" <> colon
     sindent $
         emit . cgAssign retVar =<< cgExp e
