@@ -144,13 +144,13 @@ cgTuple xs = parens . hsep $ punctuate comma xs
 
 cgApp :: Expr -> [Expr] -> Expr
 cgApp f args
-    | length (render simple) <= 60 = f <> parens simple
+    | length (render simple) <= 80 = simple
     | otherwise = 
         (f <> lparen)
         $+$ indent (vcat $ punctuate comma args)
         $+$ rparen
   where
-    simple = hsep $ punctuate comma args
+    simple = f <> parens (hsep $ punctuate comma args)
 
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
