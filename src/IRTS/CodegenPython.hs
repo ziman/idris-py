@@ -186,8 +186,15 @@ cgConst (Ch c) = text $ show c
 cgConst (Str s) = text $ show s
 cgConst c = cgError $ "unimplemented constant: " ++ show c
 
-cgCtor :: Int -> [Expr] -> Expr
-cgCtor tag args = cgTuple (int tag : args)
+cgComment :: String -> Doc
+cgComment msg = text "#" <+> text msg
+
+cgCtor :: Int -> Name -> [Expr] -> Expr
+cgCtor tag n [] = parens (int tag <> comma) <+> cgComment (show n)
+cgCtor tag n args =
+  lparen <> int tag <> comma <+> cgComment (show n)
+  $+$ indent (vcat $ punctuate comma args)
+  $+$ rparen
 
 cgAssign :: LVar -> Expr -> Stmts
 cgAssign v e = cgVar v <+> text "=" <+> e
@@ -208,8 +215,7 @@ cgExp (DLet n v e) = do
     emit . cgAssignN n =<< cgExp v
     cgExp e
 cgExp (DUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
-cgExp (DC _ tag n []) = return $ parens (int tag <> comma)
-cgExp (DC _ tag n args) = cgCtor tag <$> mapM cgExp args
+cgExp (DC _ tag n args) = cgCtor tag n <$> mapM cgExp args
 
 cgExp (DCase caseType (DV var) alts) = cgCase var alts
 cgExp (DCase caseType e alts) = do
@@ -250,12 +256,18 @@ cgCase var alts = do
 
 cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
 cgAlt v retVar (if_, DConCase tag ctorName [] e) = do
-    emit $ text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+    emit (
+        text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+        <+> cgComment (show ctorName)
+      )
     sindent $ do
         emit . cgAssign retVar =<< cgExp e
 
 cgAlt v retVar (if_, DConCase tag ctorName args e) = do
-    emit $ text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+    emit (
+        text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+        <+> cgComment (show ctorName)
+      )
     sindent $ do
         argNames <- replicateM (length args) fresh
         emit $ cgMatch argNames v
