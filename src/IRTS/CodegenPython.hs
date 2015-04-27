@@ -216,7 +216,7 @@ cgComment msg = text "#" <+> text msg
 cgCtor :: Int -> Name -> [Expr] -> Expr
 cgCtor tag n [] = parens (int tag <> comma) -- <+> cgComment (show n)
 cgCtor tag n args =
-  lparen <> int tag <> comma -- <+> cgComment (show n)
+  lparen <> int tag <> comma <+> cgComment (show n)
   $+$ indent (vcat $ punctuate comma args)
   $+$ rparen
 
