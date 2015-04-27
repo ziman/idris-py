@@ -125,6 +125,12 @@ pythonPreamble = vcat . map text $
     , "def idris_getfield(o, f):"
     , "  return o.__attr__(f)"
     , ""
+    , "def idris_call(f, args):"
+    , "  as = []"
+    , "  while len(args) == 3:"
+    , "    as.append(args[1])"
+    , "    args = args[2]"
+    , "  f(*as)"
     ]
 
 pythonLauncher :: Doc
