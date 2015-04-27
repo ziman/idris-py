@@ -2,4 +2,3 @@ cabal.sandbox.config
 dist/
 *.ibc
 *.pyc
-*.py
