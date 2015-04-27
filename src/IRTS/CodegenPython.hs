@@ -9,6 +9,7 @@ import Idris.Core.TT
 
 import Data.Maybe
 import Data.Char
+import Data.List
 import qualified Data.Text as T
 import qualified Data.Map as M
 
@@ -117,7 +118,9 @@ showCG'' (SN s) = showCG' s
 showCG'' NErased = "_"
 
 mangle :: Name -> String
-mangle (MN i n) | T.unpack n == "e" = T.unpack n ++ show i
+mangle (MN i n)
+    | all (`elem` ['a'..'z']) (T.unpack n)
+    = T.unpack n ++ show i
 mangle n = "idris_" ++ concatMap mangleChar (showCG'' n)
   where
     mangleChar x
@@ -149,6 +152,7 @@ cgDef ctors (n, DFun name' args body) =
     comment
     $+$ header
     $+$ indent (
+            debug $+$  -- comment this line out to disable debug
             statements
             $+$ text "return" <+> retVal
         )
@@ -157,6 +161,10 @@ cgDef ctors (n, DFun name' args body) =
     comment = text $ "# " ++ show name'
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
     (statements, retVal) = evalState (runCG $ cgExp body) (CGState 1 ctors)
+
+    debug = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
+                <+> text "%" <+> cgTuple [text "repr" <> parens (cgName a) | a <- args]
+    argfmt = intercalate ", " ["%s" | _ <- args]
 
 cgVar :: LVar -> Doc
 cgVar (Loc  i)
