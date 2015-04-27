@@ -22,6 +22,7 @@ import Text.PrettyPrint hiding (Str)
 data CGState = CGState
     { varCounter :: Int
     , ctors :: M.Map Name Int
+    , curFun :: (Name, [Name])  -- name, args for tail calls
     }
     deriving (Show)
 
@@ -68,14 +69,19 @@ sindent = smap indent
 
 fresh :: CG LVar
 fresh = CG $ do
-    CGState vc ctors <- get
-    put $ CGState (vc + 1) ctors
+    CGState vc ctors cf <- get
+    put $ CGState (vc + 1) ctors cf
     return (empty, Loc (-vc))
 
 ctorTag :: Name -> CG (Maybe Int)
 ctorTag n = CG $ do
-    CGState vc ctors <- get
+    CGState vc ctors cf <- get
     return (empty, M.lookup n ctors)
+
+currentFn :: CG (Name, [Name])
+currentFn = CG $ do
+    CGState vc ctors cf <- get
+    return (empty, cf)
 
 indent :: Doc -> Doc
 indent = nest 2
@@ -157,19 +163,37 @@ cgDef ctors (n, DFun name' args body) =
     comment
     $+$ header
     $+$ indent (
-            -- trace $+$  -- comment this line out to disable debug
-            statements
-            $+$ text "return" <+> retVal
+        text "while" <+> text "True" <> colon
+        $+$ indent (
+                -- trace $+$  -- comment this line out to disable debug
+                statements
+                $+$ text "return" <+> retVal
+            )
         )
     $+$ text ""  -- empty line separating definitions
   where
     comment = text $ "# " ++ show name'
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
-    (statements, retVal) = evalState (runCG $ cgExp body) (CGState 1 ctors)
+    (statements, retVal) = evalState body' initState
+    body' = runCG . cgExp . tailify n $ body
+    initState = CGState 1 ctors (n, args)
 
     trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
                 <+> text "%" <+> cgTuple [text "repr" <> parens (cgName a) | a <- args]
     argfmt = intercalate ", " ["%s" | _ <- args]
+
+tailify :: Name -> DExp -> DExp
+tailify n (DLet n' v e) = DLet n' v (tailify n e)
+tailify n (DCase ct e alts) = DCase ct e (map (tailifyA n) alts)
+tailify n (DChkCase e alts) = DChkCase e (map (tailifyA n) alts)
+tailify n e@(DApp isTail n' args)
+    | n' == n = DApp True n' args
+tailify n e = e
+
+tailifyA :: Name -> DAlt -> DAlt
+tailifyA n (DConCase tag cn args e) = DConCase tag cn args (tailify n e)
+tailifyA n (DConstCase c e) = DConstCase c (tailify n e)
+tailifyA n (DDefaultCase e) = DDefaultCase (tailify n e)
 
 cgVar :: LVar -> Doc
 cgVar (Loc  i)
@@ -243,19 +267,35 @@ cgAssign v e = cgVar v <+> text "=" <+> e
 cgAssignN :: Name -> Expr -> Stmts
 cgAssignN n e = cgName n <+> text "=" <+> e
 
+cgAssignMany :: [Name] -> [Expr] -> Stmts
+cgAssignMany ns es =
+  hsep [cgName n <> comma | n <- ns]
+  <+> text "="
+  <+> hsep [e <> comma | e <- es]
+
 cgMatch :: [LVar] -> LVar -> Stmts
 cgMatch lhs rhs =
   hsep [cgVar v <> comma | v <- lhs]
   <+> text "="
   <+> cgVar rhs <> text "[1:]"
 
+cgTailCall :: [Name] -> [Expr] -> CG Expr
+cgTailCall argNames args = do
+    emit $ cgAssignMany argNames args
+    emit $ text "continue"
+    return $ cgError "unreachable due to tail call"
+
 cgExp :: DExp -> CG Expr
 cgExp (DV var) = return $ cgVar var
-cgExp (DApp isTail n args) = do
+cgExp (DApp isTailCall n args) = do
     tag <- ctorTag n
     case tag of
         Just t  -> cgExp (DC Nothing t n args)
-        Nothing -> cgApp (cgName n) <$> mapM cgExp args
+        Nothing -> do
+            (curFn, argNames) <- currentFn
+            if isTailCall && n == curFn
+               then cgTailCall argNames =<< mapM cgExp args
+               else cgApp (cgName n) <$> mapM cgExp args
 cgExp (DLet n v e) = do
     emit . cgAssignN n =<< cgExp v
     cgExp e
