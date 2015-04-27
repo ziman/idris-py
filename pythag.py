@@ -206,7 +206,7 @@ def idris_Main_46_main():
              None,
              idris_Prelude_46_putStr(
                None,
-               APPLY0(idris_Prelude_46_show(None, (65630,)), idris_Main_46_pythag(500))
+               APPLY0(idris_Prelude_46_show(None, (65630,)), idris_Main_46_pythag(50))
              ),
              (65622,)
            )
