@@ -98,6 +98,7 @@ pythonLauncher :: Doc
 pythonLauncher = vcat . map text $
     [ "if __name__ == '__main__':"
     , "  " ++ mangle (sMN 0 "runMain") ++ "()"
+    , ""
     ]
 
 -- idris's showCG is inexhaustive
