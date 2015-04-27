@@ -119,7 +119,7 @@ showCG'' NErased = "_"
 
 mangle :: Name -> String
 mangle (MN i n)
-    | all (`elem` ['a'..'z']) (T.unpack n)
+    | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
     = T.unpack n ++ show i
 mangle n = "idris_" ++ concatMap mangleChar (showCG'' n)
   where
@@ -152,7 +152,7 @@ cgDef ctors (n, DFun name' args body) =
     comment
     $+$ header
     $+$ indent (
-            debug $+$  -- comment this line out to disable debug
+            -- trace $+$  -- comment this line out to disable debug
             statements
             $+$ text "return" <+> retVal
         )
@@ -162,7 +162,7 @@ cgDef ctors (n, DFun name' args body) =
     header = text "def" <+> cgName n <> cgTuple (map cgName args) <> colon
     (statements, retVal) = evalState (runCG $ cgExp body) (CGState 1 ctors)
 
-    debug = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
+    trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
                 <+> text "%" <+> cgTuple [text "repr" <> parens (cgName a) | a <- args]
     argfmt = intercalate ", " ["%s" | _ <- args]
 
@@ -291,7 +291,8 @@ cgCase var alts = do
         = emit $ text "else" <> colon $+$ indent (cgError "unreachable case")
 
 cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
-cgAlt v retVar (if_, DConCase tag ctorName [] e) = do
+cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
+    Just tag <- ctorTag ctorName  -- in DExp, tag' above is always (-1)
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
         <+> cgComment (show ctorName)
@@ -299,14 +300,14 @@ cgAlt v retVar (if_, DConCase tag ctorName [] e) = do
     sindent $ do
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, DConCase tag ctorName args e) = do
+cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
+    Just tag <- ctorTag ctorName  -- in DExp, tag' above is always (-1)
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
         <+> cgComment (show ctorName)
       )
     sindent $ do
-        argNames <- replicateM (length args) fresh
-        emit $ cgMatch argNames v
+        emit $ cgMatch (map Glob args) v
         emit . cgAssign retVar =<< cgExp e
 
 cgAlt v retVar (if_, DConstCase c e) = do
