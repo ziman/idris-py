@@ -190,9 +190,9 @@ cgComment :: String -> Doc
 cgComment msg = text "#" <+> text msg
 
 cgCtor :: Int -> Name -> [Expr] -> Expr
-cgCtor tag n [] = parens (int tag <> comma) <+> cgComment (show n)
+cgCtor tag n [] = parens (int tag <> comma) -- <+> cgComment (show n)
 cgCtor tag n args =
-  lparen <> int tag <> comma <+> cgComment (show n)
+  lparen <> int tag <> comma -- <+> cgComment (show n)
   $+$ indent (vcat $ punctuate comma args)
   $+$ rparen
 
@@ -259,7 +259,7 @@ cgAlt v retVar (if_, DConCase tag ctorName [] e) = do
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
         <+> cgComment (show ctorName)
-      )
+     )
     sindent $ do
         emit . cgAssign retVar =<< cgExp e
 
