@@ -135,6 +135,15 @@ pythonPreamble = vcat . map text $
     , "    native_args.append(args[1])"
     , "    args = args[2]"
     , "  return f(*native_args)"
+    , ""
+    , "def idris_foreach(it, st, f):"
+    , "  for x in it:"
+    , "    # Apply st, x, world"
+    , "    st = APPLY0(APPLY0(APPLY0(f, st), x), None)"
+    , "  return st"
+    , ""
+    , "def idris_is_none(x):"
+    , "  return 1 if x is None else 0"
     ]
 
 pythonLauncher :: Doc

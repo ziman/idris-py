@@ -22,7 +22,10 @@ PIO = IO' FFI_Py
 data Args : Type where
   Fixed : (as : List Type) -> Args
 
-record Object : (fields : String -> Type -> Type) -> Type where
+PySig : Type
+PySig = String -> Type -> Type
+
+record Object : (sig : PySig) -> Type where
   MkObject : (obj : Ptr) -> Object fs
 
 record Method : (args : Args) -> (ret : Type) -> Type where
@@ -41,29 +44,31 @@ data HList : List Type -> Type where
 %used Python.(::) x
 %used Python.(::) xs
 
-infixl 3 ./
-(./) : Object fields -> (f : String) -> {auto pf : fields f a} -> PIO a
-(./) {a = a} (MkObject obj) f =
+isNone : Ptr -> PIO Int
+isNone p = foreign FFI_Py "idris_is_none" (Ptr -> PIO Int) p
+
+infixl 3 /.
+(/.) : Object sig -> (f : String) -> {auto pf : sig f a} -> PIO a
+(/.) {a = a} (MkObject obj) f =
   believe_me <$>
     foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO Ptr) obj f
+
+infixl 3 /:
+(/:) : PIO (Object sig) -> (f : String) -> {auto pf : sig f a} -> PIO a
+(/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
 
 methTy : Args -> Type -> Type
 methTy (Fixed as) ret = HList as -> PIO ret
 
-callFixedMethod : Method (Fixed as) ret -> HList as -> PIO ret
-callFixedMethod {as = as} (MkMethod meth) args = 
-  believe_me <$>
+infixl 3 $.
+($.) : Method margs ret -> methTy margs ret
+($.) {margs = Fixed as} (MkMethod meth) =
+  \args => believe_me <$>
     foreign FFI_Py "idris_call" (Ptr -> Ptr -> PIO Ptr) meth (believe_me args)
 
-infixl 1 .$
-(.$) : PIO (Method margs ret) -> methTy margs ret
-(.$) {margs = Fixed as} meth =
-  \args => do
-    m <- meth
-    callFixedMethod m args
-
-PySig : Type
-PySig = String -> Type -> Type
+infixl 3 $:
+($:) : PIO (Method margs ret) -> methTy margs ret
+($:) {margs = Fixed as} meth = \args => meth >>= \m => m $. args
 
 class Importable (sig : PySig) where
   moduleName : PySig -> String
@@ -87,3 +92,11 @@ foreach (MkIterator it) st f = do
       it
       (believe_me st)
       (believe_me f)
+
+collect : (it : Iterator a) -> PIO (List a)
+collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
+
+class PythonPrim (a : Type) (sig : PySig) where
+
+obj : PythonPrim a sig => (x : a) -> Object sig
+obj x = believe_me x

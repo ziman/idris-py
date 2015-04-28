@@ -4,6 +4,7 @@ import Python
 
 data Element : PySig where
   Element_string : Element "string" String
+  Element_strings : Element "strings" (Iterator String)
 
 data BeautifulSoup : PySig where
   Soup_select : BeautifulSoup "select" (FMethod [String] $ Iterator (Object Element))

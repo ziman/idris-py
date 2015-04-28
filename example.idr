@@ -13,17 +13,18 @@ mysum acc (x :: xs) = mysum (x + acc) xs
 main : PIO ()
 main = do
   reqs <- import_ Requests
-  session <- reqs ./ "Session" .$ []
-  resp <- session ./ "get" .$ ["http://idris-lang.org"]
-  html <- resp ./ "text"
+  session <- reqs /. "Session" $: []
+  html <- session /. "get" $: ["http://idris-lang.org"] /: "text"
 
   bs4 <- import_ Bs4
-  soup <- bs4 ./ "BeautifulSoup" .$ [html]
+  soup <- bs4 /. "BeautifulSoup" $: [html]
 
-  features <- soup ./ "select" .$ ["div.entry-content li"]
-  cnt <- foreach features 0 (\cnt, li => do
-    putStrLn =<< (li ./ "string")
-    return $ cnt + 1
-  )
+  features <- soup /. "select" $: ["div.entry-content li"]
 
-  putStrLn $ "Total number of features: " ++ show cnt
+  putStrLn $ "Idris has got the following exciting features:"
+  count <- foreach features 0 $ \i : Int, li => do
+    line <- map concat . collect =<< li /. "strings"
+    putStrLn $ show (i+1) ++ ". " ++ line
+    return $ i + 1
+
+  putStrLn $ "Total number of features: " ++ show count
