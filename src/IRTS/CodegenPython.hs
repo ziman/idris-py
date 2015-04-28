@@ -123,14 +123,18 @@ pythonPreamble = vcat . map text $
     , "  return mod"
     , ""
     , "def idris_getfield(o, f):"
-    , "  return o.__attr__(f)"
+    , "  try:"
+    , "    return o.__getattribute__(f)"
+    , "  except AttributeError:"
+    , "    # it's a module"
+    , "    return o.__dict__[f]"
     , ""
     , "def idris_call(f, args):"
-    , "  ags = []"
-    , "  while len(args) == 3:"
-    , "    ags.append(args[1])"
+    , "  native_args = []"
+    , "  while len(args) == 3:  # it's a cons"
+    , "    native_args.append(args[1])"
     , "    args = args[2]"
-    , "  f(*ags)"
+    , "  return f(*native_args)"
     ]
 
 pythonLauncher :: Doc
@@ -207,7 +211,7 @@ cgDef ctors (n, DFun name' args body) =
     $+$ indent (
         text "while" <+> text "True" <> colon  -- for tail calls
         $+$ indent (
-                -- trace $+$  -- uncomment this line to enable printing traces
+                trace $+$  -- uncomment this line to enable printing traces
                 statements
                 $+$ text "return" <+> retVal
             )
@@ -372,7 +376,8 @@ cgExp (DProj e i) = do
 
 cgExp (DConst c) = return $ cgConst c
 
-cgExp (DForeign fdesc rdesc args) = return $ cgError "foreign not implemented"
+cgExp (DForeign fdesc (FStr fn) args) = cgApp (text fn) <$> mapM (cgExp . snd) args
+cgExp (DForeign fdesc rdesc args) = error $ "unrecognised foreign: " ++ show (fdesc, rdesc, args)
 cgExp (DOp prim args) = cgPrim prim <$> mapM cgExp args
 cgExp  DNothing = return $ text "None"
 cgExp (DError msg) = return $ cgError msg
