@@ -4,7 +4,7 @@ import Python
 
 Element : PySig
 Element =
-  [ "string" ::: String
+  [ "string"  ::: String
   , "strings" ::: Iterator String
   ]
 
