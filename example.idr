@@ -9,6 +9,9 @@ infixr 2 =<<
 (=<<) : Monad m => (a -> m b) -> m a -> m b
 (=<<) f x = x >>= f
 
+-- Although the following code seems stringly typed, fear not!
+-- Everything is typechecked according to the signatures imported above.
+
 main : PIO ()
 main = do
   reqs <- import_ Requests
