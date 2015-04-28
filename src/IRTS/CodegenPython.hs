@@ -211,7 +211,7 @@ cgDef ctors (n, DFun name' args body) =
     $+$ indent (
         text "while" <+> text "True" <> colon  -- for tail calls
         $+$ indent (
-                trace $+$  -- uncomment this line to enable printing traces
+                -- trace $+$  -- uncomment this line to enable printing traces
                 statements
                 $+$ text "return" <+> retVal
             )

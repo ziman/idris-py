@@ -10,7 +10,6 @@ data PyTypes : Type -> Type where
   PyChar    : PyTypes Char
   PyPtr     : PyTypes Ptr
   PyUnit    : PyTypes ()
-  PyAny     : PyTypes (Raw a)
 
 FFI_Py : FFI
 FFI_Py = MkFFI PyTypes String String
@@ -30,31 +29,31 @@ record Method : (args : Args) -> (ret : Type) -> Type where
 
 data HList : List Type -> Type where
   Nil : HList []
-  (::) : (x : a) -> HList as -> HList (a :: as)
+  (::) : (x : a) -> (xs : HList as) -> HList (a :: as)
 
-unRaw : Raw a -> a
-unRaw (MkRaw a) = a
+%used Python.(::) x
+%used Python.(::) xs
 
 infixl 3 ./
 (./) : Object fields -> (f : String) -> {auto pf : fields f a} -> PIO a
-(./) {a = a} obj f =
-  unRaw <$>
-    foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO (Raw a)) obj f
+(./) {a = a} (MkObject obj) f =
+  believe_me <$>
+    foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO Ptr) obj f
 
 methTy : Args -> Type -> Type
 methTy (Fixed as) ret = HList as -> PIO ret
 
 callFixedMethod : Method (Fixed as) ret -> HList as -> PIO ret
-callFixedMethod {as = as} meth args = 
-  unRaw <$>
-    foreign FFI_Py "idris_call" (Ptr -> Raw (HList as) -> PIO (Raw ret)) meth args
+callFixedMethod {as = as} (MkMethod meth) args = 
+  believe_me <$>
+    foreign FFI_Py "idris_call" (Ptr -> Ptr -> PIO Ptr) meth (believe_me args)
 
 infixl 1 .$
-(.$) : PIO (Method margs ret) -> methTy args ret
+(.$) : PIO (Method margs ret) -> methTy margs ret
 (.$) {margs = Fixed as} meth =
   \args => do
     m <- meth
-    callFixedMethod meth args
+    callFixedMethod m args
 
 -- Example application: python requests
 
@@ -68,4 +67,4 @@ data Py_Requests : String -> Type -> Type where
   Py_Requests_Session : Py_Requests "Session" (Method (Fixed []) $ Object Py_Session)
 
 import_ : (ty : String -> Type -> Type) -> (name : String) -> PIO (Object ty)
-import_ ty n = unRaw <$> foreign FFI_Py "idris_pymodule" (String -> PIO (Raw $ Object ty)) n
+import_ ty n = believe_me <$> foreign FFI_Py "idris_pymodule" (String -> PIO Ptr) n
