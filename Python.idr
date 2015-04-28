@@ -81,6 +81,13 @@ fieldErr (CantSolveGoal `(Contains (~fname ::: ~fty) (MkPySig ~sigName ~sigFlds)
         , TextPart "does not exist in object signature"
         , TermPart sigName
         ]
+fieldErr (CantSolveGoal `(Contains (~fname ::: ~fty) ~sig) ntms)
+    = Just
+        [ TextPart "Field"
+        , TermPart fname
+        , TextPart "does not exist in object signature"
+        , TermPart sig
+        ]
 fieldErr _ = Nothing
 
 %error_handlers Python.(/.) pf fieldErr
