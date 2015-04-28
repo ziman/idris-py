@@ -1,6 +1,7 @@
 import Python
 
--- These modules contain signatures for the libraries.
+-- These modules contain signatures for Python classes.
+import Python.Prim
 import Python.Requests
 import Python.BeautifulSoup
 

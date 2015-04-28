@@ -81,8 +81,9 @@ import_ sig {imp = imp} =
 FMethod : List Type -> Type -> Type
 FMethod args ret = Method (Fixed args) ret
 
-Constructor : Type -> Type
-Constructor ret = FMethod [] ret
+infix 3 ~>
+(~>) : List Type -> Type -> Type
+(~>) args ret = FMethod args ret
 
 foreach : (it : Iterator a) -> (st : b) -> (b -> a -> PIO b) -> PIO b
 foreach (MkIterator it) st f = do
@@ -95,8 +96,3 @@ foreach (MkIterator it) st f = do
 
 collect : (it : Iterator a) -> PIO (List a)
 collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
-
-class PythonPrim (a : Type) (sig : PySig) where
-
-obj : PythonPrim a sig => (x : a) -> Object sig
-obj x = believe_me x
