@@ -6,10 +6,6 @@ infixr 2 =<<
 (=<<) : Monad m => (a -> m b) -> m a -> m b
 (=<<) f x = x >>= f
 
-mysum : Nat -> List Nat -> Nat
-mysum acc [] = acc
-mysum acc (x :: xs) = mysum (x + acc) xs
-
 main : PIO ()
 main = do
   reqs <- import_ Requests
