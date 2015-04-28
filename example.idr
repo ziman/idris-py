@@ -25,7 +25,7 @@ main = do
   session <- reqs /. "Session" $: []
 
   -- equivalent to: html = session.get("http://idris-lang.org").text
-  html <- session /. "gets" $: ["http://idris-lang.org"] /: "text"
+  html <- session /. "get" $: ["http://idris-lang.org"] /: "text"
 
   -- import Beautiful Soup
   bs4 <- import_ Bs4 "bs4"
