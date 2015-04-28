@@ -3,7 +3,7 @@ module Python.Prim
 import Python
 
 PyString : PySig
-PyString =
+PyString = MkPySig "PyString"
   [ "join" ::: [Iterator String] ~> String
   ]
 

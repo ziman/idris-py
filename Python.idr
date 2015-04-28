@@ -1,6 +1,7 @@
 module Python
 
 %default total
+%language ErrorReflection
 
 data PyTypes : Type -> Type where
   PyStr     : PyTypes String
@@ -23,8 +24,11 @@ infix 2 :::
 record Field : Type where
   (:::) : (n : String) -> (ty : Type) -> Field
 
-PySig : Type
-PySig = List Field
+record PySig : Type where
+  MkPySig :
+    (name : String)  -- for error reporting
+    -> (fields : List Field)
+    -> PySig
 
 data Args : Type where
   Fixed : (as : List Type) -> Args
@@ -41,13 +45,13 @@ record Iterator : Type -> Type where
 record Exception : Type where
   MkException : (ex : Ptr) -> Exception
 
--- Redeclare some utilities
 record Yep : (x : a) -> Type where
   MkYep : x -> Yep x
 
-data Elem : (x : a) -> List a -> Type where
-  Here : Elem x (x :: xs)
-  There : Elem x xs -> Elem x (y :: xs)
+-- We don't use List.Elem to keep the signature name in the error message
+data Contains : Field -> PySig -> Type where
+  Here : {n : String} -> Contains f (MkPySig n $ f :: fs)
+  There : {n : String} -> Contains f (MkPySig n fs) -> Contains f (MkPySig n $ f' :: fs)
 
 data HList : List Type -> Type where
   Nil : HList []
@@ -60,14 +64,27 @@ isNone : Ptr -> PIO Int
 isNone p = foreign FFI_Py "idris_is_none" (Ptr -> PIO Int) p
 
 infixl 3 /.
-(/.) : Object sig -> (f : String) -> {auto pf : Elem (f ::: a) sig} -> PIO a
+(/.) : Object sig -> (f : String) -> {auto pf : Contains (f ::: a) sig} -> PIO a
 (/.) {a = a} (MkObject obj) f =
   believe_me <$>
     foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO Ptr) obj f
 
 infixl 3 /:
-(/:) : PIO (Object sig) -> (f : String) -> {auto pf : Elem (f ::: a) sig} -> PIO a
+(/:) : PIO (Object sig) -> (f : String) -> {auto pf : Contains (f ::: a) sig} -> PIO a
 (/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
+
+fieldErr : Err -> Maybe (List ErrorReportPart)
+fieldErr (CantSolveGoal `(Contains (~fname ::: ~fty) (MkPySig ~sigName ~sigFlds)) ntms)
+    = Just
+        [ TextPart "Field"
+        , TermPart fname
+        , TextPart "does not exist in object signature"
+        , TermPart sigName
+        ]
+fieldErr _ = Nothing
+
+%error_handlers Python.(/.) pf fieldErr
+%error_handlers Python.(/:) pf fieldErr
 
 methTy : Args -> Type -> Type
 methTy (Fixed as) ret = HList as -> PIO ret
