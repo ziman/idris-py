@@ -74,20 +74,18 @@ infixl 3 /:
 (/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
 
 fieldErr : Err -> Maybe (List ErrorReportPart)
-fieldErr (CantSolveGoal `(Contains (~fname ::: ~fty) (MkPySig ~sigName ~sigFlds)) ntms)
-    = Just
-        [ TextPart "Field"
-        , TermPart fname
-        , TextPart "does not exist in object signature"
-        , TermPart sigName
-        ]
 fieldErr (CantSolveGoal `(Contains (~fname ::: ~fty) ~sig) ntms)
     = Just
         [ TextPart "Field"
         , TermPart fname
         , TextPart "does not exist in object signature"
-        , TermPart sig
+        , TermPart $ simplify sig
         ]
+  where
+    simplify : TT -> TT
+    simplify `(MkPySig ~name ~fields) = name
+    simplify sig = sig
+
 fieldErr _ = Nothing
 
 %error_handlers Python.(/.) pf fieldErr
