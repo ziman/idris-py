@@ -153,30 +153,13 @@ pythonLauncher = vcat . map text $
     , ""
     ]
 
--- Idris's showCG is inexhaustive
-showCG'' :: Name -> String
-showCG'' (UN n) = T.unpack n
-showCG'' (NS n s) = showSep "." (map T.unpack (reverse s)) ++ "." ++ showCG n
-showCG'' (MN _ u) | u == txt "underscore" = "_"
-showCG'' (MN i s) = "{" ++ T.unpack s ++ show i ++ "}"
-showCG'' (SN s) = showCG' s
-  where showCG' (WhereN i p c) = showCG p ++ ":" ++ showCG c ++ ":" ++ show i
-        showCG' (WithN i n) = "_" ++ showCG n ++ "_with_" ++ show i
-        showCG' (InstanceN cl inst) = '@':showCG cl ++ '$':showSep ":" (map T.unpack inst)
-        showCG' (MethodN m) = '!':showCG m
-        showCG' (ParentN p c) = showCG p ++ "#" ++ show c
-        showCG' (CaseN c) = showCG c ++ "_case"
-        showCG' (ElimN sn) = showCG sn ++ "_elim"
-        showCG' (InstanceCtorN n) = showCG n ++ "_ictor"
-showCG'' NErased = "_"
-
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.
 mangle :: Name -> String
 mangle (MN i n)
     | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
     = T.unpack n ++ show i
-mangle n = "idris_" ++ concatMap mangleChar (showCG'' n)
+mangle n = "idris_" ++ concatMap mangleChar (showCG n)
   where
     mangleChar x
         | isAlpha x || isDigit x = [x]
