@@ -14,7 +14,7 @@ infixr 2 =<<
 
 main : PIO ()
 main = do
-  reqs <- import_ Requests
+  reqs <- import_ Requests "requests"
 
   -- (/) extracts the named attribute
   -- ($) calls a function
@@ -28,7 +28,7 @@ main = do
   html <- session /. "get" $: ["http://idris-lang.org"] /: "text"
 
   -- import Beautiful Soup
-  bs4 <- import_ Bs4
+  bs4 <- import_ Bs4 "bs4"
 
   -- construct soup from HTML
   soup <- bs4 /. "BeautifulSoup" $: [html]

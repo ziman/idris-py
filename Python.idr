@@ -19,11 +19,15 @@ FFI_Py = MkFFI PyTypes String String
 PIO : Type -> Type
 PIO = IO' FFI_Py
 
-data Args : Type where
-  Fixed : (as : List Type) -> Args
+infix 2 :::
+record Field : Type where
+  (:::) : (n : String) -> (ty : Type) -> Field
 
 PySig : Type
-PySig = String -> Type -> Type
+PySig = List Field
+
+data Args : Type where
+  Fixed : (as : List Type) -> Args
 
 record Object : (sig : PySig) -> Type where
   MkObject : (obj : Ptr) -> Object fs
@@ -37,6 +41,14 @@ record Iterator : Type -> Type where
 record Exception : Type where
   MkException : (ex : Ptr) -> Exception
 
+-- Redeclare some utilities
+record Yep : (x : a) -> Type where
+  MkYep : x -> Yep x
+
+data Elem : (x : a) -> List a -> Type where
+  Here : Elem x (x :: xs)
+  There : Elem x xs -> Elem x (y :: xs)
+
 data HList : List Type -> Type where
   Nil : HList []
   (::) : (x : a) -> (xs : HList as) -> HList (a :: as)
@@ -48,13 +60,13 @@ isNone : Ptr -> PIO Int
 isNone p = foreign FFI_Py "idris_is_none" (Ptr -> PIO Int) p
 
 infixl 3 /.
-(/.) : Object sig -> (f : String) -> {auto pf : sig f a} -> PIO a
+(/.) : Object sig -> (f : String) -> {auto pf : Elem (f ::: a) sig} -> PIO a
 (/.) {a = a} (MkObject obj) f =
   believe_me <$>
     foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO Ptr) obj f
 
 infixl 3 /:
-(/:) : PIO (Object sig) -> (f : String) -> {auto pf : sig f a} -> PIO a
+(/:) : PIO (Object sig) -> (f : String) -> {auto pf : Elem (f ::: a) sig} -> PIO a
 (/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
 
 methTy : Args -> Type -> Type
@@ -70,13 +82,10 @@ infixl 3 $:
 ($:) : PIO (Method margs ret) -> methTy margs ret
 ($:) {margs = Fixed as} meth = \args => meth >>= \m => m $. args
 
-class Importable (sig : PySig) where
-  moduleName : PySig -> String
-
-import_ : (sig : PySig) -> {default %instance imp : Importable sig} -> PIO (Object sig)
-import_ sig {imp = imp} =
+import_ : (sig : PySig) -> (modName : String) -> PIO (Object sig)
+import_ sig modName =
   believe_me <$>
-    foreign FFI_Py "idris_pymodule" (String -> PIO Ptr) (moduleName @{imp} sig)
+    foreign FFI_Py "idris_pymodule" (String -> PIO Ptr) modName
 
 FMethod : List Type -> Type -> Type
 FMethod args ret = Method (Fixed args) ret

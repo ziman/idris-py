@@ -2,8 +2,10 @@ module Python.Prim
 
 import Python
 
-data PyString : PySig where
-  PyString_join : PyString "join" ([Iterator String] ~> String)
+PyString : PySig
+PyString =
+  [ "join" ::: [Iterator String] ~> String
+  ]
 
 data PythonPrim : Type -> PySig -> Type where
   PPString : PythonPrim String PyString
