@@ -22,8 +22,12 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 ## Example
 
 ```bash
-$ pip install requests bs4
+$ cabal sandbox init  # possibly with --sandbox /path/to/idris/.cabal-sandbox
+$ cabal configure && cabal build
+$ export PATH="$PATH:$PWD/dist/build/idris-py"
 $ idris example.idr --codegen py -o example.py
+
+$ pip install requests bs4
 $ python example.py
 Idris has got the following exciting features:
 1. Full dependent types with dependent pattern matching
