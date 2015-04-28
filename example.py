@@ -312,35 +312,29 @@ def APPLY0(fn0, arg0):
               P_c0, = fn0[1:]
               aux1 = idris_Main_46__123_main10_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65638:
-              if fn0[0] == 65637: # {U_Main.{main11}1}
-                aux1 = idris_Main_46__123_main11_125_(arg0)
-            else:
-              if fn0[0] == 65638: # {U_Main.{main12}1}
-                aux1 = idris_Main_46__123_main12_125_(arg0)
-              elif fn0[0] == 65639: # {U_Main.{main13}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Main_46__123_main13_125_(P_c0, arg0)
+            if fn0[0] == 65637: # {U_Main.{main11}1}
+              aux1 = idris_Main_46__123_main11_125_(arg0)
+            elif fn0[0] == 65638: # {U_Main.{main12}1}
+              aux1 = idris_Main_46__123_main12_125_(arg0)
+            elif fn0[0] == 65639: # {U_Main.{main13}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Main_46__123_main13_125_(P_c0, arg0)
         else:
           if fn0[0] < 65643:
-            if fn0[0] < 65641:
-              if fn0[0] == 65640: # {U_Main.{main14}1}
-                aux1 = idris_Main_46__123_main14_125_(arg0)
-            else:
-              if fn0[0] == 65641: # {U_Main.{main15}1}
-                aux1 = idris_Main_46__123_main15_125_(arg0)
-              elif fn0[0] == 65642: # {U_Main.{main16}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Main_46__123_main16_125_(P_c0, arg0)
+            if fn0[0] == 65640: # {U_Main.{main14}1}
+              aux1 = idris_Main_46__123_main14_125_(arg0)
+            elif fn0[0] == 65641: # {U_Main.{main15}1}
+              aux1 = idris_Main_46__123_main15_125_(arg0)
+            elif fn0[0] == 65642: # {U_Main.{main16}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Main_46__123_main16_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65644:
-              if fn0[0] == 65643: # {U_Main.{main17}1}
-                aux1 = idris_Main_46__123_main17_125_(arg0)
-            else:
-              if fn0[0] == 65644: # {U_Main.{main18}1}
-                aux1 = idris_Main_46__123_main18_125_(arg0)
-              elif fn0[0] == 65645: # {U_Main.{main19}1}
-                aux1 = idris_Main_46__123_main19_125_(arg0)
+            if fn0[0] == 65643: # {U_Main.{main17}1}
+              aux1 = idris_Main_46__123_main17_125_(arg0)
+            elif fn0[0] == 65644: # {U_Main.{main18}1}
+              aux1 = idris_Main_46__123_main18_125_(arg0)
+            elif fn0[0] == 65645: # {U_Main.{main19}1}
+              aux1 = idris_Main_46__123_main19_125_(arg0)
       else:
         if fn0[0] < 65651:
           if fn0[0] < 65648:
@@ -350,41 +344,35 @@ def APPLY0(fn0, arg0):
             elif fn0[0] == 65647: # {U_Main.{main2}1}
               aux1 = idris_Main_46__123_main2_125_(arg0)
           else:
-            if fn0[0] < 65649:
-              if fn0[0] == 65648: # {U_Main.{main3}1}
-                aux1 = idris_Main_46__123_main3_125_(arg0)
-            else:
-              if fn0[0] == 65649: # {U_Main.{main4}1}
-                aux1 = idris_Main_46__123_main4_125_(arg0)
-              elif fn0[0] == 65650: # {U_Main.{main5}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Main_46__123_main5_125_(P_c0, arg0)
+            if fn0[0] == 65648: # {U_Main.{main3}1}
+              aux1 = idris_Main_46__123_main3_125_(arg0)
+            elif fn0[0] == 65649: # {U_Main.{main4}1}
+              aux1 = idris_Main_46__123_main4_125_(arg0)
+            elif fn0[0] == 65650: # {U_Main.{main5}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Main_46__123_main5_125_(P_c0, arg0)
         else:
           if fn0[0] < 65654:
-            if fn0[0] < 65652:
-              if fn0[0] == 65651: # {U_Main.{main6}1}
-                aux1 = idris_Main_46__123_main6_125_(arg0)
-            else:
-              if fn0[0] == 65652: # {U_Main.{main7}1}
-                aux1 = idris_Main_46__123_main7_125_(arg0)
-              elif fn0[0] == 65653: # {U_Main.{main8}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Main_46__123_main8_125_(P_c0, arg0)
+            if fn0[0] == 65651: # {U_Main.{main6}1}
+              aux1 = idris_Main_46__123_main6_125_(arg0)
+            elif fn0[0] == 65652: # {U_Main.{main7}1}
+              aux1 = idris_Main_46__123_main7_125_(arg0)
+            elif fn0[0] == 65653: # {U_Main.{main8}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Main_46__123_main8_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65655:
-              if fn0[0] == 65654: # {U_Main.{main9}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Main_46__123_main9_125_(P_c0, arg0)
-            else:
-              if fn0[0] == 65655: # {U_Prelude.Basics..1}
-                P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-                aux1 = idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-              elif fn0[0] == 65656: # {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
-                         P_c0,
-                         arg0
-                       )
+            if fn0[0] == 65654: # {U_Main.{main9}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Main_46__123_main9_125_(P_c0, arg0)
+            elif fn0[0] == 65655: # {U_Prelude.Basics..1}
+              P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+              aux1 = idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+            elif fn0[0] == 65656: # {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
+                       P_c0,
+                       arg0
+                     )
     else:
       if fn0[0] < 65668:
         if fn0[0] < 65662:
@@ -402,40 +390,34 @@ def APPLY0(fn0, arg0):
               P_c0, P_c1, = fn0[1:]
               aux1 = idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(P_c0, P_c1, arg0)
           else:
-            if fn0[0] < 65660:
-              if fn0[0] == 65659: # {U_Prelude.{putStr0}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
-            else:
-              if fn0[0] == 65660: # {U_Prelude.{putStr1}1}
-                aux1 = idris_Prelude_46__123_putStr1_125_(arg0)
-              elif fn0[0] == 65661: # {U_Python.collect1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Python_46_collect(P_c0, arg0)
+            if fn0[0] == 65659: # {U_Prelude.{putStr0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
+            elif fn0[0] == 65660: # {U_Prelude.{putStr1}1}
+              aux1 = idris_Prelude_46__123_putStr1_125_(arg0)
+            elif fn0[0] == 65661: # {U_Python.collect1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Python_46_collect(P_c0, arg0)
         else:
           if fn0[0] < 65665:
-            if fn0[0] < 65663:
-              if fn0[0] == 65662: # {U_Python.{$.0}1}
-                P_c0, P_c1, = fn0[1:]
-                aux1 = idris_Python_46__123__36__46_0_125_(P_c0, P_c1, arg0)
-            else:
-              if fn0[0] == 65663: # {U_Python.{$:0}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Python_46__123__36__58_0_125_(P_c0, arg0)
-              elif fn0[0] == 65664: # {U_Python.{/.0}1}
-                P_c0, P_c1, = fn0[1:]
-                aux1 = idris_Python_46__123__47__46_0_125_(P_c0, P_c1, arg0)
+            if fn0[0] == 65662: # {U_Python.{$.0}1}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = idris_Python_46__123__36__46_0_125_(P_c0, P_c1, arg0)
+            elif fn0[0] == 65663: # {U_Python.{$:0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Python_46__123__36__58_0_125_(P_c0, arg0)
+            elif fn0[0] == 65664: # {U_Python.{/.0}1}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = idris_Python_46__123__47__46_0_125_(P_c0, P_c1, arg0)
           else:
-            if fn0[0] < 65666:
-              if fn0[0] == 65665: # {U_Python.{/:0}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Python_46__123__47__58_0_125_(P_c0, arg0)
-            else:
-              if fn0[0] == 65666: # {U_Python.{collect0}1}
-                P_c0, = fn0[1:]
-                aux1 = idris_Python_46__123_collect0_125_(P_c0, arg0)
-              elif fn0[0] == 65667: # {U_Python.{collect1}1}
-                aux1 = idris_Python_46__123_collect1_125_(arg0)
+            if fn0[0] == 65665: # {U_Python.{/:0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Python_46__123__47__58_0_125_(P_c0, arg0)
+            elif fn0[0] == 65666: # {U_Python.{collect0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Python_46__123_collect0_125_(P_c0, arg0)
+            elif fn0[0] == 65667: # {U_Python.{collect1}1}
+              aux1 = idris_Python_46__123_collect1_125_(arg0)
       else:
         if fn0[0] < 65673:
           if fn0[0] < 65670:
@@ -446,38 +428,32 @@ def APPLY0(fn0, arg0):
               P_c0, = fn0[1:]
               aux1 = idris_Python_46__123_import_95_0_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65671:
-              if fn0[0] == 65670: # {U_believe_me1}
-                P_c0, P_c1, = fn0[1:]
-                aux1 = idris_believe_95_me(P_c0, P_c1, arg0)
-            else:
-              if fn0[0] == 65671: # {U_io_bind1}
-                P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-                aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-              elif fn0[0] == 65672: # {U_io_return1}
-                P_c0, P_c1, P_c2, = fn0[1:]
-                aux1 = idris_io_95_return(P_c0, P_c1, P_c2, arg0)
+            if fn0[0] == 65670: # {U_believe_me1}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = idris_believe_95_me(P_c0, P_c1, arg0)
+            elif fn0[0] == 65671: # {U_io_bind1}
+              P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+              aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+            elif fn0[0] == 65672: # {U_io_return1}
+              P_c0, P_c1, P_c2, = fn0[1:]
+              aux1 = idris_io_95_return(P_c0, P_c1, P_c2, arg0)
         else:
           if fn0[0] < 65676:
-            if fn0[0] < 65674:
-              if fn0[0] == 65673: # {U_{io_bind1}1}
-                P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
-                aux1 = io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
-            else:
-              if fn0[0] == 65674: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
-                P_c0, P_c1, P_c2, = fn0[1:]
-                aux1 = (65657, P_c0, P_c1, P_c2, arg0)
-              elif fn0[0] == 65675: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
-                P_c0, P_c1, = fn0[1:]
-                aux1 = (65674, P_c0, P_c1, arg0)
+            if fn0[0] == 65673: # {U_{io_bind1}1}
+              P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
+              aux1 = io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
+            elif fn0[0] == 65674: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+              P_c0, P_c1, P_c2, = fn0[1:]
+              aux1 = (65657, P_c0, P_c1, P_c2, arg0)
+            elif fn0[0] == 65675: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = (65674, P_c0, P_c1, arg0)
           else:
-            if fn0[0] < 65677:
-              if fn0[0] == 65676: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
-                P_c0, = fn0[1:]
-                aux1 = (65675, P_c0, arg0)
-            else:
-              if fn0[0] == 65677: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-                aux1 = (65676, arg0)
+            if fn0[0] == 65676: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+              P_c0, = fn0[1:]
+              aux1 = (65675, P_c0, arg0)
+            elif fn0[0] == 65677: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+              aux1 = (65676, arg0)
     return aux1
 
 # {EVAL0}
