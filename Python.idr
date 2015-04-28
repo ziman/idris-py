@@ -10,6 +10,7 @@ data PyTypes : Type -> Type where
   PyChar    : PyTypes Char
   PyPtr     : PyTypes Ptr
   PyUnit    : PyTypes ()
+  PyFun     : PyTypes a -> PyTypes b -> PyTypes (a -> b)
 
 FFI_Py : FFI
 FFI_Py = MkFFI PyTypes String String
@@ -26,6 +27,12 @@ record Object : (fields : String -> Type -> Type) -> Type where
 
 record Method : (args : Args) -> (ret : Type) -> Type where
   MkMethod : (meth : Ptr) -> Method args ret
+
+record Iterator : Type -> Type where
+  MkIterator : (iter : Ptr) -> Iterator a
+
+record Exception : Type where
+  MkException : (ex : Ptr) -> Exception
 
 data HList : List Type -> Type where
   Nil : HList []
@@ -55,16 +62,28 @@ infixl 1 .$
     m <- meth
     callFixedMethod m args
 
--- Example application: python requests
+PySig : Type
+PySig = String -> Type -> Type
 
-data Py_Response : String -> Type -> Type where
-  Py_Response_text : Py_Response "text" String
+class Importable (sig : PySig) where
+  moduleName : PySig -> String
 
-data Py_Session : String -> Type -> Type where
-  Py_Session_get : Py_Session "get" (Method (Fixed [String]) $ Object Py_Response)
+import_ : (sig : PySig) -> {default %instance imp : Importable sig} -> PIO (Object sig)
+import_ sig {imp = imp} =
+  believe_me <$>
+    foreign FFI_Py "idris_pymodule" (String -> PIO Ptr) (moduleName @{imp} sig)
 
-data Py_Requests : String -> Type -> Type where
-  Py_Requests_Session : Py_Requests "Session" (Method (Fixed []) $ Object Py_Session)
+FMethod : List Type -> Type -> Type
+FMethod args ret = Method (Fixed args) ret
 
-import_ : (ty : String -> Type -> Type) -> (name : String) -> PIO (Object ty)
-import_ ty n = believe_me <$> foreign FFI_Py "idris_pymodule" (String -> PIO Ptr) n
+Constructor : Type -> Type
+Constructor ret = FMethod [] ret
+
+foreach : (it : Iterator a) -> (st : b) -> (b -> a -> PIO b) -> PIO b
+foreach (MkIterator it) st f = do
+  believe_me <$>
+    foreign FFI_Py "idris_foreach"
+      (Ptr -> Ptr -> (Ptr -> Ptr -> Ptr) -> PIO Ptr)
+      it
+      (believe_me st)
+      (believe_me f)
