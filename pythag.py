@@ -8,6 +8,37 @@ class IdrisError(Exception):
 def idris_error(msg):
   raise IdrisError(msg)
 
+MODULES = dict()
+
+def idris_pymodule(name):
+  mod = MODULES.get(name)
+  if mod is None:
+    mod = __import__(name)
+    MODULES[name] = mod
+  return mod
+
+def idris_getfield(o, f):
+  try:
+    return o.__getattribute__(f)
+  except AttributeError:
+    # it's a module
+    return o.__dict__[f]
+
+def idris_call(f, args):
+  native_args = []
+  while len(args) == 3:  # it's a cons
+    native_args.append(args[1])
+    args = args[2]
+  return f(*native_args)
+
+def idris_foreach(it, st, f):
+  for x in it:
+    # Apply st, x, world
+    st = APPLY0(APPLY0(APPLY0(f, st), x), None)
+  return st
+
+def idris_is_none(x):
+  return 1 if x is None else 0
 # Prelude.List.++
 def idris_Prelude_46_List_46__43__43_(e0, e1, e2):
   while True:
@@ -72,7 +103,7 @@ def idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(meth0
     return idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0(
              None,
              None,
-             (65652,),
+             (65653,),
              meth0
            )
 
@@ -118,7 +149,7 @@ def idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
     return APPLY0(
              APPLY0(
                idris_Prelude_46_Foldable_46_foldr(None, None, None, e3),
-               (65631, None, None, None, aux1, e5)
+               (65632, None, None, None, aux1, e5)
              ),
              aux2
            )
@@ -137,20 +168,6 @@ def idris_Prelude_46_Applicative_46_empty(e0, e1, e2):
 def idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
   while True:
     return APPLY0(APPLY0(e3, e1), e2)
-
-# Prelude.List.foldrImpl
-def idris_Prelude_46_List_46_foldrImpl(e0, e1, e2, e3, e4, e5):
-  while True:
-    if e5[0] == 1: # Prelude.List.::
-      in0, in1, = e5[1:]
-      e0, e1, e2, e3, e4, e5, = None, None, e2, e3, (65631, None, None, None, e4, APPLY0(e2, in0)), in1,
-      continue
-      aux1 = idris_error("unreachable due to tail call")
-    elif e5[0] == 0: # Prelude.List.Nil
-      aux1 = APPLY0(e4, e3)
-    else:
-      idris_error("unreachable case")
-    return aux1
 
 # Prelude.Applicative.guard
 def idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
@@ -172,11 +189,6 @@ def idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
     else:
       idris_error("unreachable case")
     return aux1
-
-# Prelude.Basics.id
-def idris_Prelude_46_Basics_46_id(e0, e1):
-  while True:
-    return e1
 
 # Prelude.Classes.intToBool
 def idris_Prelude_46_Classes_46_intToBool(e0):
@@ -200,15 +212,15 @@ def idris_io_95_return(e0, e1, e2, idris_w):
 # Main.main
 def idris_Main_46_main():
   while True:
-    return (65646, # {U_io_bind1}
+    return (65647, # {U_io_bind1}
              None,
              None,
              None,
              idris_Prelude_46_putStr(
                None,
-               APPLY0(idris_Prelude_46_show(None, (65630,)), idris_Main_46_pythag(50))
+               APPLY0(idris_Prelude_46_show(None, (65631,)), idris_Main_46_pythag(100))
              ),
-             (65622,)
+             (65623,)
            )
 
 # mkForeignPrim
@@ -324,7 +336,7 @@ def idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
 # Prelude.putStr
 def idris_Prelude_46_putStr(e0, e1):
   while True:
-    return (65646, None, None, None, (65644, e1), (65645,))
+    return (65647, None, None, None, (65645, e1), (65646,))
 
 # Main.pythag
 def idris_Main_46_pythag(e0):
@@ -336,7 +348,7 @@ def idris_Main_46_pythag(e0):
                1,
                e0
              ),
-             (65629,)
+             (65630,)
            )
 
 # run__IO
@@ -373,124 +385,169 @@ def idris_Prelude_46_Bool_46__124__124_(e0, e1):
 # {APPLY0}
 def APPLY0(fn0, arg0):
   while True:
-    if fn0[0] == 65622: # {U_Main.{main0}1}
-      aux1 = idris_Main_46__123_main0_125_(arg0)
-    elif fn0[0] == 65623: # {U_Main.{pythag0}1}
-      aux1 = idris_Main_46__123_pythag0_125_(arg0)
-    elif fn0[0] == 65624: # {U_Main.{pythag1}1}
-      aux1 = idris_Main_46__123_pythag1_125_(arg0)
-    elif fn0[0] == 65625: # {U_Main.{pythag2}1}
-      aux1 = idris_Main_46__123_pythag2_125_(arg0)
-    elif fn0[0] == 65626: # {U_Main.{pythag3}1}
-      P_c0, P_c1, P_c2, = fn0[1:]
-      aux1 = idris_Main_46__123_pythag3_125_(P_c0, P_c1, P_c2, arg0)
-    elif fn0[0] == 65627: # {U_Main.{pythag4}1}
-      P_c0, P_c1, = fn0[1:]
-      aux1 = idris_Main_46__123_pythag4_125_(P_c0, P_c1, arg0)
-    elif fn0[0] == 65628: # {U_Main.{pythag5}1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Main_46__123_pythag5_125_(P_c0, arg0)
-    elif fn0[0] == 65629: # {U_Main.{pythag6}1}
-      aux1 = idris_Main_46__123_pythag6_125_(arg0)
-    elif fn0[0] == 65630: # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
-      aux1 = idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(arg0)
-    elif fn0[0] == 65631: # {U_Prelude.Basics..1}
-      P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-      aux1 = idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-    elif fn0[0] == 65632: # {U_Prelude.Basics.id1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Prelude_46_Basics_46_id(P_c0, arg0)
-    elif fn0[0] == 65633: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord0}1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord0_125_(
-               P_c0,
-               arg0
-             )
-    elif fn0[0] == 65634: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord1}1}
-      aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord1_125_(
-               arg0
-             )
-    elif fn0[0] == 65635: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord2}1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord2_125_(
-               P_c0,
-               arg0
-             )
-    elif fn0[0] == 65636: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord3}1}
-      aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord3_125_(
-               arg0
-             )
-    elif fn0[0] == 65637: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=0}1}
-      P_c0, P_c1, = fn0[1:]
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_0_125_(
-               P_c0,
-               P_c1,
-               arg0
-             )
-    elif fn0[0] == 65638: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=1}1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_1_125_(
-               P_c0,
-               arg0
-             )
-    elif fn0[0] == 65639: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=2}1}
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_2_125_(
-               arg0
-             )
-    elif fn0[0] == 65640: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=3}1}
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_3_125_(
-               arg0
-             )
-    elif fn0[0] == 65641: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=4}1}
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_4_125_(
-               arg0
-             )
-    elif fn0[0] == 65642: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=5}1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_5_125_(
-               P_c0,
-               arg0
-             )
-    elif fn0[0] == 65643: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=6}1}
-      aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_6_125_(
-               arg0
-             )
-    elif fn0[0] == 65644: # {U_Prelude.{putStr0}1}
-      P_c0, = fn0[1:]
-      aux1 = idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
-    elif fn0[0] == 65645: # {U_Prelude.{putStr1}1}
-      aux1 = idris_Prelude_46__123_putStr1_125_(arg0)
-    elif fn0[0] == 65646: # {U_io_bind1}
-      P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-      aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-    elif fn0[0] == 65647: # {U_io_return1}
-      P_c0, P_c1, P_c2, = fn0[1:]
-      aux1 = idris_io_95_return(P_c0, P_c1, P_c2, arg0)
-    elif fn0[0] == 65648: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c0}1}
-      aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_(
-               arg0
-             )
-    elif fn0[0] == 65649: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c1}1}
-      aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(
-               arg0
-             )
-    elif fn0[0] == 65650: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c2}1}
-      aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(
-               arg0
-             )
-    elif fn0[0] == 65651: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c3}1}
-      aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(
-               arg0
-             )
-    elif fn0[0] == 65652: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c4}1}
-      aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(
-               arg0
-             )
-    elif fn0[0] == 65653: # {U_{io_bind1}1}
-      P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
-      aux1 = io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
+    if fn0[0] < 65641:
+      if fn0[0] < 65632:
+        if fn0[0] < 65627:
+          if fn0[0] < 65625:
+            if fn0[0] == 65623: # {U_Main.{main0}1}
+              aux1 = idris_Main_46__123_main0_125_(arg0)
+            elif fn0[0] == 65624: # {U_Main.{pythag0}1}
+              aux1 = idris_Main_46__123_pythag0_125_(arg0)
+          else:
+            if fn0[0] == 65625: # {U_Main.{pythag1}1}
+              aux1 = idris_Main_46__123_pythag1_125_(arg0)
+            elif fn0[0] == 65626: # {U_Main.{pythag2}1}
+              aux1 = idris_Main_46__123_pythag2_125_(arg0)
+        else:
+          if fn0[0] < 65629:
+            if fn0[0] == 65627: # {U_Main.{pythag3}1}
+              P_c0, P_c1, P_c2, = fn0[1:]
+              aux1 = idris_Main_46__123_pythag3_125_(P_c0, P_c1, P_c2, arg0)
+            elif fn0[0] == 65628: # {U_Main.{pythag4}1}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = idris_Main_46__123_pythag4_125_(P_c0, P_c1, arg0)
+          else:
+            if fn0[0] == 65629: # {U_Main.{pythag5}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Main_46__123_pythag5_125_(P_c0, arg0)
+            elif fn0[0] == 65630: # {U_Main.{pythag6}1}
+              aux1 = idris_Main_46__123_pythag6_125_(arg0)
+            elif fn0[0] == 65631: # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
+              aux1 = idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(arg0)
+      else:
+        if fn0[0] < 65636:
+          if fn0[0] < 65634:
+            if fn0[0] == 65632: # {U_Prelude.Basics..1}
+              P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+              aux1 = idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+            elif fn0[0] == 65633: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                       P_c0,
+                       arg0
+                     )
+          else:
+            if fn0[0] == 65634: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}1}
+              aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+                       arg0
+                     )
+            elif fn0[0] == 65635: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                       P_c0,
+                       arg0
+                     )
+        else:
+          if fn0[0] < 65638:
+            if fn0[0] == 65636: # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}1}
+              aux1 = idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+                       arg0
+                     )
+            elif fn0[0] == 65637: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+              P_c0, P_c1, P_c2, P_c3, = fn0[1:]
+              aux1 = idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
+                       P_c0,
+                       P_c1,
+                       P_c2,
+                       P_c3,
+                       arg0
+                     )
+          else:
+            if fn0[0] == 65638: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}1}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam0_125_(
+                       P_c0,
+                       P_c1,
+                       arg0
+                     )
+            elif fn0[0] == 65639: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam1}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam1_125_(
+                       P_c0,
+                       arg0
+                     )
+            elif fn0[0] == 65640: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam2}1}
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam2_125_(
+                       arg0
+                     )
     else:
-      aux1 = None
+      if fn0[0] < 65650:
+        if fn0[0] < 65645:
+          if fn0[0] < 65643:
+            if fn0[0] == 65641: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam3}1}
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam3_125_(
+                       arg0
+                     )
+            elif fn0[0] == 65642: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam4_125_(
+                       arg0
+                     )
+          else:
+            if fn0[0] == 65643: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam5_125_(
+                       P_c0,
+                       arg0
+                     )
+            elif fn0[0] == 65644: # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}
+              aux1 = idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam6_125_(
+                       arg0
+                     )
+        else:
+          if fn0[0] < 65647:
+            if fn0[0] == 65645: # {U_Prelude.{putStr0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
+            elif fn0[0] == 65646: # {U_Prelude.{putStr1}1}
+              aux1 = idris_Prelude_46__123_putStr1_125_(arg0)
+          else:
+            if fn0[0] == 65647: # {U_io_bind1}
+              P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+              aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+            elif fn0[0] == 65648: # {U_io_return1}
+              P_c0, P_c1, P_c2, = fn0[1:]
+              aux1 = idris_io_95_return(P_c0, P_c1, P_c2, arg0)
+            elif fn0[0] == 65649: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c0}1}
+              aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_(
+                       arg0
+                     )
+      else:
+        if fn0[0] < 65655:
+          if fn0[0] < 65652:
+            if fn0[0] == 65650: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c1}1}
+              aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(
+                       arg0
+                     )
+            elif fn0[0] == 65651: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c2}1}
+              aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(
+                       arg0
+                     )
+          else:
+            if fn0[0] == 65652: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c3}1}
+              aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(
+                       arg0
+                     )
+            elif fn0[0] == 65653: # {U_{PE_List a instance of Prelude.Show_f5d3ac2c4}1}
+              aux1 = idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(
+                       arg0
+                     )
+            elif fn0[0] == 65654: # {U_{io_bind1}1}
+              P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
+              aux1 = io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
+        else:
+          if fn0[0] < 65657:
+            if fn0[0] == 65655: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+              P_c0, P_c1, P_c2, = fn0[1:]
+              aux1 = (65637, P_c0, P_c1, P_c2, arg0)
+            elif fn0[0] == 65656: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = (65655, P_c0, P_c1, arg0)
+          else:
+            if fn0[0] == 65657: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+              P_c0, = fn0[1:]
+              aux1 = (65656, P_c0, arg0)
+            elif fn0[0] == 65658: # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+              aux1 = (65657, arg0)
     return aux1
 
 # {EVAL0}
@@ -498,8 +555,8 @@ def EVAL0(arg0):
   while True:
     return arg0
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord0}
-def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord0_125_(in0, in1):
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}
+def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(in0, in1):
   while True:
     return idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33_compare_58_0(
              in0,
@@ -511,8 +568,8 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0
   while True:
     return str(in1)
 
-# Prelude.Classes.{Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=0}
-def idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61_0_125_(e0, e1):
+# Prelude.Classes.{Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=_lam0}
+def idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(e0, e1):
   while True:
     aux1 = e0 == e1
     if aux1 == 0:
@@ -521,10 +578,16 @@ def idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of
       aux2 = (1,)
     return aux2
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=0}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_0_125_(in2, in3, in4):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam0_125_(in2, in3, in4):
   while True:
-    return idris_Prelude_46_List_46_foldrImpl(None, None, in2, in3, (65632, None), in4)
+    return idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
+             None,
+             None,
+             in2,
+             in3,
+             in4
+           )
 
 # {io_bind0}
 def io_bind0(e0, e1, e2, e3, e4, idris_w, in0):
@@ -551,8 +614,8 @@ def runMain0():
   while True:
     return EVAL0(APPLY0(idris_Main_46_main(), None))
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord1}
-def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord1_125_(in0):
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}
+def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(in0):
   while True:
     return (65633, in0)
 
@@ -561,10 +624,10 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1
   while True:
     return str(in3)
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=1}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_1_125_(in2, in3):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam1}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam1_125_(in2, in3):
   while True:
-    return (65637, in2, in3)
+    return (65638, in2, in3)
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
@@ -574,15 +637,15 @@ def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
 # Prelude.{putStr1}
 def idris_Prelude_46__123_putStr1_125_(in1):
   while True:
-    return (65647, None, None, (0,))
+    return (65648, None, None, (0,))
 
 # Main.{pythag1}
 def idris_Main_46__123_pythag1_125_(in3):
   while True:
-    return (65623,)
+    return (65624,)
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord2}
-def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord2_125_(in2, in3):
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}
+def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(in2, in3):
   while True:
     aux1 = APPLY0(
              APPLY0(
@@ -605,23 +668,23 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2
   while True:
     return str(in4)
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=2}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_2_125_(in2):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam2}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam2_125_(in2):
   while True:
-    return (65638, in2)
+    return (65639, in2)
 
 # {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, idris_w):
   while True:
-    return (65653, e0, e1, e2, e3, e4, idris_w)
+    return (65654, e0, e1, e2, e3, e4, idris_w)
 
 # Main.{pythag2}
 def idris_Main_46__123_pythag2_125_(in5):
   while True:
     return (0,)
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord3}
-def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord3_125_(in2):
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}
+def idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(in2):
   while True:
     return (65635, in2)
 
@@ -633,15 +696,15 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3
              None,
              None,
              None,
-             (65649,),
              (65650,),
+             (65651,),
              in2
            )
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=3}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_3_125_(in1):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam3}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam3_125_(in1):
   while True:
-    return (65639,)
+    return (65640,)
 
 # Main.{pythag3}
 def idris_Main_46__123_pythag3_125_(in2, in1, in0, in6):
@@ -656,15 +719,15 @@ def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4
              None,
              None,
              None,
-             (65648,),
-             (65651,),
+             (65649,),
+             (65652,),
              in0
            )
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=4}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_4_125_(in0):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam4_125_(in0):
   while True:
-    return (65640,)
+    return (65641,)
 
 # Main.{pythag4}
 def idris_Main_46__123_pythag4_125_(in1, in0, in2):
@@ -677,12 +740,12 @@ def idris_Main_46__123_pythag4_125_(in1, in0, in2):
     return idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
              None,
              None,
-             idris_Prelude_46_Applicative_46_guard(None, (0, (65624,), (65625,)), aux2),
-             (65626, in2, in1, in0)
+             idris_Prelude_46_Applicative_46_guard(None, (0, (65625,), (65626,)), aux2),
+             (65627, in2, in1, in0)
            )
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=5}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_5_125_(in5, in6):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam5_125_(in5, in6):
   while True:
     return idris_Prelude_46_List_46__43__43_(None, in5, in6)
 
@@ -696,13 +759,13 @@ def idris_Main_46__123_pythag5_125_(in0, in1):
                1,
                in1
              ),
-             (65627, in1, in0)
+             (65628, in1, in0)
            )
 
-# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=6}
-def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61_6_125_(in5):
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}
+def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam6_125_(in5):
   while True:
-    return (65642, in5)
+    return (65643, in5)
 
 # Main.{pythag6}
 def idris_Main_46__123_pythag6_125_(in0):
@@ -714,7 +777,7 @@ def idris_Main_46__123_pythag6_125_(in0):
                1,
                in0
              ),
-             (65628, in0)
+             (65629, in0)
            )
 
 # Decidable.Equality.Decidable.Equality.Char instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
@@ -788,6 +851,27 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_
       idris_error("unreachable case")
     return aux2
 
+# Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
+def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(e0, e1, e2, e3, e4):
+  while True:
+    if e4[0] == 1: # Prelude.List.::
+      in0, in1, = e4[1:]
+      aux1 = APPLY0(
+               APPLY0(e2, in0),
+               APPLY0(
+                 APPLY0(
+                   APPLY0(idris_Prelude_46_Foldable_46_foldr(None, None, None, (65658,)), e2),
+                   e3
+                 ),
+                 in1
+               )
+             )
+    elif e4[0] == 0: # Prelude.List.Nil
+      aux1 = e3
+    else:
+      idris_error("unreachable case")
+    return aux1
+
 # Prelude.Monad.Prelude.List instance of Prelude.Monad.Monad, method >>=
 def idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(e0, e1, e2, e3):
   while True:
@@ -796,8 +880,8 @@ def idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_5
                None,
                None,
                None,
-               (65641,),
-               (0, (65643,), (0,)),
+               (65642,),
+               (0, (65644,), (0,)),
                e3
              ),
              e2
@@ -817,7 +901,7 @@ def idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_
              e1
            )
     if aux1[0] == 0: # Prelude.Bool.False
-      aux2 = idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61_0_125_(
+      aux2 = idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
                e0,
                e1
              )
@@ -886,6 +970,17 @@ def idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes
     else:
       aux1 = (0,)
     return aux1
+
+# Prelude.List.List instance of Prelude.Foldable.Foldable
+def idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(meth0, meth1, meth2, meth3, meth4):
+  while True:
+    return idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
+             None,
+             None,
+             meth2,
+             meth3,
+             meth4
+           )
 
 # Prelude.Classes.Int instance of Prelude.Classes.Ord
 def idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int():

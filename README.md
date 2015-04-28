@@ -16,6 +16,8 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
                        Method (Fixed [String]) (Object [("text" ::: String)]))]
 ```
 * `foreach` -- higher-order FFI :)
+* big case trees compiled to binary search trees
+	- seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
 
 ## Example
 

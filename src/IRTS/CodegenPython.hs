@@ -10,6 +10,7 @@ import Idris.Core.TT
 import Data.Maybe
 import Data.Char
 import Data.List
+import Data.Ord
 import qualified Data.Text as T
 import qualified Data.Map as M
 
@@ -374,15 +375,57 @@ cgExp (DOp prim args) = cgPrim prim <$> mapM cgExp args
 cgExp  DNothing = return $ text "None"
 cgExp (DError msg) = return $ cgError msg
 
+ifElif :: [String]
+ifElif = "if" : repeat "elif"
+
+-- We assume that all tags are different here
+cgAltTree :: Int -> Int -> LVar -> LVar -> [(Int, DAlt)] -> CG ()
+cgAltTree groupSize altCount retVar scrutinee alts
+    | altCount > groupSize
+    = do
+        emit $ text "if" <+> cgVar scrutinee <> text "[0] <" <+> int firstHi <> colon
+        sindent $ cgAltTree groupSize lo retVar scrutinee (take lo alts)
+        emit $ text "else" <> colon
+        sindent $ cgAltTree groupSize (altCount - lo) retVar scrutinee (drop lo alts)
+  where
+    lo = altCount `div` 2
+    firstHi = fst (alts !! lo)
+
+cgAltTree groupSize altCount retVar scrutinee alts
+    = mapM_ (cgAlt scrutinee retVar) (zip ifElif $ map snd alts)
+
 -- For case-expressions, we:
 -- 1. generate a fresh var
 -- 2. emit statements containing an if-elif-... chain that assigns to the var
 -- 3. use the assigned var as the expression standing for the result
 cgCase :: LVar -> [DAlt] -> CG Expr
 cgCase var [DDefaultCase e] = cgExp e
+
+cgCase var alts
+    | altCount >= 2 * groupSize  -- there would be at least 2 full groups
+    , DDefaultCase def : alts' <- reverse alts
+    , all isConCase alts' = do
+        retVar <- fresh
+        taggedAlts <- mapM getTag alts'
+        cgAltTree groupSize altCount retVar var
+            $ sortBy (comparing fst) taggedAlts
+        return $ cgVar retVar
+  where
+    groupSize = 3  -- smallest group size: (groupSize+1) `div` 2
+    altCount = length alts
+
+    isConCase :: DAlt -> Bool
+    isConCase (DConCase _ _ _ _) = True
+    isConCase _ = False
+
+    getTag :: DAlt -> CG (Int, DAlt)
+    getTag alt@(DConCase _ n _ _) = do
+        Just tag <- ctorTag n
+        return (tag, alt)
+
 cgCase var alts = do
     retVar <- fresh
-    mapM_ (cgAlt var retVar) (zip ("if" : repeat "elif") alts)
+    mapM_ (cgAlt var retVar) (zip ifElif alts)
     emitUnreachableCase
     return $ cgVar retVar
   where
