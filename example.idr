@@ -30,7 +30,7 @@ main = do
   -- construct soup from HTML
   soup <- bs4 /. "BeautifulSoup" $: [html]
 
-  -- get the iterator over features, given by CSS selector
+  -- get the iterator over <li> elements, given by CSS selector
   features <- soup /. "select" $: ["div.entry-content li"]
 
   putStrLn $ "Idris has got the following exciting features:"
