@@ -13,6 +13,7 @@
                      [("get" :::
                        Method (Fixed [String]) (Object [("text" ::: String)]))]
 ```
+* `foreach` -- higher-order FFI :)
 
 ## Example
 
