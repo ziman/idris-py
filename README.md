@@ -22,6 +22,14 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - constructor tags
     - mangled names
 
+## Observations
+
+* it turns out that using `Text` to represent generated code
+  ([branch](https://github.com/ziman/idris-py/tree/text)) is not that much win
+    - strict `Text` seems to be a bit slower than `String`
+    - lazy `Text` seems to be about as fast as `String`
+    - `String` is the simplest
+
 ## Example
 
 ```bash
