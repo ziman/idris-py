@@ -38,7 +38,7 @@ type Expr  = Doc  -- expressions
 --   2. expression that stands for "a" afterwards
 --
 -- Note that (1.) is not part of the state;
--- it's a part of the what the given DExp translates to.
+-- it's a part of the what the given LExp translates to.
 --
 -- (2.) is always an expression in Python
 -- and therefore composes into bigger expressions easily,
@@ -166,8 +166,8 @@ codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render "#" source)
   where
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
-    ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
-    definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- defunDecls ci]
+    ctors = M.fromList [(n, tag) | (n, LConstructor n' tag arity) <- liftDecls ci]
+    definitions = vcat $ map (cgDef ctors) [d | d@(_, LFun _ _ _ _) <- liftDecls ci]
 
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.
@@ -186,14 +186,14 @@ cgTuple maxSize xs
     oneLiner = parens $ hsep punctuated
 
 cgApp :: Expr -> [Expr] -> Expr
-cgApp f args = f <> cgTuple maxWidth args
+cgApp f args = parens f <> cgTuple maxWidth args
   where
     maxWidth = 80 - width f
 
 -- Process one definition. The caller deals with constructor declarations,
 -- we only deal with function definitions.
-cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
-cgDef ctors (n, DFun name' args body) =
+cgDef :: M.Map Name Int -> (Name, LDecl) -> Doc
+cgDef ctors (n, LFun opts name' args body) =
     (empty <?> show name')
     $+$ (text "def" <+> cgName n <> cgTuple maxArgsWidth (map cgName args) <> colon)
     $+$ indent (
@@ -217,18 +217,17 @@ cgDef ctors (n, DFun name' args body) =
     argfmt = intercalate ", " ["%s" | _ <- args]
 
 -- Mark tail-calls as such.
-tailify :: Name -> DExp -> DExp
-tailify n (DLet n' v e) = DLet n' v (tailify n e)
-tailify n (DCase ct e alts) = DCase ct e (map (tailifyA n) alts)
-tailify n (DChkCase e alts) = DChkCase e (map (tailifyA n) alts)
-tailify n e@(DApp isTail n' args)
-    | n' == n = DApp True n' args
+tailify :: Name -> LExp -> LExp
+tailify n (LLet n' v e) = LLet n' v (tailify n e)
+tailify n (LCase ct e alts) = LCase ct e (map (tailifyA n) alts)
+tailify n e@(LApp isTail v@(LV (Glob n')) args)
+    | n' == n = LApp True v args
 tailify n e = e
 
-tailifyA :: Name -> DAlt -> DAlt
-tailifyA n (DConCase tag cn args e) = DConCase tag cn args (tailify n e)
-tailifyA n (DConstCase c e) = DConstCase c (tailify n e)
-tailifyA n (DDefaultCase e) = DDefaultCase (tailify n e)
+tailifyA :: Name -> LAlt -> LAlt
+tailifyA n (LConCase tag cn args e) = LConCase tag cn args (tailify n e)
+tailifyA n (LConstCase c e) = LConstCase c (tailify n e)
+tailifyA n (LDefaultCase e) = LDefaultCase (tailify n e)
 
 cgVar :: LVar -> Expr
 cgVar (Loc  i)
@@ -312,57 +311,41 @@ cgTailCall argNames args = do
     emit $ text "continue"
     return $ cgError "unreachable due to tail call"
 
-cgExp :: DExp -> CG Expr
-cgExp (DV var) = return $ cgVar var
-cgExp (DApp isTailCall n args) = do
-    tag <- ctorTag n
-    case tag of
-        Just t  -> cgExp (DC Nothing t n args)  -- application of ctor
-        Nothing -> do
-            (curFn, argNames) <- currentFn
-            if isTailCall && n == curFn
-               then cgTailCall argNames =<< mapM cgExp args  -- tail call!
-               else cgApp (cgName n) <$> mapM cgExp args     -- ordinary call
+cgExp :: LExp -> CG Expr
+cgExp (LV var) = return $ cgVar var
+cgExp (LApp isTailCall f args) = cgApp <$> cgExp f <*> mapM cgExp args
 
-cgExp (DLet n v e) = do
+cgExp (LLet n v e) = do
     emit . cgAssignN n =<< cgExp v
     cgExp e
 
-cgExp (DUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
-
-cgExp (DC _ tag n args) = cgCtor tag n <$> mapM cgExp args
+cgExp (LCon _ tag n args) = cgCtor tag n <$> mapM cgExp args
 
 -- if the scrutinee is something big, save it into a variable
 -- because we'll copy it into a possibly long chain of if-elif-...
-cgExp (DCase caseType (DV var) alts) = cgCase var alts
-cgExp (DCase caseType e alts) = do
+cgExp (LCase caseType (LV var) alts) = cgCase var alts
+cgExp (LCase caseType e alts) = do
     scrutinee <- fresh
     emit . cgAssign scrutinee =<< cgExp e
     cgCase scrutinee alts
 
-cgExp (DChkCase (DV var) alts) = cgCase var alts
-cgExp (DChkCase e alts) = do
-    scrutinee <- fresh
-    emit . cgAssign scrutinee =<< cgExp e
-    cgCase scrutinee alts
-
-cgExp (DProj e i) = do
+cgExp (LProj e i) = do
     e <- cgExp e
     return $ e ! show (i+1)
 
-cgExp (DConst c) = return $ cgConst c
+cgExp (LConst c) = return $ cgConst c
 
-cgExp (DForeign fdesc (FStr fn) args) = cgApp (text fn) <$> mapM (cgExp . snd) args
-cgExp (DForeign fdesc rdesc args) = error $ "unrecognised foreign: " ++ show (fdesc, rdesc, args)
-cgExp (DOp prim args) = cgPrim prim <$> mapM cgExp args
-cgExp  DNothing = return $ text "None"
-cgExp (DError msg) = return $ cgError msg
+cgExp (LForeign fdesc (FStr fn) args) = cgApp (text fn) <$> mapM (cgExp . snd) args
+cgExp (LForeign fdesc rdesc args) = error $ "unrecognised foreign: " ++ show (fdesc, rdesc, args)
+cgExp (LOp prim args) = cgPrim prim <$> mapM cgExp args
+cgExp  LNothing = return $ text "None"
+cgExp (LError msg) = return $ cgError msg
 
 ifElif :: [String]
 ifElif = "if" : repeat "elif"
 
 -- We assume that all tags are different here
-cgAltTree :: Int -> Int -> LVar -> LVar -> [(Int, DAlt)] -> CG ()
+cgAltTree :: Int -> Int -> LVar -> LVar -> [(Int, LAlt)] -> CG ()
 cgAltTree groupSize altCount retVar scrutinee alts
     | altCount > groupSize
     = do
@@ -381,12 +364,12 @@ cgAltTree groupSize altCount retVar scrutinee alts
 -- 1. generate a fresh var
 -- 2. emit statements containing an if-elif-... chain that assigns to the var
 -- 3. use the assigned var as the expression standing for the result
-cgCase :: LVar -> [DAlt] -> CG Expr
-cgCase var [DDefaultCase e] = cgExp e
+cgCase :: LVar -> [LAlt] -> CG Expr
+cgCase var [LDefaultCase e] = cgExp e
 
 cgCase var alts
     | altCount >= 2 * groupSize  -- there would be at least 2 full groups
-    , DDefaultCase def : alts' <- reverse alts
+    , LDefaultCase def : alts' <- reverse alts
     , all isConCase alts' = do
         retVar <- fresh
         taggedAlts <- mapM getTag alts'
@@ -397,12 +380,12 @@ cgCase var alts
     groupSize = 3  -- smallest group size: (groupSize+1) `div` 2
     altCount = length alts
 
-    isConCase :: DAlt -> Bool
-    isConCase (DConCase _ _ _ _) = True
+    isConCase :: LAlt -> Bool
+    isConCase (LConCase _ _ _ _) = True
     isConCase _ = False
 
-    getTag :: DAlt -> CG (Int, DAlt)
-    getTag alt@(DConCase _ n _ _) = do
+    getTag :: LAlt -> CG (Int, LAlt)
+    getTag alt@(LConCase _ n _ _) = do
         Just tag <- ctorTag n
         return (tag, alt)
 
@@ -413,15 +396,15 @@ cgCase var alts = do
     return $ cgVar retVar
   where
     emitUnreachableCase
-        | (DDefaultCase _ : _) <- reverse alts
+        | (LDefaultCase _ : _) <- reverse alts
         = return ()
 
         | otherwise
         = emit $ text "else" <> colon $+$ indent (cgError "unreachable case")
 
-cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
-cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
-    -- DConCase does not contain useful tags yet
+cgAlt :: LVar -> LVar -> (String, LAlt) -> CG ()
+cgAlt v retVar (if_, LConCase tag' ctorName [] e) = do
+    -- LConCase does not contain useful tags yet
     -- we need to find out by looking up by name
     Just tag <- ctorTag ctorName
     emit (
@@ -431,8 +414,8 @@ cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
     sindent $ do
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
-    -- DConCase does not contain useful tags yet
+cgAlt v retVar (if_, LConCase tag' ctorName args e) = do
+    -- LConCase does not contain useful tags yet
     -- we need to find out by looking up by name
     Just tag <- ctorTag ctorName
     emit (
@@ -443,12 +426,12 @@ cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
         emit $ cgMatch (map Glob args) v
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, DConstCase c e) = do
+cgAlt v retVar (if_, LConstCase c e) = do
     emit $ text if_ <+> cgVar v <+> text "==" <+> cgConst c <> colon
     sindent $
         emit . cgAssign retVar =<< cgExp e
 
-cgAlt v retVar (if_, DDefaultCase e) = do
+cgAlt v retVar (if_, LDefaultCase e) = do
     emit $ text "else" <> colon
     sindent $
         emit . cgAssign retVar =<< cgExp e
