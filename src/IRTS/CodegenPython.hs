@@ -11,7 +11,9 @@ import Data.Maybe
 import Data.Char
 import Data.List
 import Data.Ord
-import qualified Data.Text as T
+import qualified Data.Text as ST
+import qualified Data.Text.Lazy as T
+import qualified Data.Text.Lazy.IO as TIO
 import qualified Data.Map as M
 
 import Control.Monad
@@ -163,7 +165,7 @@ mangle n = "idris_" ++ concatMap mangleChar (showCG n)
 -- We could generate from:
 -- simpleDecls / defunDecls / liftDecls
 codegenPython :: CodeGenerator
-codegenPython ci = writeFile (outputFile ci) (render "#" source)
+codegenPython ci = TIO.writeFile (outputFile ci) (render "#" source)
   where
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
     ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
@@ -172,8 +174,8 @@ codegenPython ci = writeFile (outputFile ci) (render "#" source)
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.
 cgName :: Name -> Expr
-cgName (MN i n) | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
-    = text $ T.unpack n ++ show i
+cgName (MN i n) | all (\x -> isAlpha x || x `elem` "_") (ST.unpack n)
+    = text $ ST.unpack n ++ show i
 cgName n = text (mangle n)  -- <?> show n  -- uncomment this to get a comment for *every* mangled name
 
 cgTuple :: Int -> [Expr] -> Expr

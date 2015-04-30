@@ -18,11 +18,12 @@ module Util.PrettyPrint
     )
     where
 
+import qualified Data.Text.Lazy as T
 
-type Line = (String, String)  -- text, comment
+type Line = (T.Text, T.Text)  -- text, comment
 newtype Doc = Doc [Line]
 instance Show Doc where
-    show = render "--"
+    show = T.unpack . render "--"
 
 infixr 6 <>, <+>
 infixr 5 $$, $+$
@@ -32,7 +33,7 @@ int :: Int -> Doc
 int i = text $ show i
 
 text :: String -> Doc
-text s = Doc [(s, "")]
+text s = Doc [(T.pack s, T.empty)]
 
 comma, colon, lparen, rparen, lbracket, rbracket :: Doc
 comma    = text ","
@@ -56,25 +57,31 @@ Doc xs $+$ Doc ys = Doc $ xs ++ ys
 
 -- | Add a comment to the first line of the Doc.
 (<?>) :: Doc -> String -> Doc
-Doc [] <?> comment = Doc [("", comment)]
-Doc ((t,c) : lines) <?> comment = Doc $ (t, merge comment c) : lines
+Doc [] <?> comment = Doc [(T.empty, T.pack $ comment)]
+Doc ((t,c) : lines) <?> comment = Doc $ (t, merge (T.pack comment) c) : lines
   where
-    merge "" y  = y
-    merge x  "" = x
-    merge x  y  = x ++ " (" ++ y ++ ")"
+    merge x y
+        | T.null x = y
+        | T.null y = x
+        | otherwise = x +++ T.pack " (" +++ y +++ T.pack ")"
+
+infixr 3 +++
+(+++) :: T.Text -> T.Text -> T.Text
+(+++) = T.append
 
 meld :: String -> [Line] -> [Line] -> [Line]
 meld sep [] ys = ys
 meld sep xs [] = xs
-meld sep [(x,xc)] ((y,yc) : ys) = (x ++ sep ++ y, merge xc yc) : ys
+meld sep [(x,xc)] ((y,yc) : ys) = (x +++ T.pack sep +++ y, merge xc yc) : ys
   where
-    merge "" y  = y
-    merge x  "" = x
-    merge x  y  = x ++ ", " ++ y
+    merge x y
+        | T.null x = y
+        | T.null y = x
+        | otherwise = x +++ T.pack ", " +++ y
 meld sep (x : xs) ys = x : meld sep xs ys
 
 nest :: Int -> Doc -> Doc
-nest n (Doc xs) = Doc [(replicate n ' ' ++ t, c) | (t, c) <- xs]
+nest n (Doc xs) = Doc [(T.replicate (fromIntegral n) (T.pack " ") +++ t, c) | (t, c) <- xs]
 
 parens :: Doc -> Doc
 parens d = lparen <> d <> rparen
@@ -82,14 +89,17 @@ parens d = lparen <> d <> rparen
 brackets :: Doc -> Doc
 brackets d = lbracket <> d <> rbracket
 
-render :: String -> Doc -> String
-render cmtStr (Doc xs) = unlines $ map (renderLine cmtStr) xs
+render :: String -> Doc -> T.Text
+render cmtStr (Doc xs) = T.unlines $ map (renderLine $ T.pack cmtStr) xs
 
-renderLine :: String -> (String, String) -> String
-renderLine cmtStr ("", "") = ""
-renderLine cmtStr ("", comment) = cmtStr ++ " " ++ comment
-renderLine cmtStr (content, "") = content
-renderLine cmtStr (content, comment) = content ++ "  " ++ cmtStr ++ " " ++ comment
+renderLine :: T.Text -> Line -> T.Text
+renderLine sep (content, comment)
+    | T.null content && T.null comment = T.empty
+    | T.null content = sep +++ space +++ comment
+    | T.null comment = content
+    | otherwise = content +++ space +++ space +++ sep +++ space +++ comment
+  where
+    space = T.pack " "
 
 empty :: Doc
 empty = Doc []
@@ -106,7 +116,7 @@ punctuate sep [x] = [x]
 punctuate sep (x : xs) = (x <> sep) : punctuate sep xs
 
 size :: Doc -> Int
-size (Doc xs) = sum [length t | (t, c) <- xs]
+size (Doc xs) = fromIntegral $ sum [T.length t | (t, c) <- xs]
 
 width :: Doc -> Int
-width (Doc xs) = maximum [length t | (t, c) <- xs]
+width (Doc xs) = fromIntegral $ maximum [T.length t | (t, c) <- xs]
