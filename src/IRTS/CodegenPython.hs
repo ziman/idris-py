@@ -18,7 +18,7 @@ import Control.Monad
 import Control.Applicative hiding (empty, Const)
 import Control.Monad.Trans.State.Lazy
 
-import Text.PrettyPrint hiding (Str)
+import Util.PrettyPrint
 
 -- Codegen state within one Decl
 data CGState = CGState
@@ -178,29 +178,26 @@ codegenPython ci = writeFile (outputFile ci) (render source)
 cgName :: Name -> Expr
 cgName = text . mangle
 
-cgTuple :: [Expr] -> Expr
-cgTuple xs = parens . hsep $ punctuate comma xs
+cgTuple :: Int -> [Expr] -> Expr
+cgTuple maxSize [] = parens empty  -- don't split empty tuples
+cgTuple maxSize xs
+    | size oneLiner <= maxSize = oneLiner
+    | otherwise = lparen $+$ indent (vcat punctuated) $+$ rparen
+  where
+    punctuated = punctuate comma xs
+    oneLiner = parens $ hsep punctuated
 
 cgApp :: Expr -> [Expr] -> Expr
-cgApp f args
-    -- if one-liner is short, use it
-    | length (render simple) <= 80 = simple
-
-    -- if one-liner would be long, use multiple lines
-    | otherwise = 
-        (f <> lparen)
-        $+$ indent (vcat $ punctuate comma args)
-        $+$ rparen
+cgApp f args = f <> cgTuple maxWidth args
   where
-    -- one-line version, including the function name
-    simple = f <> parens (hsep $ punctuate comma args)
+    maxWidth = 80 - width f
 
 -- Process one definition. The caller deals with constructor declarations,
 -- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
     cgComment (show name')
-    $+$ (text "def" <+> cgName n <> cgTuple (map cgName args) <> colon)
+    $+$ (text "def" <+> cgName n <> cgTuple maxArgsWidth (map cgName args) <> colon)
     $+$ indent (
         text "while" <+> text "True" <> colon  -- for tail calls
         $+$ indent (
@@ -211,13 +208,14 @@ cgDef ctors (n, DFun name' args body) =
         )
     $+$ text ""  -- empty line separating definitions
   where
+    maxArgsWidth = 80 - width (cgName n)
     (statements, retVal) = evalState body' initState
     body' = runCG . cgExp . tailify n $ body
     initState = CGState 1 ctors (n, args)
 
     -- used only for debugging
     trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
-                <+> text "%" <+> cgTuple [text "repr" <> parens (cgName a) | a <- args]
+                <+> text "%" <+> cgTuple 80 [text "repr" <> parens (cgName a) | a <- args]
     argfmt = intercalate ", " ["%s" | _ <- args]
 
 -- Mark tail-calls as such.
@@ -292,17 +290,7 @@ cgComment msg = text "#" <+> text msg
 
 cgCtor :: Int -> Name -> [Expr] -> Expr
 cgCtor tag n [] = parens (int tag <> comma) -- no-arg ctors
-cgCtor tag n args
-    -- if the code is short, just put it all on one line
-    | length (render simple) <= 60 = simple
-
-    -- long code, split over multiple lines
-    | otherwise = 
-        lparen <> int tag <> comma <+> cgComment (show n)
-        $+$ indent (vcat $ punctuate comma args)
-        $+$ rparen
-  where
-    simple = parens . hsep . punctuate comma $ int tag : args
+cgCtor tag n args = cgTuple 80 (int tag : args)
 
 cgAssign :: LVar -> Expr -> Stmts
 cgAssign v e = cgVar v <+> text "=" <+> e

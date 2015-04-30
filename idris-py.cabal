@@ -21,7 +21,6 @@ Executable idris-py
                 , haskeline >= 0.7
                 , mtl
                 , transformers
-                , pretty
                 , text
 
   other-modules: IRTS.CodegenPython
