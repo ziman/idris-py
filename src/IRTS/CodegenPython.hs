@@ -149,18 +149,11 @@ pythonPreamble = vcat . map text $
     ]
 
 pythonLauncher :: Doc
-pythonLauncher = vcat . map text $
-    [ "if __name__ == '__main__':"
-    , "  " ++ mangle (sMN 0 "runMain") ++ "()"
-    , ""
-    ]
+pythonLauncher =
+    text "if __name__ == '__main__':"
+    $+$ indent (cgApp (cgName $ sMN 0 "runMain") [])
 
--- Let's not mangle /that/ much. Especially function parameters
--- like e0 and e1 are nicer when readable.
 mangle :: Name -> String
-mangle (MN i n)
-    | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
-    = T.unpack n ++ show i
 mangle n = "idris_" ++ concatMap mangleChar (showCG n)
   where
     mangleChar x
@@ -176,8 +169,12 @@ codegenPython ci = writeFile (outputFile ci) (render "#" source)
     ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
     definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- defunDecls ci]
 
+-- Let's not mangle /that/ much. Especially function parameters
+-- like e0 and e1 are nicer when readable.
 cgName :: Name -> Expr
-cgName = text . mangle
+cgName (MN i n) | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
+    = text $ T.unpack n ++ show i
+cgName n = text (mangle n)  -- <?> show n  -- uncomment this to get a comment for *every* mangled name
 
 cgTuple :: Int -> [Expr] -> Expr
 cgTuple maxSize [] = parens empty  -- don't split empty tuples

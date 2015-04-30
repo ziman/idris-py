@@ -18,6 +18,9 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * `foreach` -- higher-order FFI :)
 * big case trees compiled to binary search trees
 	- seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
+* comments in the generated Python code show the meaning of low-level code
+    - constructor tags
+    - mangled names
 
 ## Example
 
