@@ -145,6 +145,7 @@ pythonPreamble = vcat . map text $
     , ""
     , "def idris_is_none(x):"
     , "  return 1 if x is None else 0"
+    , ""
     ]
 
 pythonLauncher :: Doc
@@ -169,7 +170,7 @@ mangle n = "idris_" ++ concatMap mangleChar (showCG n)
 -- We could generate from:
 -- simpleDecls / defunDecls / liftDecls
 codegenPython :: CodeGenerator
-codegenPython ci = writeFile (outputFile ci) (render source)
+codegenPython ci = writeFile (outputFile ci) (render "#" source)
   where
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
     ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
@@ -196,7 +197,7 @@ cgApp f args = f <> cgTuple maxWidth args
 -- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
-    cgComment (show name')
+    (empty <?> show name')
     $+$ (text "def" <+> cgName n <> cgTuple maxArgsWidth (map cgName args) <> colon)
     $+$ indent (
         text "while" <+> text "True" <> colon  -- for tail calls
@@ -285,12 +286,9 @@ cgConst (Ch c) = text $ show c
 cgConst (Str s) = text $ show s
 cgConst c = cgError $ "unimplemented constant: " ++ show c
 
-cgComment :: String -> Doc
-cgComment msg = text "#" <+> text msg
-
 cgCtor :: Int -> Name -> [Expr] -> Expr
-cgCtor tag n [] = parens (int tag <> comma) -- no-arg ctors
-cgCtor tag n args = cgTuple 80 (int tag : args)
+cgCtor tag n [] = parens (int tag <> comma) <?> show n
+cgCtor tag n args = cgTuple 80 (int tag : args) <?> show n
 
 cgAssign :: LVar -> Expr -> Stmts
 cgAssign v e = cgVar v <+> text "=" <+> e
@@ -431,7 +429,7 @@ cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
     Just tag <- ctorTag ctorName
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
-        <+> cgComment (show ctorName)
+        <?> show ctorName
      )
     sindent $ do
         emit . cgAssign retVar =<< cgExp e
@@ -442,7 +440,7 @@ cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
     Just tag <- ctorTag ctorName
     emit (
         text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
-        <+> cgComment (show ctorName)
+        <?> show ctorName
       )
     sindent $ do
         emit $ cgMatch (map Glob args) v
