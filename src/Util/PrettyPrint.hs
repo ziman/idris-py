@@ -54,6 +54,7 @@ Doc xs $+$ Doc ys = Doc $ xs ++ ys
 ($$) :: Doc -> Doc -> Doc
 ($$) = ($+$)
 
+-- | Add a comment to the first line of the Doc.
 (<?>) :: Doc -> String -> Doc
 Doc [] <?> comment = Doc [("", comment)]
 Doc ((t,c) : lines) <?> comment = Doc $ (t, merge comment c) : lines
