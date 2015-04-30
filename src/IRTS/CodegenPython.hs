@@ -176,19 +176,25 @@ cgName (MN i n) | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
     = text $ T.unpack n ++ show i
 cgName n = text (mangle n)  -- <?> show n  -- uncomment this to get a comment for *every* mangled name
 
+bigParens :: Doc -> Doc
+bigParens d = lparen $+$ indent d $+$ rparen
+
 cgTuple :: Int -> [Expr] -> Expr
 cgTuple maxSize [] = parens empty  -- don't split empty tuples
 cgTuple maxSize xs
     | size oneLiner <= maxSize = oneLiner
-    | otherwise = lparen $+$ indent (vcat punctuated) $+$ rparen
+    | otherwise = bigParens $ vcat punctuated
   where
     punctuated = punctuate comma xs
     oneLiner = parens $ hsep punctuated
 
 cgApp :: Expr -> [Expr] -> Expr
-cgApp f args = parens f <> cgTuple maxWidth args
+cgApp f args = f <> cgTuple maxWidth args
   where
     maxWidth = 80 - width f
+
+cgBigApp :: Expr -> [Expr] -> Expr
+cgBigApp f args = cgApp (parens f) args
 
 -- Process one definition. The caller deals with constructor declarations,
 -- we only deal with function definitions.
@@ -311,9 +317,23 @@ cgTailCall argNames args = do
     emit $ text "continue"
     return $ cgError "unreachable due to tail call"
 
+cgLambda :: [Name] -> Expr -> Expr
+cgLambda [] body = body
+cgLambda (n : ns) body =
+    text "lambda" <+> cgName n <> colon <+> bigParens (cgLambda ns body)
+
+cgLazy :: Expr -> Expr
+cgLazy e = parens $ text "lambda:" <+> e
+
 cgExp :: LExp -> CG Expr
 cgExp (LV var) = return $ cgVar var
-cgExp (LApp isTailCall f args) = cgApp <$> cgExp f <*> mapM cgExp args
+cgExp (LApp isTailCall (LV v) args) = cgApp (cgVar v) <$> mapM cgExp args  -- todo: implement tail calls
+cgExp (LApp isTailCall f args) = cgBigApp <$> cgExp f <*> mapM cgExp args  -- todo: implement tail calls
+
+cgExp (LLazyApp n args) = cgApp (cgName n) <$> mapM cgExp args  -- todo: ??
+cgExp (LLazyExp e) = cgLazy <$> cgExp e
+cgExp (LForce e) = cgApp <$> cgExp e <*> pure []
+cgExp (LLam ns e) = cgLambda ns <$> cgExp e
 
 cgExp (LLet n v e) = do
     emit . cgAssignN n =<< cgExp v
