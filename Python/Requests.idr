@@ -2,17 +2,20 @@ module Python.Requests
 
 import Python
 
-Response : PySig
-Response = MkPySig "Response"
+Response : Signature
+Response = MkSignature "Response"
   [ "text" ::: String
   ]
 
-Session : PySig
-Session = MkPySig "Session"
+Session : Signature
+Session = MkSignature "Session"
   [ "get" ::: [String] ~> Object Response
   ]
 
-Requests : PySig
-Requests = MkPySig "Requests"
+Requests : Signature
+Requests = MkSignature "Requests"
   [ "Session" ::: [] ~> Object Session
   ]
+
+import_ : PIO $ Object Requests
+import_ = importModule "requests"

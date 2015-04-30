@@ -2,12 +2,12 @@ module Python.Prim
 
 import Python
 
-PyString : PySig
-PyString = MkPySig "PyString"
+PyString : Signature
+PyString = MkSignature "PyString"
   [ "join" ::: [Iterator String] ~> String
   ]
 
-data PythonPrim : Type -> PySig -> Type where
+data PythonPrim : Type -> Signature -> Type where
   PPString : PythonPrim String PyString
 
 obj : (x : a) -> {auto pf : PythonPrim a sig} -> Object sig

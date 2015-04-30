@@ -2,18 +2,21 @@ module Python.BeautifulSoup
 
 import Python
 
-Element : PySig
-Element = MkPySig "Element"
+Element : Signature
+Element = MkSignature "Element"
   [ "string"  ::: String
   , "strings" ::: Iterator String
   ]
 
-Soup : PySig
-Soup = MkPySig "Soup"
+Soup : Signature
+Soup = MkSignature "Soup"
   [ "select" ::: [String] ~> Iterator (Object Element)
   ]
 
-Bs4 : PySig
-Bs4 = MkPySig "Bs4"
+Bs4 : Signature
+Bs4 = MkSignature "Bs4"
   [ "BeautifulSoup" ::: [String] ~> Object Soup
   ]
+
+import_ : PIO $ Object Bs4
+import_ = importModule "bs4"
