@@ -285,7 +285,7 @@ cgConst c = cgError $ "unimplemented constant: " ++ show c
 
 cgCtor :: Int -> Name -> [Expr] -> Expr
 cgCtor tag n [] = parens (int tag <> comma) <?> show n
-cgCtor tag n args = cgTuple 80 (int tag : args) <?> show n
+cgCtor tag n args = cgTuple 80 $ (int tag <?> show n) : args
 
 cgAssign :: LVar -> Expr -> Stmts
 cgAssign v e = cgVar v <+> text "=" <+> e

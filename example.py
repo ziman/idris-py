@@ -54,7 +54,7 @@ def idris_Python_46__36__46_(e0, e1, e2, idris_args):
 # Python.$:
 def idris_Python_46__36__58_(e0, e1, e2, idris_args):
   while True:
-    return (65671, None, None, None, e2, (65663, idris_args))  # {U_io_bind1} ({U_Python.{$:0}1})
+    return (65671, None, None, None, e2, (65663, idris_args))  # {U_io_bind1}, {U_Python.{$:0}1}
 
 # Prelude.Basics..
 def idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, idris_x):
@@ -75,7 +75,7 @@ def idris_Python_46__47__46_(e0, e1, e2, e3, e4):
 # Python./:
 def idris_Python_46__47__58_(e0, e1, e2, e3, e4):
   while True:
-    return (65671, None, None, None, e2, (65665, e3))  # {U_io_bind1} ({U_Python.{/:0}1})
+    return (65671, None, None, None, e2, (65665, e3))  # {U_io_bind1}, {U_Python.{/:0}1}
 
 # Prelude.Algebra.<+>
 def idris_Prelude_46_Algebra_46__60__43__62_(e0, e1):
@@ -112,7 +112,7 @@ def idris_Python_46_collect(e0, e1):
       None,
       None,
       None,
-      (65658, None, (0,)),  # {U_Prelude.List.reverse, reverse'1} (Prelude.List.Nil)
+      (65658, None, (0,)),  # {U_Prelude.List.reverse, reverse'1}, Prelude.List.Nil
       idris_Python_46_foreach(None, None, e1, (0,), (65667,))  # Prelude.List.Nil, {U_Python.{collect1}1}
     )
 
@@ -174,8 +174,8 @@ def idris_io_95_return(e0, e1, e2, idris_w):
 # Main.main
 def idris_Main_46_main():
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -266,7 +266,7 @@ def idris_prim_95_io_95_bind(e0, e1, e2, e3):
 # Prelude.putStr
 def idris_Prelude_46_putStr(e0, e1):
   while True:
-    return (65671, None, None, None, (65659, e1), (65660,))  # {U_io_bind1} ({U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1})
+    return (65671, None, None, None, (65659, e1), (65660,))  # {U_io_bind1}, {U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1}
 
 # run__IO
 def idris_run_95__95_IO(e0, e1):
@@ -477,7 +477,7 @@ def idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_
 # Python.{collect0}
 def idris_Python_46__123_collect0_125_(in0, in1):
   while True:
-    return (65672, None, None, (1, in1, in0))  # {U_io_return1} (Prelude.List.::)
+    return (65672, None, None, (1, in1, in0))  # {U_io_return1}, Prelude.List.::
 
 # Python.{foreach0}
 def idris_Python_46__123_foreach0_125_(e2, e3, e4, in0):
@@ -537,7 +537,7 @@ def idris_Main_46__123_main1_125_(in12, in13):
 # Prelude.{putStr1}
 def idris_Prelude_46__123_putStr1_125_(in1):
   while True:
-    return (65672, None, None, (0,))  # {U_io_return1} (MkUnit)
+    return (65672, None, None, (0,))  # {U_io_return1}, MkUnit
 
 # {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, idris_w):
@@ -576,7 +576,7 @@ def idris_Main_46__123_main7_125_(in9):
       None,
       None,
       None,
-      idris_Prelude_46_Foldable_46_concat(None, None, (65649,), (0, (65651,), "")),  # {U_Main.{main4}1}, constructor of Prelude.Algebra.Monoid ({U_Main.{main6}1})
+      idris_Prelude_46_Foldable_46_concat(None, None, (65649,), (0, (65651,), "")),  # {U_Main.{main4}1}, constructor of Prelude.Algebra.Monoid, {U_Main.{main6}1}
       in9
     )
 
@@ -588,8 +588,8 @@ def idris_Main_46__123_main8_125_(in7, in18):
 # Main.{main9}
 def idris_Main_46__123_main9_125_(in7, in17):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -600,18 +600,18 @@ def idris_Main_46__123_main9_125_(in7, in17):
 # Main.{main10}
 def idris_Main_46__123_main10_125_(in7, in8):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
-      (  # {U_io_bind1}
-        65671,
+      (
+        65671,  # {U_io_bind1}
         None,
         None,
         None,
         idris_Python_46__47__46_(None, None, in8, "strings", None),
-        (65655, None, None, None, (65652,), (65661, None))  # {U_Prelude.Basics..1} ({U_Main.{main7}1}, {U_Python.collect1})
+        (65655, None, None, None, (65652,), (65661, None))  # {U_Prelude.Basics..1}, {U_Main.{main7}1}, {U_Python.collect1}
       ),
       (65654, in7)  # {U_Main.{main9}1}
     )
@@ -629,8 +629,8 @@ def idris_Main_46__123_main12_125_(in19):
 # Main.{main13}
 def idris_Main_46__123_main13_125_(in5, in6):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -641,8 +641,8 @@ def idris_Main_46__123_main13_125_(in5, in6):
 # Main.{main14}
 def idris_Main_46__123_main14_125_(in5):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -656,8 +656,8 @@ def idris_Main_46__123_main14_125_(in5):
 # Main.{main15}
 def idris_Main_46__123_main15_125_(in4):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -665,7 +665,7 @@ def idris_Main_46__123_main15_125_(in4):
         None,
         None,
         idris_Python_46__47__46_(None, None, in4, "select", None),
-        (1, "div.entry-content li", (0,))  # Python.:: (Python.Nil)
+        (1, "div.entry-content li", (0,))  # Python.::, Python.Nil
       ),
       (65640,)  # {U_Main.{main14}1}
     )
@@ -673,8 +673,8 @@ def idris_Main_46__123_main15_125_(in4):
 # Main.{main16}
 def idris_Main_46__123_main16_125_(in2, in3):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -682,7 +682,7 @@ def idris_Main_46__123_main16_125_(in2, in3):
         None,
         None,
         idris_Python_46__47__46_(None, None, in3, "BeautifulSoup", None),
-        (1, in2, (0,))  # Python.:: (Python.Nil)
+        (1, in2, (0,))  # Python.::, Python.Nil
       ),
       (65641,)  # {U_Main.{main15}1}
     )
@@ -690,13 +690,13 @@ def idris_Main_46__123_main16_125_(in2, in3):
 # Main.{main17}
 def idris_Main_46__123_main17_125_(in2):
   while True:
-    return (65671, None, None, None, idris_Python_46_import_95_(None, "bs4"), (65642, in2))  # {U_io_bind1} ({U_Main.{main16}1})
+    return (65671, None, None, None, idris_Python_46_import_95_(None, "bs4"), (65642, in2))  # {U_io_bind1}, {U_Main.{main16}1}
 
 # Main.{main18}
 def idris_Main_46__123_main18_125_(in1):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -707,7 +707,7 @@ def idris_Main_46__123_main18_125_(in1):
           None,
           None,
           idris_Python_46__47__46_(None, None, in1, "get", None),
-          (1, "http://idris-lang.org", (0,))  # Python.:: (Python.Nil)
+          (1, "http://idris-lang.org", (0,))  # Python.::, Python.Nil
         ),
         "text",
         None
@@ -718,8 +718,8 @@ def idris_Main_46__123_main18_125_(in1):
 # Main.{main19}
 def idris_Main_46__123_main19_125_(in0):
   while True:
-    return (  # {U_io_bind1}
-      65671,
+    return (
+      65671,  # {U_io_bind1}
       None,
       None,
       None,
@@ -802,7 +802,7 @@ def idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_
   e4
 ):
   while True:
-    return (65671, None, None, None, e4, (65656, e3))  # {U_io_bind1} ({U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1})
+    return (65671, None, None, None, e4, (65656, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
 
 # Prelude.List.List instance of Prelude.Foldable.Foldable
 def idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(

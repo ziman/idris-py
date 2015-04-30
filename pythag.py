@@ -219,8 +219,8 @@ def idris_io_95_return(e0, e1, e2, idris_w):
 # Main.main
 def idris_Main_46_main():
   while True:
-    return (  # {U_io_bind1}
-      65647,
+    return (
+      65647,  # {U_io_bind1}
       None,
       None,
       None,
@@ -344,7 +344,7 @@ def idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
 # Prelude.putStr
 def idris_Prelude_46_putStr(e0, e1):
   while True:
-    return (65647, None, None, None, (65645, e1), (65646,))  # {U_io_bind1} ({U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1})
+    return (65647, None, None, None, (65645, e1), (65646,))  # {U_io_bind1}, {U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1}
 
 # Main.pythag
 def idris_Main_46_pythag(e0):
@@ -627,7 +627,7 @@ def idris_Prelude_46__123_putStr0_125_(e1, in0):
 # Main.{pythag0}
 def idris_Main_46__123_pythag0_125_(in4):
   while True:
-    return (1, in4, (0,))  # Prelude.List.:: (Prelude.List.Nil)
+    return (1, in4, (0,))  # Prelude.List.::, Prelude.List.Nil
 
 # {runMain0}
 def runMain0():
@@ -664,7 +664,7 @@ def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
 # Prelude.{putStr1}
 def idris_Prelude_46__123_putStr1_125_(in1):
   while True:
-    return (65648, None, None, (0,))  # {U_io_return1} (MkUnit)
+    return (65648, None, None, (0,))  # {U_io_return1}, MkUnit
 
 # Main.{pythag1}
 def idris_Main_46__123_pythag1_125_(in3):
@@ -749,7 +749,7 @@ def idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_
 # Main.{pythag3}
 def idris_Main_46__123_pythag3_125_(in2, in1, in0, in6):
   while True:
-    return (1, (0, in2, (0, in1, in0)), (0,))  # Prelude.List.:: (Builtins.MkPair (Builtins.MkPair), Prelude.List.Nil)
+    return (1, (0, in2, (0, in1, in0)), (0,))  # Prelude.List.::, Builtins.MkPair, Builtins.MkPair, Prelude.List.Nil
 
 # {PE_List a instance of Prelude.Show_f5d3ac2c4}
 def idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(
@@ -784,7 +784,7 @@ def idris_Main_46__123_pythag4_125_(in1, in0, in2):
     return idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
       None,
       None,
-      idris_Prelude_46_Applicative_46_guard(None, (0, (65625,), (65626,)), aux2),  # constructor of Prelude.Applicative.Alternative ({U_Main.{pythag1}1}, {U_Main.{pythag2}1})
+      idris_Prelude_46_Applicative_46_guard(None, (0, (65625,), (65626,)), aux2),  # constructor of Prelude.Applicative.Alternative, {U_Main.{pythag1}1}, {U_Main.{pythag2}1}
       (65627, in2, in1, in0)  # {U_Main.{pythag3}1}
     )
 
@@ -957,7 +957,7 @@ def idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_5
         None,
         None,
         (65642,),  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}
-        (0, (65644,), (0,)),  # constructor of Prelude.Algebra.Monoid ({U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}, Prelude.List.Nil)
+        (0, (65644,), (0,)),  # constructor of Prelude.Algebra.Monoid, {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}, Prelude.List.Nil
         e3
       ),
       e2
@@ -1090,7 +1090,7 @@ def idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
 # Prelude.Classes.Int instance of Prelude.Classes.Ord
 def idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int():
   while True:
-    return (0, (65634,), (65636,))  # constructor of Prelude.Classes.Ord ({U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}1})
+    return (0, (65634,), (65636,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}1}
 
 # case block in Void
 def idris_Void_95_case():
