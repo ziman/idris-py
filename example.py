@@ -47,14 +47,14 @@ def idris_Python_46__36__46_(e0, e1, e2, idris_args):
       None,
       None,
       None,
-      (65668, None, None),  # {U_believe_me1}
-      (65660, e2, idris_args)  # {U_Python.{$.0}1}
+      (65659, None),  # {U_Python.FFI.unRaw1}
+      (65662, e2, idris_args)  # {U_Python.{$.0}1}
     )
 
 # Python.$:
 def idris_Python_46__36__58_(e0, e1, e2, idris_args):
   while True:
-    return (65669, None, None, None, e2, (65661, idris_args))  # {U_io_bind1}, {U_Python.{$:0}1}
+    return (65669, None, None, None, e2, (65663, idris_args))  # {U_io_bind1}, {U_Python.{$:0}1}
 
 # Prelude.Basics..
 def idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, idris_x):
@@ -68,14 +68,14 @@ def idris_Python_46__47__46_(e0, e1, e2, e3, e4):
       None,
       None,
       None,
-      (65668, None, None),  # {U_believe_me1}
-      (65662, e2, e3)  # {U_Python.{/.0}1}
+      (65659, None),  # {U_Python.FFI.unRaw1}
+      (65664, e2, e3)  # {U_Python.{/.0}1}
     )
 
 # Python./:
 def idris_Python_46__47__58_(e0, e1, e2, e3, e4):
   while True:
-    return (65669, None, None, None, e2, (65663, e3))  # {U_io_bind1}, {U_Python.{/:0}1}
+    return (65669, None, None, None, e2, (65665, e3))  # {U_io_bind1}, {U_Python.{/:0}1}
 
 # Prelude.Algebra.<+>
 def idris_Prelude_46_Algebra_46__60__43__62_(e0, e1):
@@ -95,11 +95,6 @@ def idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup
       idris_error("unreachable case")
     return aux1
 
-# believe_me
-def idris_believe_95_me(e0, e1, e2):
-  while True:
-    return e2
-
 # call__IO
 def idris_call_95__95_IO(e0, e1, e2):
   while True:
@@ -113,7 +108,7 @@ def idris_Python_46_collect(e0, e1):
       None,
       None,
       (65656, None, (0,)),  # {U_Prelude.List.reverse, reverse'1}, Prelude.List.Nil
-      idris_Python_46_foreach(None, None, e1, (0,), (65665,))  # Prelude.List.Nil, {U_Python.{collect1}1}
+      idris_Python_46_foreach(None, None, e1, (0,), (65667,))  # Prelude.List.Nil, {U_Python.{collect1}1}
     )
 
 # Prelude.Foldable.concat
@@ -146,30 +141,24 @@ def idris_Python_46_foreach(e0, e1, e2, e3, e4):
       None,
       None,
       None,
-      (65668, None, None),  # {U_believe_me1}
-      (65666, e2, e3, e4)  # {U_Python.{foreach0}1}
+      (65659, None),  # {U_Python.FFI.unRaw1}
+      (65668, e2, e3, e4)  # {U_Python.{foreach0}1}
     )
 
 # Python.importModule
-def idris_Python_46_importModule(e0, e1):
+def idris_Python_46_importModule(e0, e1, idris_w):
   while True:
-    return idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-      None,
-      None,
-      None,
-      (65668, None, None),  # {U_believe_me1}
-      (65667, e1)  # {U_Python.{importModule0}1}
-    )
+    return idris_pymodule(e1)
 
 # Python.BeautifulSoup.import_
 def idris_Python_46_BeautifulSoup_46_import_95_():
   while True:
-    return idris_Python_46_importModule(None, "bs4")
+    return (65661, None, "bs4")  # {U_Python.importModule1}
 
 # Python.Requests.import_
 def idris_Python_46_Requests_46_import_95_():
   while True:
-    return idris_Python_46_importModule(None, "requests")
+    return (65661, None, "requests")  # {U_Python.importModule1}
 
 # io_bind
 def idris_io_95_bind(e0, e1, e2, e3, e4, idris_w):
@@ -276,6 +265,11 @@ def idris_run_95__95_IO(e0, e1):
   while True:
     return APPLY0(e1, None)
 
+# Python.FFI.unRaw
+def idris_Python_46_FFI_46_unRaw(e0, e1):
+  while True:
+    return e1
+
 # unsafePerformPrimIO
 def idris_unsafePerformPrimIO():
   while True:
@@ -289,7 +283,7 @@ def idris_world(e0):
 # Python.{$.0}
 def idris_Python_46__123__36__46_0_125_(e2, idris_args, in0):
   while True:
-    return idris_call(e2, idris_believe_95_me(None, None, idris_args))
+    return idris_call(e2, idris_args)
 
 # Python.{$:0}
 def idris_Python_46__123__36__58_0_125_(idris_args, in0):
@@ -403,42 +397,42 @@ def APPLY0(fn0, arg0):
               aux1 = idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
             elif fn0[0] == 65658:  # {U_Prelude.{putStr1}1}
               aux1 = idris_Prelude_46__123_putStr1_125_(arg0)
-            elif fn0[0] == 65659:  # {U_Python.collect1}
+            elif fn0[0] == 65659:  # {U_Python.FFI.unRaw1}
               P_c0, = fn0[1:]
-              aux1 = idris_Python_46_collect(P_c0, arg0)
+              aux1 = idris_Python_46_FFI_46_unRaw(P_c0, arg0)
         else:
           if fn0[0] < 65663:
-            if fn0[0] == 65660:  # {U_Python.{$.0}1}
+            if fn0[0] == 65660:  # {U_Python.collect1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Python_46_collect(P_c0, arg0)
+            elif fn0[0] == 65661:  # {U_Python.importModule1}
+              P_c0, P_c1, = fn0[1:]
+              aux1 = idris_Python_46_importModule(P_c0, P_c1, arg0)
+            elif fn0[0] == 65662:  # {U_Python.{$.0}1}
               P_c0, P_c1, = fn0[1:]
               aux1 = idris_Python_46__123__36__46_0_125_(P_c0, P_c1, arg0)
-            elif fn0[0] == 65661:  # {U_Python.{$:0}1}
+          else:
+            if fn0[0] == 65663:  # {U_Python.{$:0}1}
               P_c0, = fn0[1:]
               aux1 = idris_Python_46__123__36__58_0_125_(P_c0, arg0)
-            elif fn0[0] == 65662:  # {U_Python.{/.0}1}
+            elif fn0[0] == 65664:  # {U_Python.{/.0}1}
               P_c0, P_c1, = fn0[1:]
               aux1 = idris_Python_46__123__47__46_0_125_(P_c0, P_c1, arg0)
-          else:
-            if fn0[0] == 65663:  # {U_Python.{/:0}1}
+            elif fn0[0] == 65665:  # {U_Python.{/:0}1}
               P_c0, = fn0[1:]
               aux1 = idris_Python_46__123__47__58_0_125_(P_c0, arg0)
-            elif fn0[0] == 65664:  # {U_Python.{collect0}1}
-              P_c0, = fn0[1:]
-              aux1 = idris_Python_46__123_collect0_125_(P_c0, arg0)
-            elif fn0[0] == 65665:  # {U_Python.{collect1}1}
-              aux1 = idris_Python_46__123_collect1_125_(arg0)
       else:
         if fn0[0] < 65671:
           if fn0[0] < 65668:
-            if fn0[0] == 65666:  # {U_Python.{foreach0}1}
+            if fn0[0] == 65666:  # {U_Python.{collect0}1}
+              P_c0, = fn0[1:]
+              aux1 = idris_Python_46__123_collect0_125_(P_c0, arg0)
+            elif fn0[0] == 65667:  # {U_Python.{collect1}1}
+              aux1 = idris_Python_46__123_collect1_125_(arg0)
+          else:
+            if fn0[0] == 65668:  # {U_Python.{foreach0}1}
               P_c0, P_c1, P_c2, = fn0[1:]
               aux1 = idris_Python_46__123_foreach0_125_(P_c0, P_c1, P_c2, arg0)
-            elif fn0[0] == 65667:  # {U_Python.{importModule0}1}
-              P_c0, = fn0[1:]
-              aux1 = idris_Python_46__123_importModule0_125_(P_c0, arg0)
-          else:
-            if fn0[0] == 65668:  # {U_believe_me1}
-              P_c0, P_c1, = fn0[1:]
-              aux1 = idris_believe_95_me(P_c0, P_c1, arg0)
             elif fn0[0] == 65669:  # {U_io_bind1}
               P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
               aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
@@ -485,16 +479,7 @@ def idris_Python_46__123_collect0_125_(in0, in1):
 # Python.{foreach0}
 def idris_Python_46__123_foreach0_125_(e2, e3, e4, in0):
   while True:
-    return idris_foreach(
-      e2,
-      idris_believe_95_me(None, None, e3),
-      idris_believe_95_me(None, None, e4)
-    )
-
-# Python.{importModule0}
-def idris_Python_46__123_importModule0_125_(e1, in0):
-  while True:
-    return idris_pymodule(e1)
+    return idris_foreach(e2, e3, e4)
 
 # {io_bind0}
 def io_bind0(e0, e1, e2, e3, e4, idris_w, in0):
@@ -525,7 +510,7 @@ def runMain0():
 # Python.{collect1}
 def idris_Python_46__123_collect1_125_(in0):
   while True:
-    return (65664, in0)  # {U_Python.{collect0}1}
+    return (65666, in0)  # {U_Python.{collect0}1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
@@ -614,7 +599,7 @@ def idris_Main_46__123_main10_125_(in7, in8):
         None,
         None,
         idris_Python_46__47__46_(None, None, in8, "strings", None),
-        (65653, None, None, None, (65650,), (65659, None))  # {U_Prelude.Basics..1}, {U_Main.{main7}1}, {U_Python.collect1}
+        (65653, None, None, None, (65650,), (65660, None))  # {U_Prelude.Basics..1}, {U_Main.{main7}1}, {U_Python.collect1}
       ),
       (65652, in7)  # {U_Main.{main9}1}
     )

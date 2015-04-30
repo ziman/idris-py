@@ -46,6 +46,9 @@ record Iterator : Type -> Type where
 
 namespace FFI
 
+  unRaw : FFI_C.Raw a -> a
+  unRaw (MkRaw x) = x
+
   ||| Supported Python foreign types.
   data PyTypes : Type -> Type where
     PyStr     : PyTypes String
@@ -58,6 +61,9 @@ namespace FFI
 
     ||| Arbitrary Python objects, opaque to Idris.
     PyPtr     : PyTypes Ptr
+
+    ||| Arbitrary Idris objects, opaque to Python.
+    PyAny     : PyTypes (FFI_C.Raw a)
 
     ||| Python objects with a signature known to Idris.
     PyObject  : PyTypes (Object sig)
@@ -104,8 +110,7 @@ infixl 3 /.
 abstract
 (/.) : (obj : Object sig) -> (f : String) -> {auto pf : Contains (f ::: a) sig} -> PIO a
 (/.) {a = a} (MkObject obj) f =
-  believe_me <$>
-    foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO Ptr) obj f
+  unRaw <$> foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO (Raw a)) obj f
 
 infixl 3 /:
 ||| Attribute accessor, useful for chaining.
@@ -144,9 +149,9 @@ infixl 3 $.
 ||| @ meth The method to call.
 abstract
 ($.) : (meth : Method margs ret) -> methTy margs ret
-($.) {margs = Fixed as} (MkMethod meth) =
-  \args => believe_me <$>
-    foreign FFI_Py "idris_call" (Ptr -> Ptr -> PIO Ptr) meth (believe_me args)
+($.) {margs = Fixed as} {ret = ret} (MkMethod meth) =
+  \args => unRaw <$>
+    foreign FFI_Py "idris_call" (Ptr -> (Raw $ HList as) -> PIO (Raw ret)) meth (MkRaw args)
 
 infixl 3 $:
 ||| Method call, useful for chaining.
@@ -169,9 +174,8 @@ infixl 3 $:
 ||| @ modName Name of the module, as given to `__import__`.
 abstract
 importModule : (modName : String) -> PIO (Object sig)
-importModule modName =
-  believe_me <$>
-    foreign FFI_Py "idris_pymodule" (String -> PIO Ptr) modName
+importModule {sig = sig} modName =
+  foreign FFI_Py "idris_pymodule" (String -> PIO (Object sig)) modName
 
 infix 3 ~>
 ||| Infix alias for methods with fixed arguments.
@@ -185,13 +189,13 @@ infix 3 ~>
 ||| @ f  PIO action called for every element, transforms the state.
 abstract
 foreach : (it : Iterator a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
-foreach (MkIterator it) st f = do
-  believe_me <$>
+foreach {a = a} {b = b} (MkIterator it) st f = do
+  unRaw <$>
     foreign FFI_Py "idris_foreach"
-      (Ptr -> Ptr -> (Ptr -> Ptr -> Ptr) -> PIO Ptr)
+      (Ptr -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
       it
-      (believe_me st)
-      (believe_me f)
+      (MkRaw st)
+      (MkRaw f)
 
 ||| Collect all elements of an iterator into a list.
 collect : (it : Iterator a) -> PIO (List a)
