@@ -17,14 +17,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * comments in the generated Python code show the meaning of low-level code
     - constructor names next to numeric constructor tags
     - readable names next to mangled names
-* neat exceptions (no hierarchy yet, though)
-```idris
-main = do
-  OK ret <- try $ os /. "mkdir" $: ["/root/hello"]
-    | Catch OSError e => putStrLn ("  -> OSError as expected: " ++ show e)
-    | Catch _ e => putStrLn ("  -> some other error: " ++ show e)
-  putStrLn $ "Your root could probably use some security lessons!"
-```
+* exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L61))
 
 ## Observations
 
