@@ -8,20 +8,21 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * principled codegen monad makes it easy to compile from `DExp`
 * allows typechecked use of Python libraries ([example](https://github.com/ziman/idris-py/blob/master/example.idr))
 	- thanks to signatures for Python objects ([example](https://github.com/ziman/idris-py/blob/master/Python/BeautifulSoup.idr)).
-* error reflection yields `Field "gets" does not exist in object signature "Session"` instead of
-```idris
-        Can't solve goal 
-                Elem ("gets" ::: Method margs ret)
-                     [("get" :::
-                       Method (Fixed [String]) (Object [("text" ::: String)]))]
-```
+* error reflection for messages like `Field "gets" does not exist in object signature "Session"`
 * `foreach` -- higher-order FFI :)
 * big case trees compiled to binary search trees
 	- seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
 * comments in the generated Python code show the meaning of low-level code
     - constructor tags
     - mangled names
-* exceptions: `try : PIO a -> PIO (Either Exception a)`
+* neat exceptions (no hierarchy yet, though)
+```idris
+main = do
+  OK ret <- try $ os /. "mkdir" $: ["/root/hello"]
+    | Catch OSError e => putStrLn ("  -> OSError as expected: " ++ show e)
+    | Catch _ e => putStrLn ("  -> some other error: " ++ show e)
+  putStrLn $ "Your root could probably use some security lessons!"
+```
 
 ## Observations
 
