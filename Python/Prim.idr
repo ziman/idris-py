@@ -1,6 +1,7 @@
 module Python.Prim
 
 import Python
+import Python.Exceptions
 
 %access public
 %default total
@@ -34,10 +35,9 @@ obj x = believe_me x
 
 next : Obj (Iterator a) -> PIO (Maybe a)
 next {a = a} it = do
-    Right x <- try (it /. "next" $: [])
-      | Left e => do
-          putStrLn $ show e
-          return Nothing
+    OK x <- try (it /. "next" $: [])
+      | Catch StopIteration e => return Nothing
+      | Catch _ e => raise e
     return $ Just x
 
 partial

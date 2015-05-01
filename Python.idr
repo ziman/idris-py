@@ -69,14 +69,15 @@ namespace FFI
     PyUnit    : PyTypes ()
     PyFun     : PyTypes a -> PyTypes b -> PyTypes (a -> b)
 
-    ||| Arbitrary Python objects, opaque to Idris.
-    PyPtr     : PyTypes Ptr
+    ||| Python objects, opaque to Idris.
+    PyPtr       : PyTypes Ptr
+    PyException : PyTypes Exception
 
     ||| Arbitrary Idris objects, opaque to Python.
-    PyAny     : PyTypes (FFI_C.Raw a)
+    PyAny : PyTypes (FFI_C.Raw a)
 
     ||| Python objects with a signature known to Idris.
-    PyObj     : PyTypes (Obj sig)
+    PyObj : PyTypes (Obj sig)
 
   FFI_Py : FFI
   FFI_Py = MkFFI PyTypes String String
@@ -216,30 +217,3 @@ infixr 5 ~>
 ||| Infix alias for methods with fixed arguments.
 (~>) : List Type -> Type -> Type
 (~>) args ret = Method (Fixed args) ret
-
-||| Catch exceptions in the given PIO action.
-abstract
-try : PIO a -> PIO (Either Exception a)
-try {a = a} x =
-  unRaw <$>
-    foreign
-      FFI_Py
-      "idris_try"
-      (Raw (PIO a)
-        -> (Ptr -> Raw (Either Exception a))
-        -> (Raw a -> Raw (Either Exception a))
-        -> PIO (Raw $ Either Exception a)
-      )
-      (MkRaw x)
-      (MkRaw . Left . MkException)
-      (MkRaw . Right . unRaw)
-
-||| Get basic information about the exception as `String`.
-abstract
-showException : Exception -> String
-showException (MkException e) =
-  unsafePerformIO
-    $ foreign FFI_Py "str" (Ptr -> PIO String) e
-
-instance Show Exception where
-  show = showException

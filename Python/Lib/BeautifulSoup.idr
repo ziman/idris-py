@@ -1,4 +1,4 @@
-module Python.BeautifulSoup
+module Python.Lib.BeautifulSoup
 
 import Python
 import Python.Prim

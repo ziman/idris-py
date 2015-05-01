@@ -1,9 +1,11 @@
 import Python
-
--- These modules contain signatures for Python classes.
 import Python.Prim
-import Python.Requests
-import Python.BeautifulSoup
+import Python.Exceptions
+
+-- These modules contain signatures for Python libraries.
+import Python.Lib.Os
+import Python.Lib.Requests
+import Python.Lib.BeautifulSoup
 
 %default total
 
@@ -48,12 +50,12 @@ main = do
     return $ i + 1
 
   putStrLn $ "Total number of features: " ++ show count
+  putStrLn ""
 
   -- test some exceptions
-  putStrLn ""
-  putStrLn "And now, let's print NULL!"
-  Right unit <- try (putStrLn =<< return (believe_me prim__null))
-    | Left e => do
-        putStrLn $ "...aand it causes an exception, as it should."
-        putStrLn $ "The message is: " ++ show e
-  putStrLn $ "strange, printing null didn't fail and we got back this: " ++ show unit
+  os <- Os.import_
+  putStrLn "And now, let's fail!"
+  OK ret <- try $ os /. "mkdir" $: ["/root/hello"]
+    | Catch OSError e => putStrLn ("  -> OSError as expected: " ++ show e)
+    | Catch _ e => putStrLn ("  -> some other error: " ++ show e)
+  putStrLn $ "Your root could probably use some security lessons!"
