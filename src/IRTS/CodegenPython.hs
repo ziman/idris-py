@@ -203,9 +203,9 @@ cgTuple maxSize xs
         | size curLine == 0 = []
         | otherwise         = [curLine]
     wrapLines w curLine (x : xs)
-        | curSize >= w = curLine : wrapLines x xs
-        | curSize == 0 = wrapLines x xs
-        | otherwise = wrapLines (curLine <> comma <+> x) xs
+        | curSize >= w = curLine : wrapLines w x xs
+        | curSize == 0 = wrapLines w x xs
+        | otherwise = wrapLines w (curLine <> comma <+> x) xs
       where
         curSize = size curLine
 
