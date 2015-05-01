@@ -45,7 +45,10 @@ def idris_try(f, fail, succ):
     result = APPLY0(f, None)  # apply to world
     return APPLY0(succ, result)
   except Exception as e:
-    return APPLY0(fail, e)
+    return APPLY0(APPLY0(fail, e.__class__.__name__), e)
+
+def idris_raise(e):
+  raise e
 
 # Prelude.List.++
 def idris_Prelude_46_List_46__43__43_(e0, e1, e2):

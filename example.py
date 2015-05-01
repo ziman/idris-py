@@ -1124,7 +1124,7 @@ def idris_Main_46__123_main12_125_(in24):
       if in25[0] == 11:  # Python.Exceptions.OSError
         aux2 = idris_Prelude_46_putStr(
           None,
-          "  -> as expected: " + idris_Python_46_Exceptions_46_showException(in26) + "\n"
+          "  -> OSError as expected: " + idris_Python_46_Exceptions_46_showException(in26) + "\n"
         )
       else:
         aux2 = idris_Prelude_46_putStr(
@@ -1607,7 +1607,7 @@ def idris_Main_46_main_95_case(
       if in0[0] == 11:  # Python.Exceptions.OSError
         aux2 = idris_Prelude_46_putStr(
           None,
-          "  -> as expected: " + idris_Python_46_Exceptions_46_showException(in1) + "\n"
+          "  -> OSError as expected: " + idris_Python_46_Exceptions_46_showException(in1) + "\n"
         )
       else:
         aux2 = idris_Prelude_46_putStr(

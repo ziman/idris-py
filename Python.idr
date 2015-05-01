@@ -148,7 +148,6 @@ infixl 4 /:
 (/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
 
 -- Error reflection for better error messages.
-abstract
 fieldErr : Err -> Maybe (List ErrorReportPart)
 fieldErr (CantSolveGoal `(HasField ~sig (~fname ::: ~fty)) ntms)
     = Just
@@ -159,7 +158,7 @@ fieldErr (CantSolveGoal `(HasField ~sig (~fname ::: ~fty)) ntms)
         ]
   where
     simplify : TT -> TT
-    simplify `(MkSignature ~name ~fields) = name
+    simplify `(MkSignature ~name ~fields ~mixins) = name
     simplify sig = sig
 fieldErr _ = Nothing
 
