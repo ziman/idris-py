@@ -76,6 +76,8 @@ namespace FFI
     PyInteger : PyTypes Integer
     PyChar    : PyTypes Char
     PyUnit    : PyTypes ()
+    PyPair    : PyTypes a -> PyTypes b -> PyTypes (a, b)
+    PyList    : PyTypes a -> PyTypes (List a)
     PyFun     : PyTypes a -> PyTypes b -> PyTypes (a -> b)
     PyNone    : PyTypes None
 
