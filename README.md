@@ -55,4 +55,15 @@ Idris has got the following exciting features:
 12. Totality checking
 13. Hugs style interactive environment
 Total number of features: 13
+
+thread A starting
+thread B starting
+thread A done
+thread B done
+thread A says 9121
+thread B says 9121
+
+And now, let's fail!
+  -> (1) everything's fine: [Errno 13] Permission denied: '/root/hello'
+  -> (2) everything's fine: [Errno 13] Permission denied: '/root/hello'
 ```
