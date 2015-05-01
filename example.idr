@@ -6,6 +6,8 @@ import Python.Exceptions
 import Python.Lib.Os
 import Python.Lib.Requests
 import Python.Lib.BeautifulSoup
+import Python.Lib.Queue
+import Python.Lib.Threading
 
 %default total
 
@@ -54,7 +56,27 @@ main = do
   putStrLn $ "Total number of features: " ++ show count
   putStrLn ""
 
-  -- let's test some exceptions
+
+  -- ###  Concurrency  ###
+
+  let thread : (String -> PIO Nat) = \name => do
+    putStrLn $ "thread " ++ name ++ " starting"
+    html <- session /. "get" $: ["http://idris-lang.org"] /: "text"
+    putStrLn $ "thread " ++ name ++ " done"
+    return $ length html
+
+  thrA <- forkPIO $ thread "A"
+  thrB <- forkPIO $ thread "B"
+  resA <- wait thrA
+  resB <- wait thrB
+
+  putStrLn $ "thread A says " ++ show resA
+  putStrLn $ "thread B says " ++ show resB
+  putStrLn ""
+
+
+  -- ###  Exceptions  ###
+
   os <- Os.import_
   putStrLn "And now, let's fail!"
 
@@ -72,4 +94,3 @@ main = do
     | Except OSError e => putStrLn ("  -> (2) everything's fine: " ++ show e)
     | Except _       e => raise e
   putStrLn $ "Your root could probably use some security lessons!"
-
