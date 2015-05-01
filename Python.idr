@@ -49,6 +49,15 @@ abstract
 record Exception : Type where
   MkException : (e : Ptr) -> Exception
 
+||| Python's NoneType. Used for values that must be None.
+abstract
+record None : Type where
+  MkNone : None
+
+abstract
+none : None
+none = believe_me prim__null
+
 
 --
 -- ###  Python FFI definition  ###
@@ -68,6 +77,7 @@ namespace FFI
     PyChar    : PyTypes Char
     PyUnit    : PyTypes ()
     PyFun     : PyTypes a -> PyTypes b -> PyTypes (a -> b)
+    PyNone    : PyTypes None
 
     ||| Python objects, opaque to Idris.
     PyPtr       : PyTypes Ptr
