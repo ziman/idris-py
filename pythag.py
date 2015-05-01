@@ -40,6 +40,13 @@ def idris_foreach(it, st, f):
 def idris_is_none(x):
   return 1 if x is None else 0
 
+def idris_try(f, fail, succ):
+  try:
+    result = APPLY0(f, None)  # apply to world
+    return APPLY0(succ, result)
+  except Exception as e:
+    return APPLY0(fail, e)
+
 # Prelude.List.++
 def idris_Prelude_46_List_46__43__43_(e0, e1, e2):
   while True:

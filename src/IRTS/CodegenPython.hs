@@ -152,6 +152,7 @@ pythonPreamble = vcat . map text $
     , "    return APPLY0(succ, result)"
     , "  except Exception as e:"
     , "    return APPLY0(fail, e)"
+    , ""
     ]
 
 pythonLauncher :: Doc

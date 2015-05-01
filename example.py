@@ -46,6 +46,7 @@ def idris_try(f, fail, succ):
     return APPLY0(succ, result)
   except Exception as e:
     return APPLY0(fail, e)
+
 # Python.$.
 def idris_Python_46__36__46_(e0, e1, e2, idris_args):
   while True:
