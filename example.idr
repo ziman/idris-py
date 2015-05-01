@@ -7,7 +7,7 @@ import Python.BeautifulSoup
 
 %default total
 
-infixr 2 =<<
+infixr 1 =<<
 (=<<) : Monad m => (a -> m b) -> m a -> m b
 (=<<) f x = x >>= f
 
@@ -37,13 +37,13 @@ main = do
   soup <- bs4 /. "BeautifulSoup" $: [html]
 
   -- get the iterator over <li> elements, given by CSS selector
-  features <- soup /. "select" $: ["div.entry-content li"] >: Iterable (Object Element)
+  features <- soup /. "select" $: ["div.entry-content li"] >: Iterable (Obj Element)
 
   -- print all <li> elements as features
   putStrLn $ "Idris has got the following exciting features:"
-  count <- foreach features 0 $ \i : Int, li => do
+  count <- iterate features 0 $ \i : Int, li => do
     -- collect : Iterator a -> PIO (List a)
-    line <- map concat . collect =<< (li /. "strings" >: Iterable String)
+    line <- map concat . collect =<< li /. "strings" >: Iterable String
     putStrLn $ show (i+1) ++ ". " ++ line
     return $ i + 1
 

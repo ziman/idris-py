@@ -2,6 +2,9 @@ module Python.Requests
 
 import Python
 
+%access public
+%default total
+
 Response : Signature
 Response = signature "Response"
   [ "text" ::: String
@@ -9,13 +12,13 @@ Response = signature "Response"
 
 Session : Signature
 Session = signature "Session"
-  [ "get" ::: [String] ~> Object Response
+  [ "get" ::: [String] ~> Obj Response
   ]
 
 Requests : Signature
 Requests = signature "Requests"
-  [ "Session" ::: [] ~> Object Session
+  [ "Session" ::: [] ~> Obj Session
   ]
 
-import_ : PIO $ Object Requests
+import_ : PIO $ Obj Requests
 import_ = importModule "requests"

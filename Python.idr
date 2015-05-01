@@ -36,8 +36,8 @@ data Args : Type where
 
 ||| Python object, typed by its signature.
 abstract
-record Object : (sig : Signature) -> Type where
-  MkObject : (obj : Ptr) -> Object fs
+record Obj : (sig : Signature) -> Type where
+  MkObj : (obj : Ptr) -> Obj fs
 
 ||| Python method, typed by its input and output.
 abstract
@@ -76,7 +76,7 @@ namespace FFI
     PyAny     : PyTypes (FFI_C.Raw a)
 
     ||| Python objects with a signature known to Idris.
-    PyObject  : PyTypes (Object sig)
+    PyObj     : PyTypes (Obj sig)
 
   FFI_Py : FFI
   FFI_Py = MkFFI PyTypes String String
@@ -115,27 +115,27 @@ using (n : String)
     MixinThere : MkSignature n fs ms `HasMixin` m -> MkSignature n fs (m' :: ms) `HasMixin` m
 
 ||| Cast an object to the signature of one of its mixins.
-mixout : (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Object sig -> Object mixin
-mixout mixin (MkObject obj) = MkObject obj
+mixout : (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Obj sig -> Obj mixin
+mixout mixin (MkObj obj) = MkObj obj
 
 infixl 2 >.
 ||| Cast an object to the signature of one of its mixins.
-(>.) : (obj : Object sig) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Object mixin
+(>.) : (obj : Obj sig) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Obj mixin
 (>.) obj mixin = mixout mixin obj
 
 infixl 2 >:
 ||| Cast an object to the signature of one of its mixins, chained version.
-(>:) : (obj : PIO (Object sig)) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> PIO (Object mixin)
+(>:) : (obj : PIO (Obj sig)) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> PIO (Obj mixin)
 (>:) obj mixin {pf = pf} = mixout mixin {pf = pf} <$> obj
 
 infixl 4 /.
 ||| Attribute accessor.
 |||
-||| @ obj Object with the given signature.
+||| @ obj Obj with the given signature.
 ||| @ f   Name of the requested field.
 abstract
-(/.) : (obj : Object sig) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
-(/.) {a = a} (MkObject obj) f =
+(/.) : (obj : Obj sig) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
+(/.) {a = a} (MkObj obj) f =
   unRaw <$> foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO (Raw a)) obj f
 
 infixl 4 /:
@@ -143,7 +143,7 @@ infixl 4 /:
 |||
 ||| @ obj PIO action returning an object.
 ||| @ f   Name of the requested field.
-(/:) : (obj : PIO (Object sig)) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
+(/:) : (obj : PIO (Obj sig)) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
 (/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
 
 -- Error reflection for better error messages.
@@ -208,9 +208,9 @@ infixl 4 $:
 ||| @ sig     Signature of the returned object. Not checked.
 ||| @ modName Name of the module, as given to `__import__`.
 abstract
-importModule : (modName : String) -> PIO (Object sig)
+importModule : (modName : String) -> PIO (Obj sig)
 importModule {sig = sig} modName =
-  foreign FFI_Py "idris_pymodule" (String -> PIO (Object sig)) modName
+  foreign FFI_Py "idris_pymodule" (String -> PIO (Obj sig)) modName
 
 infixr 5 ~>
 ||| Infix alias for methods with fixed arguments.

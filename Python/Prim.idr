@@ -12,12 +12,12 @@ Iterator a = signature "Iterator"
 
 Iterable : Type -> Signature
 Iterable a = signature "Iterable"
-  [ "__iter__" ::: [] ~> Object (Iterator a)
+  [ "__iter__" ::: [] ~> Obj (Iterator a)
   ]
 
 PyString : Signature
 PyString = signature "PyString"
-  [ "join" ::: [Object $ Iterable String] ~> String
+  [ "join" ::: [Obj $ Iterable String] ~> String
   ]
 
 PyList : Type -> Signature
@@ -29,10 +29,10 @@ PyList a = signature "PyList"
 data PythonPrim : Type -> Signature -> Type where
   PPString : PythonPrim  String       PyString
 
-obj : (x : a) -> {auto pf : PythonPrim a sig} -> Object sig
+obj : (x : a) -> {auto pf : PythonPrim a sig} -> Obj sig
 obj x = believe_me x
 
-next : Object (Iterator a) -> PIO (Maybe a)
+next : Obj (Iterator a) -> PIO (Maybe a)
 next {a = a} it = do
     Right x <- try (it /. "next" $: [])
       | Left e => do
@@ -41,14 +41,14 @@ next {a = a} it = do
     return $ Just x
 
 partial
-iter : Object (Iterator a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
+iter : Obj (Iterator a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
 iter it st f = do
   Just x <- next it | Nothing => return st
   st' <- f st x
   iter it st' f
 
 partial
-iterate : (iterable : Object $ Iterable a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
+iterate : (iterable : Obj $ Iterable a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
 iterate iterable st f = do
   iterator <- iterable /. "__iter__" $: []
   iter iterator st f
@@ -58,9 +58,9 @@ iterate iterable st f = do
 ||| @ iterable The iterable.
 ||| @ st Initial state.
 ||| @ f  PIO action called for every element, transforms the state.
-abstract
+partial abstract
 foreach :
-  (iterable : Object $ Iterable a)
+  (iterable : Obj $ Iterable a)
   -> (st : b)
   -> (f : b -> a -> PIO b)
   -> PIO b
@@ -68,11 +68,12 @@ foreach {a = a} {b = b} iterable st f = do
   iterator <- iterable /. "__iter__" $: []
   unRaw <$>
     foreign FFI_Py "idris_foreach"
-      (Object (Iterable a) -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
+      (Obj (Iterable a) -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
       iterable
       (MkRaw st)
       (MkRaw f)
 
 ||| Collect all elements of an iterator into a list.
-collect : (it : Object $ Iterable a) -> PIO (List a)
+partial
+collect : (it : Obj $ Iterable a) -> PIO (List a)
 collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
