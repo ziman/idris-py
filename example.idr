@@ -67,7 +67,7 @@ main = do
     _       => raise e
   )
 
-  -- the special Idris sugar, originally used in Effects
+  -- Idris sugar, originally used in Effects
   OK ret <- try $ os /. "mkdir" $: ["/root/hello"]
     | Except OSError e => putStrLn ("  -> (2) everything's fine: " ++ show e)
     | Except _       e => raise e
