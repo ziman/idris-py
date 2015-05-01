@@ -190,10 +190,24 @@ cgTuple :: Int -> [Expr] -> Expr
 cgTuple maxSize [] = parens empty  -- don't split empty tuples
 cgTuple maxSize xs
     | size oneLiner <= maxSize = oneLiner
-    | otherwise = lparen $+$ indent (vcat punctuated) $+$ rparen
+    | allSmall  = lparen $+$ indent (vsepLines lines) $+$ rparen  -- for arg lists where every item is just a token
+    | otherwise = lparen $+$ indent (vsepLines xs) $+$ rparen
   where
-    punctuated = punctuate comma xs
-    oneLiner = parens $ hsep punctuated
+    oneLiner = parens (hsep $ punctuate comma xs)
+    vsepLines = vcat . punctuate comma
+    allSmall = and [size x < 8 | x <- xs]
+    lines = wrapLines 60 empty xs
+
+    wrapLines :: Int -> Doc -> [Doc] -> [Doc]
+    wrapLines w curLine []
+        | size curLine == 0 = []
+        | otherwise         = [curLine]
+    wrapLines w curLine (x : xs)
+        | curSize >= w = curLine : wrapLines x xs
+        | curSize == 0 = wrapLines x xs
+        | otherwise = wrapLines (curLine <> comma <+> x) xs
+      where
+        curSize = size curLine
 
 cgApp :: Expr -> [Expr] -> Expr
 cgApp f args = f <> cgTuple maxWidth args

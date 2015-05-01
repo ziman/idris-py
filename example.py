@@ -115,8 +115,7 @@ def idris_Prelude_46_Monad_46__62__62__61_(e0, e1, e2, e3):
 
 # @@constructor of Prelude.Algebra.Monoid#Semigroup a
 def idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a(
-  e0,
-  e1
+  e0, e1
 ):
   while True:
     if e1[0] == 0:  # constructor of Prelude.Algebra.Monoid
@@ -128,8 +127,7 @@ def idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup
 
 # @@constructor of Prelude.Monad.Monad#Applicative m
 def idris__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative_32_m(
-  e0,
-  e1
+  e0, e1
 ):
   while True:
     if e1[0] == 0:  # constructor of Prelude.Monad.Monad
@@ -559,17 +557,12 @@ def APPLY0(fn0, arg0):
               if fn0[0] == 65666:  # {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
                 P_c0, = fn0[1:]
                 aux1 = idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
-                  P_c0,
-                  arg0
+                  P_c0, arg0
                 )
               elif fn0[0] == 65667:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
                 P_c0, P_c1, P_c2, P_c3, = fn0[1:]
                 aux1 = idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
-                  P_c0,
-                  P_c1,
-                  P_c2,
-                  P_c3,
-                  arg0
+                  P_c0, P_c1, P_c2, P_c3, arg0
                 )
               elif fn0[0] == 65668:  # {U_Prelude.List.reverse, reverse'1}
                 P_c0, P_c1, = fn0[1:]
@@ -583,14 +576,7 @@ def APPLY0(fn0, arg0):
               elif fn0[0] == 65671:  # {U_Python.Exceptions.case block in try1}
                 P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6, = fn0[1:]
                 aux1 = idris_Python_46_Exceptions_46_try_95_case(
-                  P_c0,
-                  P_c1,
-                  P_c2,
-                  P_c3,
-                  P_c4,
-                  P_c5,
-                  P_c6,
-                  arg0
+                  P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6, arg0
                 )
         else:
           if fn0[0] < 65678:
@@ -646,9 +632,7 @@ def APPLY0(fn0, arg0):
               elif fn0[0] == 65687:  # {U_Python.Prim.{case block in iter_lam0}1}
                 P_c0, P_c1, = fn0[1:]
                 aux1 = idris_Python_46_Prim_46__123_case_32_block_32_in_32_iter_95_lam0_125_(
-                  P_c0,
-                  P_c1,
-                  arg0
+                  P_c0, P_c1, arg0
                 )
             else:
               if fn0[0] == 65688:  # {U_Python.Prim.{collect0}1}
@@ -803,17 +787,14 @@ def EVAL0(arg0):
 
 # Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}
 def idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
-  e3,
-  in0
+  e3, in0
 ):
   while True:
     return (65727, None, None, APPLY0(e3, in0))  # {U_io_return1}
 
 # Python.Prim.{case block in iter_lam0}
 def idris_Python_46_Prim_46__123_case_32_block_32_in_32_iter_95_lam0_125_(
-  e1,
-  e4,
-  in1
+  e1, e4, in1
 ):
   while True:
     return idris_Python_46_Prim_46_iter(None, None, e1, in1, e4)
@@ -852,11 +833,7 @@ def idris_Python_46_Prim_46__123_iterate0_125_(e3, e4, in0):
 def idris_Main_46__123_main0_125_(in12, in13, in14):
   while True:
     return idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
-      None,
-      None,
-      in12,
-      in13,
-      in14
+      None, None, in12, in13, in14
     )
 
 # Python.Prim.{next0}
@@ -1547,11 +1524,7 @@ def idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equ
 
 # Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
 def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
-  e0,
-  e1,
-  e2,
-  e3,
-  e4
+  e0, e1, e2, e3, e4
 ):
   while True:
     if e4[0] == 1:  # Prelude.List.::
@@ -1574,30 +1547,18 @@ def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_F
 
 # Prelude.Functor.Prelude.IO' ffi instance of Prelude.Functor.Functor, method map
 def idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-  e0,
-  e1,
-  e2,
-  e3,
-  e4
+  e0, e1, e2, e3, e4
 ):
   while True:
     return (65726, None, None, None, e4, (65666, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
 
 # Prelude.List.List instance of Prelude.Foldable.Foldable
 def idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
-  meth0,
-  meth1,
-  meth2,
-  meth3,
-  meth4
+  meth0, meth1, meth2, meth3, meth4
 ):
   while True:
     return idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
-      None,
-      None,
-      meth2,
-      meth3,
-      meth4
+      None, None, meth2, meth3, meth4
     )
 
 # case block in Void
@@ -1730,34 +1691,8 @@ def idris_Python_46_Prim_46_iter_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
 
 # Main.case block in main
 def idris_Main_46_main_95_case(
-  e0,
-  e1,
-  e2,
-  e3,
-  e4,
-  e5,
-  e6,
-  e7,
-  e8,
-  e9,
-  e10,
-  e11,
-  e12,
-  e13,
-  e14,
-  e15,
-  e16,
-  e17,
-  e18,
-  e19,
-  e20,
-  e21,
-  e22,
-  e23,
-  e24,
-  e25,
-  e26,
-  e27
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
+  e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27
 ):
   while True:
     if e25[0] == 11:  # Python.Exceptions.OSError
@@ -1771,34 +1706,8 @@ def idris_Main_46_main_95_case(
 
 # Main.case block in main1
 def idris_Main_46_main1_95_case(
-  e0,
-  e1,
-  e2,
-  e3,
-  e4,
-  e5,
-  e6,
-  e7,
-  e8,
-  e9,
-  e10,
-  e11,
-  e12,
-  e13,
-  e14,
-  e15,
-  e16,
-  e17,
-  e18,
-  e19,
-  e20,
-  e21,
-  e22,
-  e23,
-  e24,
-  e25,
-  e26,
-  e27,
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
+  e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
   e28
 ):
   while True:
@@ -1928,34 +1837,8 @@ def idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4, e5, e6, lamp7)
 
 # Main.case block in case block in main
 def idris_Main_46_main_95_case_95_case(
-  e0,
-  e1,
-  e2,
-  e3,
-  e4,
-  e5,
-  e6,
-  e7,
-  e8,
-  e9,
-  e10,
-  e11,
-  e12,
-  e13,
-  e14,
-  e15,
-  e16,
-  e17,
-  e18,
-  e19,
-  e20,
-  e21,
-  e22,
-  e23,
-  e24,
-  e25,
-  e26,
-  e27,
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
+  e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
   e28
 ):
   while True:
