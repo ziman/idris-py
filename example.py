@@ -1587,79 +1587,43 @@ def idris_Python_46_Exceptions_46_catch_95_case(e0, e1, e2, e3, e4, e5):
 # Python.Exceptions.case block in fromString
 def idris_Python_46_Exceptions_46_fromString_95_case(e0, e1):
   while True:
-    if e0 == "ArithmeticError":
-      aux1 = (3,)  # Python.Exceptions.ArithmeticError
-    elif e0 == "AssertionError":
-      aux1 = (7,)  # Python.Exceptions.AssertionError
-    elif e0 == "AttributeError":
-      aux1 = (8,)  # Python.Exceptions.AttributeError
-    elif e0 == "BufferError":
-      aux1 = (2,)  # Python.Exceptions.BufferError
-    elif e0 == "EOFError":
-      aux1 = (14,)  # Python.Exceptions.EOFError
-    elif e0 == "EnvironmentError":
-      aux1 = (9,)  # Python.Exceptions.EnvironmentError
-    elif e0 == "FloatingPointError":
-      aux1 = (4,)  # Python.Exceptions.FloatingPointError
-    elif e0 == "IOError":
-      aux1 = (10,)  # Python.Exceptions.IOError
-    elif e0 == "ImportError":
-      aux1 = (15,)  # Python.Exceptions.ImportError
-    elif e0 == "IndentationError":
-      aux1 = (26,)  # Python.Exceptions.IndentationError
-    elif e0 == "IndexError":
-      aux1 = (17,)  # Python.Exceptions.IndexError
-    elif e0 == "KeyError":
-      aux1 = (18,)  # Python.Exceptions.KeyError
-    elif e0 == "LookupError":
-      aux1 = (16,)  # Python.Exceptions.LookupError
-    elif e0 == "MemoryError":
-      aux1 = (19,)  # Python.Exceptions.MemoryError
-    elif e0 == "NameError":
-      aux1 = (20,)  # Python.Exceptions.NameError
-    elif e0 == "NotImplementedError":
-      aux1 = (24,)  # Python.Exceptions.NotImplementedError
-    elif e0 == "OSError":
-      aux1 = (11,)  # Python.Exceptions.OSError
-    elif e0 == "OverflowError":
-      aux1 = (5,)  # Python.Exceptions.OverflowError
-    elif e0 == "ReferenceError":
-      aux1 = (22,)  # Python.Exceptions.ReferenceError
-    elif e0 == "RuntimeError":
-      aux1 = (23,)  # Python.Exceptions.RuntimeError
-    elif e0 == "StandardError":
-      aux1 = (1,)  # Python.Exceptions.StandardError
-    elif e0 == "StopIteration":
-      aux1 = (0,)  # Python.Exceptions.StopIteration
-    elif e0 == "SyntaxError":
-      aux1 = (25,)  # Python.Exceptions.SyntaxError
-    elif e0 == "SystemError":
-      aux1 = (28,)  # Python.Exceptions.SystemError
-    elif e0 == "TabError":
-      aux1 = (27,)  # Python.Exceptions.TabError
-    elif e0 == "TypeError":
-      aux1 = (29,)  # Python.Exceptions.TypeError
-    elif e0 == "UnboundLocalError":
-      aux1 = (21,)  # Python.Exceptions.UnboundLocalError
-    elif e0 == "UnicodeDecodeError":
-      aux1 = (32,)  # Python.Exceptions.UnicodeDecodeError
-    elif e0 == "UnicodeEncodeError":
-      aux1 = (33,)  # Python.Exceptions.UnicodeEncodeError
-    elif e0 == "UnicodeError":
-      aux1 = (31,)  # Python.Exceptions.UnicodeError
-    elif e0 == "UnicodeTranslateError":
-      aux1 = (34,)  # Python.Exceptions.UnicodeTranslateError
-    elif e0 == "VMSError":
-      aux1 = (13,)  # Python.Exceptions.VMSError
-    elif e0 == "ValueError":
-      aux1 = (30,)  # Python.Exceptions.ValueError
-    elif e0 == "WindowsError":
-      aux1 = (12,)  # Python.Exceptions.WindowsError
-    elif e0 == "ZeroDivisionError":
-      aux1 = (6,)  # Python.Exceptions.ZeroDivisionError
-    else:
-      aux1 = (35,)  # Python.Exceptions.Other
-    return aux1
+    return {
+      "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
+      "AssertionError": (7,),  # Python.Exceptions.AssertionError
+      "AttributeError": (8,),  # Python.Exceptions.AttributeError
+      "BufferError": (2,),  # Python.Exceptions.BufferError
+      "EOFError": (14,),  # Python.Exceptions.EOFError
+      "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
+      "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
+      "IOError": (10,),  # Python.Exceptions.IOError
+      "ImportError": (15,),  # Python.Exceptions.ImportError
+      "IndentationError": (26,),  # Python.Exceptions.IndentationError
+      "IndexError": (17,),  # Python.Exceptions.IndexError
+      "KeyError": (18,),  # Python.Exceptions.KeyError
+      "LookupError": (16,),  # Python.Exceptions.LookupError
+      "MemoryError": (19,),  # Python.Exceptions.MemoryError
+      "NameError": (20,),  # Python.Exceptions.NameError
+      "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
+      "OSError": (11,),  # Python.Exceptions.OSError
+      "OverflowError": (5,),  # Python.Exceptions.OverflowError
+      "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
+      "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
+      "StandardError": (1,),  # Python.Exceptions.StandardError
+      "StopIteration": (0,),  # Python.Exceptions.StopIteration
+      "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
+      "SystemError": (28,),  # Python.Exceptions.SystemError
+      "TabError": (27,),  # Python.Exceptions.TabError
+      "TypeError": (29,),  # Python.Exceptions.TypeError
+      "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
+      "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
+      "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
+      "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
+      "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
+      "VMSError": (13,),  # Python.Exceptions.VMSError
+      "ValueError": (30,),  # Python.Exceptions.ValueError
+      "WindowsError": (12,),  # Python.Exceptions.WindowsError
+      "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+    }.get(e0, (35,))  # Python.Exceptions.Other
 
 # case block in io_bind
 def idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
@@ -1761,79 +1725,47 @@ def idris_Python_46_Prim_46_next_95_case(e0, e1, e2, e3, e4):
 # Python.Exceptions.case block in try
 def idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4, e5, e6, lamp7):
   while True:
-    if e5 == "ArithmeticError":
-      aux1 = (3,)  # Python.Exceptions.ArithmeticError
-    elif e5 == "AssertionError":
-      aux1 = (7,)  # Python.Exceptions.AssertionError
-    elif e5 == "AttributeError":
-      aux1 = (8,)  # Python.Exceptions.AttributeError
-    elif e5 == "BufferError":
-      aux1 = (2,)  # Python.Exceptions.BufferError
-    elif e5 == "EOFError":
-      aux1 = (14,)  # Python.Exceptions.EOFError
-    elif e5 == "EnvironmentError":
-      aux1 = (9,)  # Python.Exceptions.EnvironmentError
-    elif e5 == "FloatingPointError":
-      aux1 = (4,)  # Python.Exceptions.FloatingPointError
-    elif e5 == "IOError":
-      aux1 = (10,)  # Python.Exceptions.IOError
-    elif e5 == "ImportError":
-      aux1 = (15,)  # Python.Exceptions.ImportError
-    elif e5 == "IndentationError":
-      aux1 = (26,)  # Python.Exceptions.IndentationError
-    elif e5 == "IndexError":
-      aux1 = (17,)  # Python.Exceptions.IndexError
-    elif e5 == "KeyError":
-      aux1 = (18,)  # Python.Exceptions.KeyError
-    elif e5 == "LookupError":
-      aux1 = (16,)  # Python.Exceptions.LookupError
-    elif e5 == "MemoryError":
-      aux1 = (19,)  # Python.Exceptions.MemoryError
-    elif e5 == "NameError":
-      aux1 = (20,)  # Python.Exceptions.NameError
-    elif e5 == "NotImplementedError":
-      aux1 = (24,)  # Python.Exceptions.NotImplementedError
-    elif e5 == "OSError":
-      aux1 = (11,)  # Python.Exceptions.OSError
-    elif e5 == "OverflowError":
-      aux1 = (5,)  # Python.Exceptions.OverflowError
-    elif e5 == "ReferenceError":
-      aux1 = (22,)  # Python.Exceptions.ReferenceError
-    elif e5 == "RuntimeError":
-      aux1 = (23,)  # Python.Exceptions.RuntimeError
-    elif e5 == "StandardError":
-      aux1 = (1,)  # Python.Exceptions.StandardError
-    elif e5 == "StopIteration":
-      aux1 = (0,)  # Python.Exceptions.StopIteration
-    elif e5 == "SyntaxError":
-      aux1 = (25,)  # Python.Exceptions.SyntaxError
-    elif e5 == "SystemError":
-      aux1 = (28,)  # Python.Exceptions.SystemError
-    elif e5 == "TabError":
-      aux1 = (27,)  # Python.Exceptions.TabError
-    elif e5 == "TypeError":
-      aux1 = (29,)  # Python.Exceptions.TypeError
-    elif e5 == "UnboundLocalError":
-      aux1 = (21,)  # Python.Exceptions.UnboundLocalError
-    elif e5 == "UnicodeDecodeError":
-      aux1 = (32,)  # Python.Exceptions.UnicodeDecodeError
-    elif e5 == "UnicodeEncodeError":
-      aux1 = (33,)  # Python.Exceptions.UnicodeEncodeError
-    elif e5 == "UnicodeError":
-      aux1 = (31,)  # Python.Exceptions.UnicodeError
-    elif e5 == "UnicodeTranslateError":
-      aux1 = (34,)  # Python.Exceptions.UnicodeTranslateError
-    elif e5 == "VMSError":
-      aux1 = (13,)  # Python.Exceptions.VMSError
-    elif e5 == "ValueError":
-      aux1 = (30,)  # Python.Exceptions.ValueError
-    elif e5 == "WindowsError":
-      aux1 = (12,)  # Python.Exceptions.WindowsError
-    elif e5 == "ZeroDivisionError":
-      aux1 = (6,)  # Python.Exceptions.ZeroDivisionError
-    else:
-      aux1 = (35,)  # Python.Exceptions.Other
-    return (1, aux1, lamp7)  # Python.Exceptions.Except
+    return (
+      1,  # Python.Exceptions.Except
+      {
+        "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
+        "AssertionError": (7,),  # Python.Exceptions.AssertionError
+        "AttributeError": (8,),  # Python.Exceptions.AttributeError
+        "BufferError": (2,),  # Python.Exceptions.BufferError
+        "EOFError": (14,),  # Python.Exceptions.EOFError
+        "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
+        "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
+        "IOError": (10,),  # Python.Exceptions.IOError
+        "ImportError": (15,),  # Python.Exceptions.ImportError
+        "IndentationError": (26,),  # Python.Exceptions.IndentationError
+        "IndexError": (17,),  # Python.Exceptions.IndexError
+        "KeyError": (18,),  # Python.Exceptions.KeyError
+        "LookupError": (16,),  # Python.Exceptions.LookupError
+        "MemoryError": (19,),  # Python.Exceptions.MemoryError
+        "NameError": (20,),  # Python.Exceptions.NameError
+        "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
+        "OSError": (11,),  # Python.Exceptions.OSError
+        "OverflowError": (5,),  # Python.Exceptions.OverflowError
+        "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
+        "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
+        "StandardError": (1,),  # Python.Exceptions.StandardError
+        "StopIteration": (0,),  # Python.Exceptions.StopIteration
+        "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
+        "SystemError": (28,),  # Python.Exceptions.SystemError
+        "TabError": (27,),  # Python.Exceptions.TabError
+        "TypeError": (29,),  # Python.Exceptions.TypeError
+        "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
+        "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
+        "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
+        "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
+        "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
+        "VMSError": (13,),  # Python.Exceptions.VMSError
+        "ValueError": (30,),  # Python.Exceptions.ValueError
+        "WindowsError": (12,),  # Python.Exceptions.WindowsError
+        "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+      }.get(e5, (35,)),  # Python.Exceptions.Other
+      lamp7
+    )
 
 # Main.case block in case block in main
 def idris_Main_46_main_95_case_95_case(

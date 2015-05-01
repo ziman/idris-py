@@ -186,12 +186,18 @@ cgName (MN i n) | all (\x -> isAlpha x || x `elem` "_") (T.unpack n)
     = text $ T.unpack n ++ show i
 cgName n = text (mangle n)  -- <?> show n  -- uncomment this to get a comment for *every* mangled name
 
+bigParens :: Doc -> Doc
+bigParens d = lparen $+$ indent d $+$ rparen
+
+bigBraces :: Doc -> Doc
+bigBraces d = lbrace $+$ indent d $+$ rbrace
+
 cgTuple :: Int -> [Expr] -> Expr
 cgTuple maxSize [] = parens empty  -- don't split empty tuples
 cgTuple maxSize xs
     | size oneLiner <= maxSize = oneLiner
-    | allSmall  = lparen $+$ indent (vsepLines lines) $+$ rparen  -- for arg lists where every item is just a token
-    | otherwise = lparen $+$ indent (vsepLines xs) $+$ rparen
+    | allSmall  = bigParens $ vsepLines lines  -- for arg lists where every item is just a token
+    | otherwise = bigParens $ vsepLines xs
   where
     oneLiner = parens (hsep $ punctuate comma xs)
     vsepLines = vcat . punctuate comma
@@ -401,12 +407,35 @@ cgAltTree groupSize altCount retVar scrutinee alts
 cgAltTree groupSize altCount retVar scrutinee alts
     = mapM_ (cgAlt scrutinee retVar) (zip ifElif $ map snd alts)
 
+cgDictCase :: LVar -> [(Const, Expr)] -> [Expr] -> Expr
+cgDictCase scrutinee items dflt =
+    bigBraces (vcat $ punctuate comma items')
+    <> case dflt of
+        []  -> brackets $ cgVar scrutinee
+        d:_ -> text ".get" <> parens (cgVar scrutinee <> comma <+> d)
+  where
+    items' = [ cgConst c <> colon <+> e | (c, e) <- items]
+
 -- For case-expressions, we:
 -- 1. generate a fresh var
 -- 2. emit statements containing an if-elif-... chain that assigns to the var
 -- 3. use the assigned var as the expression standing for the result
 cgCase :: LVar -> [DAlt] -> CG Expr
 cgCase var [DDefaultCase e] = cgExp e
+
+cgCase var alts
+    | all isConstant alts = do
+        exprs <- mapM cgExp [e | DConstCase c e <- alts]        
+        dflt  <- mapM cgExp [e | DDefaultCase e <- alts]
+        return $ cgDictCase
+            var
+            (zip [c | DConstCase c e <- alts] exprs)
+            dflt
+  where
+    isConstant :: DAlt -> Bool
+    isConstant (DConstCase _ _) = True
+    isConstant (DDefaultCase _) = True
+    isConstant _ = False
 
 cgCase var alts
     | altCount >= 2 * groupSize  -- there would be at least 2 full groups

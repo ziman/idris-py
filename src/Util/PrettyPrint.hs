@@ -5,7 +5,8 @@
 module Util.PrettyPrint
     ( Doc
     , int, text
-    , comma, colon, lparen, rparen, lbracket, rbracket
+    , comma, colon
+    , lparen, rparen, lbracket, rbracket, lbrace, rbrace
     , (<>), (<+>), ($+$), ($$)
     , (<?>)
     , nest
@@ -34,13 +35,17 @@ int i = text $ show i
 text :: String -> Doc
 text s = Doc [(s, "")]
 
-comma, colon, lparen, rparen, lbracket, rbracket :: Doc
+comma, colon :: Doc
 comma    = text ","
 colon    = text ":"
+
+lparen, rparen, lbracket, rbracket, lbrace, rbrace :: Doc
 lparen   = text "("
 rparen   = text ")"
 lbracket = text "["
 rbracket = text "]"
+lbrace   = text "{"
+rbrace   = text "}"
 
 (<>) :: Doc -> Doc -> Doc
 Doc xs <> Doc ys = Doc $ meld "" xs ys
