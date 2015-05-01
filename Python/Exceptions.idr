@@ -86,11 +86,11 @@ fromString s = case s of
 
 ||| Result of try-catch.
 data Result : Type -> Type where
-  ||| No exception was caught, `PIO` action was performed normally.
+  ||| No exception was raised, `PIO` action was performed normally.
   OK : (x : a) -> Result a
 
-  ||| An exception was caught.
-  Catch : (etype : ExceptionType) -> (e : Exception) -> Result a
+  ||| An exception was raised.
+  Except : (etype : ExceptionType) -> (e : Exception) -> Result a
 
 ||| Catch exceptions in the given PIO action.
 abstract
@@ -106,12 +106,18 @@ try {a = a} x =
         -> PIO (Raw $ Result a)
       )
       (MkRaw x)
-      (\n, e => MkRaw $ Catch (fromString n) e)
+      (\n, e => MkRaw $ Except (fromString n) e)
       (MkRaw . OK . unRaw)
 
 abstract
 raise : Exception -> PIO a
 raise {a = a} e = unRaw <$> foreign FFI_Py "idris_raise" (Exception -> PIO (Raw a)) e
+
+catch : PIO (Result a) -> (ExceptionType -> Exception -> PIO a) -> PIO a
+catch action handler = do
+  OK result <- action
+    | Except etype e => handler etype e
+  return result
 
 ||| Get basic information about the exception as `String`.
 abstract

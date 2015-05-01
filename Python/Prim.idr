@@ -36,8 +36,8 @@ obj x = believe_me x
 next : Obj (Iterator a) -> PIO (Maybe a)
 next {a = a} it = do
     OK x <- try (it /. "next" $: [])
-      | Catch StopIteration e => return Nothing
-      | Catch _ e => raise e
+      | Except StopIteration e => return Nothing
+      | Except _ e => raise e
     return $ Just x
 
 partial
