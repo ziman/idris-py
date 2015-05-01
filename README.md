@@ -20,6 +20,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - constructor names next to numeric constructor tags
     - readable names next to mangled names
 * exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L61))
+* threading, message passing and `forkPIO`
 
 ## Observations
 

@@ -123,13 +123,6 @@ pythonPreamble = vcat . map text $
     , "    MODULES[name] = mod"
     , "  return mod"
     , ""
-    , "def idris_getfield(o, f):"
-    , "  try:"
-    , "    return o.__getattribute__(f)"
-    , "  except AttributeError:"
-    , "    # it's a module"
-    , "    return o.__dict__[f]"
-    , ""
     , "def idris_call(f, args):"
     , "  native_args = []"
     , "  while len(args) == 3:  # it's a cons"
@@ -155,6 +148,9 @@ pythonPreamble = vcat . map text $
     , ""
     , "def idris_raise(e):"
     , "  raise e"
+    , ""
+    , "def idris_marshal_PIO(action):"
+    , "  return lambda: APPLY0(action, None)  # delayed apply-to-world"
     , ""
     ]
 
@@ -289,6 +285,7 @@ cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
 cgPrim (LEq    _) [x, y] = x <+> text "==" <+> y
 cgPrim (LSLt   _) [x, y] = x <+> text "<" <+> y
 cgPrim (LSExt _ _)[x]    = x
+cgPrim (LZExt _ _)[x]    = x
 
 cgPrim (LIntStr _) [x] = text "str" <> parens x  
 cgPrim (LStrInt _) [x] = text "int" <> parens x
@@ -298,6 +295,7 @@ cgPrim  LStrCons   [x, y] = x <+> text "+" <+> y
 cgPrim  LStrEq     [x, y] = x <+> text "==" <+> y
 cgPrim  LStrHead   [x] = x ! "0"
 cgPrim  LStrTail   [x] = x ! "1:"
+cgPrim  LStrLen    [x] = text "len" <> parens x
 
 cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
 cgPrim  LReadStr  _ = text "sys.stdin.readline()"

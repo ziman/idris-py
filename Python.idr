@@ -30,7 +30,7 @@ infixr 4 <:
 signature : String -> List Field -> Signature
 signature n fs = MkSignature n fs []
 
-||| Defines how many, what type, etc. arguments a method takes.
+||| Defines how many, what type, etc. arguments a function takes.
 data Args : Type where
   Fixed : (as : List Type) -> Args
 
@@ -39,10 +39,10 @@ abstract
 record Obj : (sig : Signature) -> Type where
   MkObj : (obj : Ptr) -> Obj fs
 
-||| Python method, typed by its input and output.
+||| Python function, typed by its input and output.
 abstract
-record Method : (args : Args) -> (ret : Type) -> Type where
-  MkMethod : (meth : Ptr) -> Method args ret
+record Function : (args : Args) -> (ret : Type) -> Type where
+  MkFunction : (meth : Ptr) -> Function args ret
 
 ||| Python exception.
 abstract
@@ -82,6 +82,7 @@ namespace FFI
     ||| Python objects, opaque to Idris.
     PyPtr       : PyTypes Ptr
     PyException : PyTypes Exception
+    PyFunction  : PyTypes (Function args ret)
 
     ||| Arbitrary Idris objects, opaque to Python.
     PyAny : PyTypes (FFI_C.Raw a)
@@ -167,7 +168,7 @@ infixl 4 /.
 abstract
 (/.) : (obj : Obj sig) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
 (/.) {a = a} (MkObj obj) f =
-  unRaw <$> foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO (Raw a)) obj f
+  unRaw <$> foreign FFI_Py "getattr" (Ptr -> String -> PIO (Raw a)) obj f
 
 infixl 4 /:
 ||| Attribute accessor, useful for chaining.
@@ -204,20 +205,20 @@ methTy : Args -> Type -> Type
 methTy (Fixed as) ret = HList as -> PIO ret
 
 infixl 4 $.
-||| Method call.
+||| Function call.
 |||
-||| @ meth The method to call.
+||| @ meth The function to call.
 abstract
-($.) : (meth : Method margs ret) -> methTy margs ret
-($.) {margs = Fixed as} {ret = ret} (MkMethod meth) =
+($.) : (meth : Function margs ret) -> methTy margs ret
+($.) {margs = Fixed as} {ret = ret} (MkFunction meth) =
   \args => unRaw <$>
     foreign FFI_Py "idris_call" (Ptr -> (Raw $ HList as) -> PIO (Raw ret)) meth (MkRaw args)
 
 infixl 4 $:
-||| Method call, useful for chaining.
+||| Function call, useful for chaining.
 |||
-||| @ meth PIO action returning a method.
-($:) : (meth : PIO (Method margs ret)) -> methTy margs ret
+||| @ meth PIO action returning a function, such as field lookup.
+($:) : (meth : PIO (Function margs ret)) -> methTy margs ret
 ($:) {margs = Fixed as} meth = \args => meth >>= \m => m $. args
 
 
@@ -238,6 +239,13 @@ importModule {sig = sig} modName =
   foreign FFI_Py "idris_pymodule" (String -> PIO (Obj sig)) modName
 
 infixr 5 ~>
-||| Infix alias for methods with fixed arguments.
+||| Infix alias for functions with fixed arguments.
 (~>) : List Type -> Type -> Type
-(~>) args ret = Method (Fixed args) ret
+(~>) args ret = Function (Fixed args) ret
+
+||| Turn a PIO action into a Python function.
+||| The function can then be used as a target for threading.Thread etc.
+marshalPIO : PIO a -> ([] ~> a)
+marshalPIO {a = a} action =
+  unsafePerformIO $
+    foreign FFI_Py "idris_marshal_PIO" (Raw (PIO a) -> PIO ([] ~> a)) (MkRaw action)

@@ -17,13 +17,6 @@ def idris_pymodule(name):
     MODULES[name] = mod
   return mod
 
-def idris_getfield(o, f):
-  try:
-    return o.__getattribute__(f)
-  except AttributeError:
-    # it's a module
-    return o.__dict__[f]
-
 def idris_call(f, args):
   native_args = []
   while len(args) == 3:  # it's a cons
@@ -50,6 +43,9 @@ def idris_try(f, fail, succ):
 def idris_raise(e):
   raise e
 
+def idris_marshal_PIO(action):
+  return lambda: APPLY0(action, None)  # delayed apply-to-world
+
 # Python.$.
 def idris_Python_46__36__46_(e0, e1, e2, idris_args):
   while True:
@@ -58,13 +54,13 @@ def idris_Python_46__36__46_(e0, e1, e2, idris_args):
       None,
       None,
       (65725, None),  # {U_Python.FFI.unRaw1}
-      (65766, e2, idris_args)  # {U_Python.{$.0}1}
+      (65752, e2, idris_args)  # {U_Python.{$.0}1}
     )
 
 # Python.$:
 def idris_Python_46__36__58_(e0, e1, e2, idris_args):
   while True:
-    return (65770, None, None, None, e2, (65767, idris_args))  # {U_io_bind1}, {U_Python.{$:0}1}
+    return (65757, None, None, None, e2, (65753, idris_args))  # {U_io_bind1}, {U_Python.{$:0}1}
 
 # Prelude.Basics..
 def idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, idris_x):
@@ -79,13 +75,13 @@ def idris_Python_46__47__46_(e0, e1, e2, e3, e4):
       None,
       None,
       (65725, None),  # {U_Python.FFI.unRaw1}
-      (65768, e2, e3)  # {U_Python.{/.0}1}
+      (65754, e2, e3)  # {U_Python.{/.0}1}
     )
 
 # Python./:
 def idris_Python_46__47__58_(e0, e1, e2, e3, e4):
   while True:
-    return (65770, None, None, None, e2, (65769, e3))  # {U_io_bind1}, {U_Python.{/:0}1}
+    return (65757, None, None, None, e2, (65755, e3))  # {U_io_bind1}, {U_Python.{/:0}1}
 
 # Prelude.Algebra.<+>
 def idris_Prelude_46_Algebra_46__60__43__62_(e0, e1):
@@ -99,7 +95,7 @@ def idris_Python_46__62__58_(e0, e1, e2, e3):
       None,
       None,
       None,
-      (65765, None, None, None),  # {U_Python.mixout1}
+      (65751, None, None, None),  # {U_Python.mixout1}
       e1
     )
 
@@ -150,7 +146,7 @@ def idris_call_95__95_IO(e0, e1, e2):
 # Python.Exceptions.catch
 def idris_Python_46_Exceptions_46_catch(e0, e1, e2):
   while True:
-    return (65770, None, None, None, e1, (65718, e2))  # {U_io_bind1}, {U_Python.Exceptions.{catch6}1}
+    return (65757, None, None, None, e1, (65718, e2))  # {U_io_bind1}, {U_Python.Exceptions.{catch6}1}
 
 # Python.Prim.collect
 def idris_Python_46_Prim_46_collect(e0, e1):
@@ -190,7 +186,7 @@ def idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
 def idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -207,7 +203,7 @@ def idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4):
 def idris_Python_46_Lib_46_Threading_46_forkPIO(e0, e1):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -234,27 +230,27 @@ def idris_Python_46_importModule(e0, e1, idris_w):
 # Python.Lib.BeautifulSoup.import_
 def idris_Python_46_Lib_46_BeautifulSoup_46_import_95_():
   while True:
-    return (65764, None, "bs4")  # {U_Python.importModule1}
+    return (65750, None, "bs4")  # {U_Python.importModule1}
 
 # Python.Lib.Os.import_
 def idris_Python_46_Lib_46_Os_46_import_95_():
   while True:
-    return (65764, None, "os")  # {U_Python.importModule1}
+    return (65750, None, "os")  # {U_Python.importModule1}
 
 # Python.Lib.Queue.import_
 def idris_Python_46_Lib_46_Queue_46_import_95_(e0):
   while True:
-    return (65764, None, "Queue")  # {U_Python.importModule1}
+    return (65750, None, "Queue")  # {U_Python.importModule1}
 
 # Python.Lib.Requests.import_
 def idris_Python_46_Lib_46_Requests_46_import_95_():
   while True:
-    return (65764, None, "requests")  # {U_Python.importModule1}
+    return (65750, None, "requests")  # {U_Python.importModule1}
 
 # Python.Lib.Threading.import_
 def idris_Python_46_Lib_46_Threading_46_import_95_():
   while True:
-    return (65764, None, "threading")  # {U_Python.importModule1}
+    return (65750, None, "threading")  # {U_Python.importModule1}
 
 # io_bind
 def idris_io_95_bind(e0, e1, e2, e3, e4, idris_w):
@@ -266,23 +262,11 @@ def idris_io_95_return(e0, e1, e2, idris_w):
   while True:
     return e2
 
-# Python.Prim.iter
-def idris_Python_46_Prim_46_iter(e0, e1, e2, e3, e4):
-  while True:
-    return (
-      65770,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      idris_Python_46_Prim_46_next(None, e2),
-      (65740, e4, e3, e2)  # {U_Python.Prim.{iter13}1}
-    )
-
 # Python.Prim.iterate
 def idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -292,7 +276,7 @@ def idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4):
         idris_Python_46__47__46_(None, None, e2, "__iter__", None),
         (0,)  # Python.Nil
       ),
-      (65750, e3, e4)  # {U_Python.Prim.{iterate0}1}
+      (65736, e3, e4)  # {U_Python.Prim.{iterate0}1}
     )
 
 # Prelude.Strings.length
@@ -303,21 +287,26 @@ def idris_Prelude_46_Strings_46_length():
       None,
       None,
       None,
-      (65704, None, None, None, (65708,), (65772,)),  # {U_Prelude.Basics..1}, {U_Prelude.Strings.{length0}1}, {U_prim__zextInt_BigInt1}
-      (65773,)  # {U_prim_lenString1}
+      (65704, None, None, None, (65708,), (65759,)),  # {U_Prelude.Basics..1}, {U_Prelude.Strings.{length0}1}, {U_prim__zextInt_BigInt1}
+      (65760,)  # {U_prim_lenString1}
     )
 
 # Main.main
 def idris_Main_46_main():
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
       idris_Python_46_Lib_46_Requests_46_import_95_(),
       (65699,)  # {U_Main.{main63}1}
     )
+
+# Python.marshalPIO
+def idris_Python_46_marshalPIO(e0, e1):
+  while True:
+    return idris_unsafePerformIO(None, None, (65756, e1))  # {U_Python.{marshalPIO0}1}
 
 # Python.mixout
 def idris_Python_46_mixout(e0, e1, e2, e3):
@@ -343,7 +332,7 @@ def idris_Prelude_46_Algebra_46_neutral(e0, e1):
 def idris_Python_46_Prim_46_next(e0, e1):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -356,7 +345,7 @@ def idris_Python_46_Prim_46_next(e0, e1):
           (0,)  # Python.Nil
         )
       ),
-      (65754,)  # {U_Python.Prim.{next12}1}
+      (65740,)  # {U_Python.Prim.{next12}1}
     )
 
 # Python.none
@@ -432,7 +421,7 @@ def idris_prim_95__95_writeString(op0, op1):
 # prim__zextInt_BigInt
 def idris_prim_95__95_zextInt_95_BigInt(op0):
   while True:
-    return idris_error("unimplemented prim: LZExt ITNative ITBig, args = [op0\n]")
+    return op0
 
 # prim_io_bind
 def idris_prim_95_io_95_bind(e0, e1, e2, e3):
@@ -442,7 +431,7 @@ def idris_prim_95_io_95_bind(e0, e1, e2, e3):
 # prim_lenString
 def idris_prim_95_lenString(op0):
   while True:
-    return idris_error("unimplemented prim: LStrLen, args = [op0\n]")
+    return len(op0)
 
 # Prelude.Applicative.pure
 def idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
@@ -452,7 +441,7 @@ def idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
 # Prelude.putStr
 def idris_Prelude_46_putStr(e0, e1):
   while True:
-    return (65770, None, None, None, (65709, e1), (65710,))  # {U_io_bind1}, {U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1}
+    return (65757, None, None, None, (65709, e1), (65710,))  # {U_io_bind1}, {U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1}
 
 # Python.Exceptions.raise
 def idris_Python_46_Exceptions_46_raise(e0, e1):
@@ -529,7 +518,7 @@ def idris_Python_46__123__36__58_0_125_(idris_args, in0):
 # Python.{/.0}
 def idris_Python_46__123__47__46_0_125_(e2, e3, in0):
   while True:
-    return idris_getfield(e2, e3)
+    return getattr(e2, e3)
 
 # Python.{/:0}
 def idris_Python_46__123__47__58_0_125_(e3, in0):
@@ -872,9 +861,9 @@ def APPLY0(fn0, arg0):
                   aux1 = idris_Python_46_Prim_46_collect(P_c0, arg0)
             else:
               if fn0[0] < 65733:
-                if fn0[0] == 65731:  # {U_Python.Prim.{case block in iter_lam0}1}
+                if fn0[0] == 65731:  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
                   P_c0, P_c1, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_case_32_block_32_in_32_iter_95_lam0_125_(
+                  aux1 = idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(
                     P_c0, P_c1, arg0
                   )
                 elif fn0[0] == 65732:  # {U_Python.Prim.{collect0}1}
@@ -892,148 +881,153 @@ def APPLY0(fn0, arg0):
           else:
             if fn0[0] < 65740:
               if fn0[0] < 65738:
-                if fn0[0] == 65736:  # {U_Python.Prim.{iter0}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter0_125_(arg0)
-                elif fn0[0] == 65737:  # {U_Python.Prim.{iter10}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter10_125_(arg0)
+                if fn0[0] == 65736:  # {U_Python.Prim.{iterate0}1}
+                  P_c0, P_c1, = fn0[1:]
+                  aux1 = idris_Python_46_Prim_46__123_iterate0_125_(P_c0, P_c1, arg0)
+                elif fn0[0] == 65737:  # {U_Python.Prim.{next0}1}
+                  aux1 = idris_Python_46_Prim_46__123_next0_125_(arg0)
               else:
-                if fn0[0] == 65738:  # {U_Python.Prim.{iter11}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter11_125_(arg0)
-                elif fn0[0] == 65739:  # {U_Python.Prim.{iter12}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter12_125_(arg0)
+                if fn0[0] == 65738:  # {U_Python.Prim.{next10}1}
+                  aux1 = idris_Python_46_Prim_46__123_next10_125_(arg0)
+                elif fn0[0] == 65739:  # {U_Python.Prim.{next11}1}
+                  aux1 = idris_Python_46_Prim_46__123_next11_125_(arg0)
             else:
               if fn0[0] < 65742:
-                if fn0[0] == 65740:  # {U_Python.Prim.{iter13}1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_iter13_125_(P_c0, P_c1, P_c2, arg0)
-                elif fn0[0] == 65741:  # {U_Python.Prim.{iter1}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter1_125_(arg0)
+                if fn0[0] == 65740:  # {U_Python.Prim.{next12}1}
+                  aux1 = idris_Python_46_Prim_46__123_next12_125_(arg0)
+                elif fn0[0] == 65741:  # {U_Python.Prim.{next1}1}
+                  aux1 = idris_Python_46_Prim_46__123_next1_125_(arg0)
               else:
-                if fn0[0] == 65742:  # {U_Python.Prim.{iter2}1}
+                if fn0[0] == 65742:  # {U_Python.Prim.{next2}1}
                   P_c0, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_iter2_125_(P_c0, arg0)
-                elif fn0[0] == 65743:  # {U_Python.Prim.{iter3}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter3_125_(arg0)
-                elif fn0[0] == 65744:  # {U_Python.Prim.{iter4}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter4_125_(arg0)
+                  aux1 = idris_Python_46_Prim_46__123_next2_125_(P_c0, arg0)
+                elif fn0[0] == 65743:  # {U_Python.Prim.{next3}1}
+                  aux1 = idris_Python_46_Prim_46__123_next3_125_(arg0)
+                elif fn0[0] == 65744:  # {U_Python.Prim.{next4}1}
+                  aux1 = idris_Python_46_Prim_46__123_next4_125_(arg0)
       else:
         if fn0[0] < 65763:
           if fn0[0] < 65754:
             if fn0[0] < 65749:
               if fn0[0] < 65747:
-                if fn0[0] == 65745:  # {U_Python.Prim.{iter5}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter5_125_(arg0)
-                elif fn0[0] == 65746:  # {U_Python.Prim.{iter6}1}
-                  P_c0, P_c1, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_iter6_125_(P_c0, P_c1, arg0)
+                if fn0[0] == 65745:  # {U_Python.Prim.{next5}1}
+                  aux1 = idris_Python_46_Prim_46__123_next5_125_(arg0)
+                elif fn0[0] == 65746:  # {U_Python.Prim.{next6}1}
+                  aux1 = idris_Python_46_Prim_46__123_next6_125_(arg0)
               else:
-                if fn0[0] == 65747:  # {U_Python.Prim.{iter7}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter7_125_(arg0)
-                elif fn0[0] == 65748:  # {U_Python.Prim.{iter8}1}
-                  aux1 = idris_Python_46_Prim_46__123_iter8_125_(arg0)
+                if fn0[0] == 65747:  # {U_Python.Prim.{next7}1}
+                  aux1 = idris_Python_46_Prim_46__123_next7_125_(arg0)
+                elif fn0[0] == 65748:  # {U_Python.Prim.{next8}1}
+                  P_c0, = fn0[1:]
+                  aux1 = idris_Python_46_Prim_46__123_next8_125_(P_c0, arg0)
             else:
               if fn0[0] < 65751:
-                if fn0[0] == 65749:  # {U_Python.Prim.{iter9}1}
-                  P_c0, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_iter9_125_(P_c0, arg0)
-                elif fn0[0] == 65750:  # {U_Python.Prim.{iterate0}1}
+                if fn0[0] == 65749:  # {U_Python.Prim.{next9}1}
+                  aux1 = idris_Python_46_Prim_46__123_next9_125_(arg0)
+                elif fn0[0] == 65750:  # {U_Python.importModule1}
                   P_c0, P_c1, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_iterate0_125_(P_c0, P_c1, arg0)
+                  aux1 = idris_Python_46_importModule(P_c0, P_c1, arg0)
               else:
-                if fn0[0] == 65751:  # {U_Python.Prim.{next0}1}
-                  aux1 = idris_Python_46_Prim_46__123_next0_125_(arg0)
-                elif fn0[0] == 65752:  # {U_Python.Prim.{next10}1}
-                  aux1 = idris_Python_46_Prim_46__123_next10_125_(arg0)
-                elif fn0[0] == 65753:  # {U_Python.Prim.{next11}1}
-                  aux1 = idris_Python_46_Prim_46__123_next11_125_(arg0)
+                if fn0[0] == 65751:  # {U_Python.mixout1}
+                  P_c0, P_c1, P_c2, = fn0[1:]
+                  aux1 = idris_Python_46_mixout(P_c0, P_c1, P_c2, arg0)
+                elif fn0[0] == 65752:  # {U_Python.{$.0}1}
+                  P_c0, P_c1, = fn0[1:]
+                  aux1 = idris_Python_46__123__36__46_0_125_(P_c0, P_c1, arg0)
+                elif fn0[0] == 65753:  # {U_Python.{$:0}1}
+                  P_c0, = fn0[1:]
+                  aux1 = idris_Python_46__123__36__58_0_125_(P_c0, arg0)
           else:
             if fn0[0] < 65758:
               if fn0[0] < 65756:
-                if fn0[0] == 65754:  # {U_Python.Prim.{next12}1}
-                  aux1 = idris_Python_46_Prim_46__123_next12_125_(arg0)
-                elif fn0[0] == 65755:  # {U_Python.Prim.{next1}1}
-                  aux1 = idris_Python_46_Prim_46__123_next1_125_(arg0)
-              else:
-                if fn0[0] == 65756:  # {U_Python.Prim.{next2}1}
+                if fn0[0] == 65754:  # {U_Python.{/.0}1}
+                  P_c0, P_c1, = fn0[1:]
+                  aux1 = idris_Python_46__123__47__46_0_125_(P_c0, P_c1, arg0)
+                elif fn0[0] == 65755:  # {U_Python.{/:0}1}
                   P_c0, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_next2_125_(P_c0, arg0)
-                elif fn0[0] == 65757:  # {U_Python.Prim.{next3}1}
-                  aux1 = idris_Python_46_Prim_46__123_next3_125_(arg0)
+                  aux1 = idris_Python_46__123__47__58_0_125_(P_c0, arg0)
+              else:
+                if fn0[0] == 65756:  # {U_Python.{marshalPIO0}1}
+                  P_c0, = fn0[1:]
+                  aux1 = idris_Python_46__123_marshalPIO0_125_(P_c0, arg0)
+                elif fn0[0] == 65757:  # {U_io_bind1}
+                  P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+                  aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
             else:
               if fn0[0] < 65760:
-                if fn0[0] == 65758:  # {U_Python.Prim.{next4}1}
-                  aux1 = idris_Python_46_Prim_46__123_next4_125_(arg0)
-                elif fn0[0] == 65759:  # {U_Python.Prim.{next5}1}
-                  aux1 = idris_Python_46_Prim_46__123_next5_125_(arg0)
+                if fn0[0] == 65758:  # {U_io_return1}
+                  P_c0, P_c1, P_c2, = fn0[1:]
+                  aux1 = idris_io_95_return(P_c0, P_c1, P_c2, arg0)
+                elif fn0[0] == 65759:  # {U_prim__zextInt_BigInt1}
+                  aux1 = idris_prim_95__95_zextInt_95_BigInt(arg0)
               else:
-                if fn0[0] == 65760:  # {U_Python.Prim.{next6}1}
-                  aux1 = idris_Python_46_Prim_46__123_next6_125_(arg0)
-                elif fn0[0] == 65761:  # {U_Python.Prim.{next7}1}
-                  aux1 = idris_Python_46_Prim_46__123_next7_125_(arg0)
-                elif fn0[0] == 65762:  # {U_Python.Prim.{next8}1}
-                  P_c0, = fn0[1:]
-                  aux1 = idris_Python_46_Prim_46__123_next8_125_(P_c0, arg0)
+                if fn0[0] == 65760:  # {U_prim_lenString1}
+                  aux1 = idris_prim_95_lenString(arg0)
+                elif fn0[0] == 65761:  # {U_{Python.Prim.iterate, iter_lam0}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(arg0)
+                elif fn0[0] == 65762:  # {U_{Python.Prim.iterate, iter_lam10}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam10_125_(arg0)
         else:
           if fn0[0] < 65772:
             if fn0[0] < 65767:
               if fn0[0] < 65765:
-                if fn0[0] == 65763:  # {U_Python.Prim.{next9}1}
-                  aux1 = idris_Python_46_Prim_46__123_next9_125_(arg0)
-                elif fn0[0] == 65764:  # {U_Python.importModule1}
-                  P_c0, P_c1, = fn0[1:]
-                  aux1 = idris_Python_46_importModule(P_c0, P_c1, arg0)
+                if fn0[0] == 65763:  # {U_{Python.Prim.iterate, iter_lam11}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam11_125_(arg0)
+                elif fn0[0] == 65764:  # {U_{Python.Prim.iterate, iter_lam12}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam12_125_(arg0)
               else:
-                if fn0[0] == 65765:  # {U_Python.mixout1}
+                if fn0[0] == 65765:  # {U_{Python.Prim.iterate, iter_lam13}1}
                   P_c0, P_c1, P_c2, = fn0[1:]
-                  aux1 = idris_Python_46_mixout(P_c0, P_c1, P_c2, arg0)
-                elif fn0[0] == 65766:  # {U_Python.{$.0}1}
-                  P_c0, P_c1, = fn0[1:]
-                  aux1 = idris_Python_46__123__36__46_0_125_(P_c0, P_c1, arg0)
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(
+                    P_c0, P_c1, P_c2, arg0
+                  )
+                elif fn0[0] == 65766:  # {U_{Python.Prim.iterate, iter_lam1}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(arg0)
             else:
               if fn0[0] < 65769:
-                if fn0[0] == 65767:  # {U_Python.{$:0}1}
+                if fn0[0] == 65767:  # {U_{Python.Prim.iterate, iter_lam2}1}
                   P_c0, = fn0[1:]
-                  aux1 = idris_Python_46__123__36__58_0_125_(P_c0, arg0)
-                elif fn0[0] == 65768:  # {U_Python.{/.0}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam2_125_(P_c0, arg0)
+                elif fn0[0] == 65768:  # {U_{Python.Prim.iterate, iter_lam3}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(arg0)
+              else:
+                if fn0[0] == 65769:  # {U_{Python.Prim.iterate, iter_lam4}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam4_125_(arg0)
+                elif fn0[0] == 65770:  # {U_{Python.Prim.iterate, iter_lam5}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam5_125_(arg0)
+                elif fn0[0] == 65771:  # {U_{Python.Prim.iterate, iter_lam6}1}
                   P_c0, P_c1, = fn0[1:]
-                  aux1 = idris_Python_46__123__47__46_0_125_(P_c0, P_c1, arg0)
-              else:
-                if fn0[0] == 65769:  # {U_Python.{/:0}1}
-                  P_c0, = fn0[1:]
-                  aux1 = idris_Python_46__123__47__58_0_125_(P_c0, arg0)
-                elif fn0[0] == 65770:  # {U_io_bind1}
-                  P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-                  aux1 = idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-                elif fn0[0] == 65771:  # {U_io_return1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
-                  aux1 = idris_io_95_return(P_c0, P_c1, P_c2, arg0)
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(P_c0, P_c1, arg0)
           else:
-            if fn0[0] < 65776:
+            if fn0[0] < 65777:
               if fn0[0] < 65774:
-                if fn0[0] == 65772:  # {U_prim__zextInt_BigInt1}
-                  aux1 = idris_prim_95__95_zextInt_95_BigInt(arg0)
-                elif fn0[0] == 65773:  # {U_prim_lenString1}
-                  aux1 = idris_prim_95_lenString(arg0)
+                if fn0[0] == 65772:  # {U_{Python.Prim.iterate, iter_lam7}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam7_125_(arg0)
+                elif fn0[0] == 65773:  # {U_{Python.Prim.iterate, iter_lam8}1}
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam8_125_(arg0)
               else:
-                if fn0[0] == 65774:  # {U_{io_bind1}1}
+                if fn0[0] == 65774:  # {U_{Python.Prim.iterate, iter_lam9}1}
+                  P_c0, = fn0[1:]
+                  aux1 = idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam9_125_(P_c0, arg0)
+                elif fn0[0] == 65775:  # {U_{io_bind1}1}
                   P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
                   aux1 = io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
-                elif fn0[0] == 65775:  # {U_{unsafePerformIO0}1}
+                elif fn0[0] == 65776:  # {U_{unsafePerformIO0}1}
                   aux1 = unsafePerformIO0(arg0)
             else:
-              if fn0[0] < 65778:
-                if fn0[0] == 65776:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+              if fn0[0] < 65779:
+                if fn0[0] == 65777:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
                   P_c0, P_c1, P_c2, = fn0[1:]
                   aux1 = (65706, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
-                elif fn0[0] == 65777:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+                elif fn0[0] == 65778:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
                   P_c0, P_c1, = fn0[1:]
-                  aux1 = (65776, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+                  aux1 = (65777, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
               else:
-                if fn0[0] == 65778:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                if fn0[0] == 65779:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
                   P_c0, = fn0[1:]
-                  aux1 = (65777, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
-                elif fn0[0] == 65779:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-                  aux1 = (65778, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                  aux1 = (65778, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+                elif fn0[0] == 65780:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+                  aux1 = (65779, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
     return aux1
 
 # {EVAL0}
@@ -1046,14 +1040,21 @@ def idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_
   e3, in0
 ):
   while True:
-    return (65771, None, None, APPLY0(e3, in0))  # {U_io_return1}
+    return (65758, None, None, APPLY0(e3, in0))  # {U_io_return1}
 
-# Python.Prim.{case block in iter_lam0}
-def idris_Python_46_Prim_46__123_case_32_block_32_in_32_iter_95_lam0_125_(
-  e1, e4, in1
+# {Python.Prim.iterate, iter_lam0}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(in2):
+  while True:
+    return (65758, None, None, in2)  # {U_io_return1}
+
+# Python.Prim.{case block in Python.Prim.iterate, iter_lam0}
+def idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(
+  e6, e9, in1
 ):
   while True:
-    return idris_Python_46_Prim_46_iter(None, None, e1, in1, e4)
+    return idris_Python_46_Prim_46_iterate_58_iter_58_0(
+      None, None, None, None, None, None, None, e6, in1, e9
+    )
 
 # Main.{case block in main_lam0}
 def idris_Main_46__123_case_32_block_32_in_32_main_95_lam0_125_(e18, in1, in2):
@@ -1071,12 +1072,12 @@ def idris_Main_46__123_case_32_block_32_in_32_main_95_lam0_125_(e18, in1, in2):
 # Python.Exceptions.{catch0}
 def idris_Python_46_Exceptions_46__123_catch0_125_(in2):
   while True:
-    return (65771, None, None, in2)  # {U_io_return1}
+    return (65758, None, None, in2)  # {U_io_return1}
 
 # Python.Prim.{collect0}
 def idris_Python_46_Prim_46__123_collect0_125_(in0, in1):
   while True:
-    return (65771, None, None, (1, in1, in0))  # {U_io_return1}, Prelude.List.::
+    return (65758, None, None, (1, in1, in0))  # {U_io_return1}, Prelude.List.::
 
 # Python.Prim.{foreach0}
 def idris_Python_46_Prim_46__123_foreach0_125_(e2, e3, e4, in1):
@@ -1098,15 +1099,12 @@ def io_bind0(e0, e1, e2, e3, e4, idris_w, in0):
   while True:
     return APPLY0(e4, in0)
 
-# Python.Prim.{iter0}
-def idris_Python_46_Prim_46__123_iter0_125_(in2):
-  while True:
-    return (65771, None, None, in2)  # {U_io_return1}
-
 # Python.Prim.{iterate0}
 def idris_Python_46_Prim_46__123_iterate0_125_(e3, e4, in0):
   while True:
-    return idris_Python_46_Prim_46_iter(None, None, in0, e3, e4)
+    return idris_Python_46_Prim_46_iterate_58_iter_58_0(
+      None, None, None, None, None, None, None, in0, e3, e4
+    )
 
 # Prelude.Strings.{length0}
 def idris_Prelude_46_Strings_46__123_length0_125_(in0):
@@ -1120,10 +1118,15 @@ def idris_Main_46__123_main0_125_(in12, in13, in14):
       None, None, in12, in13, in14
     )
 
+# Python.{marshalPIO0}
+def idris_Python_46__123_marshalPIO0_125_(e1, in0):
+  while True:
+    return idris_marshal_PIO(e1)
+
 # Python.Prim.{next0}
 def idris_Python_46_Prim_46__123_next0_125_(in2):
   while True:
-    return (65771, None, None, in2)  # {U_io_return1}
+    return (65758, None, None, in2)  # {U_io_return1}
 
 # Prelude.{putStr0}
 def idris_Prelude_46__123_putStr0_125_(e1, in0):
@@ -1154,6 +1157,11 @@ def idris_Python_46_Exceptions_46__123_try0_125_(in1):
 def unsafePerformIO0(in0):
   while True:
     return in0
+
+# {Python.Prim.iterate, iter_lam1}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(in1):
+  while True:
+    return (65761,)  # {U_{Python.Prim.iterate, iter_lam0}1}
 
 # Main.{case block in main_lam1}
 def idris_Main_46__123_case_32_block_32_in_32_main_95_lam1_125_(e18, e20, in1):
@@ -1190,17 +1198,12 @@ def idris_Python_46_Prim_46__123_foreach1_125_(e2, e3, e4, in0):
 # Python.Lib.Threading.{forkPIO1}
 def idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(in0, in3):
   while True:
-    return (65771, None, None, in0)  # {U_io_return1}
+    return (65758, None, None, in0)  # {U_io_return1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
   while True:
     return APPLY0(io_bind0(e0, e1, e2, e3, e4, idris_w, in0), idris_w)
-
-# Python.Prim.{iter1}
-def idris_Python_46_Prim_46__123_iter1_125_(in1):
-  while True:
-    return (65736,)  # {U_Python.Prim.{iter0}1}
 
 # Main.{main1}
 def idris_Main_46__123_main1_125_(in12, in13):
@@ -1210,12 +1213,12 @@ def idris_Main_46__123_main1_125_(in12, in13):
 # Python.Prim.{next1}
 def idris_Python_46_Prim_46__123_next1_125_(in1):
   while True:
-    return (65751,)  # {U_Python.Prim.{next0}1}
+    return (65737,)  # {U_Python.Prim.{next0}1}
 
 # Prelude.{putStr1}
 def idris_Prelude_46__123_putStr1_125_(in1):
   while True:
-    return (65771, None, None, (0,))  # {U_io_return1}, MkUnit
+    return (65758, None, None, (0,))  # {U_io_return1}, MkUnit
 
 # Python.Exceptions.{try1}
 def idris_Python_46_Exceptions_46__123_try1_125_(in2):
@@ -1225,7 +1228,12 @@ def idris_Python_46_Exceptions_46__123_try1_125_(in2):
 # {unsafePerformIO1}
 def unsafePerformIO1(e0, e1, e2):
   while True:
-    return (65775,)  # {U_{unsafePerformIO0}1}
+    return (65776,)  # {U_{unsafePerformIO0}1}
+
+# {Python.Prim.iterate, iter_lam2}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam2_125_(in5, in6):
+  while True:
+    return (65757, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Main.{case block in main_lam2}
 def idris_Main_46__123_case_32_block_32_in_32_main_95_lam2_125_(e18, e3, e20, in0):
@@ -1252,13 +1260,13 @@ def idris_Main_46__123_case_32_block_32_in_32_main_95_lam2_125_(e18, e3, e20, in
 # Python.Exceptions.{catch2}
 def idris_Python_46_Exceptions_46__123_catch2_125_(in5, in6):
   while True:
-    return (65770, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65757, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Python.Lib.Threading.{forkPIO2}
 def idris_Python_46_Lib_46_Threading_46__123_forkPIO2_125_(in0, in2):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1274,12 +1282,7 @@ def idris_Python_46_Lib_46_Threading_46__123_forkPIO2_125_(in0, in2):
 # {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, idris_w):
   while True:
-    return (65774, e0, e1, e2, e3, e4, idris_w)  # {U_{io_bind1}1}
-
-# Python.Prim.{iter2}
-def idris_Python_46_Prim_46__123_iter2_125_(in5, in6):
-  while True:
-    return (65770, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65775, e0, e1, e2, e3, e4, idris_w)  # {U_{io_bind1}1}
 
 # Main.{main2}
 def idris_Main_46__123_main2_125_(in12):
@@ -1289,12 +1292,17 @@ def idris_Main_46__123_main2_125_(in12):
 # Python.Prim.{next2}
 def idris_Python_46_Prim_46__123_next2_125_(in5, in6):
   while True:
-    return (65770, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65757, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Python.Exceptions.{try2}
 def idris_Python_46_Exceptions_46__123_try2_125_(in3):
   while True:
     return (0, in3)  # Python.Exceptions.OK
+
+# {Python.Prim.iterate, iter_lam3}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(in5):
+  while True:
+    return (65767, in5)  # {U_{Python.Prim.iterate, iter_lam2}1}
 
 # Python.Exceptions.{catch3}
 def idris_Python_46_Exceptions_46__123_catch3_125_(in5):
@@ -1305,7 +1313,7 @@ def idris_Python_46_Exceptions_46__123_catch3_125_(in5):
 def idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(e1, in0):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1322,16 +1330,15 @@ def idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(e1, in0):
         (
           1,  # Python.::
           idris_Python_46_none(),
-          (1, (65770, None, None, None, e1, (65726, in0)), (0,))  # Python.::, {U_io_bind1}, {U_Python.Lib.Threading.{forkPIO0}1}, Python.Nil
+          (
+            1,  # Python.::
+            idris_Python_46_marshalPIO(None, (65757, None, None, None, e1, (65726, in0))),  # {U_io_bind1}, {U_Python.Lib.Threading.{forkPIO0}1}
+            (0,)  # Python.Nil
+          )
         )
       ),
       (65728, in0)  # {U_Python.Lib.Threading.{forkPIO2}1}
     )
-
-# Python.Prim.{iter3}
-def idris_Python_46_Prim_46__123_iter3_125_(in5):
-  while True:
-    return (65742, in5)  # {U_Python.Prim.{iter2}1}
 
 # Main.{main3}
 def idris_Main_46__123_main3_125_(in11):
@@ -1341,7 +1348,7 @@ def idris_Main_46__123_main3_125_(in11):
 # Python.Prim.{next3}
 def idris_Python_46_Prim_46__123_next3_125_(in5):
   while True:
-    return (65756, in5)  # {U_Python.Prim.{next2}1}
+    return (65742, in5)  # {U_Python.Prim.{next2}1}
 
 # Python.Exceptions.{try3}
 def idris_Python_46_Exceptions_46__123_try3_125_(e1, in0):
@@ -1359,15 +1366,15 @@ def idris_Python_46_Exceptions_46__123_try3_125_(e1, in0):
       )
     )
 
+# {Python.Prim.iterate, iter_lam4}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam4_125_(in4):
+  while True:
+    return (65768,)  # {U_{Python.Prim.iterate, iter_lam3}1}
+
 # Python.Exceptions.{catch4}
 def idris_Python_46_Exceptions_46__123_catch4_125_(in4):
   while True:
     return (65715,)  # {U_Python.Exceptions.{catch3}1}
-
-# Python.Prim.{iter4}
-def idris_Python_46_Prim_46__123_iter4_125_(in4):
-  while True:
-    return (65743,)  # {U_Python.Prim.{iter3}1}
 
 # Main.{main4}
 def idris_Main_46__123_main4_125_(in10):
@@ -1377,17 +1384,17 @@ def idris_Main_46__123_main4_125_(in10):
 # Python.Prim.{next4}
 def idris_Python_46_Prim_46__123_next4_125_(in4):
   while True:
-    return (65757,)  # {U_Python.Prim.{next3}1}
+    return (65743,)  # {U_Python.Prim.{next3}1}
+
+# {Python.Prim.iterate, iter_lam5}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam5_125_(in3):
+  while True:
+    return (65769,)  # {U_{Python.Prim.iterate, iter_lam4}1}
 
 # Python.Exceptions.{catch5}
 def idris_Python_46_Exceptions_46__123_catch5_125_(in3):
   while True:
     return (65716,)  # {U_Python.Exceptions.{catch4}1}
-
-# Python.Prim.{iter5}
-def idris_Python_46_Prim_46__123_iter5_125_(in3):
-  while True:
-    return (65744,)  # {U_Python.Prim.{iter4}1}
 
 # Main.{main5}
 def idris_Main_46__123_main5_125_(in15, in16):
@@ -1397,7 +1404,14 @@ def idris_Main_46__123_main5_125_(in15, in16):
 # Python.Prim.{next5}
 def idris_Python_46_Prim_46__123_next5_125_(in3):
   while True:
-    return (65758,)  # {U_Python.Prim.{next4}1}
+    return (65744,)  # {U_Python.Prim.{next4}1}
+
+# {Python.Prim.iterate, iter_lam6}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(e7, e9, in8):
+  while True:
+    return idris_Python_46_Prim_46_iterate_58_iter_58_0(
+      None, None, None, None, None, None, None, e7, in8, e9
+    )
 
 # Python.Exceptions.{catch6}
 def idris_Python_46_Exceptions_46__123_catch6_125_(e2, in0):
@@ -1418,11 +1432,6 @@ def idris_Python_46_Exceptions_46__123_catch6_125_(e2, in0):
       idris_error("unreachable case")
     return aux1
 
-# Python.Prim.{iter6}
-def idris_Python_46_Prim_46__123_iter6_125_(e2, e4, in8):
-  while True:
-    return idris_Python_46_Prim_46_iter(None, None, e2, in8, e4)
-
 # Main.{main6}
 def idris_Main_46__123_main6_125_(in15):
   while True:
@@ -1431,12 +1440,12 @@ def idris_Main_46__123_main6_125_(in15):
 # Python.Prim.{next6}
 def idris_Python_46_Prim_46__123_next6_125_(in2):
   while True:
-    return (65771, None, None, in2)  # {U_io_return1}
+    return (65758, None, None, in2)  # {U_io_return1}
 
-# Python.Prim.{iter7}
-def idris_Python_46_Prim_46__123_iter7_125_(in2):
+# {Python.Prim.iterate, iter_lam7}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam7_125_(in2):
   while True:
-    return (65771, None, None, in2)  # {U_io_return1}
+    return (65758, None, None, in2)  # {U_io_return1}
 
 # Main.{main7}
 def idris_Main_46__123_main7_125_(in9):
@@ -1452,33 +1461,33 @@ def idris_Main_46__123_main7_125_(in9):
 # Python.Prim.{next7}
 def idris_Python_46_Prim_46__123_next7_125_(in1):
   while True:
-    return (65760,)  # {U_Python.Prim.{next6}1}
+    return (65746,)  # {U_Python.Prim.{next6}1}
 
-# Python.Prim.{iter8}
-def idris_Python_46_Prim_46__123_iter8_125_(in1):
+# {Python.Prim.iterate, iter_lam8}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam8_125_(in1):
   while True:
-    return (65747,)  # {U_Python.Prim.{iter7}1}
+    return (65772,)  # {U_{Python.Prim.iterate, iter_lam7}1}
 
 # Main.{main8}
 def idris_Main_46__123_main8_125_(in7, in18):
   while True:
-    return (65771, None, None, in7 + 1)  # {U_io_return1}
+    return (65758, None, None, in7 + 1)  # {U_io_return1}
 
 # Python.Prim.{next8}
 def idris_Python_46_Prim_46__123_next8_125_(in5, in6):
   while True:
-    return (65770, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65757, None, None, None, in5, in6)  # {U_io_bind1}
 
-# Python.Prim.{iter9}
-def idris_Python_46_Prim_46__123_iter9_125_(in5, in6):
+# {Python.Prim.iterate, iter_lam9}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam9_125_(in5, in6):
   while True:
-    return (65770, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65757, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Main.{main9}
 def idris_Main_46__123_main9_125_(in7, in17):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1489,23 +1498,23 @@ def idris_Main_46__123_main9_125_(in7, in17):
 # Python.Prim.{next9}
 def idris_Python_46_Prim_46__123_next9_125_(in5):
   while True:
-    return (65762, in5)  # {U_Python.Prim.{next8}1}
+    return (65748, in5)  # {U_Python.Prim.{next8}1}
 
-# Python.Prim.{iter10}
-def idris_Python_46_Prim_46__123_iter10_125_(in5):
+# {Python.Prim.iterate, iter_lam10}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam10_125_(in5):
   while True:
-    return (65749, in5)  # {U_Python.Prim.{iter9}1}
+    return (65774, in5)  # {U_{Python.Prim.iterate, iter_lam9}1}
 
 # Main.{main10}
 def idris_Main_46__123_main10_125_(in7, in8):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
       (
-        65770,  # {U_io_bind1}
+        65757,  # {U_io_bind1}
         None,
         None,
         None,
@@ -1523,12 +1532,12 @@ def idris_Main_46__123_main10_125_(in7, in8):
 # Python.Prim.{next10}
 def idris_Python_46_Prim_46__123_next10_125_(in4):
   while True:
-    return (65763,)  # {U_Python.Prim.{next9}1}
+    return (65749,)  # {U_Python.Prim.{next9}1}
 
-# Python.Prim.{iter11}
-def idris_Python_46_Prim_46__123_iter11_125_(in4):
+# {Python.Prim.iterate, iter_lam11}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam11_125_(in4):
   while True:
-    return (65737,)  # {U_Python.Prim.{iter10}1}
+    return (65762,)  # {U_{Python.Prim.iterate, iter_lam10}1}
 
 # Main.{main11}
 def idris_Main_46__123_main11_125_(in7):
@@ -1538,17 +1547,17 @@ def idris_Main_46__123_main11_125_(in7):
 # Python.Prim.{next11}
 def idris_Python_46_Prim_46__123_next11_125_(in3):
   while True:
-    return (65752,)  # {U_Python.Prim.{next10}1}
+    return (65738,)  # {U_Python.Prim.{next10}1}
 
-# Python.Prim.{iter12}
-def idris_Python_46_Prim_46__123_iter12_125_(in3):
+# {Python.Prim.iterate, iter_lam12}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam12_125_(in3):
   while True:
-    return (65738,)  # {U_Python.Prim.{iter11}1}
+    return (65763,)  # {U_{Python.Prim.iterate, iter_lam11}1}
 
 # Main.{main12}
 def idris_Main_46__123_main12_125_(in25):
   while True:
-    return (65771, None, None, in25)  # {U_io_return1}
+    return (65758, None, None, in25)  # {U_io_return1}
 
 # Python.Prim.{next12}
 def idris_Python_46_Prim_46__123_next12_125_(in0):
@@ -1556,7 +1565,7 @@ def idris_Python_46_Prim_46__123_next12_125_(in0):
     if in0[0] == 1:  # Python.Exceptions.Except
       in7, in8, = in0[1:]
       if in7[0] == 0:  # Python.Exceptions.StopIteration
-        aux3 = (0, (65755,), (65759,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next1}1}, {U_Python.Prim.{next5}1}
+        aux3 = (0, (65741,), (65745,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next1}1}, {U_Python.Prim.{next5}1}
         if aux3[0] == 0:  # constructor of Prelude.Monad.Monad
           in9, in10, = aux3[1:]
           aux4 = in9
@@ -1568,7 +1577,7 @@ def idris_Python_46_Prim_46__123_next12_125_(in0):
       aux1 = aux2
     elif in0[0] == 0:  # Python.Exceptions.OK
       in11, = in0[1:]
-      aux5 = (0, (65761,), (65753,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next7}1}, {U_Python.Prim.{next11}1}
+      aux5 = (0, (65747,), (65739,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next7}1}, {U_Python.Prim.{next11}1}
       if aux5[0] == 0:  # constructor of Prelude.Monad.Monad
         in12, in13, = aux5[1:]
         aux6 = in12
@@ -1579,8 +1588,8 @@ def idris_Python_46_Prim_46__123_next12_125_(in0):
       idris_error("unreachable case")
     return aux1
 
-# Python.Prim.{iter13}
-def idris_Python_46_Prim_46__123_iter13_125_(e4, e3, e2, in0):
+# {Python.Prim.iterate, iter_lam13}
+def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e9, e8, e7, in0):
   while True:
     if in0[0] == 1:  # Prelude.Maybe.Just
       in7, = in0[1:]
@@ -1590,20 +1599,20 @@ def idris_Python_46_Prim_46__123_iter13_125_(e4, e3, e2, in0):
             None,
             None,
             None,
-            (0, (65741,), (65745,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{iter1}1}, {U_Python.Prim.{iter5}1}
+            (0, (65766,), (65770,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam1}1}, {U_{Python.Prim.iterate, iter_lam5}1}
           ),
-          APPLY0(APPLY0(e4, e3), in7)
+          APPLY0(APPLY0(e9, e8), in7)
         ),
-        (65746, e2, e4)  # {U_Python.Prim.{iter6}1}
+        (65771, e7, e9)  # {U_{Python.Prim.iterate, iter_lam6}1}
       )
     elif in0[0] == 0:  # Prelude.Maybe.Nothing
-      aux2 = (0, (65748,), (65739,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{iter8}1}, {U_Python.Prim.{iter12}1}
+      aux2 = (0, (65773,), (65764,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam8}1}, {U_{Python.Prim.iterate, iter_lam12}1}
       if aux2[0] == 0:  # constructor of Prelude.Monad.Monad
         in9, in10, = aux2[1:]
         aux3 = in9
       else:
         idris_error("unreachable case")
-      aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux3), e3)
+      aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux3), e8)
     else:
       idris_error("unreachable case")
     return aux1
@@ -1616,7 +1625,7 @@ def idris_Main_46__123_main13_125_(in24):
 # Main.{main14}
 def idris_Main_46__123_main14_125_(in28, in29):
   while True:
-    return (65770, None, None, None, in28, in29)  # {U_io_bind1}
+    return (65757, None, None, None, in28, in29)  # {U_io_bind1}
 
 # Main.{main15}
 def idris_Main_46__123_main15_125_(in28):
@@ -1636,7 +1645,7 @@ def idris_Main_46__123_main17_125_(in26):
 # Main.{main18}
 def idris_Main_46__123_main18_125_(in25):
   while True:
-    return (65771, None, None, in25)  # {U_io_return1}
+    return (65758, None, None, in25)  # {U_io_return1}
 
 # Main.{main19}
 def idris_Main_46__123_main19_125_(in24):
@@ -1646,7 +1655,7 @@ def idris_Main_46__123_main19_125_(in24):
 # Main.{main20}
 def idris_Main_46__123_main20_125_(in28, in29):
   while True:
-    return (65770, None, None, None, in28, in29)  # {U_io_bind1}
+    return (65757, None, None, None, in28, in29)  # {U_io_bind1}
 
 # Main.{main21}
 def idris_Main_46__123_main21_125_(in28):
@@ -1666,7 +1675,7 @@ def idris_Main_46__123_main23_125_(in26):
 # Main.{main24}
 def idris_Main_46__123_main24_125_(in25):
   while True:
-    return (65771, None, None, in25)  # {U_io_return1}
+    return (65758, None, None, in25)  # {U_io_return1}
 
 # Main.{main25}
 def idris_Main_46__123_main25_125_(in24):
@@ -1676,7 +1685,7 @@ def idris_Main_46__123_main25_125_(in24):
 # Main.{main26}
 def idris_Main_46__123_main26_125_(in28, in29):
   while True:
-    return (65770, None, None, None, in28, in29)  # {U_io_bind1}
+    return (65757, None, None, None, in28, in29)  # {U_io_bind1}
 
 # Main.{main27}
 def idris_Main_46__123_main27_125_(in28):
@@ -1696,7 +1705,7 @@ def idris_Main_46__123_main29_125_(in26):
 # Main.{main30}
 def idris_Main_46__123_main30_125_(in25):
   while True:
-    return (65771, None, None, in25)  # {U_io_return1}
+    return (65758, None, None, in25)  # {U_io_return1}
 
 # Main.{main31}
 def idris_Main_46__123_main31_125_(in24):
@@ -1706,7 +1715,7 @@ def idris_Main_46__123_main31_125_(in24):
 # Main.{main32}
 def idris_Main_46__123_main32_125_(in28, in29):
   while True:
-    return (65770, None, None, None, in28, in29)  # {U_io_bind1}
+    return (65757, None, None, None, in28, in29)  # {U_io_bind1}
 
 # Main.{main33}
 def idris_Main_46__123_main33_125_(in28):
@@ -1848,7 +1857,7 @@ def idris_Main_46__123_main43_125_(in48):
 def idris_Main_46__123_main44_125_(in42, in47):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1868,7 +1877,7 @@ def idris_Main_46__123_main44_125_(in42, in47):
 def idris_Main_46__123_main45_125_(in42, in43):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1877,7 +1886,7 @@ def idris_Main_46__123_main45_125_(in42, in43):
         idris_Python_46_Exceptions_46_try(
           None,
           (
-            65770,  # {U_io_bind1}
+            65757,  # {U_io_bind1}
             None,
             None,
             None,
@@ -1899,7 +1908,7 @@ def idris_Main_46__123_main45_125_(in42, in43):
 def idris_Main_46__123_main46_125_(in42):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1910,18 +1919,18 @@ def idris_Main_46__123_main46_125_(in42):
 # Main.{main47}
 def idris_Main_46__123_main47_125_(in41):
   while True:
-    return (65770, None, None, None, idris_Python_46_Lib_46_Os_46_import_95_(), (65680,))  # {U_io_bind1}, {U_Main.{main46}1}
+    return (65757, None, None, None, idris_Python_46_Lib_46_Os_46_import_95_(), (65680,))  # {U_io_bind1}, {U_Main.{main46}1}
 
 # Main.{main48}
 def idris_Main_46__123_main48_125_(in40):
   while True:
-    return (65770, None, None, None, idris_Prelude_46_putStr(None, "\n"), (65681,))  # {U_io_bind1}, {U_Main.{main47}1}
+    return (65757, None, None, None, idris_Prelude_46_putStr(None, "\n"), (65681,))  # {U_io_bind1}, {U_Main.{main47}1}
 
 # Main.{main49}
 def idris_Main_46__123_main49_125_(in38, in39):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1936,7 +1945,7 @@ def idris_Main_46__123_main49_125_(in38, in39):
 def idris_Main_46__123_main50_125_(in37, in38):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1951,7 +1960,7 @@ def idris_Main_46__123_main50_125_(in37, in38):
 def idris_Main_46__123_main51_125_(in36, in37):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1963,7 +1972,7 @@ def idris_Main_46__123_main51_125_(in36, in37):
 def idris_Main_46__123_main52_125_(in35, in36):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1975,7 +1984,7 @@ def idris_Main_46__123_main52_125_(in35, in36):
 def idris_Main_46__123_main53_125_(in22, in35):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1988,7 +1997,7 @@ def idris_Main_46__123_main54_125_(in1, in21):
   while True:
     in22 = (65672, in1)  # {U_Main.{main39}1}
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -1999,13 +2008,13 @@ def idris_Main_46__123_main54_125_(in1, in21):
 # Main.{main55}
 def idris_Main_46__123_main55_125_(in1, in20):
   while True:
-    return (65770, None, None, None, idris_Prelude_46_putStr(None, "\n"), (65689, in1))  # {U_io_bind1}, {U_Main.{main54}1}
+    return (65757, None, None, None, idris_Prelude_46_putStr(None, "\n"), (65689, in1))  # {U_io_bind1}, {U_Main.{main54}1}
 
 # Main.{main56}
 def idris_Main_46__123_main56_125_(in1, in19):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2017,7 +2026,7 @@ def idris_Main_46__123_main56_125_(in1, in19):
 def idris_Main_46__123_main57_125_(in5, in1, in6):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2029,7 +2038,7 @@ def idris_Main_46__123_main57_125_(in5, in1, in6):
 def idris_Main_46__123_main58_125_(in1, in5):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2044,7 +2053,7 @@ def idris_Main_46__123_main58_125_(in1, in5):
 def idris_Main_46__123_main59_125_(in1, in4):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2066,7 +2075,7 @@ def idris_Main_46__123_main59_125_(in1, in4):
 def idris_Main_46__123_main60_125_(in2, in1, in3):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2083,7 +2092,7 @@ def idris_Main_46__123_main60_125_(in2, in1, in3):
 def idris_Main_46__123_main61_125_(in1, in2):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2095,7 +2104,7 @@ def idris_Main_46__123_main61_125_(in1, in2):
 def idris_Main_46__123_main62_125_(in1):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2118,7 +2127,7 @@ def idris_Main_46__123_main62_125_(in1):
 def idris_Main_46__123_main63_125_(in0):
   while True:
     return (
-      65770,  # {U_io_bind1}
+      65757,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2129,6 +2138,20 @@ def idris_Main_46__123_main63_125_(in0):
         (0,)  # Python.Nil
       ),
       (65698,)  # {U_Main.{main62}1}
+    )
+
+# Python.Prim.iterate, iter
+def idris_Python_46_Prim_46_iterate_58_iter_58_0(
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9
+):
+  while True:
+    return (
+      65757,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      idris_Python_46_Prim_46_next(None, e7),
+      (65765, e9, e8, e7)  # {U_{Python.Prim.iterate, iter_lam13}1}
     )
 
 # Prelude.List.reverse, reverse'
@@ -2176,7 +2199,7 @@ def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_F
         APPLY0(e2, in0),
         APPLY0(
           APPLY0(
-            APPLY0(idris_Prelude_46_Foldable_46_foldr(None, None, None, (65779,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+            APPLY0(idris_Prelude_46_Foldable_46_foldr(None, None, None, (65780,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
             e3
           ),
           in1
@@ -2193,7 +2216,7 @@ def idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_
   e0, e1, e2, e3, e4
 ):
   while True:
-    return (65770, None, None, None, e4, (65705, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+    return (65757, None, None, None, e4, (65705, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
 
 # Prelude.Prelude.Nat instance of Prelude.Show, method show
 def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_Nat_58__33_show_58_0(e0):
@@ -2277,29 +2300,6 @@ def idris_Python_46_Exceptions_46_fromString_95_case(e0, e1):
 def idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
   while True:
     return APPLY0(e7, e5)
-
-# Python.Prim.case block in iter
-def idris_Python_46_Prim_46_iter_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
-  while True:
-    if e6[0] == 1:  # Prelude.Maybe.Just
-      in0, = e6[1:]
-      aux1 = APPLY0(
-        APPLY0(
-          idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e5),
-          APPLY0(APPLY0(e4, e3), in0)
-        ),
-        (65731, e1, e4)  # {U_Python.Prim.{case block in iter_lam0}1}
-      )
-    elif e6[0] == 0:  # Prelude.Maybe.Nothing
-      if e5[0] == 0:  # constructor of Prelude.Monad.Monad
-        in2, in3, = e5[1:]
-        aux2 = in2
-      else:
-        idris_error("unreachable case")
-      aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux2), e3)
-    else:
-      idris_error("unreachable case")
-    return aux1
 
 # Main.case block in main
 def idris_Main_46_main_95_case(
@@ -2431,6 +2431,31 @@ def idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4, e5, e6, lamp7)
       }.get(e5, (35,)),  # Python.Exceptions.Other
       lamp7
     )
+
+# Python.Prim.case block in Python.Prim.iterate, iter
+def idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95_case(
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12
+):
+  while True:
+    if e11[0] == 1:  # Prelude.Maybe.Just
+      in0, = e11[1:]
+      aux1 = APPLY0(
+        APPLY0(
+          idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e10),
+          APPLY0(APPLY0(e9, e8), in0)
+        ),
+        (65731, e6, e9)  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
+      )
+    elif e11[0] == 0:  # Prelude.Maybe.Nothing
+      if e10[0] == 0:  # constructor of Prelude.Monad.Monad
+        in2, in3, = e10[1:]
+        aux2 = in2
+      else:
+        idris_error("unreachable case")
+      aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux2), e8)
+    else:
+      idris_error("unreachable case")
+    return aux1
 
 # Main.case block in case block in main1
 def idris_Main_46_main1_95_case_95_case(
