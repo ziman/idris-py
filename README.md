@@ -21,6 +21,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * comments in the generated Python code show the meaning of low-level code
     - constructor tags
     - mangled names
+* exceptions: `try : PIO a -> PIO (Either Exception a)`
 
 ## Observations
 
