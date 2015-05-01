@@ -129,6 +129,26 @@ infixl 2 >:
 (>:) : (obj : PIO (Obj sig)) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> PIO (Obj mixin)
 (>:) obj mixin {pf = pf} = mixout mixin {pf = pf} <$> obj
 
+-- This is a separate function because signatures don't always
+-- come in this form. Therefore we need to check.
+private
+simplifySig : TT -> TT
+simplifySig `(MkSignature ~name ~fields ~mixins) = name
+simplifySig sig = sig
+
+-- Error reflection for better error messages.
+mixinErr : Err -> Maybe (List ErrorReportPart)
+mixinErr (CantSolveGoal `(HasMixin ~sig ~mixin) ntms)
+  = Just
+      [ TermPart mixin
+      , TextPart "is not mixed into signature"
+      , TermPart $ simplifySig sig
+      ]
+mixinErr _ = Nothing
+
+%error_handlers Python.(>.) pf mixinErr
+%error_handlers Python.(>:) pf mixinErr
+
 infixl 4 /.
 ||| Attribute accessor.
 |||
@@ -150,16 +170,11 @@ infixl 4 /:
 -- Error reflection for better error messages.
 fieldErr : Err -> Maybe (List ErrorReportPart)
 fieldErr (CantSolveGoal `(HasField ~sig (~fname ::: ~fty)) ntms)
-    = Just
-        [ TextPart "Field"
-        , TermPart fname
-        , TextPart "does not exist in object signature"
-        , TermPart $ simplify sig
-        ]
-  where
-    simplify : TT -> TT
-    simplify `(MkSignature ~name ~fields ~mixins) = name
-    simplify sig = sig
+  = Just
+      [ TextPart "Field", TermPart fname
+      , TextPart "does not exist in object signature"
+      , TermPart $ simplifySig sig
+      ]
 fieldErr _ = Nothing
 
 %error_handlers Python.(/.) pf fieldErr
