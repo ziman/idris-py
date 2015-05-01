@@ -146,6 +146,12 @@ pythonPreamble = vcat . map text $
     , "def idris_is_none(x):"
     , "  return 1 if x is None else 0"
     , ""
+    , "def idris_try(f, fail, succ):"
+    , "  try:"
+    , "    result = APPLY0(f, None)  # apply to world"
+    , "    return APPLY0(succ, result)"
+    , "  except Exception as e:"
+    , "    return APPLY0(fail, e)"
     ]
 
 pythonLauncher :: Doc

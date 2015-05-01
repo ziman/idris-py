@@ -36,6 +36,7 @@ main = do
   -- get the iterator over <li> elements, given by CSS selector
   features <- soup /. "select" $: ["div.entry-content li"]
 
+  -- print all <li> elements as features
   putStrLn $ "Idris has got the following exciting features:"
   count <- foreach features 0 $ \i : Int, li => do
     -- collect : Iterator a -> PIO (List a)
@@ -44,3 +45,12 @@ main = do
     return $ i + 1
 
   putStrLn $ "Total number of features: " ++ show count
+
+  -- test some exceptions
+  putStrLn ""
+  putStrLn "And now, let's print NULL!"
+  Right unit <- try (putStrLn =<< return (believe_me prim__null))
+    | Left e => do
+        putStrLn $ "...aand it causes an exception, as it should."
+        putStrLn $ "The message is: " ++ show e
+  putStrLn $ "strange, printing null didn't fail and we got back this: " ++ show unit

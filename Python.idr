@@ -39,6 +39,11 @@ abstract
 record Iterator : Type -> Type where
   MkIterator : (iter : Ptr) -> Iterator a
 
+||| Python exception.
+abstract
+record Exception : Type where
+  MkException : (e : Ptr) -> Exception
+
 
 --
 -- ###  Python FFI definition  ###
@@ -200,3 +205,30 @@ foreach {a = a} {b = b} (MkIterator it) st f = do
 ||| Collect all elements of an iterator into a list.
 collect : (it : Iterator a) -> PIO (List a)
 collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
+
+||| Catch exceptions in the given PIO action.
+abstract
+try : PIO a -> PIO (Either Exception a)
+try {a = a} x =
+  unRaw <$>
+    foreign
+      FFI_Py
+      "idris_try"
+      (Raw (PIO a)
+        -> (Ptr -> Raw (Either Exception a))
+        -> (Raw a -> Raw (Either Exception a))
+        -> PIO (Raw $ Either Exception a)
+      )
+      (MkRaw x)
+      (MkRaw . Left . MkException)
+      (MkRaw . Right . unRaw)
+
+||| Get basic information about the exception as `String`.
+abstract
+showException : Exception -> String
+showException (MkException e) =
+  unsafePerformIO
+    $ foreign FFI_Py "str" (Ptr -> PIO String) e
+
+instance Show Exception where
+  show = showException
