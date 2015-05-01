@@ -10,7 +10,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 	- thanks to signatures for Python objects ([example](https://github.com/ziman/idris-py/blob/master/Python/BeautifulSoup.idr)).
 * error reflection yields messages like:
     - `Field "gets" does not exist in object signature "Session"`
-    - `Iterable Int is not mixed into signature "PyList"`
+    - `Iterable Int is not mixed into signature "Response"`
 * `foreach` -- higher-order FFI :)
 * big case trees compiled to binary search trees
 	- seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
