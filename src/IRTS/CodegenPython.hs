@@ -152,6 +152,40 @@ pythonPreamble = vcat . map text $
     , "def idris_marshal_PIO(action):"
     , "  return lambda: APPLY0(action, None)  # delayed apply-to-world"
     , ""
+    , "class ConsIter(object):"
+    , "  def __init__(self, node):"
+    , "    self.node = node"
+    , ""
+    , "  def next(self):"
+    , "    if self.node.isNil:"
+    , "      raise StopIteration"
+    , "    else:"
+    , "      result = self.node.head"
+    , "      self.node = self.node.tail"
+    , "      return result"
+    , ""
+    , "class ConsList(object):"
+    , "  def __init__(self, isNil=True, head=None, tail=None):"
+    , "    self.isNil = isNil"
+    , "    self.head  = head"
+    , "    self.tail  = tail"
+    , ""
+    , "  def __nonzero__(self):"
+    , "    return not self.isNil"
+    , ""
+    , "  def __len__(self):"
+    , "    cnt = 0"
+    , "    while not self.isNil:"
+    , "      self = self.tail"
+    , "      cnt += 1"
+    , "    return cnt"
+    , ""
+    , "  def cons(self, x):"
+    , "    return ConsList(isNil=False, head=x, tail=self)"
+    , ""
+    , "  def __iter__(self):"
+    , "    return ConsIter(self)"
+    , ""
     ]
 
 pythonLauncher :: Doc
@@ -358,7 +392,9 @@ cgExp (DLet n v e) = do
 
 cgExp (DUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
 
-cgExp (DC _ tag n args) = cgCtor tag n <$> mapM cgExp args
+cgExp (DC _ tag n args)
+    | Just (ctor, test, match) <- specialCased n = ctor <$> mapM cgExp args
+    | otherwise = cgCtor tag n <$> mapM cgExp args
 
 -- if the scrutinee is something big, save it into a variable
 -- because we'll copy it into a possibly long chain of if-elif-...
@@ -475,28 +511,37 @@ cgCase var alts = do
         = emit $ text "else" <> colon $+$ indent (cgError "unreachable case")
 
 cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
-cgAlt v retVar (if_, DConCase tag' ctorName [] e) = do
-    -- DConCase does not contain useful tags yet
-    -- we need to find out by looking up by name
-    Just tag <- ctorTag ctorName
-    emit (
-        text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
-        <?> show ctorName
-     )
-    sindent $ do
-        emit . cgAssign retVar =<< cgExp e
-
 cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
-    -- DConCase does not contain useful tags yet
-    -- we need to find out by looking up by name
-    Just tag <- ctorTag ctorName
-    emit (
-        text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
-        <?> show ctorName
-      )
+    case special of
+        -- normal constructors
+        Nothing -> do
+            -- DConCase does not contain useful tags yet
+            -- we need to find out by looking up by name
+            Just tag <- ctorTag ctorName
+            emit (
+                text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
+                <?> show ctorName
+             )
+
+        -- special-cased constructors
+        Just (ctor, test, match)
+            -> emit $ (text if_ <+> test (cgVar v) <> colon) <?> show ctorName
+
+    -- statements conditioned by the if
     sindent $ do
-        emit $ cgMatch (map Glob args) v
+        -- project out the args
+        case args of
+            [] -> return ()
+            _  -> emit $ case special of
+                Nothing
+                    -> cgMatch (map Glob args) v
+                Just (ctor, test, match)
+                    -> match (map cgName args) (cgVar v)
+
+        -- evaluate the expression
         emit . cgAssign retVar =<< cgExp e
+  where
+    special = specialCased ctorName
 
 cgAlt v retVar (if_, DConstCase c e) = do
     emit $ text if_ <+> cgVar v <+> text "==" <+> cgConst c <> colon
@@ -507,3 +552,39 @@ cgAlt v retVar (if_, DDefaultCase e) = do
     emit $ text "else" <> colon
     sindent $
         emit . cgAssign retVar =<< cgExp e
+
+-- special-cased constructors
+type SCtor  = [Expr] -> Expr
+type STest  = Expr -> Expr
+type SMatch = [Expr] -> Expr -> Expr
+
+specialCased :: Name -> Maybe (SCtor, STest, SMatch)
+specialCased n = lookup n
+    [ item "Prelude.List" "::"     (\[h,t] -> t <> text ".cons" <> parens h) id uncons
+    , item "Prelude.List" "Nil"    (\[] -> text "ConsList()") (text "not" <+>) nomatch
+    , item "Prelude.Bool" "True"   (\[] -> text "True")    id              nomatch
+    , item "Prelude.Bool" "False"  (\[] -> text "False")  (text "not" <+>) nomatch
+    , item ""             "MkUnit" (\[] -> text "None")    noinspect       nomatch
+    , item "Builtins"     "MkPair" (\[x,y] -> parens (x <> comma <+> y)) noinspect match
+    ]
+  where
+    nomatch args e = cgError $ show n ++ " should never be deconstructed"
+    noinspect e = cgError $ show n ++ " should never be tested"
+
+    uncons args e = match args (e <> text ".head" <> comma <+> e <> text ".tail")
+    match args e = hsep (punctuate comma args) <+> text "=" <+> e
+
+    -- Every item says:
+    -- 1. what the namespace is
+    -- 2. what the name is
+    -- 3. how to construct the thing, given its arguments
+    -- 4. what to put in the if-statement to test for the thing, given the expression to test
+    item :: String -> String -> SCtor -> STest -> SMatch -> (Name, (SCtor, STest, SMatch))
+    item "" n ctor test match = (sUN n, (ctor, test, match))
+    item ns n ctor test match = (sNS (sUN n) (reverse $ split '.' ns), (ctor, test, match))
+
+    split :: Char -> String -> [String]
+    split c "" = [""]
+    split c (x : xs)
+        | c == x    = "" : split c xs
+        | otherwise = let ~(h:t) = split c xs in ((x:h) : t)

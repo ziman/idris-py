@@ -46,6 +46,40 @@ def idris_raise(e):
 def idris_marshal_PIO(action):
   return lambda: APPLY0(action, None)  # delayed apply-to-world
 
+class ConsIter(object):
+  def __init__(self, node):
+    self.node = node
+
+  def next(self):
+    if self.node.isNil:
+      raise StopIteration
+    else:
+      result = self.node.head
+      self.node = self.node.tail
+      return result
+
+class ConsList(object):
+  def __init__(self, isNil=True, head=None, tail=None):
+    self.isNil = isNil
+    self.head  = head
+    self.tail  = tail
+
+  def __nonzero__(self):
+    return not self.isNil
+
+  def __len__(self):
+    cnt = 0
+    while not self.isNil:
+      self = self.tail
+      cnt += 1
+    return cnt
+
+  def cons(self, x):
+    return ConsList(isNil=False, head=x, tail=self)
+
+  def __iter__(self):
+    return ConsIter(self)
+
 # Python.$.
 def idris_Python_46__36__46_(e0, e1, e2, idris_args):
   while True:
@@ -155,8 +189,8 @@ def idris_Python_46_Prim_46_collect(e0, e1):
       None,
       None,
       None,
-      (65707, None, (0,)),  # {U_Prelude.List.reverse, reverse'1}, Prelude.List.Nil
-      idris_Python_46_Prim_46_foreach(None, None, e1, (0,), (65733,))  # Prelude.List.Nil, {U_Python.Prim.{collect1}1}
+      (65707, None, ConsList()),  # {U_Prelude.List.reverse, reverse'1}
+      idris_Python_46_Prim_46_foreach(None, None, e1, ConsList(), (65733,))  # {U_Python.Prim.{collect1}1}
     )
 
 # Prelude.Foldable.concat
@@ -1077,7 +1111,7 @@ def idris_Python_46_Exceptions_46__123_catch0_125_(in2):
 # Python.Prim.{collect0}
 def idris_Python_46_Prim_46__123_collect0_125_(in0, in1):
   while True:
-    return (65758, None, None, (1, in1, in0))  # {U_io_return1}, Prelude.List.::
+    return (65758, None, None, in0.cons(in1))  # {U_io_return1}
 
 # Python.Prim.{foreach0}
 def idris_Python_46_Prim_46__123_foreach0_125_(e2, e3, e4, in1):
@@ -1218,7 +1252,7 @@ def idris_Python_46_Prim_46__123_next1_125_(in1):
 # Prelude.{putStr1}
 def idris_Prelude_46__123_putStr1_125_(in1):
   while True:
-    return (65758, None, None, (0,))  # {U_io_return1}, MkUnit
+    return (65758, None, None, None)  # {U_io_return1}
 
 # Python.Exceptions.{try1}
 def idris_Python_46_Exceptions_46__123_try1_125_(in2):
@@ -2157,12 +2191,12 @@ def idris_Python_46_Prim_46_iterate_58_iter_58_0(
 # Prelude.List.reverse, reverse'
 def idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(e0, e1, e2):
   while True:
-    if e2[0] == 1:  # Prelude.List.::
-      in0, in1, = e2[1:]
-      e0, e1, e2, = None, (1, in0, e1), in1,  # Prelude.List.::
+    if e2:  # Prelude.List.::
+      in0, in1 = e2.head, e2.tail
+      e0, e1, e2, = None, e1.cons(in0), in1,
       continue
       aux1 = idris_error("unreachable due to tail call")
-    elif e2[0] == 0:  # Prelude.List.Nil
+    elif not e2:  # Prelude.List.Nil
       aux1 = e1
     else:
       idris_error("unreachable case")
@@ -2193,8 +2227,8 @@ def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_F
   e0, e1, e2, e3, e4
 ):
   while True:
-    if e4[0] == 1:  # Prelude.List.::
-      in0, in1, = e4[1:]
+    if e4:  # Prelude.List.::
+      in0, in1 = e4.head, e4.tail
       aux1 = APPLY0(
         APPLY0(e2, in0),
         APPLY0(
@@ -2205,7 +2239,7 @@ def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_F
           in1
         )
       )
-    elif e4[0] == 0:  # Prelude.List.Nil
+    elif not e4:  # Prelude.List.Nil
       aux1 = e3
     else:
       idris_error("unreachable case")
