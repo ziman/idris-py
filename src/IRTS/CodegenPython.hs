@@ -423,8 +423,10 @@ cgDictCase scrutinee items dflt =
 cgCase :: LVar -> [DAlt] -> CG Expr
 cgCase var [DDefaultCase e] = cgExp e
 
+-- compile big constant-cases into dict lookups
 cgCase var alts
-    | all isConstant alts = do
+    | length alts > 8
+    , all isConstant alts = do
         exprs <- mapM cgExp [e | DConstCase c e <- alts]        
         dflt  <- mapM cgExp [e | DDefaultCase e <- alts]
         return $ cgDictCase
@@ -437,6 +439,7 @@ cgCase var alts
     isConstant (DDefaultCase _) = True
     isConstant _ = False
 
+-- compile big constructor-cases into binary search on tags
 cgCase var alts
     | altCount >= 2 * groupSize  -- there would be at least 2 full groups
     , DDefaultCase def : alts' <- reverse alts
@@ -459,6 +462,7 @@ cgCase var alts
         Just tag <- ctorTag n
         return (tag, alt)
 
+-- otherwise just do the linear if-elif thing
 cgCase var alts = do
     retVar <- fresh
     mapM_ (cgAlt var retVar) (zip ifElif alts)

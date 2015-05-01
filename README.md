@@ -12,8 +12,10 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - `Field "gets" does not exist in object signature "Session"`
     - `Iterable Int is not mixed into signature "Response"`
 * `foreach` -- higher-order FFI :)
-* big case trees compiled to binary search trees
-	- seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
+* big case trees compiled specially
+    - constructor-cases to binary search on tags
+	    - seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
+	- constant-cases to dictionary lookups
 * comments in the generated Python code show the meaning of low-level code
     - constructor names next to numeric constructor tags
     - readable names next to mangled names
