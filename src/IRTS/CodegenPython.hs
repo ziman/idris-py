@@ -500,15 +500,7 @@ cgCase var alts
 cgCase var alts = do
     retVar <- fresh
     mapM_ (cgAlt var retVar) (zip ifElif alts)
-    emitUnreachableCase
     return $ cgVar retVar
-  where
-    emitUnreachableCase
-        | (DDefaultCase _ : _) <- reverse alts
-        = return ()
-
-        | otherwise
-        = emit $ text "else" <> colon $+$ indent (cgError "unreachable case")
 
 cgAlt :: LVar -> LVar -> (String, DAlt) -> CG ()
 cgAlt v retVar (if_, DConCase tag' ctorName args e) = do

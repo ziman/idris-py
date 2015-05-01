@@ -139,8 +139,6 @@ def idris_Prelude_46_Monad_46__62__62__61_(e0, e1, e2, e3):
     if e3[0] == 0:  # constructor of Prelude.Monad.Monad
       in0, in1, = e3[1:]
       aux1 = APPLY0(APPLY0(in1, e1), e2)
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # @@constructor of Prelude.Algebra.Monoid#Semigroup a
@@ -151,8 +149,6 @@ def idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup
     if e1[0] == 0:  # constructor of Prelude.Algebra.Monoid
       in0, in1, = e1[1:]
       aux1 = in0
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # @@constructor of Prelude.Monad.Monad#Applicative m
@@ -163,8 +159,6 @@ def idris__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative_
     if e1[0] == 0:  # constructor of Prelude.Monad.Monad
       in0, in1, = e1[1:]
       aux1 = in0
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # believe_me
@@ -199,13 +193,9 @@ def idris_Prelude_46_Foldable_46_concat(e0, e1, e2, e3):
     if e3[0] == 0:  # constructor of Prelude.Algebra.Monoid
       in0, in1, = e3[1:]
       aux1 = in0
-    else:
-      idris_error("unreachable case")
     if e3[0] == 0:  # constructor of Prelude.Algebra.Monoid
       in2, in3, = e3[1:]
       aux2 = in3
-    else:
-      idris_error("unreachable case")
     return APPLY0(
       APPLY0(idris_Prelude_46_Foldable_46_foldr(None, None, None, e2), aux1),
       aux2
@@ -358,8 +348,6 @@ def idris_Prelude_46_Algebra_46_neutral(e0, e1):
     if e1[0] == 0:  # constructor of Prelude.Algebra.Monoid
       in0, in1, = e1[1:]
       aux1 = in1
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Python.Prim.next
@@ -1096,8 +1084,6 @@ def idris_Main_46__123_case_32_block_32_in_32_main_95_lam0_125_(e18, in1, in2):
     if e18[0] == 0:  # constructor of Prelude.Monad.Monad
       in3, in4, = e18[1:]
       aux1 = in3
-    else:
-      idris_error("unreachable case")
     return APPLY0(
       idris_Prelude_46_Applicative_46_pure(None, None, aux1),
       APPLY0(idris_Prelude_46_Strings_46_length(), in1)
@@ -1459,11 +1445,7 @@ def idris_Python_46_Exceptions_46__123_catch6_125_(e2, in0):
       if aux2[0] == 0:  # constructor of Prelude.Monad.Monad
         in10, in11, = aux2[1:]
         aux3 = in10
-      else:
-        idris_error("unreachable case")
       aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux3), in9)
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Main.{main6}
@@ -1603,8 +1585,6 @@ def idris_Python_46_Prim_46__123_next12_125_(in0):
         if aux3[0] == 0:  # constructor of Prelude.Monad.Monad
           in9, in10, = aux3[1:]
           aux4 = in9
-        else:
-          idris_error("unreachable case")
         aux2 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux4), (0,))  # Prelude.Maybe.Nothing
       else:
         aux2 = idris_Python_46_Exceptions_46_raise(None, in8)
@@ -1615,11 +1595,7 @@ def idris_Python_46_Prim_46__123_next12_125_(in0):
       if aux5[0] == 0:  # constructor of Prelude.Monad.Monad
         in12, in13, = aux5[1:]
         aux6 = in12
-      else:
-        idris_error("unreachable case")
       aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux6), (1, in11))  # Prelude.Maybe.Just
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # {Python.Prim.iterate, iter_lam13}
@@ -1644,11 +1620,7 @@ def idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e9, e8, e7, i
       if aux2[0] == 0:  # constructor of Prelude.Monad.Monad
         in9, in10, = aux2[1:]
         aux3 = in9
-      else:
-        idris_error("unreachable case")
       aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux3), e8)
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Main.{main13}
@@ -1773,8 +1745,6 @@ def idris_Main_46__123_main36_125_(in31, in32):
     if aux1[0] == 0:  # constructor of Prelude.Monad.Monad
       in33, in34, = aux1[1:]
       aux2 = in33
-    else:
-      idris_error("unreachable case")
     return APPLY0(
       idris_Prelude_46_Applicative_46_pure(None, None, aux2),
       APPLY0(idris_Prelude_46_Strings_46_length(), in31)
@@ -1883,8 +1853,6 @@ def idris_Main_46__123_main43_125_(in48):
         None,
         "Your root could probably use some security lessons!\n"
       )
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Main.{main44}
@@ -2198,8 +2166,6 @@ def idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(e0, e1, e2):
       aux1 = idris_error("unreachable due to tail call")
     elif not e2:  # Prelude.List.Nil
       aux1 = e1
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Decidable.Equality.Decidable.Equality.Char instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
@@ -2241,8 +2207,6 @@ def idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_F
       )
     elif not e4:  # Prelude.List.Nil
       aux1 = e3
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Prelude.Functor.Prelude.IO' ffi instance of Prelude.Functor.Functor, method map
@@ -2282,11 +2246,7 @@ def idris_Python_46_Exceptions_46_catch_95_case(e0, e1, e2, e3, e4, e5):
       if e3[0] == 0:  # constructor of Prelude.Monad.Monad
         in3, in4, = e3[1:]
         aux2 = in3
-      else:
-        idris_error("unreachable case")
       aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux2), in2)
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Python.Exceptions.case block in fromString
@@ -2390,8 +2350,6 @@ def idris_Main_46_main2_95_case(
         None,
         "Your root could probably use some security lessons!\n"
       )
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Python.Prim.case block in next
@@ -2403,8 +2361,6 @@ def idris_Python_46_Prim_46_next_95_case(e0, e1, e2, e3, e4):
         if e2[0] == 0:  # constructor of Prelude.Monad.Monad
           in2, in3, = e2[1:]
           aux3 = in2
-        else:
-          idris_error("unreachable case")
         aux2 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux3), (0,))  # Prelude.Maybe.Nothing
       else:
         aux2 = idris_Python_46_Exceptions_46_raise(None, in1)
@@ -2414,11 +2370,7 @@ def idris_Python_46_Prim_46_next_95_case(e0, e1, e2, e3, e4):
       if e2[0] == 0:  # constructor of Prelude.Monad.Monad
         in5, in6, = e2[1:]
         aux4 = in5
-      else:
-        idris_error("unreachable case")
       aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux4), (1, in4))  # Prelude.Maybe.Just
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Python.Exceptions.case block in try
@@ -2484,11 +2436,7 @@ def idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95_case(
       if e10[0] == 0:  # constructor of Prelude.Monad.Monad
         in2, in3, = e10[1:]
         aux2 = in2
-      else:
-        idris_error("unreachable case")
       aux1 = APPLY0(idris_Prelude_46_Applicative_46_pure(None, None, aux2), e8)
-    else:
-      idris_error("unreachable case")
     return aux1
 
 # Main.case block in case block in main1
