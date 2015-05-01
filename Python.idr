@@ -8,17 +8,27 @@ module Python
 -- ###  Python objects  ###
 --
 
-infix 2 :::
+infix 4 :::
 ||| The has-type declaration for fields.
 record Field : Type where
   (:::) : (n : String) -> (ty : Type) -> Field
 
-||| Python object signature is a list of its fields.
+||| Python object signature is a list of its fields, plus mixins.
 record Signature : Type where
   MkSignature :
     (name : String)  -- for error reporting
     -> (fields : List Field)
+    -> (mixins : List Signature)
     -> Signature
+
+infixr 4 <:
+||| Add a mixin to the signature.
+(<:) : Signature -> Signature -> Signature
+(<:) (MkSignature n fs mixins) sig = MkSignature n fs (sig :: mixins)
+
+||| Make a signature without mixins.
+signature : String -> List Field -> Signature
+signature n fs = MkSignature n fs []
 
 ||| Defines how many, what type, etc. arguments a method takes.
 data Args : Type where
@@ -33,11 +43,6 @@ record Object : (sig : Signature) -> Type where
 abstract
 record Method : (args : Args) -> (ret : Type) -> Type where
   MkMethod : (meth : Ptr) -> Method args ret
-
-||| Python iterator yielding items of the given type.
-abstract
-record Iterator : Type -> Type where
-  MkIterator : (iter : Ptr) -> Iterator a
 
 ||| Python exception.
 abstract
@@ -91,11 +96,74 @@ private
 isNone : Ptr -> PIO Int
 isNone p = foreign FFI_Py "idris_is_none" (Ptr -> PIO Int) p
 
-||| Proof that a signature contains a field of the given type.
-||| (We don't use List.Elem to keep the signature name in the error message.)
-data Contains : Field -> Signature -> Type where
-  Here  : {n : String} -> Contains f (MkSignature n $ f :: fs)
-  There : {n : String} -> Contains f (MkSignature n fs) -> Contains f (MkSignature n $ f' :: fs)
+using (n : String)
+  ||| Proof that a signature contains a field of the given type.
+  ||| (We don't use List.Elem to keep the signature name in the error message.)
+  data HasField : Signature -> Field -> Type where
+    FieldHere  :
+         MkSignature n (f :: fs) ms `HasField` f
+    FieldThere : MkSignature n fs ms `HasField` f
+      -> MkSignature n (f' :: fs) ms `HasField` f
+    InMixinThere : MkSignature n [] ms `HasField` f
+      -> MkSignature n [] (sig :: ms) `HasField` f
+    InMixinHere : sig `HasField` f
+      -> MkSignature n [] (sig :: ms) `HasField` f
+
+  ||| Proof that an object can be cast to the signature of one of its mixins.
+  data HasMixin : (sig : Signature) -> (mixin : Signature) -> Type where
+    MixinHere : MkSignature n fs (m :: ms) `HasMixin` m
+    MixinThere : MkSignature n fs ms `HasMixin` m -> MkSignature n fs (m' :: ms) `HasMixin` m
+
+||| Cast an object to the signature of one of its mixins.
+mixout : (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Object sig -> Object mixin
+mixout mixin (MkObject obj) = MkObject obj
+
+infixl 2 >.
+||| Cast an object to the signature of one of its mixins.
+(>.) : (obj : Object sig) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Object mixin
+(>.) obj mixin = mixout mixin obj
+
+infixl 2 >:
+||| Cast an object to the signature of one of its mixins, chained version.
+(>:) : (obj : PIO (Object sig)) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> PIO (Object mixin)
+(>:) obj mixin {pf = pf} = mixout mixin {pf = pf} <$> obj
+
+infixl 4 /.
+||| Attribute accessor.
+|||
+||| @ obj Object with the given signature.
+||| @ f   Name of the requested field.
+abstract
+(/.) : (obj : Object sig) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
+(/.) {a = a} (MkObject obj) f =
+  unRaw <$> foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO (Raw a)) obj f
+
+infixl 4 /:
+||| Attribute accessor, useful for chaining.
+|||
+||| @ obj PIO action returning an object.
+||| @ f   Name of the requested field.
+(/:) : (obj : PIO (Object sig)) -> (f : String) -> {auto pf : sig `HasField` (f ::: a)} -> PIO a
+(/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
+
+-- Error reflection for better error messages.
+abstract
+fieldErr : Err -> Maybe (List ErrorReportPart)
+fieldErr (CantSolveGoal `(HasField ~sig (~fname ::: ~fty)) ntms)
+    = Just
+        [ TextPart "Field"
+        , TermPart fname
+        , TextPart "does not exist in object signature"
+        , TermPart $ simplify sig
+        ]
+  where
+    simplify : TT -> TT
+    simplify `(MkSignature ~name ~fields) = name
+    simplify sig = sig
+fieldErr _ = Nothing
+
+%error_handlers Python.(/.) pf fieldErr
+%error_handlers Python.(/:) pf fieldErr
 
 ||| Given a list of types, this is the type
 ||| of tuples of values with these types.
@@ -107,48 +175,10 @@ data HList : List Type -> Type where
 %used Python.(::) x
 %used Python.(::) xs
 
-infixl 3 /.
-||| Attribute accessor.
-|||
-||| @ obj Object with the given signature.
-||| @ f   Name of the requested field.
-abstract
-(/.) : (obj : Object sig) -> (f : String) -> {auto pf : Contains (f ::: a) sig} -> PIO a
-(/.) {a = a} (MkObject obj) f =
-  unRaw <$> foreign FFI_Py "idris_getfield" (Ptr -> String -> PIO (Raw a)) obj f
-
-infixl 3 /:
-||| Attribute accessor, useful for chaining.
-|||
-||| @ obj PIO action returning an object.
-||| @ f   Name of the requested field.
-(/:) : (obj : PIO (Object sig)) -> (f : String) -> {auto pf : Contains (f ::: a) sig} -> PIO a
-(/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
-
--- Error reflection for better error messages.
-private
-fieldErr : Err -> Maybe (List ErrorReportPart)
-fieldErr (CantSolveGoal `(Contains (~fname ::: ~fty) ~sig) ntms)
-    = Just
-        [ TextPart "Field"
-        , TermPart fname
-        , TextPart "does not exist in object signature"
-        , TermPart $ simplify sig
-        ]
-  where
-    simplify : TT -> TT
-    simplify `(MkSignature ~name ~fields) = name
-    simplify sig = sig
-
-fieldErr _ = Nothing
-
-%error_handlers Python.(/.) pf fieldErr
-%error_handlers Python.(/:) pf fieldErr
-
 methTy : Args -> Type -> Type
 methTy (Fixed as) ret = HList as -> PIO ret
 
-infixl 3 $.
+infixl 4 $.
 ||| Method call.
 |||
 ||| @ meth The method to call.
@@ -158,7 +188,7 @@ abstract
   \args => unRaw <$>
     foreign FFI_Py "idris_call" (Ptr -> (Raw $ HList as) -> PIO (Raw ret)) meth (MkRaw args)
 
-infixl 3 $:
+infixl 4 $:
 ||| Method call, useful for chaining.
 |||
 ||| @ meth PIO action returning a method.
@@ -182,29 +212,10 @@ importModule : (modName : String) -> PIO (Object sig)
 importModule {sig = sig} modName =
   foreign FFI_Py "idris_pymodule" (String -> PIO (Object sig)) modName
 
-infix 3 ~>
+infixr 5 ~>
 ||| Infix alias for methods with fixed arguments.
 (~>) : List Type -> Type -> Type
 (~>) args ret = Method (Fixed args) ret
-
-||| A left-fold over an iterator.
-|||
-||| @ it The iterator.
-||| @ st Initial state.
-||| @ f  PIO action called for every element, transforms the state.
-abstract
-foreach : (it : Iterator a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
-foreach {a = a} {b = b} (MkIterator it) st f = do
-  unRaw <$>
-    foreign FFI_Py "idris_foreach"
-      (Ptr -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
-      it
-      (MkRaw st)
-      (MkRaw f)
-
-||| Collect all elements of an iterator into a list.
-collect : (it : Iterator a) -> PIO (List a)
-collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
 
 ||| Catch exceptions in the given PIO action.
 abstract

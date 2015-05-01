@@ -5,6 +5,8 @@ import Python.Prim
 import Python.Requests
 import Python.BeautifulSoup
 
+%default total
+
 infixr 2 =<<
 (=<<) : Monad m => (a -> m b) -> m a -> m b
 (=<<) f x = x >>= f
@@ -12,6 +14,7 @@ infixr 2 =<<
 -- Even though field names are strings,
 -- everything is typechecked according to the signatures imported above.
 
+partial
 main : PIO ()
 main = do
   reqs <- Requests.import_
@@ -34,13 +37,13 @@ main = do
   soup <- bs4 /. "BeautifulSoup" $: [html]
 
   -- get the iterator over <li> elements, given by CSS selector
-  features <- soup /. "select" $: ["div.entry-content li"]
+  features <- soup /. "select" $: ["div.entry-content li"] >: Iterable (Object Element)
 
   -- print all <li> elements as features
   putStrLn $ "Idris has got the following exciting features:"
   count <- foreach features 0 $ \i : Int, li => do
     -- collect : Iterator a -> PIO (List a)
-    line <- map concat . collect =<< li /. "strings"
+    line <- map concat . collect =<< (li /. "strings" >: Iterable String)
     putStrLn $ show (i+1) ++ ". " ++ line
     return $ i + 1
 

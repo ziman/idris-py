@@ -1,20 +1,24 @@
 module Python.BeautifulSoup
 
 import Python
+import Python.Prim
+
+%access public
+%default total
 
 Element : Signature
-Element = MkSignature "Element"
+Element = signature "Element"
   [ "string"  ::: String
-  , "strings" ::: Iterator String
+  , "strings" ::: Object (PyList String)
   ]
 
 Soup : Signature
-Soup = MkSignature "Soup"
-  [ "select" ::: [String] ~> Iterator (Object Element)
+Soup = signature "Soup"
+  [ "select" ::: [String] ~> Object (PyList $ Object Element)
   ]
 
 Bs4 : Signature
-Bs4 = MkSignature "Bs4"
+Bs4 = signature "Bs4"
   [ "BeautifulSoup" ::: [String] ~> Object Soup
   ]
 

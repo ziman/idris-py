@@ -3,17 +3,17 @@ module Python.Requests
 import Python
 
 Response : Signature
-Response = MkSignature "Response"
+Response = signature "Response"
   [ "text" ::: String
   ]
 
 Session : Signature
-Session = MkSignature "Session"
+Session = signature "Session"
   [ "get" ::: [String] ~> Object Response
   ]
 
 Requests : Signature
-Requests = MkSignature "Requests"
+Requests = signature "Requests"
   [ "Session" ::: [] ~> Object Session
   ]
 
