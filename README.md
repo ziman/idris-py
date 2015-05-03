@@ -21,6 +21,9 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - readable names next to mangled names
 * exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L78))
 * threading, message passing and `forkPIO` ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L60))
+* `Just x` compiles to `x`, `Nothing` compiles to `None`
+    - this gives choice to FFI authors to say whether they care about `None`
+      by having FFI functions take/return either bare values or maybe-values.
 
 ## Observations
 

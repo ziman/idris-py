@@ -17,7 +17,8 @@ Thread = signature "Thread"
 
 Threading : Signature
 Threading = signature "threading"
-  [ "Thread" ::: [None, [] ~> ()] ~> Obj Thread
+  -- the first arg must always be Nothing
+  [ "Thread" ::: [Maybe (), [] ~> ()] ~> Obj Thread
   ]
 
 import_ : PIO $ Obj Threading
@@ -32,7 +33,7 @@ forkPIO work = do
         result <- work
         queue /. "put" $: [result]
 
-  thread <- Threading.import_ /: "Thread" $: [none, marshalPIO worker]
+  thread <- Threading.import_ /: "Thread" $: [Nothing, marshalPIO worker]
   thread /. "start" $: []
 
   return queue

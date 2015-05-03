@@ -8,7 +8,7 @@ import Python.Prim
 
 Element : Signature
 Element = signature "Element"
-  [ "string"  ::: String
+  [ "string"  ::: Maybe String
   , "strings" ::: Obj (PyList String)
   ]
 

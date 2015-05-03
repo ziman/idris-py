@@ -108,6 +108,8 @@ pythonPreamble = vcat . map text $
     , ""
     , "import sys"
     , ""
+    , "Unit = '()'  # the unit constructor compiles to this"
+    , ""
     , "class IdrisError(Exception):"
     , "  pass"
     , ""
@@ -331,6 +333,9 @@ cgPrim  LStrHead   [x] = x ! "0"
 cgPrim  LStrTail   [x] = x ! "1:"
 cgPrim  LStrLen    [x] = text "len" <> parens x
 
+cgPrim  (LChInt _) [x] = text "ord" <+> parens x
+cgPrim  (LIntCh _) [x] = text "chr" <+> parens x
+
 cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
 cgPrim  LReadStr  _ = text "sys.stdin.readline()"
 
@@ -550,16 +555,22 @@ type SCtor  = [Expr] -> Expr
 type STest  = Expr -> Expr
 type SMatch = [Expr] -> Expr -> Expr
 
+-- warning: no types is allowed to compile as "None" because that would break Maybe's Nothing
 specialCased :: Name -> Maybe (SCtor, STest, SMatch)
 specialCased n = lookup n
-    [ item "Prelude.List" "::"     (\[h,t] -> t <> text ".cons" <> parens h) id uncons
-    , item "Prelude.List" "Nil"    (\[] -> text "ConsList()") (text "not" <+>) nomatch
-    , item "Prelude.Bool" "True"   (\[] -> text "True")    id              nomatch
-    , item "Prelude.Bool" "False"  (\[] -> text "False")  (text "not" <+>) nomatch
-    , item ""             "MkUnit" (\[] -> text "None")    noinspect       nomatch
-    , item "Builtins"     "MkPair" (\[x,y] -> parens (x <> comma <+> y)) noinspect match
+    [ item "Prelude.List"  "::"      (\[h,t] -> t <> text ".cons" <> parens h) id uncons
+    , item "Prelude.List"  "Nil"     (\[] -> text "ConsList()") falseTest    nomatch
+    , item "Prelude.Bool"  "True"    (\[] -> text "True")    id              nomatch
+    , item "Prelude.Bool"  "False"   (\[] -> text "False")   falseTest       nomatch
+    , item "Prelude.Maybe" "Just"    (\[x] -> x)             notNoneTest     match
+    , item "Prelude.Maybe" "Nothing" (\[] -> text "None")    noneTest        nomatch
+    , item ""              "MkUnit"  (\[] -> text "Unit")    noinspect       nomatch
+    , item "Builtins"      "MkPair"  (\[x,y] -> parens (x <> comma <+> y)) noinspect match
     ]
   where
+    noneTest e = e <+> text "is None"
+    notNoneTest e = e <+> text "is not None"
+    falseTest e = text "not" <+> e
     nomatch args e = cgError $ show n ++ " should never be deconstructed"
     noinspect e = cgError $ show n ++ " should never be tested"
 
