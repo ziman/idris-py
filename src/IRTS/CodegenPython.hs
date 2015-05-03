@@ -555,7 +555,11 @@ type SCtor  = [Expr] -> Expr
 type STest  = Expr -> Expr
 type SMatch = [Expr] -> Expr -> Expr
 
--- warning: no types is allowed to compile as "None" because that would break Maybe's Nothing
+-- Warning: no value is allowed to compile to "None" because that would break Maybe's Nothing
+--
+-- If any value `n` of your type compiles to None,
+-- matching on `Just n` will take the `Nothing` branch, which is clearly incorrect.
+--
 specialCased :: Name -> Maybe (SCtor, STest, SMatch)
 specialCased n = lookup n
     [ item "Prelude.List"  "::"      (\[h,t] -> t <> text ".cons" <> parens h) id uncons
