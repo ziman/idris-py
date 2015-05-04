@@ -9,9 +9,9 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * allows typechecked use of Python libraries
   ([example](https://github.com/ziman/idris-py/blob/master/example.idr))
 	- thanks to signatures for Python objects
-      ([example](https://github.com/ziman/idris-py/blob/master/Python/BeautifulSoup.idr)).
+      ([example](https://github.com/ziman/idris-py/blob/master/Python/Lib/BeautifulSoup.idr)).
     - fully dependent type signatures are supported
-      ([example](https://github.com/ziman/idris-py/blob/master/Python/Lib/Queue.idr#L17)),
+      ([example](https://github.com/ziman/idris-py/blob/master/Python/Lib/Queue.idr#L18)),
       including arguments with defaults
 * error reflection yields messages like:
     - `Field "gets" does not exist in object signature "Session"`
