@@ -250,3 +250,11 @@ export {a = a} {pf = pf} name f =
       (esize pf)
       name
       (MkRaw f)
+
+||| Execute the given action iff the Python module `__name__` is `__main__`.
+|||
+||| This is necessary because the Idris function `Main.main` is executed
+||| whenever the generated Python module is *loaded*.
+abstract
+ifMain : PIO () -> PIO ()
+ifMain m = foreign FFI_Py "_idris_if_main" (Raw (PIO ()) -> PIO ()) (MkRaw m)

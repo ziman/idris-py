@@ -147,6 +147,23 @@ pythonPreamble = vcat . map text $
     , "def _idris_marshal_PIO(action):"
     , "  return lambda: APPLY0(action, None)  # delayed apply-to-world"
     , ""
+    , "def _idris_export(argcnt, name, fun):"
+    , "  def pyfn(*args):"
+    , "    if len(args) != argcnt:"
+    , "      raise TypeError('function %s takes exactly %d arguments, got %d' % (name, argcnt, len(args)))"
+    , ""
+    , "    f = fun  # work around Python's scoping rules"
+    , "    for x in args:"
+    , "      f[0] = APPLY0(f[0], x)"
+    , ""
+    , "    return APPLY0(f, None)  # last step: apply to world"
+    , ""
+    , "  globals()[name] = pyfn"
+    , ""
+    , "def _idris_if_main(main):"
+    , "  if __name__ == '__main__':"
+    , "    APPLY0(main, None)  # apply to world"
+    , ""
     , "class _ConsIter(object):"
     , "  def __init__(self, node):"
     , "    self.node = node"
@@ -184,9 +201,7 @@ pythonPreamble = vcat . map text $
     ]
 
 pythonLauncher :: Doc
-pythonLauncher =
-    text "if __name__ == '__main__':"
-    $+$ indent (cgApp (cgName $ sMN 0 "runMain") [])
+pythonLauncher = cgApp (cgName $ sMN 0 "runMain") []
 
 -- The prefix "_" makes all names "hidden".
 -- This is useful when you import the generated module from Python code.

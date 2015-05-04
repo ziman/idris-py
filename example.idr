@@ -1,3 +1,5 @@
+module Main
+
 import Python
 import Python.Prim
 import Python.Exceptions
@@ -19,8 +21,8 @@ infixr 1 =<<
 -- everything is typechecked according to the signatures imported above.
 
 partial
-main : PIO ()
-main = do
+main' : PIO ()
+main' = do
   reqs <- Requests.import_
 
   -- (/) extracts the named attribute
@@ -94,3 +96,14 @@ main = do
     | Except OSError e => putStrLn ("  -> (2) everything's fine: " ++ show e)
     | Except _       e => raise e
   putStrLn $ "Your root could probably use some security lessons!"
+
+-- This function is executed whenever the generated Python module is *loaded*.
+-- We just export stuff here and `if __name__ == '__main__'`, we call `main'`.
+partial
+main : PIO ()
+main = do
+    export "greet" greet
+    ifMain main'
+  where
+    greet : PIO ()
+    greet = putStrLn "Hello world!"

@@ -30,6 +30,12 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * `Just x` compiles to `x`, `Nothing` compiles to `None`
     - this gives choice to FFI authors to say whether they care about `None`
       by having FFI functions take/return either bare values or maybe-values.
+* calling Idris from Python
+```Python
+>>> import example
+>>> example.greet()
+Hello world!
+```
 
 ## Observations
 
