@@ -14,7 +14,7 @@ data Binder : Type -> Type where
   ||| Runtime-relevant argument.
   Pi : (a : Type) -> Binder a
 
-  ||| Optional runtime-relevant argument.
+  ||| Optional runtime-relevant argument with a default.
   Optional : (a : Type) -> (dflt : a) -> Binder (Maybe a)
 
   ||| Runtime-irrelevant argument.
