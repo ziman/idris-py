@@ -1,5 +1,7 @@
 module Python
 
+import Python.Telescope
+
 %default total
 %access public
 %language ErrorReflection
@@ -41,8 +43,9 @@ record Obj : (sig : Signature) -> Type where
 
 ||| Python function, typed by its input and output.
 abstract
-record Function : (args : Args) -> (ret : Type) -> Type where
-  MkFunction : (meth : Ptr) -> Function args ret
+-- This is "data" because a record triggered a bug in auto projections.
+data Function : (t : Telescope a) -> (ret : a -> Type) -> Type where
+  MkFunction : (meth : Ptr) -> Function t ret
 
 ||| Python exception.
 abstract
@@ -74,7 +77,7 @@ namespace FFI
     ||| Python objects, opaque to Idris.
     PyPtr       : PyTypes Ptr
     PyException : PyTypes Exception
-    PyFunction  : PyTypes (Function args ret)
+    PyFunction  : PyTypes (Function t a)
 
     ||| Arbitrary Idris objects, opaque to Python.
     PyAny : PyTypes (FFI_C.Raw a)
@@ -183,35 +186,22 @@ fieldErr _ = Nothing
 %error_handlers Python.(/.) pf fieldErr
 %error_handlers Python.(/:) pf fieldErr
 
-||| Given a list of types, this is the type
-||| of tuples of values with these types.
-data HList : List Type -> Type where
-  Nil : HList []
-  (::) : (x : a) -> (xs : HList as) -> HList (a :: as)
-
--- These fields enter the FFI and may not be recognised as used.
-%used Python.(::) x
-%used Python.(::) xs
-
-methTy : Args -> Type -> Type
-methTy (Fixed as) ret = HList as -> PIO ret
-
 infixl 4 $.
 ||| Function call.
 |||
 ||| @ meth The function to call.
 abstract
-($.) : (meth : Function margs ret) -> methTy margs ret
-($.) {margs = Fixed as} {ret = ret} (MkFunction meth) =
-  \args => unRaw <$>
-    foreign FFI_Py "idris_call" (Ptr -> (Raw $ HList as) -> PIO (Raw ret)) meth (MkRaw args)
+($.) : {t : Telescope a} -> (meth : Function t ret) -> (args : a) -> PIO (ret args)
+($.) {t = t} {ret = ret} (MkFunction meth) args =
+  unRaw <$>
+    foreign FFI_Py "idris_call" (Ptr -> (Raw $ TList t args) -> PIO (Raw $ ret args)) meth (MkRaw $ strip t args)
 
 infixl 4 $:
 ||| Function call, useful for chaining.
 |||
 ||| @ meth PIO action returning a function, such as field lookup.
-($:) : (meth : PIO (Function margs ret)) -> methTy margs ret
-($:) {margs = Fixed as} meth = \args => meth >>= \m => m $. args
+($:) : {t : Telescope a} -> (meth : PIO (Function t ret)) -> (args : a) -> PIO (ret args)
+($:) meth args = meth >>= \m => m $. args
 
 
 --
@@ -233,7 +223,7 @@ importModule {sig = sig} modName =
 infixr 5 ~>
 ||| Infix alias for functions with fixed arguments.
 (~>) : List Type -> Type -> Type
-(~>) args ret = Function (Fixed args) ret
+(~>) args ret = Function (Telescope.simple args) (const ret)
 
 ||| Turn a PIO action into a Python function.
 ||| The function can then be used as a target for threading.Thread etc.
