@@ -44,7 +44,7 @@ obj x = believe_me x
 ||| Get the next value from an iterator.
 next : Obj (Iterator a) -> PIO (Maybe a)
 next {a = a} it = do
-    OK x <- try (it /. "next" $: ())
+    OK x <- try (it /. "next" $: [])
       | Except StopIteration e => return Nothing
       | Except _ e => raise e
     return $ Just x
@@ -57,7 +57,7 @@ next {a = a} it = do
 partial
 iterate : (iterable : Obj $ Iterable a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
 iterate iterable st f = do
-    iterator <- iterable /. "__iter__" $: ()
+    iterator <- iterable /. "__iter__" $: []
     iter iterator st f
   where
     partial
@@ -79,7 +79,7 @@ foreach :
   -> (f : b -> a -> PIO b)
   -> PIO b
 foreach {a = a} {b = b} iterable st f = do
-  iterator <- iterable /. "__iter__" $: ()
+  iterator <- iterable /. "__iter__" $: []
   unRaw <$>
     foreign FFI_Py "idris_foreach"
       (Obj (Iterable a) -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))

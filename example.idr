@@ -29,21 +29,21 @@ main = do
   -- (/:) and ($:) work with monadic LHS (useful for chaining)
   --
   -- equivalent to: session = reqs.Session()
-  session <- reqs /. "Session" $: ()
+  session <- reqs /. "Session" $: []
 
   -- equivalent to: html = session.get("http://idris-lang.org").text
   -- Notice that chaining is not a problem.
-  html <- session /. "get" $: ("http://idris-lang.org" ** ()) /: "text"
+  html <- session /. "get" $: ["http://idris-lang.org"] /: "text"
 
   -- import Beautiful Soup
   bs4 <- BeautifulSoup.import_
 
   -- construct soup from HTML
-  soup <- bs4 /. "BeautifulSoup" $: (html ** ())
+  soup <- bs4 /. "BeautifulSoup" $: [html]
 
   -- get the iterator over <li> elements, given by CSS selector
   -- First, we call the select() method, then we cast the result to Iterable.
-  features <- soup /. "select" $: ("div.entry-content li" ** ()) >: Iterable (Obj Element)
+  features <- soup /. "select" $: ["div.entry-content li"] >: Iterable (Obj Element)
 
   -- print all <li> elements as features
   putStrLn $ "Idris has got the following exciting features:"
@@ -61,7 +61,7 @@ main = do
 
   let thread : (String -> PIO Nat) = \name => do
     putStrLn $ "thread " ++ name ++ " starting"
-    html <- session /. "get" $: ("http://idris-lang.org" ** ()) /: "text"
+    html <- session /. "get" $: ["http://idris-lang.org"] /: "text"
     putStrLn $ "thread " ++ name ++ " done"
     return $ length html
 
@@ -82,7 +82,7 @@ main = do
 
   -- the standard try-catch variant
   try (do
-    os /. "mkdir" $: ("/root/hello" ** ())
+    os /. "mkdir" $: ["/root/hello"]
     putStrLn $ "Something's wrong, your root's homedir is writable!"
   ) `catch` (\etype, e => case etype of
     OSError => putStrLn $ "  -> (1) everything's fine: " ++ show e
@@ -90,7 +90,7 @@ main = do
   )
 
   -- Idris sugar, originally used in Effects
-  OK ret <- try $ os /. "mkdir" $: ("/root/hello" ** ())
+  OK ret <- try $ os /. "mkdir" $: ["/root/hello"]
     | Except OSError e => putStrLn ("  -> (2) everything's fine: " ++ show e)
     | Except _       e => raise e
   putStrLn $ "Your root could probably use some security lessons!"
