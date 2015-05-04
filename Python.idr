@@ -44,8 +44,8 @@ record Obj : (sig : Signature) -> Type where
 ||| Python function, typed by its input and output.
 abstract
 -- This is "data" because a record triggered a bug in auto projections.
-data Function : (t : Telescope a) -> (ret : a -> Type) -> Type where
-  MkFunction : (meth : Ptr) -> Function t ret
+data Function : (t : Telescope a) -> Type where
+  MkFunction : (meth : Ptr) -> Function t
 
 ||| Python exception.
 abstract
@@ -78,7 +78,7 @@ namespace FFI
     ||| Python objects, opaque to Idris.
     PyPtr       : PyTypes Ptr
     PyException : PyTypes Exception
-    PyFunction  : PyTypes (Function t a)
+    PyFunction  : PyTypes (Function t)
 
     ||| Arbitrary Idris objects, opaque to Python.
     PyAny : PyTypes (FFI_C.Raw a)
@@ -192,16 +192,19 @@ infixl 4 $.
 |||
 ||| @ meth The function to call.
 abstract
-($.) : {t : Telescope a} -> (meth : Function t ret) -> (args : a) -> PIO (ret args)
-($.) {t = t} {ret = ret} (MkFunction meth) args =
+($.) : {t : Telescope a} -> (meth : Function t) -> (args : a) -> PIO (teleReturn t args)
+($.) {t = t} (MkFunction meth) args =
   unRaw <$>
-    foreign FFI_Py "idris_call" (Ptr -> (TList t args) -> PIO (Raw $ ret args)) meth (strip t args)
+    foreign FFI_Py "idris_call"
+      (Ptr -> (TList t args) -> PIO (Raw $ teleReturn t args))
+      meth
+      (strip t args)
 
 infixl 4 $:
 ||| Function call, useful for chaining.
 |||
 ||| @ meth PIO action returning a function, such as field lookup.
-($:) : {t : Telescope a} -> (meth : PIO (Function t ret)) -> (args : a) -> PIO (ret args)
+($:) : {t : Telescope a} -> (meth : PIO (Function t)) -> (args : a) -> PIO (teleReturn t args)
 ($:) meth args = meth >>= \m => m $. args
 
 
@@ -224,7 +227,7 @@ importModule {sig = sig} modName =
 infixr 5 ~>
 ||| Infix alias for functions with fixed arguments.
 (~>) : List Type -> Type -> Type
-(~>) args ret = Function (Telescope.simple args) (const ret)
+(~>) args ret = Function $ simple args ret
 
 ||| Turn a PIO action into a Python function.
 ||| The function can then be used as a target for threading.Thread etc.

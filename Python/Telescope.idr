@@ -29,7 +29,7 @@ Optional a = Pi (Maybe a)
 Nil : Unit
 Nil = ()
 
-||| Infix name for `Cons`, useful for the [list, syntax, sugar].
+||| Infix name for `MkSigma`, useful for the [list, syntax, sugar].
 (::) : (x : a) -> (y : b x) -> Sigma a b
 (::) = MkSigma
 
@@ -38,8 +38,9 @@ Nil = ()
 data Telescope : Type -> Type where
 
   ||| Empty telescope.
-  Empty :
-    Telescope Unit
+  Return :
+    (ret : Type)
+    -> Telescope Unit
 
   ||| A binder in front of a telescope.
   Bind :
@@ -60,7 +61,7 @@ data Telescope : Type -> Type where
 data TList : (t : Telescope a) -> (xs : a) -> Type where
 
   ||| Empty `TList`.
-  TNil : TList Empty []
+  TNil : TList (Return ret) []
 
   -- Note: we could restrict possible binders in both constructors below
   -- (because (ir-)relevance depends on the binder)
@@ -91,19 +92,25 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 %used TSkip xs
 
 ||| Strip the given tuple `xs` to the `TList` of runtime-relevant values.
-strip : (t : Telescope c) -> (xs : c) -> TList t xs
-strip Empty () = TNil
+strip : (t : Telescope a) -> (args : a) -> TList t args
+strip (Return ret) () = TNil
 strip (Bind (Pi _       ) t) (MkSigma x xs) = TCons x $ strip (t x) xs
 strip (Bind (Forall _   ) t) (MkSigma x xs) = TSkip   $ strip (t x) xs
 strip (Bind (Default _ d) t) (MkSigma x xs) with (x)  -- with-block to work around polymorphism-related error messages
   | Just y  = TCons (Just y) $ strip (t $ Just  y) xs
   | Nothing = TCons (Just d) $ strip (t $ Nothing) xs
+
 ||| Convert a list of types to the corresponding tuple type.
 toTuple : (xs : List Type) -> Type
 toTuple [] = Unit
 toTuple (x :: xs) = Sigma x (const $ toTuple xs)
 
 ||| Convert a list of types to the corresponding simple telescope.
-simple : (xs : List Type) -> Telescope (toTuple xs)
-simple []        = Empty
-simple (a :: as) = Bind (Pi a) (\x => simple as)
+simple : (xs : List Type) -> (ret : Type) -> Telescope (toTuple xs)
+simple []        ret = Return ret
+simple (a :: as) ret = Bind (Pi a) (\x => simple as ret)
+
+||| Get the return type of a telescope.
+teleReturn : (t : Telescope a) -> (xs : a) -> Type
+teleReturn (Return ret) () = ret
+teleReturn (Bind bnd t) (MkSigma x xs) = teleReturn (t x) xs
