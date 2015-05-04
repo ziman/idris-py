@@ -25,17 +25,12 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 * comments in the generated Python code show the meaning of low-level code
     - constructor names next to numeric constructor tags
     - readable names next to mangled names
-* exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L78))
-* threading, message passing and `forkPIO` ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L60))
+* exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L80))
+* threading, message passing and `forkPIO` ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L62))
 * `Just x` compiles to `x`, `Nothing` compiles to `None`
     - this gives choice to FFI authors to say whether they care about `None`
       by having FFI functions take/return either bare values or maybe-values.
 * calling Idris from Python
-```Python
->>> import example
->>> example.greet()
-Hello world!
-```
 
 ## Observations
 
@@ -46,6 +41,8 @@ Hello world!
     - `String` is the simplest
 
 ## Example
+
+### Calling Python from Idris
 
 ```bash
 $ cabal sandbox init  # possibly with --sandbox /path/to/idris/.cabal-sandbox
@@ -81,4 +78,12 @@ thread B says 9121
 And now, let's fail!
   -> (1) everything's fine: [Errno 13] Permission denied: '/root/hello'
   -> (2) everything's fine: [Errno 13] Permission denied: '/root/hello'
+```
+
+### Calling Idris from Python
+
+```Python
+>>> import example
+>>> example.greet()
+Hello world!
 ```

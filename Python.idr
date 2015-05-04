@@ -74,6 +74,7 @@ namespace FFI
     PyList    : PyTypes a -> PyTypes (List a)
     PyFun     : PyTypes a -> PyTypes b -> PyTypes (a -> b)
     PyTList   : PyTypes (TList t args)
+    PyMaybe   : PyTypes a -> PyTypes (Maybe a)
 
     ||| Python objects, opaque to Idris.
     PyPtr       : PyTypes Ptr
