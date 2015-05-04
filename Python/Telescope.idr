@@ -26,7 +26,7 @@ data Telescope : Type -> Type where
   Bind :
     (bnd : Binder)
     -> (a : Type)
-    -> (b : a -> Type)
+    -> {b : a -> Type}
     -> (t : (x : a) -> Telescope (b x))
     -> Telescope (ConsSigma a b)
 
@@ -39,7 +39,7 @@ data TList : Telescope a -> a -> Type where
     -> (x : a)
     -> {t : (x : a) -> Telescope (b x)}
     -> (xs : TList (t x) args)
-    -> TList (Bind Pi a b t) (x :: args)
+    -> TList (Bind Pi a t) (x :: args)
 
   TSkip :
     {a : Type}
@@ -47,7 +47,7 @@ data TList : Telescope a -> a -> Type where
     -> .{x : a}
     -> {t : (x : a) -> Telescope (b x)}
     -> (xs : TList (t x) args)
-    -> TList (Bind Forall a b t) (x :: args)
+    -> TList (Bind Forall a t) (x :: args)
 
 %used TCons x
 %used TCons xs
@@ -55,8 +55,8 @@ data TList : Telescope a -> a -> Type where
 
 strip : (t : Telescope c) -> (xs : c) -> TList t xs
 strip Empty [] = TNil
-strip (Bind Pi     a b t) (Cons x xs) = TCons x $ strip (t x) xs
-strip (Bind Forall a b t) (Cons x xs) = TSkip   $ strip (t x) xs
+strip (Bind Pi     a t) (Cons x xs) = TCons x $ strip (t x) xs
+strip (Bind Forall a t) (Cons x xs) = TSkip   $ strip (t x) xs
 
 toTuple : (xs : List Type) -> Type
 toTuple [] = NilUnit
@@ -64,4 +64,4 @@ toTuple (x :: xs) = ConsSigma x (const $ toTuple xs)
 
 simple : (xs : List Type) -> Telescope (toTuple xs)
 simple []        = Empty
-simple (a :: as) = Bind Pi a (const $ toTuple as) (\x => simple as)
+simple (a :: as) = Bind Pi a (\x => simple as)

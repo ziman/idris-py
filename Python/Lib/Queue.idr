@@ -12,12 +12,16 @@ Queue a = signature "Queue"
   , "task_done" ::: [] ~> ()
   ]
 
-QueueM : Type -> Signature
-QueueM a = signature "QueueM"
-  [ "Queue" ::: [Int] ~> Obj (Queue a)
+QueueM : Signature
+QueueM = signature "QueueM"
+  [ "Queue" :::
+      Function 
+        (Bind Forall Type $ \a =>  -- The type of elements
+          Bind Pi Int $ \i =>      -- Maximum size of queue
+            Empty
+        )
+        (\(Cons a (Cons maxSize _)) => Obj (Queue a))
   ]
 
--- Hack: since we don't have polymorphism yet, we have to import
--- the whole module parametrised by the queue element type.
-import_ : PIO $ Obj (QueueM a)
+import_ : PIO $ Obj QueueM
 import_ = importModule "Queue"  -- this is lowercase in python3
