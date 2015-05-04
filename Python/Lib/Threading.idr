@@ -28,7 +28,7 @@ import_ = importModule "threading"
 ||| through the queue that is returned by this function.
 forkPIO : PIO a -> PIO (Obj $ Queue a)
 forkPIO {a = a} work = do
-    queue <- Queue.import_ /: "Queue" $: [a, 1]
+    queue <- Queue.import_ /: "Queue" $: [Erase a, 1]
     thread <- Threading.import_ /: "Thread" $: [Nothing, marshalPIO $ worker queue]
     thread /. "start" $: []
 

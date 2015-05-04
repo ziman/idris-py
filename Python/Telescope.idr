@@ -1,14 +1,22 @@
 module Python.Telescope
 
+import public Data.Erased
+
 %default total
 %access public
 
-data Binder : Type where
+%hide Language.Reflection.Binder
+%hide Language.Reflection.Erased
+
+data Binder : Type -> Type where
   ||| Runtime-relevant argument.
-  Pi     : Binder
+  Pi     : (a : Type) -> Binder a
+
+  ||| Optional runtime-relevant argument.
+  Default : (dflt : a) -> Binder (Maybe a)
 
   ||| Runtime-irrelevant argument.
-  Forall : Binder
+  Forall : (a : Type) -> Binder (Erased a)
 
 record NilUnit : Type where
   Nil : NilUnit
@@ -24,30 +32,39 @@ data Telescope : Type -> Type where
     Telescope NilUnit
 
   Bind :
-    (bnd : Binder)
-    -> (a : Type)
+    (bnd : Binder a)
     -> {b : a -> Type}
     -> (t : (x : a) -> Telescope (b x))
     -> Telescope (ConsSigma a b)
 
-data TList : Telescope a -> a -> Type where
+||| A list for runtime-relevant values, typed by the given telescope.
+||| 
+||| @ t  The telescope.
+||| @ xs The tuple containing *all* telescope-typed elements.
+|||
+||| Note that the whole tuple `xs` is required for complete type information
+||| but the resulting list may skip over some of the elements of `xs`,
+||| and even those elements that are not skipped can be replaced by
+||| any other value with the same type.
+data TList : (t : Telescope a) -> (xs : a) -> Type where
   TNil : TList Empty []
 
   TCons :
-    {a : Type}
+    {bnd : Binder a}
     -> {b : a -> Type}
-    -> (x : a)
+    -> {x : a}  -- this is not erased because
+    -> (y : a)  -- note that `y` is a fresh variable => can be anything of the same type
     -> {t : (x : a) -> Telescope (b x)}
     -> (xs : TList (t x) args)
-    -> TList (Bind Pi a t) (x :: args)
+    -> TList (Bind bnd t) (x :: args)
 
   TSkip :
-    {a : Type}
+    {bnd : Binder a}
     -> {b : a -> Type}
-    -> .{x : a}
+    -- there is no (y : a) here, it is skipped
     -> {t : (x : a) -> Telescope (b x)}
     -> (xs : TList (t x) args)
-    -> TList (Bind Forall a t) (x :: args)
+    -> TList (Bind bnd t) (x :: args)
 
 %used TCons x
 %used TCons xs
@@ -55,8 +72,11 @@ data TList : Telescope a -> a -> Type where
 
 strip : (t : Telescope c) -> (xs : c) -> TList t xs
 strip Empty [] = TNil
-strip (Bind Pi     a t) (Cons x xs) = TCons x $ strip (t x) xs
-strip (Bind Forall a t) (Cons x xs) = TSkip   $ strip (t x) xs
+strip (Bind (Pi _     ) t) (Cons x xs) = TCons x $ strip (t x) xs
+strip (Bind (Forall _ ) t) (Cons x xs) = TSkip   $ strip (t x) xs
+strip (Bind (Default d) t) (Cons x xs) with (x)  -- with-block to work around polymorphism-related error messages
+  | Just y  = TCons (Just y) $ strip (t $ Just  y) xs
+  | Nothing = TCons (Just d) $ strip (t $ Nothing) xs
 
 toTuple : (xs : List Type) -> Type
 toTuple [] = NilUnit
@@ -64,4 +84,4 @@ toTuple (x :: xs) = ConsSigma x (const $ toTuple xs)
 
 simple : (xs : List Type) -> Telescope (toTuple xs)
 simple []        = Empty
-simple (a :: as) = Bind Pi a (\x => simple as)
+simple (a :: as) = Bind (Pi a) (\x => simple as)
