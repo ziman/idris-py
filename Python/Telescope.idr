@@ -13,7 +13,7 @@ data Binder : Type -> Type where
   Pi     : (a : Type) -> Binder a
 
   ||| Optional runtime-relevant argument.
-  Default : (dflt : a) -> Binder (Maybe a)
+  Default : (a : Type) -> (dflt : a) -> Binder (Maybe a)
 
   ||| Runtime-irrelevant argument.
   Forall : (a : Type) -> Binder (Erased a)
@@ -72,9 +72,9 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 
 strip : (t : Telescope c) -> (xs : c) -> TList t xs
 strip Empty [] = TNil
-strip (Bind (Pi _     ) t) (Cons x xs) = TCons x $ strip (t x) xs
-strip (Bind (Forall _ ) t) (Cons x xs) = TSkip   $ strip (t x) xs
-strip (Bind (Default d) t) (Cons x xs) with (x)  -- with-block to work around polymorphism-related error messages
+strip (Bind (Pi _       ) t) (Cons x xs) = TCons x $ strip (t x) xs
+strip (Bind (Forall _   ) t) (Cons x xs) = TSkip   $ strip (t x) xs
+strip (Bind (Default _ d) t) (Cons x xs) with (x)  -- with-block to work around polymorphism-related error messages
   | Just y  = TCons (Just y) $ strip (t $ Just  y) xs
   | Nothing = TCons (Just d) $ strip (t $ Nothing) xs
 

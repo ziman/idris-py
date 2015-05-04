@@ -17,10 +17,10 @@ QueueM = signature "QueueM"
   [ "Queue" :::
       Function 
         (Bind (Forall Type) $ \a =>  -- The type of elements
-          Bind (Pi Int) $ \i =>      -- Maximum size of queue
+          Bind (Default Int 0) $ \i =>   -- Maximum size of queue
             Empty
         )
-        (\(Cons (Erase a) (Cons maxSize _)) => Obj (Queue a))
+        (\(Cons (Erase a) (Cons maxSize _)) => Obj $ Queue a)
   ]
 
 import_ : PIO $ Obj QueueM

@@ -1281,7 +1281,7 @@ def idris_Python_46_Prim_46__123_foreach1_125_(e2, e3, e4, in0):
 # Python.Lib.Threading.{forkPIO1}
 def idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(in0):
   while True:
-    return (1, (0,), (65737,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Threading.{forkPIO0}1}
+    return (1, (1,), (65737,))  # Python.Telescope.Bind, Python.Telescope.Default, {U_Python.Lib.Threading.{forkPIO0}1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
