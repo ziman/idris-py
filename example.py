@@ -2361,7 +2361,7 @@ def idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_Nat_58__33_show_58_0(e0):
     return str(e0)
 
 # with block in Python.Telescope.strip
-def idris__95_Python_46_Telescope_46_strip_95_with_95_16(e0, e1, e2, e3, e4, e5, e6):
+def idris__95_Python_46_Telescope_46_strip_95_with_95_17(e0, e1, e2, e3, e4, e5, e6):
   while True:
     if e1 is not None:  # Prelude.Maybe.Just
       in0 = e1

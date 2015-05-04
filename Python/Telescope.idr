@@ -11,15 +11,19 @@ import public Data.Erased
 ||| Information about an argument.
 data Binder : Type -> Type where
 
-  ||| Runtime-relevant argument.
+  ||| Mandatory, positional, relevant argument.
   Pi : (a : Type) -> Binder a
 
-  ||| Optional runtime-relevant argument with a non-None default.
-  ||| Note that if the default is `None`, you should use `Pi (Maybe a)`.
+  ||| Optional argument with a non-`None` default.
+  ||| To default to `None`, use `Optional`, which is equivalent to `Pi . Maybe`.
   Default : (a : Type) -> (dflt : a) -> Binder (Maybe a)
 
   ||| Runtime-irrelevant argument.
   Forall : (a : Type) -> Binder (Erased a)
+
+||| Optional argument; `None` if not given.
+Optional : (a : Type) -> Binder (Maybe a)
+Optional a = Pi (Maybe a)
 
 ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
 Nil : Unit
@@ -94,7 +98,6 @@ strip (Bind (Forall _   ) t) (MkSigma x xs) = TSkip   $ strip (t x) xs
 strip (Bind (Default _ d) t) (MkSigma x xs) with (x)  -- with-block to work around polymorphism-related error messages
   | Just y  = TCons (Just y) $ strip (t $ Just  y) xs
   | Nothing = TCons (Just d) $ strip (t $ Nothing) xs
-
 ||| Convert a list of types to the corresponding tuple type.
 toTuple : (xs : List Type) -> Type
 toTuple [] = Unit
