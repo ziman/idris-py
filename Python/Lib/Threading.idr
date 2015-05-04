@@ -17,7 +17,7 @@ Thread = signature "Thread"
 
 Threading : Signature
 Threading = signature "threading"
-  -- the first arg must always be Nothing
+  -- the first arg must always be Nothing, according to Python spec
   [ "Thread" ::: [Maybe (), [] ~> ()] ~> Obj Thread
   ]
 
