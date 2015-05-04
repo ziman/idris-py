@@ -16,6 +16,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - constructor-cases to binary search on tags
 	    - seems to bring down `pythag 100` from 5.5 secs to 3.5 secs, probably because of `APPLY0`
 	- constant-cases to dictionary lookups
+        - a bit wasteful (evaluates too much in non-trivial cases) -- but apparently easy to do
 * comments in the generated Python code show the meaning of low-level code
     - constructor names next to numeric constructor tags
     - readable names next to mangled names

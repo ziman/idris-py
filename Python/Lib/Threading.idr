@@ -27,17 +27,18 @@ import_ = importModule "threading"
 ||| Fork a side thread. The thread will send its result
 ||| through the queue that is returned by this function.
 forkPIO : PIO a -> PIO (Obj $ Queue a)
-forkPIO work = do
-  queue <- Queue.import_ /: "Queue" $: [1]
-  let worker = do
-        result <- work
-        queue /. "put" $: [result]
+forkPIO {a = a} work = do
+    queue <- Queue.import_ /: "Queue" $: (1 ** ())
+    thread <- Threading.import_ /: "Thread" $: (Nothing ** (marshalPIO (worker queue) ** ()))
+    thread /. "start" $: ()
 
-  thread <- Threading.import_ /: "Thread" $: [Nothing, marshalPIO worker]
-  thread /. "start" $: []
-
-  return queue
+    return queue
+  where
+    worker : (Obj $ Queue a) -> PIO ()
+    worker queue = do
+      result <- work
+      queue /. "put" $: (result ** ())
 
 ||| Wait for the result of a side thread.
 wait : Obj (Queue a) -> PIO a
-wait q = q /. "get" $: [1]
+wait q = q /. "get" $: (1 ** ())

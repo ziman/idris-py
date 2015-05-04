@@ -126,11 +126,7 @@ pythonPreamble = vcat . map text $
     , "  return mod"
     , ""
     , "def idris_call(f, args):"
-    , "  native_args = []"
-    , "  while len(args) == 3:  # it's a cons"
-    , "    native_args.append(args[1])"
-    , "    args = args[2]"
-    , "  return f(*native_args)"
+    , "  return f(*list(args))"
     , ""
     , "def idris_foreach(it, st, f):"
     , "  for x in it:"
@@ -555,21 +551,33 @@ type SCtor  = [Expr] -> Expr
 type STest  = Expr -> Expr
 type SMatch = [Expr] -> Expr -> Expr
 
--- Warning: no value is allowed to compile to "None" because that would break Maybe's Nothing
---
--- If any value `n` of your type compiles to None,
--- matching on `Just n` will take the `Nothing` branch, which is clearly incorrect.
---
 specialCased :: Name -> Maybe (SCtor, STest, SMatch)
 specialCased n = lookup n
-    [ item "Prelude.List"  "::"      (\[h,t] -> t <> text ".cons" <> parens h) id uncons
-    , item "Prelude.List"  "Nil"     (\[] -> text "ConsList()") falseTest    nomatch
-    , item "Prelude.Bool"  "True"    (\[] -> text "True")    id              nomatch
-    , item "Prelude.Bool"  "False"   (\[] -> text "False")   falseTest       nomatch
-    , item "Prelude.Maybe" "Just"    (\[x] -> x)             notNoneTest     match
-    , item "Prelude.Maybe" "Nothing" (\[] -> text "None")    noneTest        nomatch
-    , item ""              "MkUnit"  (\[] -> text "Unit")    noinspect       nomatch
-    , item "Builtins"      "MkPair"  (\[x,y] -> parens (x <> comma <+> y)) noinspect match
+    -- Compile lists to a custom type that's iterable in Python (i.e. easy to call list() on).
+    [ item "Prelude.List"  "::"      cons id        uncons
+    , item "Prelude.List"  "Nil"     nil  falseTest nomatch
+
+    -- Compile Idris booleans to Python booleans.
+    , item "Prelude.Bool"  "True"    (\[] -> text "True")  id        nomatch
+    , item "Prelude.Bool"  "False"   (\[] -> text "False") falseTest nomatch
+
+    -- Compile (Just x) to (x) and Nothing to None.
+    --
+    -- Warning: no other value is allowed to compile to "None"!
+    --
+    -- If any value `n` of any type compiles to None, matching on `Just n`
+    -- will take the `Nothing` branch, which is clearly incorrect.
+    , item "Prelude.Maybe" "Just"    (\[x] -> x)          notNoneTest match
+    , item "Prelude.Maybe" "Nothing" (\[] -> text "None") noneTest    nomatch
+
+    -- Due to the above, Unit must compile to a custom constant, not None.
+    , item ""              "MkUnit"  unit  noinspect nomatch
+    , item "Builtins"      "MkPair"  tuple noinspect match
+
+    -- Compile TLists the same way as ordinary lists, to a convenient ConsList.
+    , item "Python.Telescope" "TNil"  nil  falseTest nomatch
+    , item "Python.Telescope" "TCons" cons id        uncons
+    , item "Python.Telescope" "TSkip" skip id        match
     ]
   where
     noneTest e = e <+> text "is None"
@@ -577,6 +585,12 @@ specialCased n = lookup n
     falseTest e = text "not" <+> e
     nomatch args e = cgError $ show n ++ " should never be deconstructed"
     noinspect e = cgError $ show n ++ " should never be tested"
+
+    unit  []   = text "Unit"
+    tuple args = parens (hsep $ punctuate comma args)
+    cons [h,t] = t <> text ".cons" <> parens h
+    nil  []    = text "ConsList()"
+    skip [x]   = x
 
     uncons args e = match args (e <> text ".head" <> comma <+> e <> text ".tail")
     match args e = hsep (punctuate comma args) <+> text "=" <+> e

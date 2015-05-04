@@ -1,6 +1,6 @@
 module Python
 
-import Python.Telescope
+import public Python.Telescope
 
 %default total
 %access public
@@ -73,6 +73,7 @@ namespace FFI
     PyPair    : PyTypes a -> PyTypes b -> PyTypes (a, b)
     PyList    : PyTypes a -> PyTypes (List a)
     PyFun     : PyTypes a -> PyTypes b -> PyTypes (a -> b)
+    PyTList   : PyTypes (TList t args)
 
     ||| Python objects, opaque to Idris.
     PyPtr       : PyTypes Ptr
@@ -194,7 +195,7 @@ abstract
 ($.) : {t : Telescope a} -> (meth : Function t ret) -> (args : a) -> PIO (ret args)
 ($.) {t = t} {ret = ret} (MkFunction meth) args =
   unRaw <$>
-    foreign FFI_Py "idris_call" (Ptr -> (Raw $ TList t args) -> PIO (Raw $ ret args)) meth (MkRaw $ strip t args)
+    foreign FFI_Py "idris_call" (Ptr -> (TList t args) -> PIO (Raw $ ret args)) meth (strip t args)
 
 infixl 4 $:
 ||| Function call, useful for chaining.
