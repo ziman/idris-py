@@ -98,12 +98,6 @@ PIO = IO' FFI_Py
 -- ###  Field accessors  ###
 --
 
--- This is a very low-level function for hacking around things.
--- Field accessors should perhaps return Maybe?
-private
-isNone : Ptr -> PIO Int
-isNone p = foreign FFI_Py "idris_is_none" (Ptr -> PIO Int) p
-
 using (n : String)
   ||| Proof that a signature contains a field of the given type.
   ||| (We don't use List.Elem to keep the signature name in the error message.)
@@ -195,7 +189,7 @@ abstract
 ($.) : {t : Telescope a} -> (meth : Function t) -> (args : a) -> PIO (teleReturn t args)
 ($.) {t = t} (MkFunction meth) args =
   unRaw <$>
-    foreign FFI_Py "idris_call"
+    foreign FFI_Py "_idris_call"
       (Ptr -> (TList t args) -> PIO (Raw $ teleReturn t args))
       meth
       (strip t args)
@@ -222,7 +216,7 @@ infixl 4 $:
 abstract
 importModule : (modName : String) -> PIO (Obj sig)
 importModule {sig = sig} modName =
-  foreign FFI_Py "idris_pymodule" (String -> PIO (Obj sig)) modName
+  foreign FFI_Py "_idris_pymodule" (String -> PIO (Obj sig)) modName
 
 infixr 5 ~>
 ||| Infix alias for functions with fixed arguments.
@@ -234,4 +228,25 @@ infixr 5 ~>
 marshalPIO : PIO a -> ([] ~> a)
 marshalPIO {a = a} action =
   unsafePerformIO $
-    foreign FFI_Py "idris_marshal_PIO" (Raw (PIO a) -> PIO ([] ~> a)) (MkRaw action)
+    foreign FFI_Py "_idris_marshal_PIO" (Raw (PIO a) -> PIO ([] ~> a)) (MkRaw action)
+
+||| Defines which functions are exportable.
+data Exportable : Type -> Type where
+  ERet : PyTypes a -> Exportable (PIO a)
+  EPi  : PyTypes a -> Exportable b -> Exportable (a -> b)
+
+private
+esize : Exportable a -> Int
+esize (ERet _)  = 0
+esize (EPi _ e) = 1 + esize e
+
+||| Export the given function so that it's visible (and callable)
+||| when the generated module is imported from Python.
+abstract
+export : {auto pf : Exportable a} -> (name : String) -> (f : a) -> PIO ()
+export {a = a} {pf = pf} name f =
+    foreign FFI_Py "_idris_export"
+      (Int -> String -> Raw a -> PIO ())
+      (esize pf)
+      name
+      (MkRaw f)

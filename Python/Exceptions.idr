@@ -99,7 +99,7 @@ try {a = a} x =
   unRaw <$>
     foreign
       FFI_Py
-      "idris_try"
+      "_idris_try"
       (Raw (PIO a)
         -> (String -> Exception -> Raw (Result a))
         -> (Raw a -> Raw (Result a))
@@ -111,7 +111,7 @@ try {a = a} x =
 
 abstract
 raise : Exception -> PIO a
-raise {a = a} e = unRaw <$> foreign FFI_Py "idris_raise" (Exception -> PIO (Raw a)) e
+raise {a = a} e = unRaw <$> foreign FFI_Py "_idris_raise" (Exception -> PIO (Raw a)) e
 
 catch : PIO (Result a) -> (ExceptionType -> Exception -> PIO a) -> PIO a
 catch action handler = do

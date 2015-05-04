@@ -113,44 +113,41 @@ pythonPreamble = vcat . map text $
     , "class IdrisError(Exception):"
     , "  pass"
     , ""
-    , "def idris_error(msg):"
+    , "def _idris_error(msg):"
     , "  raise IdrisError(msg)"
     , ""
-    , "MODULES = dict()"
+    , "_MODULES = dict()"
     , ""
-    , "def idris_pymodule(name):"
-    , "  mod = MODULES.get(name)"
+    , "def _idris_pymodule(name):"
+    , "  mod = _MODULES.get(name)"
     , "  if mod is None:"
     , "    mod = __import__(name)"
-    , "    MODULES[name] = mod"
+    , "    _MODULES[name] = mod"
     , "  return mod"
     , ""
-    , "def idris_call(f, args):"
+    , "def _idris_call(f, args):"
     , "  return f(*list(args))"
     , ""
-    , "def idris_foreach(it, st, f):"
+    , "def _idris_foreach(it, st, f):"
     , "  for x in it:"
     , "    # Apply st, x, world"
     , "    st = APPLY0(APPLY0(APPLY0(f, st), x), None)"
     , "  return st"
     , ""
-    , "def idris_is_none(x):"
-    , "  return 1 if x is None else 0"
-    , ""
-    , "def idris_try(f, fail, succ):"
+    , "def _idris_try(f, fail, succ):"
     , "  try:"
     , "    result = APPLY0(f, None)  # apply to world"
     , "    return APPLY0(succ, result)"
     , "  except Exception as e:"
     , "    return APPLY0(APPLY0(fail, e.__class__.__name__), e)"
     , ""
-    , "def idris_raise(e):"
+    , "def _idris_raise(e):"
     , "  raise e"
     , ""
-    , "def idris_marshal_PIO(action):"
+    , "def _idris_marshal_PIO(action):"
     , "  return lambda: APPLY0(action, None)  # delayed apply-to-world"
     , ""
-    , "class ConsIter(object):"
+    , "class _ConsIter(object):"
     , "  def __init__(self, node):"
     , "    self.node = node"
     , ""
@@ -182,7 +179,7 @@ pythonPreamble = vcat . map text $
     , "    return ConsList(isNil=False, head=x, tail=self)"
     , ""
     , "  def __iter__(self):"
-    , "    return ConsIter(self)"
+    , "    return _ConsIter(self)"
     , ""
     ]
 
@@ -191,8 +188,10 @@ pythonLauncher =
     text "if __name__ == '__main__':"
     $+$ indent (cgApp (cgName $ sMN 0 "runMain") [])
 
+-- The prefix "_" makes all names "hidden".
+-- This is useful when you import the generated module from Python code.
 mangle :: Name -> String
-mangle n = "idris_" ++ concatMap mangleChar (showCG n)
+mangle n = "_idris_" ++ concatMap mangleChar (showCG n)
   where
     mangleChar x
         | isAlpha x || isDigit x = [x]

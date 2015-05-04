@@ -81,7 +81,7 @@ foreach :
 foreach {a = a} {b = b} iterable st f = do
   iterator <- iterable /. "__iter__" $: []
   unRaw <$>
-    foreign FFI_Py "idris_foreach"
+    foreign FFI_Py "_idris_foreach"
       (Obj (Iterable a) -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
       iterable
       (MkRaw st)
