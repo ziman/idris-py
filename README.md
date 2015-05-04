@@ -31,6 +31,8 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - this gives choice to FFI authors to say whether they care about `None`
       by having FFI functions take/return either bare values or maybe-values.
 * calling Idris from Python
+    ([exports](https://github.com/ziman/idris-py/blob/master/example.idr#L105),
+     [usage](#calling-idris-from-python))
 
 ## Observations
 
