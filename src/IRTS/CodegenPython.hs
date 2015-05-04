@@ -600,6 +600,7 @@ specialCased n = lookup n
     -- 2. what the name is
     -- 3. how to construct the thing, given its arguments
     -- 4. what to put in the if-statement to test for the thing, given the expression to test
+    -- 5. how to project fields from the thing
     item :: String -> String -> SCtor -> STest -> SMatch -> (Name, (SCtor, STest, SMatch))
     item "" n ctor test match = (sUN n, (ctor, test, match))
     item ns n ctor test match = (sNS (sUN n) (reverse $ split '.' ns), (ctor, test, match))

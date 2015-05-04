@@ -14,8 +14,9 @@ data Binder : Type -> Type where
   ||| Runtime-relevant argument.
   Pi : (a : Type) -> Binder a
 
-  ||| Optional runtime-relevant argument with a default.
-  Optional : (a : Type) -> (dflt : a) -> Binder (Maybe a)
+  ||| Optional runtime-relevant argument with a non-None default.
+  ||| Note that if the default is `None`, you should use `Pi (Maybe a)`.
+  Default : (a : Type) -> (dflt : a) -> Binder (Maybe a)
 
   ||| Runtime-irrelevant argument.
   Forall : (a : Type) -> Binder (Erased a)
@@ -88,9 +89,9 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 ||| Strip the given tuple `xs` to the `TList` of runtime-relevant values.
 strip : (t : Telescope c) -> (xs : c) -> TList t xs
 strip Empty () = TNil
-strip (Bind (Pi _        ) t) (MkSigma x xs) = TCons x $ strip (t x) xs
-strip (Bind (Forall _    ) t) (MkSigma x xs) = TSkip   $ strip (t x) xs
-strip (Bind (Optional _ d) t) (MkSigma x xs) with (x)  -- with-block to work around polymorphism-related error messages
+strip (Bind (Pi _       ) t) (MkSigma x xs) = TCons x $ strip (t x) xs
+strip (Bind (Forall _   ) t) (MkSigma x xs) = TSkip   $ strip (t x) xs
+strip (Bind (Default _ d) t) (MkSigma x xs) with (x)  -- with-block to work around polymorphism-related error messages
   | Just y  = TCons (Just y) $ strip (t $ Just  y) xs
   | Nothing = TCons (Just d) $ strip (t $ Nothing) xs
 

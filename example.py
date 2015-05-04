@@ -483,21 +483,21 @@ def idris_Python_46_Telescope_46_strip(e0, e1, e2):
   while True:
     if e1[0] == 1:  # Python.Telescope.Bind
       in0, in1, = e1[1:]
-      if in0[0] == 2:  # Python.Telescope.Forall
+      if in0[0] == 1:  # Python.Telescope.Default
         if e2[0] == 0:  # Builtins.MkSigma
           in2, in3, = e2[1:]
-          aux3 = idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in2), in3)
+          if in2 is not None:  # Prelude.Maybe.Just
+            in4 = in2
+            aux4 = idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in4), in3).cons(in4)
+          elif in2 is None:  # Prelude.Maybe.Nothing
+            aux4 = idris_Python_46_Telescope_46_strip(None, APPLY0(in1, None), in3).cons(None)
+          aux3 = aux4
         aux2 = aux3
-      elif in0[0] == 1:  # Python.Telescope.Optional
+      elif in0[0] == 2:  # Python.Telescope.Forall
         if e2[0] == 0:  # Builtins.MkSigma
-          in4, in5, = e2[1:]
-          if in4 is not None:  # Prelude.Maybe.Just
-            in6 = in4
-            aux5 = idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in6), in5).cons(in6)
-          elif in4 is None:  # Prelude.Maybe.Nothing
-            aux5 = idris_Python_46_Telescope_46_strip(None, APPLY0(in1, None), in5).cons(None)
-          aux4 = aux5
-        aux2 = aux4
+          in5, in6, = e2[1:]
+          aux5 = idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in5), in6)
+        aux2 = aux5
       elif in0[0] == 0:  # Python.Telescope.Pi
         if e2[0] == 0:  # Builtins.MkSigma
           in7, in8, = e2[1:]
@@ -1281,7 +1281,7 @@ def idris_Python_46_Prim_46__123_foreach1_125_(e2, e3, e4, in0):
 # Python.Lib.Threading.{forkPIO1}
 def idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(in0):
   while True:
-    return (1, (1,), (65735,))  # Python.Telescope.Bind, Python.Telescope.Optional, {U_Python.Lib.Threading.{forkPIO0}1}
+    return (1, (1,), (65735,))  # Python.Telescope.Bind, Python.Telescope.Default, {U_Python.Lib.Threading.{forkPIO0}1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, idris_w, in0):
