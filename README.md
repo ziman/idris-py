@@ -6,8 +6,10 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 
 * tail-call optimisation (does not work for mutual recursion)
     - There is a [full TCO branch](https://github.com/ziman/idris-py/tree/trampoline-tco)
-      using trampolines via decorators but it makes non-tail calls less efficient (more stack frames)
-      so it's not merged into master.
+      using trampolines but it consumes more stack frames, thus making non-tail-recursive
+      programs crash earlier so it's not merged into master.
+    - [Another full TCO branch](https://github.com/ziman/idris-py/tree/inline-tco) preserves
+      the number of stack frames but it's even slower.
 * principled codegen monad makes it easy to compile from `DExp`
 * allows typechecked use of Python libraries
   ([example](https://github.com/ziman/idris-py/blob/master/example.idr))
