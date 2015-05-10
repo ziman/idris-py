@@ -316,7 +316,7 @@ cgVar (Loc  i)
 cgVar (Glob n) = cgName n
 
 cgError :: String -> Expr
-cgError msg = text "idris_error" <> parens (text $ show msg)
+cgError msg = text "_idris_error" <> parens (text $ show msg)
 
 cgExtern :: String -> [Expr] -> Expr
 cgExtern "prim__null" args = text "None"
@@ -593,7 +593,7 @@ specialCased n = lookup n
 
     -- Due to the above, Unit must compile to a custom constant, not None.
     , item ""              "MkUnit"  unit  noinspect nomatch
-    , item "Builtins"      "MkPair"  tuple noinspect match
+    , item "Builtins"      "MkPair"  tuple constTrue match
 
     -- Compile TLists the same way as ordinary lists, to a convenient ConsList.
     , item "Python.Telescope" "TNil"  nil  falseTest nomatch
@@ -601,6 +601,7 @@ specialCased n = lookup n
     , item "Python.Telescope" "TSkip" skip id        match
     ]
   where
+    constTrue e = text "True"
     noneTest e = e <+> text "is None"
     notNoneTest e = e <+> text "is not None"
     falseTest e = text "not" <+> e
