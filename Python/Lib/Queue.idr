@@ -8,14 +8,14 @@ import Data.Erased
 
 Queue : Type -> Signature
 Queue a = signature "Queue"
-  [ "put" ::: [a] ~> ()
-  , "get" ::: [Int] ~> a
-  , "task_done" ::: [] ~> ()
+  [ "put" ::. [a] ~> ()
+  , "get" ::. [Int] ~> a
+  , "task_done" ::. [] ~> ()
   ]
 
 QueueM : Signature
 QueueM = signature "QueueM"
-  [ "Queue" :::
+  [ "Queue" ::.
       Function 
         (Bind (Forall Type) $ \a =>           -- Type of elements
           Bind (Default Int 0) $ \maxLen =>   -- Maximum size of queue

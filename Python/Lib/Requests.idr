@@ -12,12 +12,12 @@ Response = signature "Response"
 
 Session : Signature
 Session = signature "Session"
-  [ "get" ::: [String] ~> Obj Response
+  [ "get" ::. [String] ~> Obj Response
   ]
 
 Requests : Signature
 Requests = signature "Requests"
-  [ "Session" ::: [] ~> Obj Session
+  [ "Session" ::. [] ~> Obj Session
   ]
 
 import_ : PIO $ Obj Requests

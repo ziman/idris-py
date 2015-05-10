@@ -1,7 +1,9 @@
 module Python.Prim
 
 import Python
-import Python.Exceptions
+import Python.Telescope
+import Python.Fields
+import Python.Functions
 
 %access public
 %default total
@@ -9,19 +11,19 @@ import Python.Exceptions
 ||| The actual state of iteration.
 Iterator : Type -> Signature
 Iterator a = signature "Iterator"
-  [ "next" ::: [] ~> a
+  [ "next" ::. [] ~> a
   ]
 
 ||| Something that can produce an iterator.
 Iterable : Type -> Signature
 Iterable a = signature "Iterable"
-  [ "__iter__" ::: [] ~> Obj (Iterator a)
+  [ "__iter__" ::. [] ~> Obj (Iterator a)
   ]
 
 ||| Python string as object.
 PyString : Signature
 PyString = signature "PyString"
-  [ "join" ::: [Obj $ Iterable String] ~> String
+  [ "join" ::. [Obj $ Iterable String] ~> String
   ]
   <: Iterable Char
 
@@ -44,10 +46,10 @@ obj x = believe_me x
 ||| Get the next value from an iterator.
 next : Obj (Iterator a) -> PIO (Maybe a)
 next {a = a} it = do
-    OK x <- try (it /. "next" $: [])
-      | Except StopIteration e => return Nothing
-      | Except _ e => raise e
-    return $ Just x
+  OK x <- try (it /. "next" $: [])
+    | Except StopIteration e => return Nothing
+    | Except _ e => raise e
+  return $ Just x
 
 ||| A left-fold over an iterable, implemented in Idris.
 ||| This is not very efficient (TCO does not kick in here)

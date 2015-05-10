@@ -25,28 +25,29 @@ data Binder : Type -> Type where
 Optional : (a : Type) -> Binder (Maybe a)
 Optional a = Pi (Maybe a)
 
-||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
-Nil : Unit
-Nil = ()
+namespace TupleSugar
+  ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
+  Nil : Unit
+  Nil = ()
 
-||| Infix name for `MkSigma`, useful for the [list, syntax, sugar].
-(::) : (x : a) -> (y : b x) -> Sigma a b
-(::) = MkSigma
+  ||| Infix name for `MkSigma`, useful for the [list, syntax, sugar].
+  (::) : (x : a) -> (y : b x) -> Sigma a b
+  (::) = MkSigma
 
-||| Sequence where the value of any element may affect
+||| Type of sequences where the value of any element may affect
 ||| the type of the following elements.
+|||
+||| In other words, a dependent pair generalised to multiple elements.
 data Telescope : Type -> Type where
 
   ||| Empty telescope.
-  Return :
-    (ret : Type)
-    -> Telescope Unit
+  Return : Type -> Telescope Unit
 
   ||| A binder in front of a telescope.
   Bind :
     (bnd : Binder a)
     -> {b : a -> Type}
-    -> (t : (x : a) -> Telescope (b x))
+    -> (tf : (x : a) -> Telescope (b x))
     -> Telescope (Sigma a b)
 
 ||| A list for runtime-relevant values, typed by the given telescope.
@@ -60,8 +61,8 @@ data Telescope : Type -> Type where
 ||| any other value with the same type.
 data TList : (t : Telescope a) -> (xs : a) -> Type where
 
-  ||| Empty `TList`.
-  TNil : TList (Return ret) []
+  ||| Return `TList`.
+  TNil : TList (Return x) []
 
   -- Note: we could restrict possible binders in both constructors below
   -- (because (ir-)relevance depends on the binder)
@@ -73,18 +74,18 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
     -> .{b : a -> Type}
     -> .{x : a}
     -> (y : a)  -- note that `y` is a fresh variable => can be anything of the same type
-    -> .{t : (x : a) -> Telescope (b x)}
-    -> (xs : TList (t x) args)
-    -> TList (Bind bnd t) (x :: args)
+    -> .{tf : (x : a) -> Telescope (b x)}
+    -> (xs : TList (tf x) args)
+    -> TList (Bind bnd tf) (x :: args)
 
   ||| Skip an element in the telescope.
   TSkip :
     .{bnd : Binder a}
     -> .{b : a -> Type}
     -- there is no (y : a) here, it is skipped
-    -> .{t : (x : a) -> Telescope (b x)}
-    -> (xs : TList (t x) args)
-    -> TList (Bind bnd t) (x :: args)
+    -> .{tf : (x : a) -> Telescope (b x)}
+    -> (xs : TList (tf x) args)
+    -> TList (Bind bnd tf) (x :: args)
 
 -- These are consumed by the FFI.
 %used TCons x
@@ -93,7 +94,7 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 
 ||| Strip the given tuple `xs` to the `TList` of runtime-relevant values.
 strip : (t : Telescope a) -> (args : a) -> TList t args
-strip (Return ret) () = TNil
+strip (Return _) () = TNil
 strip (Bind (Pi _       ) t) (MkSigma x xs) = TCons x $ strip (t x) xs
 strip (Bind (Forall _   ) t) (MkSigma x xs) = TSkip   $ strip (t x) xs
 strip (Bind (Default _ d) t) (MkSigma x xs) with (x)  -- with-block to work around polymorphism-related error messages
@@ -110,7 +111,6 @@ simple : (xs : List Type) -> (ret : Type) -> Telescope (toTuple xs)
 simple []        ret = Return ret
 simple (a :: as) ret = Bind (Pi a) (\x => simple as ret)
 
-||| Get the return type of a telescope.
-teleReturn : (t : Telescope a) -> (xs : a) -> Type
-teleReturn (Return ret) () = ret
-teleReturn (Bind bnd t) (MkSigma x xs) = teleReturn (t x) xs
+retTy : (t : Telescope a) -> (args : a) -> Type
+retTy (Return x) () = x
+retTy (Bind bnd tf) (MkSigma x xs) = retTy (tf x) xs

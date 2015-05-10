@@ -1,9 +1,17 @@
 module Python.Exceptions
 
-import Python
+import Python.Objects
+import Python.Fields
+import Python.IO
 
 %default total
 %access public
+
+Exception : Signature
+Exception = signature "Exception"
+  [ "message" ::: String
+--  , "args" ::. PyList String  -- cyclic dependency on Python.Prim
+  ]
 
 ||| Standard Python exceptions.
 data ExceptionType : Type where
@@ -90,30 +98,35 @@ data Result : Type -> Type where
   OK : (x : a) -> Result a
 
   ||| An exception was raised.
-  Except : (etype : ExceptionType) -> (e : Exception) -> Result a
+  Except : (etype : ExceptionType) -> (e : Obj Exception) -> Result a
 
 ||| Catch exceptions in the given PIO action.
 abstract
 try : PIO a -> PIO (Result a)
-try {a = a} x =
-  unRaw <$>
-    foreign
+try {a = a} x = do
+    MkRaw r <- foreign
       FFI_Py
       "_idris_try"
       (Raw (PIO a)
-        -> (String -> Exception -> Raw (Result a))
-        -> (Raw a -> Raw (Result a))
-        -> PIO (Raw $ Result a)
+        -> (Obj Exception -> Raw (Either (Obj Exception) a))
+        -> (Raw a -> Raw (Either (Obj Exception) a))
+        -> PIO (Raw $ Either (Obj Exception) a)
       )
       (MkRaw x)
-      (\n, e => MkRaw $ Except (fromString n) e)
-      (MkRaw . OK . unRaw)
+      (MkRaw . Left)
+      (MkRaw . Right . unRaw)
+
+    case r of
+      Right x => return $ OK x
+      Left e => do
+        et <- e /. "__class__" /: "__name__"
+        return $ Except (fromString et) e
 
 abstract
-raise : Exception -> PIO a
-raise {a = a} e = unRaw <$> foreign FFI_Py "_idris_raise" (Exception -> PIO (Raw a)) e
+raise : Obj Exception -> PIO a
+raise {a = a} e = unRaw <$> foreign FFI_Py "_idris_raise" (Obj Exception -> PIO (Raw a)) e
 
-catch : PIO (Result a) -> (ExceptionType -> Exception -> PIO a) -> PIO a
+catch : PIO (Result a) -> (ExceptionType -> Obj Exception -> PIO a) -> PIO a
 catch action handler = do
   OK result <- action
     | Except etype e => handler etype e
@@ -121,10 +134,10 @@ catch action handler = do
 
 ||| Get basic information about the exception as `String`.
 abstract
-showException : Exception -> String
+showException : Obj Exception -> String
 showException e =
   unsafePerformIO
-    $ foreign FFI_Py "str" (Exception -> PIO String) e
+    $ foreign FFI_Py "str" (Obj Exception -> PIO String) e
 
-instance Show Exception where
+instance Show (Obj Exception) where
   show = showException

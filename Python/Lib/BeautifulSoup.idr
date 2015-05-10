@@ -9,17 +9,17 @@ import Python.Prim
 Element : Signature
 Element = signature "Element"
   [ "string"  ::: Maybe String
-  , "strings" ::: Obj (PyList String)
+  , "strings" ::. PyList String
   ]
 
 Soup : Signature
 Soup = signature "Soup"
-  [ "select" ::: [String] ~> Obj (PyList $ Obj Element)
+  [ "select" ::. [String] ~> Obj (PyList $ Obj Element)
   ]
 
 Bs4 : Signature
 Bs4 = signature "Bs4"
-  [ "BeautifulSoup" ::: [String] ~> Obj Soup
+  [ "BeautifulSoup" ::. [String] ~> Obj Soup
   ]
 
 import_ : PIO $ Obj Bs4

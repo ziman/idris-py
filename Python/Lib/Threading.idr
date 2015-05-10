@@ -11,14 +11,14 @@ import Python.Lib.Queue
 
 Thread : Signature
 Thread = signature "Thread"
-  [ "start" ::: [] ~> ()
-  , "join" ::: [] ~> ()
+  [ "start" ::. [] ~> ()
+  , "join" ::. [] ~> ()
   ]
 
 Threading : Signature
 Threading = signature "threading"
   -- the first arg must always be Nothing, according to Python spec
-  [ "Thread" ::: [Maybe (), [] ~> ()] ~> Obj Thread
+  [ "Thread" ::. [Maybe (), Obj ([] ~> ())] ~> Obj Thread
   ]
 
 import_ : PIO $ Obj Threading

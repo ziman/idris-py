@@ -7,7 +7,7 @@ import Python
 
 Os : Signature
 Os = signature "Os"
-  [ "mkdir" ::: [String] ~> ()
+  [ "mkdir" ::. [String] ~> ()
   ]
 
 import_ : PIO (Obj Os)
