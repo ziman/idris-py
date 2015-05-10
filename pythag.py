@@ -98,36 +98,26 @@ class ConsList(object):
 # http://kylem.net/programming/tailcall.html
 TailCall = collections.namedtuple('TailCall', 'f args')
 
-class TailWrapper(object):
-  def __init__(self, f):
-    self.f = f
-
-  def __call__(self, *args):
-    f = self.f
-    while True:
-       ret = f(*args)
-       if type(ret) is TailCall:
-         f, args = ret
-         if type(f) is TailWrapper:
-           f = f.f
-         continue
-       return ret
-
-def tailcaller(f):
-  return TailWrapper(f)
+def _idris_tco(f, args):
+  while True:
+     ret = f(*args)
+     if type(ret) is TailCall:
+       f, args = ret
+       continue
+     return ret
 
 # Prelude.List.++
 def _idris_Prelude_46_List_46__43__43_(e0, e1, e2):
   if e1:  # Prelude.List.::
     in0, in1 = e1.head, e1.tail
-    aux1 = _idris_Prelude_46_List_46__43__43_(None, in1, e2).cons(in0)
+    aux1 = _idris_tco(_idris_Prelude_46_List_46__43__43_, (None, in1, e2)).cons(in0)
   elif not e1:  # Prelude.List.Nil
     aux1 = e2
   return aux1
 
-@tailcaller  # Prelude.Basics..
+# Prelude.Basics..
 def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
-  return TailCall(APPLY0, (e3, APPLY0(e4, _idris_x)))
+  return TailCall(APPLY0, (e3, _idris_tco(APPLY0, (e4, _idris_x))))
 
 # Prelude.Classes.<
 def _idris_Prelude_46_Classes_46__60_(e0, e1):
@@ -160,17 +150,17 @@ def _idris__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35
 
 # Force
 def _idris_Force(e0, e1, e2):
-  in0 = EVAL0(e2)
+  in0 = _idris_tco(EVAL0, (e2,))
   return in0
 
-@tailcaller  # PE_List a instance of Prelude.Show_f5d3ac2c
+# PE_List a instance of Prelude.Show_f5d3ac2c
 def _idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(meth0):
   return TailCall(
     _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0,
     (None, None, (65653,), meth0)  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c4}1}
   )
 
-@tailcaller  # call__IO
+# call__IO
 def _idris_call_95__95_IO(e0, e1, e2):
   return TailCall(APPLY0, (e2, None))
 
@@ -181,7 +171,7 @@ def _idris_Prelude_46_Classes_46_compare(e0, e1):
     aux1 = in0
   return aux1
 
-@tailcaller  # Prelude.Foldable.concatMap
+# Prelude.Foldable.concatMap
 def _idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
   if e4[0] == 0:  # constructor of Prelude.Algebra.Monoid
     in0, in1, = e4[1:]
@@ -192,26 +182,29 @@ def _idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
   return TailCall(
     APPLY0,
     (
-      APPLY0(
-        _idris_Prelude_46_Foldable_46_foldr(None, None, None, e3),
-        (65632, None, None, None, aux1, e5)  # {U_Prelude.Basics..1}
+      _idris_tco(
+        APPLY0,
+        (
+          _idris_tco(_idris_Prelude_46_Foldable_46_foldr, (None, None, None, e3)),
+          (65632, None, None, None, aux1, e5)  # {U_Prelude.Basics..1}
+        )
       ),
       aux2
     )
   )
 
-@tailcaller  # Prelude.Applicative.empty
+# Prelude.Applicative.empty
 def _idris_Prelude_46_Applicative_46_empty(e0, e1, e2):
   if e2[0] == 0:  # constructor of Prelude.Applicative.Alternative
     in0, in1, = e2[1:]
     aux1 = TailCall(APPLY0, (in1, e1))
   return aux1
 
-@tailcaller  # Prelude.Foldable.foldr
+# Prelude.Foldable.foldr
 def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
-  return TailCall(APPLY0, (APPLY0(e3, e1), e2))
+  return TailCall(APPLY0, (_idris_tco(APPLY0, (e3, e1)), e2))
 
-@tailcaller  # Prelude.Applicative.guard
+# Prelude.Applicative.guard
 def _idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
   if not e2:  # Prelude.Bool.False
     if e1[0] == 0:  # constructor of Prelude.Applicative.Alternative
@@ -222,10 +215,13 @@ def _idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
     if e1[0] == 0:  # constructor of Prelude.Applicative.Alternative
       in2, in3, = e1[1:]
       aux3 = in2
-    aux1 = TailCall(APPLY0, (_idris_Prelude_46_Applicative_46_pure(None, None, aux3), Unit))
+    aux1 = TailCall(
+      APPLY0,
+      (_idris_tco(_idris_Prelude_46_Applicative_46_pure, (None, None, aux3)), Unit)
+    )
   return aux1
 
-@tailcaller  # Prelude.Bool.ifThenElse
+# Prelude.Bool.ifThenElse
 def _idris_Prelude_46_Bool_46_ifThenElse(e0, e1, e2, e3):
   if not e1:  # Prelude.Bool.False
     aux1 = TailCall(EVAL0, (e3,))
@@ -241,24 +237,39 @@ def _idris_Prelude_46_Classes_46_intToBool(e0):
     aux1 = True
   return aux1
 
-@tailcaller  # io_bind
+# io_bind
 def _idris_io_95_bind(e0, e1, e2, e3, e4, _idris_w):
-  return TailCall(APPLY0, (io_bind2(e0, e1, e2, e3, e4, _idris_w), APPLY0(e3, _idris_w)))
+  return TailCall(
+    APPLY0,
+    (
+      _idris_tco(io_bind2, (e0, e1, e2, e3, e4, _idris_w)),
+      _idris_tco(APPLY0, (e3, _idris_w))
+    )
+  )
 
 # io_return
 def _idris_io_95_return(e0, e1, e2, _idris_w):
   return e2
 
-@tailcaller  # Main.main
+# Main.main
 def _idris_Main_46_main():
   return (
     65647,  # {U_io_bind1}
     None,
     None,
     None,
-    _idris_Prelude_46_putStr(
-      None,
-      APPLY0(_idris_Prelude_46_show(None, (65631,)), _idris_Main_46_pythag(100))  # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
+    _idris_tco(
+      _idris_Prelude_46_putStr,
+      (
+        None,
+        _idris_tco(
+          APPLY0,
+          (
+            _idris_tco(_idris_Prelude_46_show, (None, (65631,))),  # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
+            _idris_tco(_idris_Main_46_pythag, (100,))
+          )
+        )
+      )
     ),
     (65623,)  # {U_Main.{main0}1}
   )
@@ -342,33 +353,34 @@ def _idris_prim_95__95_writeFile(op0, op1, op2):
 def _idris_prim_95__95_writeString(op0, op1):
   return sys.stdout.write(op1)
 
-@tailcaller  # prim_io_bind
+# prim_io_bind
 def _idris_prim_95_io_95_bind(e0, e1, e2, e3):
   return TailCall(APPLY0, (e3, e2))
 
-@tailcaller  # Prelude.Applicative.pure
+# Prelude.Applicative.pure
 def _idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
   return TailCall(APPLY0, (e2, e1))
 
-@tailcaller  # Prelude.putStr
+# Prelude.putStr
 def _idris_Prelude_46_putStr(e0, e1):
   return (65647, None, None, None, (65645, e1), (65646,))  # {U_io_bind1}, {U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1}
 
-@tailcaller  # Main.pythag
+# Main.pythag
 def _idris_Main_46_pythag(e0):
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
     (
       None,
       None,
-      _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
-        1, e0
+      _idris_tco(
+        _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
+        (1, e0)
       ),
       (65630,)  # {U_Main.{pythag6}1}
     )
   )
 
-@tailcaller  # run__IO
+# run__IO
 def _idris_run_95__95_IO(e0, e1):
   return TailCall(APPLY0, (e1, None))
 
@@ -384,7 +396,7 @@ def _idris_unsafePerformPrimIO():
 def _idris_world(e0):
   return e0
 
-@tailcaller  # Prelude.Bool.||
+# Prelude.Bool.||
 def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
   if not e0:  # Prelude.Bool.False
     aux1 = TailCall(EVAL0, (e1,))
@@ -392,7 +404,7 @@ def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
     aux1 = True
   return aux1
 
-@tailcaller  # {APPLY0}
+# {APPLY0}
 def APPLY0(fn0, arg0):
   if fn0[0] < 65641:
     if fn0[0] < 65632:
@@ -588,7 +600,7 @@ def APPLY0(fn0, arg0):
 def EVAL0(arg0):
   return arg0
 
-@tailcaller  # Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
@@ -614,7 +626,7 @@ def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_o
     aux2 = True
   return aux2
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam0_125_(
   in2, in3, in4
 ):
@@ -623,11 +635,11 @@ def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude
     (None, None, in2, in3, in4)
   )
 
-@tailcaller  # {io_bind0}
+# {io_bind0}
 def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
   return TailCall(APPLY0, (e4, in0))
 
-@tailcaller  # Main.{main0}
+# Main.{main0}
 def _idris_Main_46__123_main0_125_(in0):
   return TailCall(_idris_Prelude_46_putStr, (None, "\n"))
 
@@ -639,11 +651,11 @@ def _idris_Prelude_46__123_putStr0_125_(e1, in0):
 def _idris_Main_46__123_pythag0_125_(in4):
   return ConsList().cons(in4)
 
-@tailcaller  # {runMain0}
+# {runMain0}
 def runMain0():
-  return TailCall(EVAL0, (APPLY0(_idris_Main_46_main(), None),))
+  return TailCall(EVAL0, (_idris_tco(APPLY0, (_idris_tco(_idris_Main_46_main, ()), None)),))
 
-@tailcaller  # Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
@@ -655,21 +667,24 @@ def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c
 ):
   return str(in3)
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam1}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam1}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam1_125_(
   in2, in3
 ):
   return (65638, in2, in3)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}1}
 
-@tailcaller  # {io_bind1}
+# {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
-  return TailCall(APPLY0, (io_bind0(e0, e1, e2, e3, e4, _idris_w, in0), _idris_w))
+  return TailCall(
+    APPLY0,
+    (_idris_tco(io_bind0, (e0, e1, e2, e3, e4, _idris_w, in0)), _idris_w)
+  )
 
-@tailcaller  # Prelude.{putStr1}
+# Prelude.{putStr1}
 def _idris_Prelude_46__123_putStr1_125_(in1):
   return (65648, None, None, Unit)  # {U_io_return1}
 
-@tailcaller  # Main.{pythag1}
+# Main.{pythag1}
 def _idris_Main_46__123_pythag1_125_(in3):
   return (65624,)  # {U_Main.{pythag0}1}
 
@@ -677,15 +692,27 @@ def _idris_Main_46__123_pythag1_125_(in3):
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
-  aux1 = APPLY0(
-    APPLY0(
-      _idris_Prelude_46_Classes_46_compare(
-        None,
-        _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int()
+  aux1 = _idris_tco(
+    APPLY0,
+    (
+      _idris_tco(
+        APPLY0,
+        (
+          _idris_tco(
+            _idris_Prelude_46_Classes_46_compare,
+            (
+              None,
+              _idris_tco(
+                _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int,
+                ()
+              )
+            )
+          ),
+          in2
+        )
       ),
-      in2
-    ),
-    in3
+      in3
+    )
   )
   if aux1[0] == 0:  # Prelude.Classes.LT
     aux2 = True
@@ -699,13 +726,13 @@ def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c
 ):
   return str(in4)
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam2}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam2}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam2_125_(
   in2
 ):
   return (65639, in2)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam1}1}
 
-@tailcaller  # {io_bind2}
+# {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, _idris_w):
   return (65654, e0, e1, e2, e3, e4, _idris_w)  # {U_{io_bind1}1}
 
@@ -713,13 +740,13 @@ def io_bind2(e0, e1, e2, e3, e4, _idris_w):
 def _idris_Main_46__123_pythag2_125_(in5):
   return ConsList()
 
-@tailcaller  # Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}
+# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   return (65635, in2)  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}1}
 
-@tailcaller  # {PE_List a instance of Prelude.Show_f5d3ac2c3}
+# {PE_List a instance of Prelude.Show_f5d3ac2c3}
 def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(
   in2
 ):
@@ -728,7 +755,7 @@ def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c
     (None, None, None, None, (65650,), (65651,), in2)  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c1}1}, {U_{PE_List a instance of Prelude.Show_f5d3ac2c2}1}
   )
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam3}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam3}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam3_125_(
   in1
 ):
@@ -738,7 +765,7 @@ def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude
 def _idris_Main_46__123_pythag3_125_(in2, in1, in0, in6):
   return ConsList().cons((in2, (in1, in0)))
 
-@tailcaller  # {PE_List a instance of Prelude.Show_f5d3ac2c4}
+# {PE_List a instance of Prelude.Show_f5d3ac2c4}
 def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(
   in0
 ):
@@ -747,13 +774,13 @@ def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c
     (None, None, None, None, (65649,), (65652,), in0)  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c0}1}, {U_{PE_List a instance of Prelude.Show_f5d3ac2c3}1}
   )
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam4_125_(
   in0
 ):
   return (65641,)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam3}1}
 
-@tailcaller  # Main.{pythag4}
+# Main.{pythag4}
 def _idris_Main_46__123_pythag4_125_(in1, in0, in2):
   aux1 = in2 * in2 + in1 * in1 == in0 * in0
   if aux1 == 0:
@@ -765,12 +792,15 @@ def _idris_Main_46__123_pythag4_125_(in1, in0, in2):
     (
       None,
       None,
-      _idris_Prelude_46_Applicative_46_guard(None, (0, (65625,), (65626,)), aux2),  # constructor of Prelude.Applicative.Alternative, {U_Main.{pythag1}1}, {U_Main.{pythag2}1}
+      _idris_tco(
+        _idris_Prelude_46_Applicative_46_guard,
+        (None, (0, (65625,), (65626,)), aux2)  # constructor of Prelude.Applicative.Alternative, {U_Main.{pythag1}1}, {U_Main.{pythag2}1}
+      ),
       (65627, in2, in1, in0)  # {U_Main.{pythag3}1}
     )
   )
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam5_125_(
   in5, in6
 ):
@@ -779,35 +809,37 @@ def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude
     (None, in5, in6)
   )
 
-@tailcaller  # Main.{pythag5}
+# Main.{pythag5}
 def _idris_Main_46__123_pythag5_125_(in0, in1):
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
     (
       None,
       None,
-      _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
-        1, in1
+      _idris_tco(
+        _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
+        (1, in1)
       ),
       (65628, in1, in0)  # {U_Main.{pythag4}1}
     )
   )
 
-@tailcaller  # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}
+# Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam6_125_(
   in5
 ):
   return (65643, in5)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}1}
 
-@tailcaller  # Main.{pythag6}
+# Main.{pythag6}
 def _idris_Main_46__123_pythag6_125_(in0):
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
     (
       None,
       None,
-      _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
-        1, in0
+      _idris_tco(
+        _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
+        (1, in0)
       ),
       (65629, in0)  # {U_Main.{pythag5}1}
     )
@@ -829,7 +861,7 @@ def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Eq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_String_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   return None
 
-@tailcaller  # Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo, go
+# Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo, go
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(
   e0, e1, e2, e3, e4
 ):
@@ -843,14 +875,14 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58
     )
   return aux1
 
-@tailcaller  # Prelude.Prelude.List a instance of Prelude.Show, method show, show'
+# Prelude.Prelude.List a instance of Prelude.Show, method show, show'
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
   e0, e1, e2, e3, e4, e5
 ):
   if e5:  # Prelude.List.::
     in0, in1 = e5.head, e5.tail
     if not in1:  # Prelude.List.Nil
-      aux2 = e4 + APPLY0(_idris_Prelude_46_show(None, e3), in0)
+      aux2 = e4 + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e3)), in0))
     else:
       aux2 = TailCall(
         _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0,
@@ -859,7 +891,7 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58
           None,
           None,
           e3,
-          e4 + APPLY0(_idris_Prelude_46_show(None, e3), in0) + ", ",
+          e4 + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e3)), in0)) + ", ",
           in1
         )
       )
@@ -868,12 +900,13 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58
     aux1 = e4
   return aux1
 
-@tailcaller  # Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo
+# Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
   e0, e1
 ):
-  aux1 = _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0(
-    e0, e1
+  aux1 = _idris_tco(
+    _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0,
+    (e0, e1)
   )
   if not aux1:  # Prelude.Bool.False
     aux2 = ConsList()
@@ -884,7 +917,7 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58
     )
   return aux2
 
-@tailcaller  # Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
+# Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
 def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
   e0, e1, e2, e3, e4
 ):
@@ -893,13 +926,25 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
     aux1 = TailCall(
       APPLY0,
       (
-        APPLY0(e2, in0),
-        APPLY0(
-          APPLY0(
-            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65658,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-            e3
-          ),
-          in1
+        _idris_tco(APPLY0, (e2, in0)),
+        _idris_tco(
+          APPLY0,
+          (
+            _idris_tco(
+              APPLY0,
+              (
+                _idris_tco(
+                  APPLY0,
+                  (
+                    _idris_tco(_idris_Prelude_46_Foldable_46_foldr, (None, None, None, (65658,))),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+                    e2
+                  )
+                ),
+                e3
+              )
+            ),
+            in1
+          )
         )
       )
     )
@@ -907,38 +952,46 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
     aux1 = e3
   return aux1
 
-@tailcaller  # Prelude.Monad.Prelude.List instance of Prelude.Monad.Monad, method >>=
+# Prelude.Monad.Prelude.List instance of Prelude.Monad.Monad, method >>=
 def _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
   e0, e1, e2, e3
 ):
   return TailCall(
     APPLY0,
     (
-      _idris_Prelude_46_Foldable_46_concatMap(
-        None,
-        None,
-        None,
-        (65642,),  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}
-        (0, (65644,), ConsList()),  # constructor of Prelude.Algebra.Monoid, {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}
-        e3
+      _idris_tco(
+        _idris_Prelude_46_Foldable_46_concatMap,
+        (None, None, None, (65642,), (0, (65644,), ConsList()), e3)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}, constructor of Prelude.Algebra.Monoid, {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}
       ),
       e2
     )
   )
 
-@tailcaller  # Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=
+# Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0(
   e0, e1
 ):
-  aux1 = APPLY0(
-    APPLY0(
-      _idris_Prelude_46_Classes_46__60_(
-        None,
-        _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int()
+  aux1 = _idris_tco(
+    APPLY0,
+    (
+      _idris_tco(
+        APPLY0,
+        (
+          _idris_tco(
+            _idris_Prelude_46_Classes_46__60_,
+            (
+              None,
+              _idris_tco(
+                _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int,
+                ()
+              )
+            )
+          ),
+          e0
+        )
       ),
-      e0
-    ),
-    e1
+      e1
+    )
   )
   if not aux1:  # Prelude.Bool.False
     aux2 = TailCall(
@@ -981,15 +1034,16 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36__40_a_44__32_b_41__58__3
 ):
   if True:  # Builtins.MkPair
     in0, in1 = e6
-    aux1 = "(" + APPLY0(_idris_Prelude_46_show(None, e4), in0) + ", " + APPLY0(_idris_Prelude_46_show(None, e5), in1) + ")"
+    aux1 = "(" + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e4)), in0)) + ", " + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e5)), in1)) + ")"
   return aux1
 
 # Prelude.Prelude.List a instance of Prelude.Show, method show
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0(
   e0, e1, e2, e3
 ):
-  return "[" + _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
-    None, None, None, e2, "", e3
+  return "[" + _idris_tco(
+    _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0,
+    (None, None, None, e2, "", e3)
   ) + "]"
 
 # with block in Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <
@@ -1002,7 +1056,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classe
     aux1 = False
   return aux1
 
-@tailcaller  # Prelude.List.List instance of Prelude.Foldable.Foldable
+# Prelude.List.List instance of Prelude.Foldable.Foldable
 def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
   meth0, meth1, meth2, meth3, meth4
 ):
@@ -1019,7 +1073,7 @@ def _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int():
 def _idris_Void_95_case():
   return None
 
-@tailcaller  # case block in io_bind
+# case block in io_bind
 def _idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
   return TailCall(APPLY0, (e7, e5))
 

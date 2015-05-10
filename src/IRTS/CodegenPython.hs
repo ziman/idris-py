@@ -11,9 +11,10 @@ import Data.Maybe
 import Data.Char
 import Data.List
 import Data.Ord
-import Data.Monoid (Any(..))
+import Data.Monoid (Any(..), getAny)
 import qualified Data.Text as T
 import qualified Data.Map as M
+import qualified Data.Set as S
 
 import Control.Monad
 import Control.Applicative hiding (empty, Const)
@@ -29,6 +30,7 @@ enableTCO = True
 data CGState = CGState
     { varCounter :: Int          -- for fresh variables
     , ctorTags :: M.Map Name Int -- constructor tags
+    , tailCallers :: S.Set Name  -- functions that contain tail-calls
     }
     deriving (Show)
 
@@ -89,14 +91,19 @@ sindent = smap indent
 
 fresh :: CG LVar
 fresh = CG $ do
-    CGState vc ctors <- get
-    put $ CGState (vc + 1) ctors
+    CGState vc ctors tcs <- get
+    put $ CGState (vc + 1) ctors tcs
     return (empty, Loc (-vc))
 
 ctorTag :: Name -> CG (Maybe Int)
 ctorTag n = CG $ do
-    CGState vc ctors <- get
+    CGState vc ctors tcs <- get
     return (empty, M.lookup n ctors)
+
+isTailCaller :: Name -> CG Bool
+isTailCaller n = CG $ do
+    CGState vc ctors tcs <- get
+    return $ (empty, S.member n tcs)
 
 indent :: Doc -> Doc
 indent = nest 2
@@ -203,23 +210,13 @@ pythonPreamble = vcat . map text $
     , "# http://kylem.net/programming/tailcall.html"
     , "TailCall = collections.namedtuple('TailCall', 'f args')"
     , ""
-    , "class TailWrapper(object):"
-    , "  def __init__(self, f):"
-    , "    self.f = f"
-    , ""
-    , "  def __call__(self, *args):"
-    , "    f = self.f"
-    , "    while True:"
-    , "       ret = f(*args)"
-    , "       if type(ret) is TailCall:"
-    , "         f, args = ret"
-    , "         if type(f) is TailWrapper:"
-    , "           f = f.f"
-    , "         continue"
-    , "       return ret"
-    , ""
-    , "def tailcaller(f):"
-    , "  return TailWrapper(f)"
+    , "def _idris_tco(f, args):"
+    , "  while True:"
+    , "     ret = f(*args)"
+    , "     if type(ret) is TailCall:"
+    , "       f, args = ret"
+    , "       continue"
+    , "     return ret"
     , ""
     ]
 
@@ -240,9 +237,12 @@ mangle n = "_idris_" ++ concatMap mangleChar (showCG n)
 codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render "#" source)
   where
+    decls = defunDecls ci
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
-    ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
-    definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- defunDecls ci]
+    ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- decls]
+    definitions = vcat $ map (cgDef tailCallers ctors) [d | d@(_, DFun _ _ _) <- decls]
+    tailCallers = S.fromList [n | (n, DFun n' args body) <- decls, hasTailCalls body]
+    hasTailCalls = getAny . snd . runWriter . tailify
 
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.
@@ -280,25 +280,22 @@ cgTuple maxSize xs
       where
         curSize = size curLine
 
+forceTuple :: Int -> [Expr] -> Expr
+forceTuple maxWidth [x] = parens (x <> comma)
+forceTuple maxWidth xs  = cgTuple maxWidth xs
+
 cgApp :: Bool -> Expr -> [Expr] -> Expr
 cgApp isTail f args
-    | isTail
-    , [x] <- args
-        = text "TailCall" <> cgTuple maxWidth [f, parens (x <> comma)]
-
-    | isTail
-        = text "TailCall" <> cgTuple maxWidth [f, cgTuple 80 args]
-
-    | otherwise
-        = f <> cgTuple maxWidth args
+    | isTail    = text "TailCall" <> cgTuple maxWidth [f, forceTuple 80 args]
+    | otherwise = f <> cgTuple maxWidth args
   where
     maxWidth = 80 - width f
 
 -- Process one definition. The caller deals with constructor declarations,
 -- we only deal with function definitions.
-cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
-cgDef ctors (n, DFun name' args body) =
-    (decorator <?> show name')
+cgDef :: S.Set Name -> M.Map Name Int -> (Name, DDecl) -> Doc
+cgDef tailCallers ctors (n, DFun name' args body) =
+    (empty <?> show name')
     $+$ (text "def" <+> cgName n <> cgTuple maxArgsWidth (map cgName args) <> colon)
     $+$ indent (
             -- trace $+$  -- uncomment this line to enable printing traces
@@ -307,14 +304,11 @@ cgDef ctors (n, DFun name' args body) =
         )
     $+$ text ""  -- empty line separating definitions
   where
-    decorator
-        | hasTailCalls && enableTCO = text "@tailcaller"
-        | otherwise = empty
     maxArgsWidth = 80 - width (cgName n)
     (statements, retVal) = evalState body'' initState
     (body', Any hasTailCalls) = runWriter $ tailify body
     body'' = runCG $ cgExp body'
-    initState = CGState 1 ctors
+    initState = CGState 1 ctors tailCallers
 
     -- used only for debugging
     trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
@@ -417,13 +411,22 @@ cgMatch lhs rhs =
   <+> text "="
   <+> cgVar rhs <> text "[1:]"
 
+cgTailCall :: Expr -> [Expr] -> Expr
+cgTailCall f args = cgApp False (text "_idris_tco") [f, forceTuple 80 args]
+
 cgExp :: DExp -> CG Expr
 cgExp (DV var) = return $ cgVar var
 cgExp (DApp isTailCall n args) = do
     tag <- ctorTag n
     case tag of
         Just t  -> cgExp (DC Nothing t n args)  -- application of ctor
-        Nothing -> cgApp (isTailCall && enableTCO) (cgName n) <$> mapM cgExp args
+        Nothing 
+            | enableTCO -> do
+                tc <- isTailCaller n            
+                if isTailCall
+                   then cgApp True (cgName n) <$> mapM cgExp args
+                   else cgTailCall (cgName n) <$> mapM cgExp args
+            | otherwise -> cgApp False (cgName n) <$> mapM cgExp args
 
 cgExp (DLet n v e) = do
     emit . cgAssignN n =<< cgExp v
