@@ -20,11 +20,13 @@ import Control.Monad.Trans.State.Lazy
 
 import Util.PrettyPrint
 
+enableTCO :: Bool
+enableTCO = True
+
 -- Codegen state within one Decl
 data CGState = CGState
     { varCounter :: Int          -- for fresh variables
     , ctorTags :: M.Map Name Int -- constructor tags
-    , curFun :: (Name, [Name])   -- name, args for tail calls
     }
     deriving (Show)
 
@@ -85,19 +87,14 @@ sindent = smap indent
 
 fresh :: CG LVar
 fresh = CG $ do
-    CGState vc ctors cf <- get
-    put $ CGState (vc + 1) ctors cf
+    CGState vc ctors <- get
+    put $ CGState (vc + 1) ctors
     return (empty, Loc (-vc))
 
 ctorTag :: Name -> CG (Maybe Int)
 ctorTag n = CG $ do
-    CGState vc ctors cf <- get
+    CGState vc ctors <- get
     return (empty, M.lookup n ctors)
-
-currentFn :: CG (Name, [Name])
-currentFn = CG $ do
-    CGState vc ctors cf <- get
-    return (empty, cf)
 
 indent :: Doc -> Doc
 indent = nest 2
@@ -107,15 +104,10 @@ pythonPreamble = vcat . map text $
     [ "#!/usr/bin/env python"
     , ""
     , "import sys"
+    , "import collections"
     , ""
-    , "class UnitType:"
-    , "  pass"
-    , ""
-    , "class WorldType:"
-    , "  pass"
-    , ""
-    , "Unit = UnitType()"
-    , "World = WorldType()"
+    , "Unit = collections.namedtuple('Unit', [])()"
+    , "World = collections.namedtuple('World', [])()"
     , ""
     , "class IdrisError(Exception):"
     , "  pass"
@@ -205,10 +197,31 @@ pythonPreamble = vcat . map text $
     , "  def __iter__(self):"
     , "    return _ConsIter(self)"
     , ""
+    , "# Tail calls + trampolines inspired by:"
+    , "# http://kylem.net/programming/tailcall.html"
+    , "TailCall = collections.namedtuple('TailCall', 'f args')"
+    , ""
+    , "class TailWrapper(object):"
+    , "  def __init__(self, f):"
+    , "    self.f = f"
+    , ""
+    , "  def __call__(self, *args):"
+    , "    f = self.f"
+    , "    while True:"
+    , "       ret = f(*args)"
+    , "       if type(ret) is TailCall:"
+    , "         f, args = ret"
+    , "         if type(f) is TailWrapper:"
+    , "           f = f.f"
+    , "           continue"
+    , "       return ret"
+    , ""
+    , "def tailcaller(f):"
+    , "  return TailWrapper(f)"
     ]
 
 pythonLauncher :: Doc
-pythonLauncher = cgApp (cgName $ sMN 0 "runMain") []
+pythonLauncher = cgApp False (cgName $ sMN 0 "runMain") []
 
 -- The prefix "_" makes all names "hidden".
 -- This is useful when you import the generated module from Python code.
@@ -264,8 +277,17 @@ cgTuple maxSize xs
       where
         curSize = size curLine
 
-cgApp :: Expr -> [Expr] -> Expr
-cgApp f args = f <> cgTuple maxWidth args
+cgApp :: Bool -> Expr -> [Expr] -> Expr
+cgApp isTail f args
+    | isTail
+    , [x] <- args
+        = text "TailCall" <> cgTuple maxWidth [f, parens (x <> comma)]
+
+    | isTail
+        = text "TailCall" <> cgTuple maxWidth [f, cgTuple 80 args]
+
+    | otherwise
+        = f <> cgTuple maxWidth args
   where
     maxWidth = 80 - width f
 
@@ -273,22 +295,22 @@ cgApp f args = f <> cgTuple maxWidth args
 -- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
-    (empty <?> show name')
+    (decorator <?> show name')
     $+$ (text "def" <+> cgName n <> cgTuple maxArgsWidth (map cgName args) <> colon)
     $+$ indent (
-        text "while" <+> text "True" <> colon  -- for tail calls
-        $+$ indent (
-                -- trace $+$  -- uncomment this line to enable printing traces
-                statements
-                $+$ text "return" <+> retVal
-            )
+            -- trace $+$  -- uncomment this line to enable printing traces
+            statements
+            $+$ text "return" <+> retVal
         )
     $+$ text ""  -- empty line separating definitions
   where
+    decorator
+        | enableTCO = text "@tailcaller"
+        | otherwise = empty
     maxArgsWidth = 80 - width (cgName n)
     (statements, retVal) = evalState body' initState
-    body' = runCG . cgExp . tailify n $ body
-    initState = CGState 1 ctors (n, args)
+    body' = runCG . cgExp . tailify $ body
+    initState = CGState 1 ctors
 
     -- used only for debugging
     trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
@@ -296,18 +318,17 @@ cgDef ctors (n, DFun name' args body) =
     argfmt = intercalate ", " ["%s" | _ <- args]
 
 -- Mark tail-calls as such.
-tailify :: Name -> DExp -> DExp
-tailify n (DLet n' v e) = DLet n' v (tailify n e)
-tailify n (DCase ct e alts) = DCase ct e (map (tailifyA n) alts)
-tailify n (DChkCase e alts) = DChkCase e (map (tailifyA n) alts)
-tailify n e@(DApp isTail n' args)
-    | n' == n = DApp True n' args
-tailify n e = e
+tailify :: DExp -> DExp
+tailify (DLet n' v e) = DLet n' v (tailify e)
+tailify (DCase ct e alts) = DCase ct e (map tailifyA alts)
+tailify (DChkCase e alts) = DChkCase e (map tailifyA alts)
+tailify (DApp isTail n' args) = DApp True n' args
+tailify e = e
 
-tailifyA :: Name -> DAlt -> DAlt
-tailifyA n (DConCase tag cn args e) = DConCase tag cn args (tailify n e)
-tailifyA n (DConstCase c e) = DConstCase c (tailify n e)
-tailifyA n (DDefaultCase e) = DDefaultCase (tailify n e)
+tailifyA :: DAlt -> DAlt
+tailifyA (DConCase tag cn args e) = DConCase tag cn args (tailify e)
+tailifyA (DConstCase c e) = DConstCase c (tailify e)
+tailifyA (DDefaultCase e) = DDefaultCase (tailify e)
 
 cgVar :: LVar -> Expr
 cgVar (Loc  i)
@@ -390,23 +411,13 @@ cgMatch lhs rhs =
   <+> text "="
   <+> cgVar rhs <> text "[1:]"
 
-cgTailCall :: [Name] -> [Expr] -> CG Expr
-cgTailCall argNames args = do
-    emit $ cgAssignMany argNames args
-    emit $ text "continue"
-    return $ cgError "unreachable due to tail call"
-
 cgExp :: DExp -> CG Expr
 cgExp (DV var) = return $ cgVar var
 cgExp (DApp isTailCall n args) = do
     tag <- ctorTag n
     case tag of
         Just t  -> cgExp (DC Nothing t n args)  -- application of ctor
-        Nothing -> do
-            (curFn, argNames) <- currentFn
-            if isTailCall && n == curFn
-               then cgTailCall argNames =<< mapM cgExp args  -- tail call!
-               else cgApp (cgName n) <$> mapM cgExp args     -- ordinary call
+        Nothing -> cgApp (isTailCall && enableTCO) (cgName n) <$> mapM cgExp args
 
 cgExp (DLet n v e) = do
     emit . cgAssignN n =<< cgExp v
@@ -438,7 +449,7 @@ cgExp (DProj e i) = do
 
 cgExp (DConst c) = return $ cgConst c
 
-cgExp (DForeign fdesc (FStr fn) args) = cgApp (text fn) <$> mapM (cgExp . snd) args
+cgExp (DForeign fdesc (FStr fn) args) = cgApp False (text fn) <$> mapM (cgExp . snd) args
 cgExp (DForeign fdesc rdesc args) = error $ "unrecognised foreign: " ++ show (fdesc, rdesc, args)
 cgExp (DOp prim args) = cgPrim prim <$> mapM cgExp args
 cgExp  DNothing = return $ text "None"
