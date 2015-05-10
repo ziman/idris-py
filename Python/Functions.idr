@@ -23,7 +23,7 @@ infixr 5 ~>
 (~>) : List Type -> Type -> Signature
 (~>) args ret = Function $ simple args ret
 
-||| Duct-typed function call.
+||| Duck-typed function call.
 call :
   {t : Telescope a}
   -> (f : Obj sig)

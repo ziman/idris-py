@@ -13,6 +13,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
     - fully dependent type signatures are supported
       ([example](https://github.com/ziman/idris-py/blob/master/Python/Lib/Queue.idr#L18)),
       including arguments with defaults
+* allows duck typing ([example](https://github.com/ziman/idris-py/blob/master/Python/Functions.idr#L30))
 * error reflection yields messages like:
     - `Field "gets" does not exist in object signature "Session"`
     - `Iterable Int is not mixed into signature "Response"`
