@@ -206,8 +206,6 @@ pythonPreamble = vcat . map text $
     , "  def __iter__(self):"
     , "    return _ConsIter(self)"
     , ""
-    , "# Tail calls + trampolines inspired by:"
-    , "# http://kylem.net/programming/tailcall.html"
     , "TailCall = collections.namedtuple('TailCall', 'f args')"
     , ""
     , "def _idris_tco(f, args):"
