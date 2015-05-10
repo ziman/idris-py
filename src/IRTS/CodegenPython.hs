@@ -11,12 +11,14 @@ import Data.Maybe
 import Data.Char
 import Data.List
 import Data.Ord
+import Data.Monoid (Any(..))
 import qualified Data.Text as T
 import qualified Data.Map as M
 
 import Control.Monad
 import Control.Applicative hiding (empty, Const)
 import Control.Monad.Trans.State.Lazy
+import Control.Monad.Writer.Lazy (Writer, runWriter, tell)
 
 import Util.PrettyPrint
 
@@ -213,11 +215,12 @@ pythonPreamble = vcat . map text $
     , "         f, args = ret"
     , "         if type(f) is TailWrapper:"
     , "           f = f.f"
-    , "           continue"
+    , "         continue"
     , "       return ret"
     , ""
     , "def tailcaller(f):"
     , "  return TailWrapper(f)"
+    , ""
     ]
 
 pythonLauncher :: Doc
@@ -305,11 +308,12 @@ cgDef ctors (n, DFun name' args body) =
     $+$ text ""  -- empty line separating definitions
   where
     decorator
-        | enableTCO = text "@tailcaller"
+        | hasTailCalls && enableTCO = text "@tailcaller"
         | otherwise = empty
     maxArgsWidth = 80 - width (cgName n)
-    (statements, retVal) = evalState body' initState
-    body' = runCG . cgExp . tailify $ body
+    (statements, retVal) = evalState body'' initState
+    (body', Any hasTailCalls) = runWriter $ tailify body
+    body'' = runCG $ cgExp body'
     initState = CGState 1 ctors
 
     -- used only for debugging
@@ -318,17 +322,19 @@ cgDef ctors (n, DFun name' args body) =
     argfmt = intercalate ", " ["%s" | _ <- args]
 
 -- Mark tail-calls as such.
-tailify :: DExp -> DExp
-tailify (DLet n' v e) = DLet n' v (tailify e)
-tailify (DCase ct e alts) = DCase ct e (map tailifyA alts)
-tailify (DChkCase e alts) = DChkCase e (map tailifyA alts)
-tailify (DApp isTail n' args) = DApp True n' args
-tailify e = e
+tailify :: DExp -> Writer Any DExp
+tailify (DLet n' v e) = DLet n' v <$> tailify e
+tailify (DCase ct e alts) = DCase ct e <$> mapM tailifyA alts
+tailify (DChkCase e alts) = DChkCase e <$> mapM tailifyA alts
+tailify (DApp isTail n' args) = do
+    tell $ Any True
+    return $ DApp True n' args
+tailify e = return e
 
-tailifyA :: DAlt -> DAlt
-tailifyA (DConCase tag cn args e) = DConCase tag cn args (tailify e)
-tailifyA (DConstCase c e) = DConstCase c (tailify e)
-tailifyA (DDefaultCase e) = DDefaultCase (tailify e)
+tailifyA :: DAlt -> Writer Any DAlt
+tailifyA (DConCase tag cn args e) = DConCase tag cn args <$> tailify e
+tailifyA (DConstCase c e) = DConstCase c <$> tailify e
+tailifyA (DDefaultCase e) = DDefaultCase <$> tailify e
 
 cgVar :: LVar -> Expr
 cgVar (Loc  i)
