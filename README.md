@@ -4,7 +4,7 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 
 ## Goodies
 
-* tail-call optimisation (does not work for mutual recursion)
+* full tail-call optimisation via trampolines
 * principled codegen monad makes it easy to compile from `DExp`
 * allows typechecked use of Python libraries
   ([example](https://github.com/ziman/idris-py/blob/master/example.idr))
