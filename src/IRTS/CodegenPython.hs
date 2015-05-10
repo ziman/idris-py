@@ -208,14 +208,6 @@ pythonPreamble = vcat . map text $
     , ""
     , "TailCall = collections.namedtuple('TailCall', 'f args')"
     , ""
-    , "def _idris_tco(f, args):"
-    , "  while True:"
-    , "     ret = f(*args)"
-    , "     if type(ret) is TailCall:"
-    , "       f, args = ret"
-    , "       continue"
-    , "     return ret"
-    , ""
     ]
 
 pythonLauncher :: Doc
@@ -409,8 +401,22 @@ cgMatch lhs rhs =
   <+> text "="
   <+> cgVar rhs <> text "[1:]"
 
-cgTailCall :: Expr -> [Expr] -> Expr
-cgTailCall f args = cgApp False (text "_idris_tco") [f, forceTuple 80 args]
+cgTailCallLoop :: Expr -> Expr -> [Expr] -> Stmts
+cgTailCallLoop retv f args =
+  retv <+> text "=" <+> cgApp True f args
+  $+$ text "while True:"
+  $+$ indent (
+        retv <+> text "=" <+> retv <> text ".f" <> parens (text "*" <> retv <> text ".args")
+        $+$ text "if type" <> parens retv <+> text "is not TailCall: break"
+  )
+
+-- if we are calling a tail-caller from a non-tail-call position,
+-- we need to interpret all potential TailCall instances coming back
+cgTailCall :: Expr -> [Expr] -> CG Expr
+cgTailCall f args = do
+    retv <- cgVar <$> fresh
+    emit $ cgTailCallLoop retv f args
+    return retv
 
 cgExp :: DExp -> CG Expr
 cgExp (DV var) = return $ cgVar var
@@ -423,7 +429,7 @@ cgExp (DApp isTailCall n args) = do
                 tc <- isTailCaller n            
                 if isTailCall
                    then cgApp True (cgName n) <$> mapM cgExp args
-                   else cgTailCall (cgName n) <$> mapM cgExp args
+                   else cgTailCall (cgName n) =<< mapM cgExp args
             | otherwise -> cgApp False (cgName n) <$> mapM cgExp args
 
 cgExp (DLet n v e) = do

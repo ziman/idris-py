@@ -94,30 +94,31 @@ class ConsList(object):
   def __iter__(self):
     return _ConsIter(self)
 
-# Tail calls + trampolines inspired by:
-# http://kylem.net/programming/tailcall.html
 TailCall = collections.namedtuple('TailCall', 'f args')
-
-def _idris_tco(f, args):
-  while True:
-     ret = f(*args)
-     if type(ret) is TailCall:
-       f, args = ret
-       continue
-     return ret
 
 # Prelude.List.++
 def _idris_Prelude_46_List_46__43__43_(e0, e1, e2):
   if e1:  # Prelude.List.::
     in0, in1 = e1.head, e1.tail
-    aux1 = _idris_tco(_idris_Prelude_46_List_46__43__43_, (None, in1, e2)).cons(in0)
+    aux2 = TailCall(
+      _idris_Prelude_46_List_46__43__43_,
+      (None, in1, e2)
+    )
+    while True:
+      aux2 = aux2.f(*aux2.args)
+      if type(aux2) is not TailCall: break
+    aux1 = aux2.cons(in0)
   elif not e1:  # Prelude.List.Nil
     aux1 = e2
   return aux1
 
 # Prelude.Basics..
 def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
-  return TailCall(APPLY0, (e3, _idris_tco(APPLY0, (e4, _idris_x))))
+  aux1 = TailCall(APPLY0, (e4, _idris_x))
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  return TailCall(APPLY0, (e3, aux1))
 
 # Prelude.Classes.<
 def _idris_Prelude_46_Classes_46__60_(e0, e1):
@@ -150,7 +151,11 @@ def _idris__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35
 
 # Force
 def _idris_Force(e0, e1, e2):
-  in0 = _idris_tco(EVAL0, (e2,))
+  aux1 = TailCall(EVAL0, (e2,))
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  in0 = aux1
   return in0
 
 # PE_List a instance of Prelude.Show_f5d3ac2c
@@ -173,25 +178,24 @@ def _idris_Prelude_46_Classes_46_compare(e0, e1):
 
 # Prelude.Foldable.concatMap
 def _idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
+  aux1 = TailCall(
+    _idris_Prelude_46_Foldable_46_foldr,
+    (None, None, None, e3)
+  )
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
   if e4[0] == 0:  # constructor of Prelude.Algebra.Monoid
     in0, in1, = e4[1:]
-    aux1 = in0
+    aux2 = in0
+  aux3 = TailCall(APPLY0, (aux1, (65632, None, None, None, aux2, e5)))  # {U_Prelude.Basics..1}
+  while True:
+    aux3 = aux3.f(*aux3.args)
+    if type(aux3) is not TailCall: break
   if e4[0] == 0:  # constructor of Prelude.Algebra.Monoid
     in2, in3, = e4[1:]
-    aux2 = in3
-  return TailCall(
-    APPLY0,
-    (
-      _idris_tco(
-        APPLY0,
-        (
-          _idris_tco(_idris_Prelude_46_Foldable_46_foldr, (None, None, None, e3)),
-          (65632, None, None, None, aux1, e5)  # {U_Prelude.Basics..1}
-        )
-      ),
-      aux2
-    )
-  )
+    aux4 = in3
+  return TailCall(APPLY0, (aux3, aux4))
 
 # Prelude.Applicative.empty
 def _idris_Prelude_46_Applicative_46_empty(e0, e1, e2):
@@ -202,7 +206,11 @@ def _idris_Prelude_46_Applicative_46_empty(e0, e1, e2):
 
 # Prelude.Foldable.foldr
 def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
-  return TailCall(APPLY0, (_idris_tco(APPLY0, (e3, e1)), e2))
+  aux1 = TailCall(APPLY0, (e3, e1))
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  return TailCall(APPLY0, (aux1, e2))
 
 # Prelude.Applicative.guard
 def _idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
@@ -215,10 +223,14 @@ def _idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
     if e1[0] == 0:  # constructor of Prelude.Applicative.Alternative
       in2, in3, = e1[1:]
       aux3 = in2
-    aux1 = TailCall(
-      APPLY0,
-      (_idris_tco(_idris_Prelude_46_Applicative_46_pure, (None, None, aux3)), Unit)
+    aux4 = TailCall(
+      _idris_Prelude_46_Applicative_46_pure,
+      (None, None, aux3)
     )
+    while True:
+      aux4 = aux4.f(*aux4.args)
+      if type(aux4) is not TailCall: break
+    aux1 = TailCall(APPLY0, (aux4, Unit))
   return aux1
 
 # Prelude.Bool.ifThenElse
@@ -239,13 +251,15 @@ def _idris_Prelude_46_Classes_46_intToBool(e0):
 
 # io_bind
 def _idris_io_95_bind(e0, e1, e2, e3, e4, _idris_w):
-  return TailCall(
-    APPLY0,
-    (
-      _idris_tco(io_bind2, (e0, e1, e2, e3, e4, _idris_w)),
-      _idris_tco(APPLY0, (e3, _idris_w))
-    )
-  )
+  aux1 = TailCall(io_bind2, (e0, e1, e2, e3, e4, _idris_w))
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  aux2 = TailCall(APPLY0, (e3, _idris_w))
+  while True:
+    aux2 = aux2.f(*aux2.args)
+    if type(aux2) is not TailCall: break
+  return TailCall(APPLY0, (aux1, aux2))
 
 # io_return
 def _idris_io_95_return(e0, e1, e2, _idris_w):
@@ -253,26 +267,23 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
 
 # Main.main
 def _idris_Main_46_main():
-  return (
-    65647,  # {U_io_bind1}
-    None,
-    None,
-    None,
-    _idris_tco(
-      _idris_Prelude_46_putStr,
-      (
-        None,
-        _idris_tco(
-          APPLY0,
-          (
-            _idris_tco(_idris_Prelude_46_show, (None, (65631,))),  # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
-            _idris_tco(_idris_Main_46_pythag, (100,))
-          )
-        )
-      )
-    ),
-    (65623,)  # {U_Main.{main0}1}
-  )
+  aux1 = TailCall(_idris_Prelude_46_show, (None, (65631,)))  # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  aux2 = TailCall(_idris_Main_46_pythag, (100,))
+  while True:
+    aux2 = aux2.f(*aux2.args)
+    if type(aux2) is not TailCall: break
+  aux3 = TailCall(APPLY0, (aux1, aux2))
+  while True:
+    aux3 = aux3.f(*aux3.args)
+    if type(aux3) is not TailCall: break
+  aux4 = TailCall(_idris_Prelude_46_putStr, (None, aux3))
+  while True:
+    aux4 = aux4.f(*aux4.args)
+    if type(aux4) is not TailCall: break
+  return (65647, None, None, None, aux4, (65623,))  # {U_io_bind1}, {U_Main.{main0}1}
 
 # mkForeignPrim
 def _idris_mkForeignPrim():
@@ -367,17 +378,16 @@ def _idris_Prelude_46_putStr(e0, e1):
 
 # Main.pythag
 def _idris_Main_46_pythag(e0):
+  aux1 = TailCall(
+    _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
+    (1, e0)
+  )
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
-    (
-      None,
-      None,
-      _idris_tco(
-        _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
-        (1, e0)
-      ),
-      (65630,)  # {U_Main.{pythag6}1}
-    )
+    (None, None, aux1, (65630,))  # {U_Main.{pythag6}1}
   )
 
 # run__IO
@@ -653,7 +663,15 @@ def _idris_Main_46__123_pythag0_125_(in4):
 
 # {runMain0}
 def runMain0():
-  return TailCall(EVAL0, (_idris_tco(APPLY0, (_idris_tco(_idris_Main_46_main, ()), None)),))
+  aux1 = TailCall(_idris_Main_46_main, ())
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  aux2 = TailCall(APPLY0, (aux1, None))
+  while True:
+    aux2 = aux2.f(*aux2.args)
+    if type(aux2) is not TailCall: break
+  return TailCall(EVAL0, (aux2,))
 
 # Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
@@ -675,10 +693,11 @@ def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
-  return TailCall(
-    APPLY0,
-    (_idris_tco(io_bind0, (e0, e1, e2, e3, e4, _idris_w, in0)), _idris_w)
-  )
+  aux1 = TailCall(io_bind0, (e0, e1, e2, e3, e4, _idris_w, in0))
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  return TailCall(APPLY0, (aux1, _idris_w))
 
 # Prelude.{putStr1}
 def _idris_Prelude_46__123_putStr1_125_(in1):
@@ -692,33 +711,34 @@ def _idris_Main_46__123_pythag1_125_(in3):
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
-  aux1 = _idris_tco(
-    APPLY0,
-    (
-      _idris_tco(
-        APPLY0,
-        (
-          _idris_tco(
-            _idris_Prelude_46_Classes_46_compare,
-            (
-              None,
-              _idris_tco(
-                _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int,
-                ()
-              )
-            )
-          ),
-          in2
-        )
-      ),
-      in3
-    )
+  aux2 = TailCall(
+    _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int,
+    ()
   )
+  while True:
+    aux2 = aux2.f(*aux2.args)
+    if type(aux2) is not TailCall: break
+  aux3 = TailCall(
+    _idris_Prelude_46_Classes_46_compare,
+    (None, aux2)
+  )
+  while True:
+    aux3 = aux3.f(*aux3.args)
+    if type(aux3) is not TailCall: break
+  aux4 = TailCall(APPLY0, (aux3, in2))
+  while True:
+    aux4 = aux4.f(*aux4.args)
+    if type(aux4) is not TailCall: break
+  aux5 = TailCall(APPLY0, (aux4, in3))
+  while True:
+    aux5 = aux5.f(*aux5.args)
+    if type(aux5) is not TailCall: break
+  aux1 = aux5
   if aux1[0] == 0:  # Prelude.Classes.LT
-    aux2 = True
+    aux6 = True
   else:
-    aux2 = False
-  return aux2
+    aux6 = False
+  return aux6
 
 # {PE_List a instance of Prelude.Show_f5d3ac2c2}
 def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(
@@ -787,17 +807,16 @@ def _idris_Main_46__123_pythag4_125_(in1, in0, in2):
     aux2 = False
   else:
     aux2 = True
+  aux3 = TailCall(
+    _idris_Prelude_46_Applicative_46_guard,
+    (None, (0, (65625,), (65626,)), aux2)  # constructor of Prelude.Applicative.Alternative, {U_Main.{pythag1}1}, {U_Main.{pythag2}1}
+  )
+  while True:
+    aux3 = aux3.f(*aux3.args)
+    if type(aux3) is not TailCall: break
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
-    (
-      None,
-      None,
-      _idris_tco(
-        _idris_Prelude_46_Applicative_46_guard,
-        (None, (0, (65625,), (65626,)), aux2)  # constructor of Prelude.Applicative.Alternative, {U_Main.{pythag1}1}, {U_Main.{pythag2}1}
-      ),
-      (65627, in2, in1, in0)  # {U_Main.{pythag3}1}
-    )
+    (None, None, aux3, (65627, in2, in1, in0))  # {U_Main.{pythag3}1}
   )
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}
@@ -811,17 +830,16 @@ def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude
 
 # Main.{pythag5}
 def _idris_Main_46__123_pythag5_125_(in0, in1):
+  aux1 = TailCall(
+    _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
+    (1, in1)
+  )
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
-    (
-      None,
-      None,
-      _idris_tco(
-        _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
-        (1, in1)
-      ),
-      (65628, in1, in0)  # {U_Main.{pythag4}1}
-    )
+    (None, None, aux1, (65628, in1, in0))  # {U_Main.{pythag4}1}
   )
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}
@@ -832,17 +850,16 @@ def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude
 
 # Main.{pythag6}
 def _idris_Main_46__123_pythag6_125_(in0):
+  aux1 = TailCall(
+    _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
+    (1, in0)
+  )
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
   return TailCall(
     _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0,
-    (
-      None,
-      None,
-      _idris_tco(
-        _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0,
-        (1, in0)
-      ),
-      (65629, in0)  # {U_Main.{pythag5}1}
-    )
+    (None, None, aux1, (65629, in0))  # {U_Main.{pythag5}1}
   )
 
 # Decidable.Equality.Decidable.Equality.Char instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
@@ -882,18 +899,27 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58
   if e5:  # Prelude.List.::
     in0, in1 = e5.head, e5.tail
     if not in1:  # Prelude.List.Nil
-      aux2 = e4 + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e3)), in0))
+      aux3 = TailCall(_idris_Prelude_46_show, (None, e3))
+      while True:
+        aux3 = aux3.f(*aux3.args)
+        if type(aux3) is not TailCall: break
+      aux4 = TailCall(APPLY0, (aux3, in0))
+      while True:
+        aux4 = aux4.f(*aux4.args)
+        if type(aux4) is not TailCall: break
+      aux2 = e4 + aux4
     else:
+      aux5 = TailCall(_idris_Prelude_46_show, (None, e3))
+      while True:
+        aux5 = aux5.f(*aux5.args)
+        if type(aux5) is not TailCall: break
+      aux6 = TailCall(APPLY0, (aux5, in0))
+      while True:
+        aux6 = aux6.f(*aux6.args)
+        if type(aux6) is not TailCall: break
       aux2 = TailCall(
         _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0,
-        (
-          None,
-          None,
-          None,
-          e3,
-          e4 + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e3)), in0)) + ", ",
-          in1
-        )
+        (None, None, None, e3, e4 + aux6 + ", ", in1)
       )
     aux1 = aux2
   elif not e5:  # Prelude.List.Nil
@@ -904,18 +930,22 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
   e0, e1
 ):
-  aux1 = _idris_tco(
+  aux2 = TailCall(
     _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0,
     (e0, e1)
   )
+  while True:
+    aux2 = aux2.f(*aux2.args)
+    if type(aux2) is not TailCall: break
+  aux1 = aux2
   if not aux1:  # Prelude.Bool.False
-    aux2 = ConsList()
+    aux3 = ConsList()
   elif aux1:  # Prelude.Bool.True
-    aux2 = TailCall(
+    aux3 = TailCall(
       _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0,
       (None, None, ConsList(), e1 - e0, e1)
     )
-  return aux2
+  return aux3
 
 # Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
 def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
@@ -923,31 +953,30 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
 ):
   if e4:  # Prelude.List.::
     in0, in1 = e4.head, e4.tail
-    aux1 = TailCall(
-      APPLY0,
-      (
-        _idris_tco(APPLY0, (e2, in0)),
-        _idris_tco(
-          APPLY0,
-          (
-            _idris_tco(
-              APPLY0,
-              (
-                _idris_tco(
-                  APPLY0,
-                  (
-                    _idris_tco(_idris_Prelude_46_Foldable_46_foldr, (None, None, None, (65658,))),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-                    e2
-                  )
-                ),
-                e3
-              )
-            ),
-            in1
-          )
-        )
-      )
+    aux2 = TailCall(APPLY0, (e2, in0))
+    while True:
+      aux2 = aux2.f(*aux2.args)
+      if type(aux2) is not TailCall: break
+    aux3 = TailCall(
+      _idris_Prelude_46_Foldable_46_foldr,
+      (None, None, None, (65658,))  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
     )
+    while True:
+      aux3 = aux3.f(*aux3.args)
+      if type(aux3) is not TailCall: break
+    aux4 = TailCall(APPLY0, (aux3, e2))
+    while True:
+      aux4 = aux4.f(*aux4.args)
+      if type(aux4) is not TailCall: break
+    aux5 = TailCall(APPLY0, (aux4, e3))
+    while True:
+      aux5 = aux5.f(*aux5.args)
+      if type(aux5) is not TailCall: break
+    aux6 = TailCall(APPLY0, (aux5, in1))
+    while True:
+      aux6 = aux6.f(*aux6.args)
+      if type(aux6) is not TailCall: break
+    aux1 = TailCall(APPLY0, (aux2, aux6))
   elif not e4:  # Prelude.List.Nil
     aux1 = e3
   return aux1
@@ -956,51 +985,50 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
 def _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
   e0, e1, e2, e3
 ):
-  return TailCall(
-    APPLY0,
-    (
-      _idris_tco(
-        _idris_Prelude_46_Foldable_46_concatMap,
-        (None, None, None, (65642,), (0, (65644,), ConsList()), e3)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}, constructor of Prelude.Algebra.Monoid, {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}
-      ),
-      e2
-    )
+  aux1 = TailCall(
+    _idris_Prelude_46_Foldable_46_concatMap,
+    (None, None, None, (65642,), (0, (65644,), ConsList()), e3)  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}, constructor of Prelude.Algebra.Monoid, {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}
   )
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  return TailCall(APPLY0, (aux1, e2))
 
 # Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0(
   e0, e1
 ):
-  aux1 = _idris_tco(
-    APPLY0,
-    (
-      _idris_tco(
-        APPLY0,
-        (
-          _idris_tco(
-            _idris_Prelude_46_Classes_46__60_,
-            (
-              None,
-              _idris_tco(
-                _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int,
-                ()
-              )
-            )
-          ),
-          e0
-        )
-      ),
-      e1
-    )
+  aux2 = TailCall(
+    _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int,
+    ()
   )
+  while True:
+    aux2 = aux2.f(*aux2.args)
+    if type(aux2) is not TailCall: break
+  aux3 = TailCall(
+    _idris_Prelude_46_Classes_46__60_,
+    (None, aux2)
+  )
+  while True:
+    aux3 = aux3.f(*aux3.args)
+    if type(aux3) is not TailCall: break
+  aux4 = TailCall(APPLY0, (aux3, e0))
+  while True:
+    aux4 = aux4.f(*aux4.args)
+    if type(aux4) is not TailCall: break
+  aux5 = TailCall(APPLY0, (aux4, e1))
+  while True:
+    aux5 = aux5.f(*aux5.args)
+    if type(aux5) is not TailCall: break
+  aux1 = aux5
   if not aux1:  # Prelude.Bool.False
-    aux2 = TailCall(
+    aux6 = TailCall(
       _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_,
       (e0, e1)
     )
   elif aux1:  # Prelude.Bool.True
-    aux2 = True
-  return aux2
+    aux6 = True
+  return aux6
 
 # Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33_compare_58_0(
@@ -1034,17 +1062,37 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36__40_a_44__32_b_41__58__3
 ):
   if True:  # Builtins.MkPair
     in0, in1 = e6
-    aux1 = "(" + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e4)), in0)) + ", " + _idris_tco(APPLY0, (_idris_tco(_idris_Prelude_46_show, (None, e5)), in1)) + ")"
+    aux2 = TailCall(_idris_Prelude_46_show, (None, e4))
+    while True:
+      aux2 = aux2.f(*aux2.args)
+      if type(aux2) is not TailCall: break
+    aux3 = TailCall(APPLY0, (aux2, in0))
+    while True:
+      aux3 = aux3.f(*aux3.args)
+      if type(aux3) is not TailCall: break
+    aux4 = TailCall(_idris_Prelude_46_show, (None, e5))
+    while True:
+      aux4 = aux4.f(*aux4.args)
+      if type(aux4) is not TailCall: break
+    aux5 = TailCall(APPLY0, (aux4, in1))
+    while True:
+      aux5 = aux5.f(*aux5.args)
+      if type(aux5) is not TailCall: break
+    aux1 = "(" + aux3 + ", " + aux5 + ")"
   return aux1
 
 # Prelude.Prelude.List a instance of Prelude.Show, method show
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0(
   e0, e1, e2, e3
 ):
-  return "[" + _idris_tco(
+  aux1 = TailCall(
     _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0,
     (None, None, None, e2, "", e3)
-  ) + "]"
+  )
+  while True:
+    aux1 = aux1.f(*aux1.args)
+    if type(aux1) is not TailCall: break
+  return "[" + aux1 + "]"
 
 # with block in Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__58_0_95_with_95_85(
