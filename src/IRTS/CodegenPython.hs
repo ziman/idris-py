@@ -437,8 +437,16 @@ cgExp tailPos (DOp prim args) = cgPrim prim <$> mapM (cgExp False) args
 cgExp tailPos  DNothing      = return $ text "None"
 cgExp tailPos (DError msg) = return $ cgError msg
 
-ifElif :: [String]
-ifElif = "if" : repeat "elif"
+data IfElif = If | Elif | Else | Assert
+
+zipIfElif :: [a] -> [(IfElif, a)]
+zipIfElif [] = []
+zipIfElif [x] = [(Assert, x)]
+zipIfElif (x : xs) = (If, x) : elif xs
+  where
+    elif [x] = [(Else, x)]
+    elif (x : xs) = (Elif, x) : elif xs
+    elif [] = error "elif: can't happen"
 
 -- We assume that all tags are different here
 cgAltTree :: Int -> Int -> Maybe LVar -> LVar -> [(Int, DAlt)] -> CG ()
@@ -454,7 +462,7 @@ cgAltTree groupSize altCount retVar scrutinee alts
     firstHi = fst (alts !! lo)
 
 cgAltTree groupSize altCount retVar scrutinee alts
-    = mapM_ (cgAlt scrutinee retVar) (zip ifElif $ map snd alts)
+    = mapM_ (cgAlt scrutinee retVar) (zipIfElif $ map snd alts)
 
 cgDictCase :: LVar -> [(Const, Expr)] -> [Expr] -> Expr
 cgDictCase scrutinee items dflt =
@@ -524,33 +532,40 @@ cgCase tailPos var alts
 -- otherwise just do the linear if-elif thing
 cgCase tailPos var alts
     | tailPos = do
-        mapM_ (cgAlt var Nothing) (zip ifElif alts)
+        mapM_ (cgAlt var Nothing) (zipIfElif alts)
         return $ cgError "unreachable due to case in tail position"
 
     | not tailPos = do
         retVar <- fresh
-        mapM_ (cgAlt var $ Just retVar) (zip ifElif alts)
+        mapM_ (cgAlt var $ Just retVar) (zipIfElif alts)
         return $ cgVar retVar
 
-cgAlt :: LVar -> Maybe LVar -> (String, DAlt) -> CG ()
-cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
+ifCond :: IfElif -> Expr -> Stmts
+ifCond If     cond = text "if" <+> cond <> colon
+ifCond Elif   cond = text "elif" <+> cond <> colon
+ifCond Else   cond = text "else" <> colon
+ifCond Assert cond = text "assert" <+> cond
+
+indentCond :: IfElif -> CG () -> CG ()
+indentCond Assert = id
+indentCond _      = sindent
+
+cgAlt :: LVar -> Maybe LVar -> (IfElif, DAlt) -> CG ()
+cgAlt v retVar (ie, DConCase tag' ctorName args e) = do
     case special of
         -- normal constructors
         Nothing -> do
             -- DConCase does not contain useful tags yet
             -- we need to find out by looking up by name
             Just tag <- ctorTag ctorName
-            emit (
-                text if_ <+> cgVar v <> text "[0] ==" <+> int tag <> colon
-                <?> show ctorName
-             )
+            emit . ifCond ie $ cgVar v <> text "[0] ==" <+> int tag <?> show ctorName
 
         -- special-cased constructors
-        Just (ctor, test, match)
-            -> emit $ (text if_ <+> test (cgVar v) <> colon) <?> show ctorName
+        Just (ctor, test, match) ->
+            emit . ifCond ie $ test (cgVar v) <?> show ctorName
 
     -- statements conditioned by the if
-    sindent $ do
+    indentCond ie $ do
         -- project out the args
         case args of
             [] -> return ()
@@ -563,18 +578,15 @@ cgAlt v retVar (if_, DConCase tag' ctorName args e) = do
         -- evaluate the expression
         returnValue retVar e
   where
-    isTailPos
-        | Nothing <- retVar = True
-        | Just _  <- retVar = False
     special = specialCased ctorName
 
-cgAlt v retVar (if_, DConstCase c e) = do
-    emit $ text if_ <+> cgVar v <+> text "==" <+> cgConst c <> colon
-    sindent $ returnValue retVar e
+cgAlt v retVar (ie, DConstCase c e) = do
+    emit . ifCond ie $ cgVar v <+> text "==" <+> cgConst c
+    indentCond ie $ returnValue retVar e
 
-cgAlt v retVar (if_, DDefaultCase e) = do
-    emit $ text "else" <> colon
-    sindent $ returnValue retVar e
+cgAlt v retVar (ie, DDefaultCase e) = do
+    emit . ifCond ie $ text "True"  -- the Bool should never be used
+    indentCond ie $ returnValue retVar e
 
 returnValue :: Maybe LVar -> DExp -> CG ()
 returnValue Nothing  e = emit . (text "return" <+>) =<< cgExp True e  -- we are in a tail position
