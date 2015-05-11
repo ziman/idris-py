@@ -378,8 +378,10 @@ cgAssignMany ns es =
 
 -- pattern-matching / tuple decomposition
 cgMatch :: [LVar] -> LVar -> Stmts
+cgMatch []  rhs = empty
+cgMatch [v] rhs = cgVar v <+> text "=" <+> cgVar rhs <> text "[1]"
 cgMatch lhs rhs =
-  hsep [cgVar v <> comma | v <- lhs]
+  hsep (punctuate comma $ map cgVar lhs)
   <+> text "="
   <+> cgVar rhs <> text "[1:]"
 

@@ -150,7 +150,7 @@ def _idris_Python_46_Fields_46__62__58_(e0, e1, e2, e3):
 def _idris_Prelude_46_Monad_46__62__62__61_(e0, e1, e2, e3):
   while True:
     assert e3[0] == 0  # constructor of Prelude.Monad.Monad
-    in0, in1, = e3[1:]
+    in0, in1 = e3[1:]
     return APPLY0(APPLY0(in1, e1), e2)
     return _idris_error("unreachable due to case in tail position")
 
@@ -160,7 +160,7 @@ def _idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigrou
 ):
   while True:
     assert e1[0] == 0  # constructor of Prelude.Algebra.Monoid
-    in0, in1, = e1[1:]
+    in0, in1 = e1[1:]
     return in0
     return _idris_error("unreachable due to case in tail position")
 
@@ -170,7 +170,7 @@ def _idris__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative
 ):
   while True:
     assert e1[0] == 0  # constructor of Prelude.Monad.Monad
-    in0, in1, = e1[1:]
+    in0, in1 = e1[1:]
     return in0
     return _idris_error("unreachable due to case in tail position")
 
@@ -210,10 +210,10 @@ def _idris_Python_46_Prim_46_collect(e0, e1):
 def _idris_Prelude_46_Foldable_46_concat(e0, e1, e2, e3):
   while True:
     assert e3[0] == 0  # constructor of Prelude.Algebra.Monoid
-    in0, in1, = e3[1:]
+    in0, in1 = e3[1:]
     aux1 = in0
     assert e3[0] == 0  # constructor of Prelude.Algebra.Monoid
-    in2, in3, = e3[1:]
+    in2, in3 = e3[1:]
     aux2 = in3
     return APPLY0(
       APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, e2), aux1),
@@ -224,7 +224,7 @@ def _idris_Prelude_46_Foldable_46_concat(e0, e1, e2, e3):
 def _idris_Python_46_Export_46_esize(e0, e1):
   while True:
     if e1[0] == 1:  # Python.Export.EPi
-      in0, = e1[1:]
+      in0 = e1[1]
       return (1 + _idris_Python_46_Export_46_esize(None, in0))
     else:  # Python.Export.ERet
       return 0
@@ -397,7 +397,7 @@ def _idris_mkForeignPrim():
 def _idris_Prelude_46_Algebra_46_neutral(e0, e1):
   while True:
     assert e1[0] == 0  # constructor of Prelude.Algebra.Monoid
-    in0, in1, = e1[1:]
+    in0, in1 = e1[1:]
     return in1
     return _idris_error("unreachable due to case in tail position")
 
@@ -536,10 +536,10 @@ def _idris_Python_46_Exceptions_46_showException(e0):
 def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
   while True:
     if e1[0] == 1:  # Python.Telescope.Bind
-      in0, in1, = e1[1:]
+      in0, in1 = e1[1:]
       if in0[0] == 1:  # Python.Telescope.Default
         assert e2[0] == 0  # Builtins.MkSigma
-        in2, in3, = e2[1:]
+        in2, in3 = e2[1:]
         if in2 is not None:  # Prelude.Maybe.Just
           in4 = in2
           return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in4), in3).cons(in4)
@@ -549,12 +549,12 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
         return _idris_error("unreachable due to case in tail position")
       elif in0[0] == 2:  # Python.Telescope.Forall
         assert e2[0] == 0  # Builtins.MkSigma
-        in5, in6, = e2[1:]
+        in5, in6 = e2[1:]
         return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in5), in6)
         return _idris_error("unreachable due to case in tail position")
       else:  # Python.Telescope.Pi
         assert e2[0] == 0  # Builtins.MkSigma
-        in7, in8, = e2[1:]
+        in7, in8 = e2[1:]
         return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in7), in8).cons(in7)
         return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
@@ -624,18 +624,18 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65638:  # {U_Main.{case block in main'_lam0}1}
                   return _idris_Main_46__123_case_32_block_32_in_32_main_39__95_lam0_125_(arg0)
                 else:  # {U_Main.{case block in main'_lam1}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_case_32_block_32_in_32_main_39__95_lam1_125_(
                     P_c0, P_c1, arg0
                   )
               else:
                 if fn0[0] == 65640:  # {U_Main.{case block in main'_lam2}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_case_32_block_32_in_32_main_39__95_lam2_125_(
                     P_c0, P_c1, arg0
                   )
                 elif fn0[0] == 65641:  # {U_Main.{case block in main'_lam3}1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Main_46__123_case_32_block_32_in_32_main_39__95_lam3_125_(
                     P_c0, P_c1, P_c2, arg0
                   )
@@ -646,14 +646,14 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65643:  # {U_Main.{main'10}1}
                   return _idris_Main_46__123_main_39_10_125_(arg0)
                 elif fn0[0] == 65644:  # {U_Main.{main'11}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_11_125_(P_c0, arg0)
                 else:  # {U_Main.{main'12}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_12_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65646:  # {U_Main.{main'13}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_13_125_(P_c0, arg0)
                 elif fn0[0] == 65647:  # {U_Main.{main'14}1}
                   return _idris_Main_46__123_main_39_14_125_(arg0)
@@ -665,7 +665,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65649:  # {U_Main.{main'16}1}
                   return _idris_Main_46__123_main_39_16_125_(arg0)
                 else:  # {U_Main.{main'17}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_17_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65651:  # {U_Main.{main'18}1}
@@ -684,7 +684,7 @@ def APPLY0(fn0, arg0):
                   return _idris_Main_46__123_main_39_22_125_(arg0)
               else:
                 if fn0[0] == 65657:  # {U_Main.{main'23}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_23_125_(P_c0, arg0)
                 elif fn0[0] == 65658:  # {U_Main.{main'24}1}
                   return _idris_Main_46__123_main_39_24_125_(arg0)
@@ -708,7 +708,7 @@ def APPLY0(fn0, arg0):
             else:
               if fn0[0] < 65668:
                 if fn0[0] == 65665:  # {U_Main.{main'30}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_30_125_(P_c0, arg0)
                 elif fn0[0] == 65666:  # {U_Main.{main'31}1}
                   return _idris_Main_46__123_main_39_31_125_(arg0)
@@ -725,7 +725,7 @@ def APPLY0(fn0, arg0):
             if fn0[0] < 65677:
               if fn0[0] < 65674:
                 if fn0[0] == 65671:  # {U_Main.{main'36}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_36_125_(P_c0, arg0)
                 elif fn0[0] == 65672:  # {U_Main.{main'37}1}
                   return _idris_Main_46__123_main_39_37_125_(arg0)
@@ -735,21 +735,21 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65674:  # {U_Main.{main'39}1}
                   return _idris_Main_46__123_main_39_39_125_(arg0)
                 elif fn0[0] == 65675:  # {U_Main.{main'3}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_main_39_3_125_(P_c0, P_c1, arg0)
                 else:  # {U_Main.{main'40}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_40_125_(P_c0, arg0)
             else:
               if fn0[0] < 65680:
                 if fn0[0] == 65677:  # {U_Main.{main'41}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_41_125_(P_c0, arg0)
                 elif fn0[0] == 65678:  # {U_Main.{main'42}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_main_39_42_125_(P_c0, P_c1, arg0)
                 else:  # {U_Main.{main'43}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_43_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65680:  # {U_Main.{main'44}1}
@@ -757,7 +757,7 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65681:  # {U_Main.{main'45}1}
                   return _idris_Main_46__123_main_39_45_125_(arg0)
                 else:  # {U_Main.{main'46}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_46_125_(P_c0, arg0)
       else:
         if fn0[0] < 65706:
@@ -772,15 +772,15 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65685:  # {U_Main.{main'49}1}
                   return _idris_Main_46__123_main_39_49_125_(arg0)
                 elif fn0[0] == 65686:  # {U_Main.{main'4}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_4_125_(P_c0, arg0)
                 else:  # {U_Main.{main'50}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_50_125_(P_c0, arg0)
             else:
               if fn0[0] < 65691:
                 if fn0[0] == 65688:  # {U_Main.{main'51}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_51_125_(P_c0, arg0)
                 elif fn0[0] == 65689:  # {U_Main.{main'52}1}
                   return _idris_Main_46__123_main_39_52_125_(arg0)
@@ -790,52 +790,52 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65691:  # {U_Main.{main'54}1}
                   return _idris_Main_46__123_main_39_54_125_(arg0)
                 elif fn0[0] == 65692:  # {U_Main.{main'55}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_55_125_(P_c0, arg0)
                 else:  # {U_Main.{main'56}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_56_125_(P_c0, arg0)
           else:
             if fn0[0] < 65700:
               if fn0[0] < 65697:
                 if fn0[0] == 65694:  # {U_Main.{main'57}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_57_125_(P_c0, arg0)
                 elif fn0[0] == 65695:  # {U_Main.{main'58}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_58_125_(P_c0, arg0)
                 else:  # {U_Main.{main'59}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_59_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65697:  # {U_Main.{main'5}1}
                   return _idris_Main_46__123_main_39_5_125_(arg0)
                 elif fn0[0] == 65698:  # {U_Main.{main'60}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_60_125_(P_c0, arg0)
                 else:  # {U_Main.{main'61}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_61_125_(P_c0, arg0)
             else:
               if fn0[0] < 65703:
                 if fn0[0] == 65700:  # {U_Main.{main'62}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_62_125_(P_c0, arg0)
                 elif fn0[0] == 65701:  # {U_Main.{main'63}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_main_39_63_125_(P_c0, P_c1, arg0)
                 else:  # {U_Main.{main'64}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_64_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65703:  # {U_Main.{main'65}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_65_125_(P_c0, arg0)
                 elif fn0[0] == 65704:  # {U_Main.{main'66}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_main_39_66_125_(P_c0, P_c1, arg0)
                 else:  # {U_Main.{main'67}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_67_125_(P_c0, arg0)
         else:
           if fn0[0] < 65717:
@@ -851,7 +851,7 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65709:  # {U_Main.{main'7}1}
                   return _idris_Main_46__123_main_39_7_125_(arg0)
                 else:  # {U_Main.{main'8}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Main_46__123_main_39_8_125_(P_c0, arg0)
             else:
               if fn0[0] < 65714:
@@ -860,21 +860,21 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65712:  # {U_Main.{main0}1}
                   return _idris_Main_46__123_main0_125_(arg0)
                 else:  # {U_Prelude.Basics..1}
-                  P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+                  P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                   return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
               else:
                 if fn0[0] == 65714:  # {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
                     P_c0, arg0
                   )
                 elif fn0[0] == 65715:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
-                  P_c0, P_c1, P_c2, P_c3, = fn0[1:]
+                  P_c0, P_c1, P_c2, P_c3 = fn0[1:]
                   return _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
                     P_c0, P_c1, P_c2, P_c3, arg0
                   )
                 else:  # {U_Prelude.List.reverse, reverse'1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(P_c0, P_c1, arg0)
           else:
             if fn0[0] < 65723:
@@ -882,18 +882,18 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65717:  # {U_Prelude.Strings.{length0}1}
                   return _idris_Prelude_46_Strings_46__123_length0_125_(arg0)
                 elif fn0[0] == 65718:  # {U_Prelude.{putStr0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
                 else:  # {U_Prelude.{putStr1}1}
                   return _idris_Prelude_46__123_putStr1_125_(arg0)
               else:
                 if fn0[0] == 65720:  # {U_Python.Exceptions.{case block in case block in try_lam0}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_case_32_block_32_in_32_try_95_lam0_125_(
                     P_c0, P_c1, arg0
                   )
                 elif fn0[0] == 65721:  # {U_Python.Exceptions.{case block in try_lam0}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_try_95_lam0_125_(
                     P_c0, P_c1, arg0
                   )
@@ -904,7 +904,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65723:  # {U_Python.Exceptions.{catch1}1}
                   return _idris_Python_46_Exceptions_46__123_catch1_125_(arg0)
                 elif fn0[0] == 65724:  # {U_Python.Exceptions.{catch2}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_catch2_125_(P_c0, arg0)
                 else:  # {U_Python.Exceptions.{catch3}1}
                   return _idris_Python_46_Exceptions_46__123_catch3_125_(arg0)
@@ -914,7 +914,7 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65727:  # {U_Python.Exceptions.{catch5}1}
                   return _idris_Python_46_Exceptions_46__123_catch5_125_(arg0)
                 else:  # {U_Python.Exceptions.{catch6}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_catch6_125_(P_c0, arg0)
     else:
       if fn0[0] < 65775:
@@ -923,10 +923,10 @@ def APPLY0(fn0, arg0):
             if fn0[0] < 65734:
               if fn0[0] < 65731:
                 if fn0[0] == 65729:  # {U_Python.Exceptions.{raise0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_raise0_125_(P_c0, arg0)
                 else:  # {U_Python.Exceptions.{showException0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_showException0_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65731:  # {U_Python.Exceptions.{try0}1}
@@ -940,7 +940,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65734:  # {U_Python.Exceptions.{try12}1}
                   return _idris_Python_46_Exceptions_46__123_try12_125_(arg0)
                 elif fn0[0] == 65735:  # {U_Python.Exceptions.{try13}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try13_125_(P_c0, arg0)
                 else:  # {U_Python.Exceptions.{try14}1}
                   return _idris_Python_46_Exceptions_46__123_try14_125_(arg0)
@@ -950,7 +950,7 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65738:  # {U_Python.Exceptions.{try16}1}
                   return _idris_Python_46_Exceptions_46__123_try16_125_(arg0)
                 else:  # {U_Python.Exceptions.{try17}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try17_125_(P_c0, arg0)
           else:
             if fn0[0] < 65746:
@@ -963,7 +963,7 @@ def APPLY0(fn0, arg0):
                   return _idris_Python_46_Exceptions_46__123_try1_125_(arg0)
               else:
                 if fn0[0] == 65743:  # {U_Python.Exceptions.{try20}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try20_125_(P_c0, arg0)
                 elif fn0[0] == 65744:  # {U_Python.Exceptions.{try21}1}
                   return _idris_Python_46_Exceptions_46__123_try21_125_(arg0)
@@ -981,7 +981,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65749:  # {U_Python.Exceptions.{try3}1}
                   return _idris_Python_46_Exceptions_46__123_try3_125_(arg0)
                 elif fn0[0] == 65750:  # {U_Python.Exceptions.{try4}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try4_125_(P_c0, arg0)
                 else:  # {U_Python.Exceptions.{try5}1}
                   return _idris_Python_46_Exceptions_46__123_try5_125_(arg0)
@@ -992,7 +992,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65752:  # {U_Python.Exceptions.{try6}1}
                   return _idris_Python_46_Exceptions_46__123_try6_125_(arg0)
                 else:  # {U_Python.Exceptions.{try7}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try7_125_(P_c0, arg0)
               else:
                 if fn0[0] == 65754:  # {U_Python.Exceptions.{try8}1}
@@ -1000,34 +1000,34 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65755:  # {U_Python.Exceptions.{try9}1}
                   return _idris_Python_46_Exceptions_46__123_try9_125_(arg0)
                 else:  # {U_Python.Export.export1}
-                  P_c0, P_c1, P_c2, P_c3, = fn0[1:]
+                  P_c0, P_c1, P_c2, P_c3 = fn0[1:]
                   return _idris_Python_46_Export_46_export(P_c0, P_c1, P_c2, P_c3, arg0)
             else:
               if fn0[0] < 65760:
                 if fn0[0] == 65757:  # {U_Python.Export.ifMain1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Export_46_ifMain(P_c0, arg0)
                 elif fn0[0] == 65758:  # {U_Python.Fields.mixout1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Fields_46_mixout(P_c0, P_c1, P_c2, arg0)
                 else:  # {U_Python.Fields.{/.0}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Fields_46__123__47__46_0_125_(P_c0, P_c1, arg0)
               else:
                 if fn0[0] == 65760:  # {U_Python.Fields.{/:0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Fields_46__123__47__58_0_125_(P_c0, arg0)
                 elif fn0[0] == 65761:  # {U_Python.Functions.{$:0}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Functions_46__123__36__58_0_125_(P_c0, P_c1, arg0)
                 else:  # {U_Python.Functions.{call0}1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Functions_46__123_call0_125_(P_c0, P_c1, P_c2, arg0)
           else:
             if fn0[0] < 65769:
               if fn0[0] < 65766:
                 if fn0[0] == 65763:  # {U_Python.IO.unRaw1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_IO_46_unRaw(P_c0, arg0)
                 elif fn0[0] == 65764:  # {U_Python.Lib.Threading.{forkPIO0}1}
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO0_125_(arg0)
@@ -1039,29 +1039,29 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65767:  # {U_Python.Lib.Threading.{forkPIO3}1}
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(arg0)
                 else:  # {U_Python.Lib.Threading.{forkPIO4}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO4_125_(P_c0, arg0)
             else:
               if fn0[0] < 65772:
                 if fn0[0] == 65769:  # {U_Python.Lib.Threading.{forkPIO5}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO5_125_(P_c0, arg0)
                 elif fn0[0] == 65770:  # {U_Python.Lib.Threading.{forkPIO6}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO6_125_(P_c0, arg0)
                 else:  # {U_Python.Lib.Threading.{wait0}1}
                   return _idris_Python_46_Lib_46_Threading_46__123_wait0_125_(arg0)
               else:
                 if fn0[0] == 65772:  # {U_Python.Prim.collect1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46_collect(P_c0, arg0)
                 elif fn0[0] == 65773:  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(
                     P_c0, P_c1, arg0
                   )
                 else:  # {U_Python.Prim.{collect0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46__123_collect0_125_(P_c0, arg0)
       else:
         if fn0[0] < 65798:
@@ -1071,14 +1071,14 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65775:  # {U_Python.Prim.{collect1}1}
                   return _idris_Python_46_Prim_46__123_collect1_125_(arg0)
                 else:  # {U_Python.Prim.{foreach0}1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_foreach0_125_(P_c0, P_c1, P_c2, arg0)
               else:
                 if fn0[0] == 65777:  # {U_Python.Prim.{foreach1}1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_foreach1_125_(P_c0, P_c1, P_c2, arg0)
                 elif fn0[0] == 65778:  # {U_Python.Prim.{iterate0}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_iterate0_125_(P_c0, P_c1, arg0)
                 else:  # {U_Python.Prim.{next0}1}
                   return _idris_Python_46_Prim_46__123_next0_125_(arg0)
@@ -1094,7 +1094,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65783:  # {U_Python.Prim.{next1}1}
                   return _idris_Python_46_Prim_46__123_next1_125_(arg0)
                 elif fn0[0] == 65784:  # {U_Python.Prim.{next2}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46__123_next2_125_(P_c0, arg0)
                 else:  # {U_Python.Prim.{next3}1}
                   return _idris_Python_46_Prim_46__123_next3_125_(arg0)
@@ -1111,24 +1111,24 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65789:  # {U_Python.Prim.{next7}1}
                   return _idris_Python_46_Prim_46__123_next7_125_(arg0)
                 elif fn0[0] == 65790:  # {U_Python.Prim.{next8}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46__123_next8_125_(P_c0, arg0)
                 else:  # {U_Python.Prim.{next9}1}
                   return _idris_Python_46_Prim_46__123_next9_125_(arg0)
             else:
               if fn0[0] < 65795:
                 if fn0[0] == 65792:  # {U_Python.importModule1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_importModule(P_c0, P_c1, arg0)
                 elif fn0[0] == 65793:  # {U_Python.{marshalPIO0}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris_Python_46__123_marshalPIO0_125_(P_c0, arg0)
                 else:  # {U_io_bind1}
-                  P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
+                  P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                   return _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
               else:
                 if fn0[0] == 65795:  # {U_io_return1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
                 elif fn0[0] == 65796:  # {U_prim__zextInt_BigInt1}
                   return _idris_prim_95__95_zextInt_95_BigInt(arg0)
@@ -1143,7 +1143,7 @@ def APPLY0(fn0, arg0):
                     arg0
                   )
                 else:  # {U_{Python.Lib.Threading.forkPIO, worker_lam1}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam1_125_(
                     P_c0, arg0
                   )
@@ -1159,7 +1159,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65803:  # {U_{Python.Prim.iterate, iter_lam12}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam12_125_(arg0)
                 elif fn0[0] == 65804:  # {U_{Python.Prim.iterate, iter_lam13}1}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(
                     P_c0, P_c1, P_c2, arg0
                   )
@@ -1167,7 +1167,7 @@ def APPLY0(fn0, arg0):
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(arg0)
               else:
                 if fn0[0] == 65806:  # {U_{Python.Prim.iterate, iter_lam2}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam2_125_(P_c0, arg0)
                 elif fn0[0] == 65807:  # {U_{Python.Prim.iterate, iter_lam3}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(arg0)
@@ -1179,7 +1179,7 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65809:  # {U_{Python.Prim.iterate, iter_lam5}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam5_125_(arg0)
                 elif fn0[0] == 65810:  # {U_{Python.Prim.iterate, iter_lam6}1}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(P_c0, P_c1, arg0)
                 else:  # {U_{Python.Prim.iterate, iter_lam7}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam7_125_(arg0)
@@ -1187,24 +1187,24 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65812:  # {U_{Python.Prim.iterate, iter_lam8}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam8_125_(arg0)
                 elif fn0[0] == 65813:  # {U_{Python.Prim.iterate, iter_lam9}1}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam9_125_(P_c0, arg0)
                 else:  # {U_{io_bind1}1}
-                  P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
+                  P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = fn0[1:]
                   return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
             else:
               if fn0[0] < 65818:
                 if fn0[0] == 65815:  # {U_{unsafePerformIO0}1}
                   return unsafePerformIO0(arg0)
                 elif fn0[0] == 65816:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
-                  P_c0, P_c1, P_c2, = fn0[1:]
+                  P_c0, P_c1, P_c2 = fn0[1:]
                   return (65715, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
                 else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
-                  P_c0, P_c1, = fn0[1:]
+                  P_c0, P_c1 = fn0[1:]
                   return (65816, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
               else:
                 if fn0[0] == 65818:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
-                  P_c0, = fn0[1:]
+                  P_c0 = fn0[1]
                   return (65817, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
                 else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
                   return (65818, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
@@ -1254,7 +1254,7 @@ def _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_case_32_block_32_
 ):
   while True:
     assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-    in2, in3, = e2[1:]
+    in2, in3 = e2[1:]
     aux1 = in2
     return APPLY0(
       _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
@@ -1312,7 +1312,7 @@ def _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_try_95_lam0_125_(
 ):
   while True:
     assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-    in2, in3, = e2[1:]
+    in2, in3 = e2[1:]
     aux1 = in2
     return APPLY0(
       _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
@@ -1472,7 +1472,7 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(in1):
 def _idris_Main_46__123_case_32_block_32_in_32_main_39__95_lam1_125_(e18, in2, in3):
   while True:
     assert e18[0] == 0  # constructor of Prelude.Monad.Monad
-    in4, in5, = e18[1:]
+    in4, in5 = e18[1:]
     aux1 = in4
     return APPLY0(
       _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
@@ -1731,13 +1731,13 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(e7, e9, in8):
 def _idris_Python_46_Exceptions_46__123_catch6_125_(e2, in0):
   while True:
     if in0[0] == 1:  # Python.Exceptions.Except
-      in7, in8, = in0[1:]
+      in7, in8 = in0[1:]
       return APPLY0(APPLY0(e2, in7), in8)
     else:  # Python.Exceptions.OK
-      in9, = in0[1:]
+      in9 = in0[1]
       aux1 = (0, (65723,), (65727,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{catch1}1}, {U_Python.Exceptions.{catch5}1}
       assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-      in10, in11, = aux1[1:]
+      in10, in11 = aux1[1:]
       aux2 = in10
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), in9)
     return _idris_error("unreachable due to case in tail position")
@@ -1918,21 +1918,21 @@ def _idris_Main_46__123_main_39_12_125_(in10, in20):
 def _idris_Python_46_Prim_46__123_next12_125_(in0):
   while True:
     if in0[0] == 1:  # Python.Exceptions.Except
-      in7, in8, = in0[1:]
+      in7, in8 = in0[1:]
       if in7[0] == 0:  # Python.Exceptions.StopIteration
         aux1 = (0, (65783,), (65787,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next1}1}, {U_Python.Prim.{next5}1}
         assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-        in9, in10, = aux1[1:]
+        in9, in10 = aux1[1:]
         aux2 = in9
         return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), None)
       else:
         return _idris_Python_46_Exceptions_46_raise(None, in8)
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
-      in11, = in0[1:]
+      in11 = in0[1]
       aux3 = (0, (65789,), (65781,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next7}1}, {U_Python.Prim.{next11}1}
       assert aux3[0] == 0  # constructor of Prelude.Monad.Monad
-      in12, in13, = aux3[1:]
+      in12, in13 = aux3[1:]
       aux4 = in12
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux4), in11)
     return _idris_error("unreachable due to case in tail position")
@@ -1962,7 +1962,7 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e9, e8, e7, 
     else:  # Prelude.Maybe.Nothing
       aux1 = (0, (65812,), (65803,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam8}1}, {U_{Python.Prim.iterate, iter_lam12}1}
       assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-      in9, in10, = aux1[1:]
+      in9, in10 = aux1[1:]
       aux2 = in9
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), e8)
     return _idris_error("unreachable due to case in tail position")
@@ -2036,7 +2036,7 @@ def _idris_Python_46_Exceptions_46__123_try17_125_(in12, in13):
   while True:
     aux1 = (0, (65734,), (65738,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try12}1}, {U_Python.Exceptions.{try16}1}
     assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-    in14, in15, = aux1[1:]
+    in14, in15 = aux1[1:]
     aux2 = in14
     return APPLY0(
       _idris_Prelude_46_Applicative_46_pure(None, None, aux2),
@@ -2152,7 +2152,7 @@ def _idris_Main_46__123_main_39_24_125_(in31):
 def _idris_Python_46_Exceptions_46__123_try24_125_(in5):
   while True:
     if in5[0] == 0:  # Prelude.Either.Left
-      in12, = in5[1:]
+      in12 = in5[1]
       return APPLY0(
         APPLY0(
           _idris_Prelude_46_Monad_46__62__62__61_(
@@ -2172,10 +2172,10 @@ def _idris_Python_46_Exceptions_46__123_try24_125_(in5):
         (65739, in12)  # {U_Python.Exceptions.{try17}1}
       )
     else:  # Prelude.Either.Right
-      in16, = in5[1:]
+      in16 = in5[1]
       aux1 = (0, (65741,), (65746,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try19}1}, {U_Python.Exceptions.{try23}1}
       assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-      in17, in18, = aux1[1:]
+      in17, in18 = aux1[1:]
       aux2 = in17
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), (0, in16))  # Python.Exceptions.OK
     return _idris_error("unreachable due to case in tail position")
@@ -2260,7 +2260,7 @@ def _idris_Main_46__123_main_39_40_125_(in35, in36):
   while True:
     aux1 = (0, (65670,), (65674,))  # constructor of Prelude.Monad.Monad, {U_Main.{main'35}1}, {U_Main.{main'39}1}
     assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-    in37, in38, = aux1[1:]
+    in37, in38 = aux1[1:]
     aux2 = in37
     return APPLY0(
       _idris_Prelude_46_Applicative_46_pure(None, None, aux2),
@@ -2365,7 +2365,7 @@ def _idris_Main_46__123_main_39_48_125_(in53):
 def _idris_Main_46__123_main_39_49_125_(in54):
   while True:
     if in54[0] == 1:  # Python.Exceptions.Except
-      in55, in56, = in54[1:]
+      in55, in56 = in54[1:]
       if in55[0] == 11:  # Python.Exceptions.OSError
         return _idris_Prelude_46_putStr(
           None,
@@ -2375,7 +2375,7 @@ def _idris_Main_46__123_main_39_49_125_(in54):
         return _idris_Python_46_Exceptions_46_raise(None, in56)
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
-      in57, = in54[1:]
+      in57 = in54[1]
       return _idris_Prelude_46_putStr(
         None,
         "Your root could probably use some security lessons!\n"
@@ -2786,12 +2786,12 @@ def _idris_Void_95_case():
 def _idris_Python_46_Exceptions_46_catch_95_case(e0, e1, e2, e3, e4, e5):
   while True:
     if e4[0] == 1:  # Python.Exceptions.Except
-      in0, in1, = e4[1:]
+      in0, in1 = e4[1:]
       return APPLY0(APPLY0(e2, in0), in1)
     else:  # Python.Exceptions.OK
-      in2, = e4[1:]
+      in2 = e4[1]
       assert e3[0] == 0  # constructor of Prelude.Monad.Monad
-      in3, in4, = e3[1:]
+      in3, in4 = e3[1:]
       aux1 = in3
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), in2)
     return _idris_error("unreachable due to case in tail position")
@@ -2882,7 +2882,7 @@ def _idris_Main_46_main_39_2_95_case(
 ):
   while True:
     if e42[0] == 1:  # Python.Exceptions.Except
-      in0, in1, = e42[1:]
+      in0, in1 = e42[1:]
       if in0[0] == 11:  # Python.Exceptions.OSError
         return _idris_Prelude_46_putStr(
           None,
@@ -2892,7 +2892,7 @@ def _idris_Main_46_main_39_2_95_case(
         return _idris_Python_46_Exceptions_46_raise(None, in1)
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
-      in2, = e42[1:]
+      in2 = e42[1]
       return _idris_Prelude_46_putStr(
         None,
         "Your root could probably use some security lessons!\n"
@@ -2903,19 +2903,19 @@ def _idris_Main_46_main_39_2_95_case(
 def _idris_Python_46_Prim_46_next_95_case(e0, e1, e2, e3, e4):
   while True:
     if e3[0] == 1:  # Python.Exceptions.Except
-      in0, in1, = e3[1:]
+      in0, in1 = e3[1:]
       if in0[0] == 0:  # Python.Exceptions.StopIteration
         assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-        in2, in3, = e2[1:]
+        in2, in3 = e2[1:]
         aux1 = in2
         return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), None)
       else:
         return _idris_Python_46_Exceptions_46_raise(None, in1)
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
-      in4, = e3[1:]
+      in4 = e3[1]
       assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-      in5, in6, = e2[1:]
+      in5, in6 = e2[1:]
       aux2 = in5
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), in4)
     return _idris_error("unreachable due to case in tail position")
@@ -2924,7 +2924,7 @@ def _idris_Python_46_Prim_46_next_95_case(e0, e1, e2, e3, e4):
 def _idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4):
   while True:
     if e3[0] == 0:  # Prelude.Either.Left
-      in0, = e3[1:]
+      in0 = e3[1]
       return APPLY0(
         APPLY0(
           _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e2),
@@ -2939,9 +2939,9 @@ def _idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4):
         (65721, e2, in0)  # {U_Python.Exceptions.{case block in try_lam0}1}
       )
     else:  # Prelude.Either.Right
-      in4, = e3[1:]
+      in4 = e3[1]
       assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-      in5, in6, = e2[1:]
+      in5, in6 = e2[1:]
       aux1 = in5
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), (0, in4))  # Python.Exceptions.OK
     return _idris_error("unreachable due to case in tail position")
@@ -2962,7 +2962,7 @@ def _idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95_case(
       )
     else:  # Prelude.Maybe.Nothing
       assert e10[0] == 0  # constructor of Prelude.Monad.Monad
-      in2, in3, = e10[1:]
+      in2, in3 = e10[1:]
       aux1 = in2
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), e8)
     return _idris_error("unreachable due to case in tail position")
@@ -2971,7 +2971,7 @@ def _idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95_case(
 def _idris_Python_46_Exceptions_46_try_95_case_95_case(e0, e1, e2, e3, e4, e5):
   while True:
     if e3[0] == 0:  # Prelude.Either.Left
-      in0, = e3[1:]
+      in0 = e3[1]
       return APPLY0(
         APPLY0(
           _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e2),
@@ -2986,9 +2986,9 @@ def _idris_Python_46_Exceptions_46_try_95_case_95_case(e0, e1, e2, e3, e4, e5):
         (65720, e2, in0)  # {U_Python.Exceptions.{case block in case block in try_lam0}1}
       )
     else:  # Prelude.Either.Right
-      in4, = e3[1:]
+      in4 = e3[1]
       assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-      in5, in6, = e2[1:]
+      in5, in6 = e2[1:]
       aux1 = in5
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), (0, in4))  # Python.Exceptions.OK
     return _idris_error("unreachable due to case in tail position")
