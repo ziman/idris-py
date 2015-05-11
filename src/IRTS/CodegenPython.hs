@@ -320,25 +320,25 @@ cgExtern n args = cgError $ "unimplemented external: " ++ n
 x ! i = x <> brackets (text i)
 
 cgPrim :: PrimFn -> [Expr] -> Expr
-cgPrim (LPlus  _) [x, y] = x <+> text "+" <+> y
-cgPrim (LMinus _) [x, y] = x <+> text "-" <+> y
-cgPrim (LTimes _) [x, y] = x <+> text "*" <+> y
-cgPrim (LUDiv  _) [x, y] = x <+> text "/" <+> y
-cgPrim (LSDiv  _) [x, y] = x <+> text "/" <+> y
-cgPrim (LURem  _) [x, y] = x <+> text "%" <+> y
-cgPrim (LSRem  _) [x, y] = x <+> text "%" <+> y
+cgPrim (LPlus  _) [x, y] = parens $ x <+> text "+" <+> y
+cgPrim (LMinus _) [x, y] = parens $ x <+> text "-" <+> y
+cgPrim (LTimes _) [x, y] = parens $ x <+> text "*" <+> y
+cgPrim (LUDiv  _) [x, y] = parens $ x <+> text "/" <+> y
+cgPrim (LSDiv  _) [x, y] = parens $ x <+> text "/" <+> y
+cgPrim (LURem  _) [x, y] = parens $ x <+> text "%" <+> y
+cgPrim (LSRem  _) [x, y] = parens $ x <+> text "%" <+> y
 
-cgPrim (LEq    _) [x, y] = x <+> text "==" <+> y
-cgPrim (LSLt   _) [x, y] = x <+> text "<" <+> y
+cgPrim (LEq    _) [x, y] = parens $ x <+> text "==" <+> y
+cgPrim (LSLt   _) [x, y] = parens $ x <+> text "<" <+> y
 cgPrim (LSExt _ _)[x]    = x
 cgPrim (LZExt _ _)[x]    = x
 
 cgPrim (LIntStr _) [x] = text "str" <> parens x  
 cgPrim (LStrInt _) [x] = text "int" <> parens x
 cgPrim  LStrRev    [x] = x ! "::-1"
-cgPrim  LStrConcat [x, y] = x <+> text "+" <+> y
-cgPrim  LStrCons   [x, y] = x <+> text "+" <+> y
-cgPrim  LStrEq     [x, y] = x <+> text "==" <+> y
+cgPrim  LStrConcat [x, y] = parens $ x <+> text "+" <+> y
+cgPrim  LStrCons   [x, y] = parens $ x <+> text "+" <+> y
+cgPrim  LStrEq     [x, y] = parens $ x <+> text "==" <+> y
 cgPrim  LStrHead   [x] = x ! "0"
 cgPrim  LStrTail   [x] = x ! "1:"
 cgPrim  LStrLen    [x] = text "len" <> parens x
@@ -558,11 +558,11 @@ cgAlt v retVar (ie, DConCase tag' ctorName args e) = do
             -- DConCase does not contain useful tags yet
             -- we need to find out by looking up by name
             Just tag <- ctorTag ctorName
-            emit . ifCond ie $ cgVar v <> text "[0] ==" <+> int tag <?> show ctorName
+            emit $ ifCond ie (cgVar v <> text "[0] ==" <+> int tag) <?> show ctorName
 
         -- special-cased constructors
         Just (ctor, test, match) ->
-            emit . ifCond ie $ test (cgVar v) <?> show ctorName
+            emit $ ifCond ie (test $ cgVar v) <?> show ctorName
 
     -- statements conditioned by the if
     indentCond ie $ do
@@ -581,11 +581,11 @@ cgAlt v retVar (ie, DConCase tag' ctorName args e) = do
     special = specialCased ctorName
 
 cgAlt v retVar (ie, DConstCase c e) = do
-    emit . ifCond ie $ cgVar v <+> text "==" <+> cgConst c
+    emit $ ifCond ie (cgVar v <+> text "==" <+> cgConst c)
     indentCond ie $ returnValue retVar e
 
 cgAlt v retVar (ie, DDefaultCase e) = do
-    emit . ifCond ie $ text "True"  -- the Bool should never be used
+    emit $ ifCond ie (text "True")  -- the Bool will hopefully never be used
     indentCond ie $ returnValue retVar e
 
 returnValue :: Maybe LVar -> DExp -> CG ()
