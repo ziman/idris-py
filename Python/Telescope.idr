@@ -5,24 +5,22 @@ import public Data.Erased
 %default total
 %access public
 
-%hide Language.Reflection.Binder
-%hide Language.Reflection.Erased
-
 ||| Information about an argument.
-data Binder : Type -> Type where
+||| It's called ``Binder'`` because ``Binder`` clashes with reflection.
+data Binder' : Type -> Type where
 
   ||| Mandatory, positional, relevant argument.
-  Pi : (a : Type) -> Binder a
+  Pi : (a : Type) -> Binder' a
 
   ||| Optional argument with a non-`None` default.
   ||| To default to `None`, use `Optional`, which is equivalent to `Pi . Maybe`.
-  Default : (a : Type) -> (dflt : a) -> Binder (Maybe a)
+  Default : (a : Type) -> (dflt : a) -> Binder' (Maybe a)
 
   ||| Runtime-irrelevant argument.
-  Forall : (a : Type) -> Binder (Erased a)
+  Forall : (a : Type) -> Binder' (Erased.Erased a)
 
 ||| Optional argument; `None` if not given.
-Optional : (a : Type) -> Binder (Maybe a)
+Optional : (a : Type) -> Binder' (Maybe a)
 Optional a = Pi (Maybe a)
 
 namespace TupleSugar
@@ -45,7 +43,7 @@ data Telescope : Type -> Type where
 
   ||| A binder in front of a telescope.
   Bind :
-    (bnd : Binder a)
+    (bnd : Binder' a)
     -> {b : a -> Type}
     -> (tf : (x : a) -> Telescope (b x))
     -> Telescope (Sigma a b)
@@ -70,7 +68,7 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 
   ||| Prepend an element in front of a `TList`.
   TCons :
-    .{bnd : Binder a}
+    .{bnd : Binder' a}
     -> .{b : a -> Type}
     -> .{x : a}
     -> (y : a)  -- note that `y` is a fresh variable => can be anything of the same type
@@ -80,7 +78,7 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 
   ||| Skip an element in the telescope.
   TSkip :
-    .{bnd : Binder a}
+    .{bnd : Binder' a}
     -> .{b : a -> Type}
     -- there is no (y : a) here, it is skipped
     -> .{tf : (x : a) -> Telescope (b x)}
