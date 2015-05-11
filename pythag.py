@@ -104,10 +104,10 @@ def _idris_Prelude_46_List_46__43__43_(e0, e1, e2):
   while True:
     if e1:  # Prelude.List.::
       in0, in1 = e1.head, e1.tail
-      aux1 = _idris_Prelude_46_List_46__43__43_(None, in1, e2).cons(in0)
-    elif not e1:  # Prelude.List.Nil
-      aux1 = e2
-    return aux1
+      return _idris_Prelude_46_List_46__43__43_(None, in1, e2).cons(in0)
+    else:
+      return e2
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Basics..
 def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
@@ -117,10 +117,10 @@ def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
 # Prelude.Classes.<
 def _idris_Prelude_46_Classes_46__60_(e0, e1):
   while True:
-    if e1[0] == 0:  # constructor of Prelude.Classes.Ord
-      in0, in1, = e1[1:]
-      aux1 = in1
-    return aux1
+    assert e1[0] == 0  # constructor of Prelude.Classes.Ord
+    in0, in1, = e1[1:]
+    return in1
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Algebra.<+>
 def _idris_Prelude_46_Algebra_46__60__43__62_(e0, e1):
@@ -132,20 +132,20 @@ def _idris__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigrou
   e0, e1
 ):
   while True:
-    if e1[0] == 0:  # constructor of Prelude.Algebra.Monoid
-      in0, in1, = e1[1:]
-      aux1 = in0
-    return aux1
+    assert e1[0] == 0  # constructor of Prelude.Algebra.Monoid
+    in0, in1, = e1[1:]
+    return in0
+    return _idris_error("unreachable due to case in tail position")
 
 # @@constructor of Prelude.Applicative.Alternative#Applicative f
 def _idris__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f(
   e0, e1
 ):
   while True:
-    if e1[0] == 0:  # constructor of Prelude.Applicative.Alternative
-      in0, in1, = e1[1:]
-      aux1 = in0
-    return aux1
+    assert e1[0] == 0  # constructor of Prelude.Applicative.Alternative
+    in0, in1, = e1[1:]
+    return in0
+    return _idris_error("unreachable due to case in tail position")
 
 # Force
 def _idris_Force(e0, e1, e2):
@@ -171,20 +171,20 @@ def _idris_call_95__95_IO(e0, e1, e2):
 # Prelude.Classes.compare
 def _idris_Prelude_46_Classes_46_compare(e0, e1):
   while True:
-    if e1[0] == 0:  # constructor of Prelude.Classes.Ord
-      in0, in1, = e1[1:]
-      aux1 = in0
-    return aux1
+    assert e1[0] == 0  # constructor of Prelude.Classes.Ord
+    in0, in1, = e1[1:]
+    return in0
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Foldable.concatMap
 def _idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
   while True:
-    if e4[0] == 0:  # constructor of Prelude.Algebra.Monoid
-      in0, in1, = e4[1:]
-      aux1 = in0
-    if e4[0] == 0:  # constructor of Prelude.Algebra.Monoid
-      in2, in3, = e4[1:]
-      aux2 = in3
+    assert e4[0] == 0  # constructor of Prelude.Algebra.Monoid
+    in0, in1, = e4[1:]
+    aux1 = in0
+    assert e4[0] == 0  # constructor of Prelude.Algebra.Monoid
+    in2, in3, = e4[1:]
+    aux2 = in3
     return APPLY0(
       APPLY0(
         _idris_Prelude_46_Foldable_46_foldr(None, None, None, e3),
@@ -196,10 +196,10 @@ def _idris_Prelude_46_Foldable_46_concatMap(e0, e1, e2, e3, e4, e5):
 # Prelude.Applicative.empty
 def _idris_Prelude_46_Applicative_46_empty(e0, e1, e2):
   while True:
-    if e2[0] == 0:  # constructor of Prelude.Applicative.Alternative
-      in0, in1, = e2[1:]
-      aux1 = APPLY0(in1, e1)
-    return aux1
+    assert e2[0] == 0  # constructor of Prelude.Applicative.Alternative
+    in0, in1, = e2[1:]
+    return APPLY0(in1, e1)
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Foldable.foldr
 def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
@@ -210,34 +210,34 @@ def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
 def _idris_Prelude_46_Applicative_46_guard(e0, e1, e2):
   while True:
     if not e2:  # Prelude.Bool.False
-      if e1[0] == 0:  # constructor of Prelude.Applicative.Alternative
-        in0, in1, = e1[1:]
-        aux2 = APPLY0(in1, None)
-      aux1 = aux2
-    elif e2:  # Prelude.Bool.True
-      if e1[0] == 0:  # constructor of Prelude.Applicative.Alternative
-        in2, in3, = e1[1:]
-        aux3 = in2
-      aux1 = APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux3), Unit)
-    return aux1
+      assert e1[0] == 0  # constructor of Prelude.Applicative.Alternative
+      in0, in1, = e1[1:]
+      return APPLY0(in1, None)
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      assert e1[0] == 0  # constructor of Prelude.Applicative.Alternative
+      in2, in3, = e1[1:]
+      aux1 = in2
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), Unit)
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Bool.ifThenElse
 def _idris_Prelude_46_Bool_46_ifThenElse(e0, e1, e2, e3):
   while True:
     if not e1:  # Prelude.Bool.False
-      aux1 = EVAL0(e3)
-    elif e1:  # Prelude.Bool.True
-      aux1 = EVAL0(e2)
-    return aux1
+      return EVAL0(e3)
+    else:
+      return EVAL0(e2)
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Classes.intToBool
 def _idris_Prelude_46_Classes_46_intToBool(e0):
   while True:
     if e0 == 0:
-      aux1 = False
+      return False
     else:
-      aux1 = True
-    return aux1
+      return True
+    return _idris_error("unreachable due to case in tail position")
 
 # io_bind
 def _idris_io_95_bind(e0, e1, e2, e3, e4, _idris_w):
@@ -272,10 +272,10 @@ def _idris_mkForeignPrim():
 # Prelude.Algebra.neutral
 def _idris_Prelude_46_Algebra_46_neutral(e0, e1):
   while True:
-    if e1[0] == 0:  # constructor of Prelude.Algebra.Monoid
-      in0, in1, = e1[1:]
-      aux1 = in1
-    return aux1
+    assert e1[0] == 0  # constructor of Prelude.Algebra.Monoid
+    in0, in1, = e1[1:]
+    return in1
+    return _idris_error("unreachable due to case in tail position")
 
 # prim__addInt
 def _idris_prim_95__95_addInt(op0, op1):
@@ -413,10 +413,10 @@ def _idris_world(e0):
 def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
   while True:
     if not e0:  # Prelude.Bool.False
-      aux1 = EVAL0(e1)
-    elif e0:  # Prelude.Bool.True
-      aux1 = True
-    return aux1
+      return EVAL0(e1)
+    else:
+      return True
+    return _idris_error("unreachable due to case in tail position")
 
 # {APPLY0}
 def APPLY0(fn0, arg0):
@@ -426,75 +426,75 @@ def APPLY0(fn0, arg0):
         if fn0[0] < 65627:
           if fn0[0] < 65625:
             if fn0[0] == 65623:  # {U_Main.{main0}1}
-              aux1 = _idris_Main_46__123_main0_125_(arg0)
-            elif fn0[0] == 65624:  # {U_Main.{pythag0}1}
-              aux1 = _idris_Main_46__123_pythag0_125_(arg0)
+              return _idris_Main_46__123_main0_125_(arg0)
+            else:
+              return _idris_Main_46__123_pythag0_125_(arg0)
           else:
             if fn0[0] == 65625:  # {U_Main.{pythag1}1}
-              aux1 = _idris_Main_46__123_pythag1_125_(arg0)
-            elif fn0[0] == 65626:  # {U_Main.{pythag2}1}
-              aux1 = _idris_Main_46__123_pythag2_125_(arg0)
+              return _idris_Main_46__123_pythag1_125_(arg0)
+            else:
+              return _idris_Main_46__123_pythag2_125_(arg0)
         else:
           if fn0[0] < 65629:
             if fn0[0] == 65627:  # {U_Main.{pythag3}1}
               P_c0, P_c1, P_c2, = fn0[1:]
-              aux1 = _idris_Main_46__123_pythag3_125_(P_c0, P_c1, P_c2, arg0)
-            elif fn0[0] == 65628:  # {U_Main.{pythag4}1}
+              return _idris_Main_46__123_pythag3_125_(P_c0, P_c1, P_c2, arg0)
+            else:
               P_c0, P_c1, = fn0[1:]
-              aux1 = _idris_Main_46__123_pythag4_125_(P_c0, P_c1, arg0)
+              return _idris_Main_46__123_pythag4_125_(P_c0, P_c1, arg0)
           else:
             if fn0[0] == 65629:  # {U_Main.{pythag5}1}
               P_c0, = fn0[1:]
-              aux1 = _idris_Main_46__123_pythag5_125_(P_c0, arg0)
+              return _idris_Main_46__123_pythag5_125_(P_c0, arg0)
             elif fn0[0] == 65630:  # {U_Main.{pythag6}1}
-              aux1 = _idris_Main_46__123_pythag6_125_(arg0)
-            elif fn0[0] == 65631:  # {U_PE_List a instance of Prelude.Show_f5d3ac2c1}
-              aux1 = _idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(arg0)
+              return _idris_Main_46__123_pythag6_125_(arg0)
+            else:
+              return _idris_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c(arg0)
       else:
         if fn0[0] < 65636:
           if fn0[0] < 65634:
             if fn0[0] == 65632:  # {U_Prelude.Basics..1}
               P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-              aux1 = _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-            elif fn0[0] == 65633:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}1}
+              return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+            else:
               P_c0, = fn0[1:]
-              aux1 = _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+              return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                 P_c0, arg0
               )
           else:
             if fn0[0] == 65634:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}1}
-              aux1 = _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+              return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                 arg0
               )
-            elif fn0[0] == 65635:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}1}
+            else:
               P_c0, = fn0[1:]
-              aux1 = _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+              return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                 P_c0, arg0
               )
         else:
           if fn0[0] < 65638:
             if fn0[0] == 65636:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}1}
-              aux1 = _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+              return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                 arg0
               )
-            elif fn0[0] == 65637:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+            else:
               P_c0, P_c1, P_c2, P_c3, = fn0[1:]
-              aux1 = _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
+              return _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
                 P_c0, P_c1, P_c2, P_c3, arg0
               )
           else:
             if fn0[0] == 65638:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}1}
               P_c0, P_c1, = fn0[1:]
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam0_125_(
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam0_125_(
                 P_c0, P_c1, arg0
               )
             elif fn0[0] == 65639:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam1}1}
               P_c0, = fn0[1:]
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam1_125_(
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam1_125_(
                 P_c0, arg0
               )
-            elif fn0[0] == 65640:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam2}1}
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam2_125_(
+            else:
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam2_125_(
                 arg0
               )
     else:
@@ -502,79 +502,79 @@ def APPLY0(fn0, arg0):
         if fn0[0] < 65645:
           if fn0[0] < 65643:
             if fn0[0] == 65641:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam3}1}
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam3_125_(
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam3_125_(
                 arg0
               )
-            elif fn0[0] == 65642:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam4}1}
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam4_125_(
+            else:
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam4_125_(
                 arg0
               )
           else:
             if fn0[0] == 65643:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam5}1}
               P_c0, = fn0[1:]
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam5_125_(
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam5_125_(
                 P_c0, arg0
               )
-            elif fn0[0] == 65644:  # {U_Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam6}1}
-              aux1 = _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam6_125_(
+            else:
+              return _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam6_125_(
                 arg0
               )
         else:
           if fn0[0] < 65647:
             if fn0[0] == 65645:  # {U_Prelude.{putStr0}1}
               P_c0, = fn0[1:]
-              aux1 = _idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
-            elif fn0[0] == 65646:  # {U_Prelude.{putStr1}1}
-              aux1 = _idris_Prelude_46__123_putStr1_125_(arg0)
+              return _idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
+            else:
+              return _idris_Prelude_46__123_putStr1_125_(arg0)
           else:
             if fn0[0] == 65647:  # {U_io_bind1}
               P_c0, P_c1, P_c2, P_c3, P_c4, = fn0[1:]
-              aux1 = _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+              return _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
             elif fn0[0] == 65648:  # {U_io_return1}
               P_c0, P_c1, P_c2, = fn0[1:]
-              aux1 = _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
-            elif fn0[0] == 65649:  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c0}1}
-              aux1 = _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_(
+              return _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
+            else:
+              return _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c0_125_(
                 arg0
               )
       else:
         if fn0[0] < 65655:
           if fn0[0] < 65652:
             if fn0[0] == 65650:  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c1}1}
-              aux1 = _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(
+              return _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c1_125_(
                 arg0
               )
-            elif fn0[0] == 65651:  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c2}1}
-              aux1 = _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(
+            else:
+              return _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(
                 arg0
               )
           else:
             if fn0[0] == 65652:  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c3}1}
-              aux1 = _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(
+              return _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c3_125_(
                 arg0
               )
             elif fn0[0] == 65653:  # {U_{PE_List a instance of Prelude.Show_f5d3ac2c4}1}
-              aux1 = _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(
+              return _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c4_125_(
                 arg0
               )
-            elif fn0[0] == 65654:  # {U_{io_bind1}1}
+            else:
               P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, = fn0[1:]
-              aux1 = io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
+              return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
         else:
           if fn0[0] < 65657:
             if fn0[0] == 65655:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
               P_c0, P_c1, P_c2, = fn0[1:]
-              aux1 = (65637, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
-            elif fn0[0] == 65656:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+              return (65637, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+            else:
               P_c0, P_c1, = fn0[1:]
-              aux1 = (65655, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+              return (65655, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
           else:
             if fn0[0] == 65657:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
               P_c0, = fn0[1:]
-              aux1 = (65656, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
-            elif fn0[0] == 65658:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-              aux1 = (65657, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
-    return aux1
+              return (65656, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+            else:
+              return (65657, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+    return _idris_error("unreachable due to case in tail position")
 
 # {EVAL0}
 def EVAL0(arg0):
@@ -604,10 +604,10 @@ def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_o
   while True:
     aux1 = e0 == e1
     if aux1 == 0:
-      aux2 = False
+      return False
     else:
-      aux2 = True
-    return aux2
+      return True
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Monad.{Prelude.List instance of Prelude.Monad.Monad, method >>=_lam0}
 def _idris_Prelude_46_Monad_46__123_Prelude_46_List_32_instance_32_of_32_Prelude_46_Monad_46_Monad_44__32_method_32__62__62__61__95_lam0_125_(
@@ -695,10 +695,10 @@ def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classe
       in3
     )
     if aux1[0] == 0:  # Prelude.Classes.LT
-      aux2 = True
+      return True
     else:
-      aux2 = False
-    return aux2
+      return False
+    return _idris_error("unreachable due to case in tail position")
 
 # {PE_List a instance of Prelude.Show_f5d3ac2c2}
 def _idris__123_PE_95_List_32_a_32_instance_32_of_32_Prelude_46_Show_95_f5d3ac2c2_125_(
@@ -859,13 +859,13 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58
 ):
   while True:
     if e3 == 0:
-      aux1 = e2.cons(e4)
+      return e2.cons(e4)
     else:
       in0 = e3 - 1
       e0, e1, e2, e3, e4, = None, None, e2.cons(e4), in0, e4 - 1,
       continue
-      aux1 = _idris_error("unreachable due to tail call")
-    return aux1
+      return _idris_error("unreachable due to tail call")
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Prelude.List a instance of Prelude.Show, method show, show'
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
@@ -875,15 +875,15 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58
     if e5:  # Prelude.List.::
       in0, in1 = e5.head, e5.tail
       if not in1:  # Prelude.List.Nil
-        aux2 = e4 + APPLY0(_idris_Prelude_46_show(None, e3), in0)
+        return e4 + APPLY0(_idris_Prelude_46_show(None, e3), in0)
       else:
         e0, e1, e2, e3, e4, e5, = None, None, None, e3, e4 + APPLY0(_idris_Prelude_46_show(None, e3), in0) + ", ", in1,
         continue
-        aux2 = _idris_error("unreachable due to tail call")
-      aux1 = aux2
-    elif not e5:  # Prelude.List.Nil
-      aux1 = e4
-    return aux1
+        return _idris_error("unreachable due to tail call")
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      return e4
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
@@ -894,16 +894,16 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58
       e0, e1
     )
     if not aux1:  # Prelude.Bool.False
-      aux2 = ConsList()
-    elif aux1:  # Prelude.Bool.True
-      aux2 = _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(
+      return ConsList()
+    else:
+      return _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(
         None,
         None,
         ConsList(),
         e1 - e0,
         e1
       )
-    return aux2
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
 def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
@@ -912,7 +912,7 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
   while True:
     if e4:  # Prelude.List.::
       in0, in1 = e4.head, e4.tail
-      aux1 = APPLY0(
+      return APPLY0(
         APPLY0(e2, in0),
         APPLY0(
           APPLY0(
@@ -922,9 +922,9 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
           in1
         )
       )
-    elif not e4:  # Prelude.List.Nil
-      aux1 = e3
-    return aux1
+    else:
+      return e3
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Monad.Prelude.List instance of Prelude.Monad.Monad, method >>=
 def _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
@@ -959,12 +959,12 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       e1
     )
     if not aux1:  # Prelude.Bool.False
-      aux2 = _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
         e0, e1
       )
-    elif aux1:  # Prelude.Bool.True
-      aux2 = True
-    return aux2
+    else:
+      return True
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33_compare_58_0(
@@ -978,30 +978,30 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       aux3 = True
     aux1 = aux3
     if not aux1:  # Prelude.Bool.False
-      aux6 = e0 < e1
-      if aux6 == 0:
-        aux7 = False
+      aux5 = e0 < e1
+      if aux5 == 0:
+        aux6 = False
       else:
-        aux7 = True
-      aux5 = aux7
-      if not aux5:  # Prelude.Bool.False
-        aux8 = (2,)  # Prelude.Classes.GT
-      elif aux5:  # Prelude.Bool.True
-        aux8 = (0,)  # Prelude.Classes.LT
-      aux4 = aux8
-    elif aux1:  # Prelude.Bool.True
-      aux4 = (1,)  # Prelude.Classes.EQ
-    return aux4
+        aux6 = True
+      aux4 = aux6
+      if not aux4:  # Prelude.Bool.False
+        return (2,)  # Prelude.Classes.GT
+      else:
+        return (0,)  # Prelude.Classes.LT
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      return (1,)  # Prelude.Classes.EQ
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Prelude.(a, b) instance of Prelude.Show, method show
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36__40_a_44__32_b_41__58__33_show_58_0(
   e0, e1, e2, e3, e4, e5, e6
 ):
   while True:
-    if True:  # Builtins.MkPair
-      in0, in1 = e6
-      aux1 = "(" + APPLY0(_idris_Prelude_46_show(None, e4), in0) + ", " + APPLY0(_idris_Prelude_46_show(None, e5), in1) + ")"
-    return aux1
+    assert True  # Builtins.MkPair
+    in0, in1 = e6
+    return "(" + APPLY0(_idris_Prelude_46_show(None, e4), in0) + ", " + APPLY0(_idris_Prelude_46_show(None, e5), in1) + ")"
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Prelude.List a instance of Prelude.Show, method show
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Show_36_List_32_a_58__33_show_58_0(
@@ -1018,10 +1018,10 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classe
 ):
   while True:
     if e0[0] == 0:  # Prelude.Classes.LT
-      aux1 = True
+      return True
     else:
-      aux1 = False
-    return aux1
+      return False
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.List.List instance of Prelude.Foldable.Foldable
 def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(

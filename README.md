@@ -4,6 +4,10 @@ WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idr
 
 ## Goodies
 
+* expressions in tail positions return directly
+* if-elif sequences optimised
+    - not doing comparison if it's clear which branch to take
+    - single-branch trees turned into assertions and flattened
 * tail-call optimisation (does not work for mutual recursion)
     - There is a [full TCO branch](https://github.com/ziman/idris-py/tree/trampoline-tco)
       using trampolines but it consumes more stack frames, thus making non-tail-recursive
