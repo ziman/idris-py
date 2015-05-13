@@ -24,6 +24,9 @@ import Control.Monad.Trans.Class
 
 import Util.PrettyPrint
 
+erasureOn :: Bool
+erasureOn = True
+
 -- Codegen state within one Decl
 data CGState = CGState
     { varCounter :: Int          -- for fresh variables
@@ -232,7 +235,9 @@ mangle n = "_idris_" ++ concatMap mangleChar (showCG n)
 codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render "#" source)
   where
-    decls = erase $ defunDecls ci
+    decls
+        | erasureOn = erase $ defunDecls ci
+        | otherwise = defunDecls ci
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
     ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- decls]
     definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- decls]
@@ -390,7 +395,9 @@ cgMatch lhs rhs =
 
 cgTailCall :: [Name] -> [Expr] -> CG Expr
 cgTailCall argNames args = do
-    emit $ cgAssignMany argNames args
+    if null args
+        then return ()
+        else emit $ cgAssignMany argNames args
     emit $ text "continue"
     return $ cgError "unreachable due to tail call"
 
@@ -512,15 +519,18 @@ cgCase tailPos var alts
     | altCount >= 2 * groupSize  -- there would be at least 2 full groups
     , DDefaultCase def : alts' <- reverse alts
     , all isConCase alts' = do
-        taggedAlts <- sortBy (comparing fst) <$> mapM getTag alts'
-        case tailPos of
-            True -> do
-                cgAltTree groupSize altCount Nothing var taggedAlts
-                return $ cgError "unreachable due to case in tail position"
-            False -> do
-                retVar <- fresh
-                cgAltTree groupSize altCount (Just retVar) var taggedAlts
-                return $ cgVar retVar
+        taggedAlts <- sortBy (comparing fst) . filter ((>= 0) . fst) <$> mapM getTag alts'
+        if length taggedAlts < 2*groupSize
+          then cgCase tailPos var $ map snd taggedAlts  -- HACK: too small after filtering, retry
+          else
+            case tailPos of
+                True -> do
+                    cgAltTree groupSize altCount Nothing var taggedAlts
+                    return $ cgError "unreachable due to case in tail position"
+                False -> do
+                    retVar <- fresh
+                    cgAltTree groupSize altCount (Just retVar) var taggedAlts
+                    return $ cgVar retVar
   where
     groupSize = 3  -- smallest group size: (groupSize+1) `div` 2
     altCount = length alts
@@ -531,8 +541,8 @@ cgCase tailPos var alts
 
     getTag :: DAlt -> CG (Int, DAlt)
     getTag alt@(DConCase _ n _ _) = do
-        Just tag <- ctorTag n
-        return (tag, alt)
+        Just n <- ctorTag n
+        return (n, alt)
 
 -- otherwise just do the linear if-elif thing
 cgCase tailPos var alts
@@ -562,8 +572,10 @@ cgAlt v retVar (ie, DConCase tag' ctorName args e) = do
         Nothing -> do
             -- DConCase does not contain useful tags yet
             -- we need to find out by looking up by name
-            Just tag <- ctorTag ctorName
-            emit $ ifCond ie (cgVar v <> text "[0] ==" <+> int tag) <?> show ctorName
+            maybeTag <- ctorTag ctorName
+            case maybeTag of
+                Just tag -> emit $ ifCond ie (cgVar v <> text "[0] ==" <+> int tag) <?> show ctorName
+                Nothing  -> emit $ ifCond ie (text "True") <?> "DETAGGED: " ++ show ctorName
 
         -- special-cased constructors
         Just (ctor, test, match) ->
