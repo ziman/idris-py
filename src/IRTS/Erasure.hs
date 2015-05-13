@@ -12,7 +12,7 @@ import Debug.Trace
 type FunDecl = DDecl
 type CtorDecl = DDecl
 
-data Arg = Arg Int | Ret deriving (Eq, Ord, Show)
+data Arg = Arg Int | Ret | Tag deriving (Eq, Ord, Show)
 data Node = N Name Arg deriving (Eq, Ord, Show)
 
 type Guards = S.Set Node
@@ -68,7 +68,7 @@ anCase vs s alts = S.unions $ anExp vs s : map (anAlt vs) alts
 anAlt :: Vars -> DAlt -> Impls
 anAlt vs (DDefaultCase e) = anExp vs e
 anAlt vs (DConstCase c e) = anExp vs e
-anAlt vs (DConCase t cn ns e) = anExp (argVars cn ns `M.union` vs) e
+anAlt vs (DConCase t cn ns e) = single (N cn Tag) `S.union` anExp (argVars cn ns `M.union` vs) e
 
 -- todo: detagging
 
