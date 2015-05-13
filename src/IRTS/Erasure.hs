@@ -2,7 +2,7 @@
 module IRTS.Erasure (erase) where
 
 import IRTS.Defunctionalise
-import Idris.Core.TT (Name(..))
+import Idris.Core.TT (Name(..), sMN)
 
 import qualified Data.Map as M
 import qualified Data.Set as S
@@ -70,10 +70,35 @@ anAlt vs (DDefaultCase e) = anExp vs e
 anAlt vs (DConstCase c e) = anExp vs e
 anAlt vs (DConCase t cn ns e) = single (N cn Tag) `S.union` anExp (argVars cn ns `M.union` vs) e
 
--- todo: detagging
+solve :: Uses -> Impls -> Uses
+solve axioms impls = step impls' axioms axioms
+  where
+    impls' = M.unionsWith S.union [M.singleton gs us | (us :<-: gs) <- S.toList impls]
+
+step :: M.Map Guards Uses -> Uses -> Uses -> Uses
+step clauses answerSet increment
+    | S.null newAtoms = answerSet
+    | otherwise = step reducedClauses (S.union newAtoms answerSet) newAtoms
+  where
+    newAtoms = M.findWithDefault S.empty S.empty reducedClauses  -- things provable from the empty assumption set
+    reducedClauses = M.mapKeys (`S.difference` increment) clauses  -- reduced clauses because we assume "increment"
 
 erase :: [(Name, DDecl)] -> [(Name, DDecl)]
-erase decls = decls
+erase decls = dbg `trace` decls
   where
+    impls = S.unions $ map analyse funs
+    uses = solve axioms impls
+
     ctors = [c | (_, c@(DConstructor _ _ _)) <- decls]
     funs  = [f | (_, f@(DFun _ _ _)) <- decls]
+
+    axioms = S.fromList
+        [ N (sMN 0 "runMain") Ret
+        ]
+
+    dbg = unlines
+        [ "USAGE:"
+        , show impls
+        , "USES:"
+        , show uses
+        ]
