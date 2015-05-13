@@ -6,8 +6,6 @@ Author:         Matus Tejiscak
 Maintainer:	Matus Tejiscak <ziman@functor.sk>
 Build-Type:	Simple
 Cabal-Version:  >= 1.8
-Extra-source-files:
-		pyrts/*.py
 
 Executable idris-py
   Main-is:        Main.hs
@@ -23,7 +21,7 @@ Executable idris-py
                 , transformers
                 , text
 
-  other-modules: IRTS.CodegenPython
+  other-modules: IRTS.CodegenPython, IRTS.Erasure
 
   if os(linux)
      cpp-options:   -DLINUX

@@ -5,6 +5,8 @@ import IRTS.CodegenCommon
 import IRTS.Lang hiding (lift)
 import IRTS.Simplified
 import IRTS.Defunctionalise hiding (lift)
+import IRTS.Erasure
+
 import Idris.Core.TT
 
 import Data.Maybe
@@ -230,9 +232,10 @@ mangle n = "_idris_" ++ concatMap mangleChar (showCG n)
 codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render "#" source)
   where
+    decls = erase $ defunDecls ci
     source = pythonPreamble $+$ definitions $+$ pythonLauncher
-    ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- defunDecls ci]
-    definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- defunDecls ci]
+    ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- decls]
+    definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- decls]
 
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.

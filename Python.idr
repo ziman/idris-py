@@ -14,10 +14,10 @@ import public Python.Export
 ||| Import a Python module. This is a low-level function
 ||| since the correctness of signatures cannot be checked.
 |||
-||| Libraries are encouraged to provide an `import_` function in their namespaces.
+||| Libraries are encouraged to provide an ``import_`` function in their namespaces.
 |||
 ||| @ sig     Signature of the returned object. Not checked.
-||| @ modName Name of the module, as given to `__import__`.
+||| @ modName Name of the module, as given to ``__import__``.
 abstract
 importModule : (modName : String) -> PIO (Obj sig)
 importModule {sig = sig} modName =
