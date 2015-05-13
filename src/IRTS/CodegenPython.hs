@@ -320,7 +320,7 @@ cgExtern n args = cgError $ "unimplemented external: " ++ n
 
 -- Notation for python bracketed[indexing].
 (!) :: Expr -> String -> Expr
-x ! i = x <> brackets (text i)
+(!) x i = x <> brackets (text i)
 
 cgPrim :: PrimFn -> [Expr] -> Expr
 cgPrim (LPlus  _) [x, y] = parens $ x <+> text "+" <+> y
