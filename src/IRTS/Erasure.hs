@@ -41,7 +41,7 @@ anExp vs (DV (Loc i)) = error "de bruijns not implemented"
 anExp vs (DV (Glob n))
     | Just impls <- M.lookup n vs = impls
     | otherwise = error $ show n ++ " not found in environment"
-anExp vs (DApp _ fn args) = S.unions [anArg i e | (i, e) <- zip [0..] args]
+anExp vs (DApp _ fn args) = single (N fn Ret) `S.union` S.unions [anArg i e | (i, e) <- zip [0..] args]
   where
     anArg i e = cond (N fn $ Arg i) $ anExp vs e
 anExp vs (DLet n v e) = anExp (M.insert n (anExp vs v) vs) e
