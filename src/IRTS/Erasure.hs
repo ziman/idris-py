@@ -80,8 +80,10 @@ step clauses answerSet increment
     | S.null newAtoms = answerSet
     | otherwise = step reducedClauses (S.union newAtoms answerSet) newAtoms
   where
-    newAtoms = M.findWithDefault S.empty S.empty reducedClauses  -- things provable from the empty assumption set
-    reducedClauses = M.mapKeys (`S.difference` increment) clauses  -- reduced clauses because we assume "increment"
+    newAtoms = M.findWithDefault S.empty S.empty reducedClauses
+    reducedClauses = reduce clauses
+    reduce = M.mapKeys reduceSet . M.map reduceSet
+    reduceSet = (`S.difference` increment)
 
 erase :: [(Name, DDecl)] -> [(Name, DDecl)]
 erase decls = dbg `trace` decls
