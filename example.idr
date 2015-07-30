@@ -21,8 +21,8 @@ infixr 1 =<<
 -- everything is typechecked according to the signatures imported above.
 
 partial
-main' : PIO ()
-main' = do
+main : PIO ()
+main = do
   reqs <- Requests.import_
 
   -- (/) extracts the named attribute
@@ -97,13 +97,10 @@ main' = do
     | Except _       e => raise e
   putStrLn $ "Your root could probably use some security lessons!"
 
--- This function is executed whenever the generated Python module is *loaded*.
--- We just export stuff here and `if __name__ == '__main__'`, we call `main'`.
-partial
-main : PIO ()
-main = do
-    export "greet" greet
-    ifMain main'
+exports : FFI_Export FFI_Py "example.py" []
+exports =
+    Fun greet "greet" $
+    End
   where
     greet : PIO ()
     greet = putStrLn "Hello world!"
