@@ -21,7 +21,7 @@ Executable idris-py
                 , transformers
                 , text
 
-  other-modules: IRTS.CodegenPython, IRTS.Erasure
+  other-modules: IRTS.CodegenPython
 
   if os(linux)
      cpp-options:   -DLINUX

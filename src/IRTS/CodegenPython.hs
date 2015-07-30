@@ -5,7 +5,6 @@ import IRTS.CodegenCommon
 import IRTS.Lang hiding (lift)
 import IRTS.Simplified
 import IRTS.Defunctionalise hiding (lift)
-import IRTS.Erasure
 
 import Idris.Core.TT
 
@@ -162,19 +161,6 @@ pythonPreamble = vcat . map text $
     , "def _idris_marshal_PIO(action):"
     , "  return lambda: APPLY0(action, World)  # delayed apply-to-world"
     , ""
-    , "def _idris_export(argcnt, name, fun):"
-    , "  def pyfn(*args):"
-    , "    if len(args) != argcnt:"
-    , "      raise TypeError('function %s takes exactly %d arguments, got %d' % (name, argcnt, len(args)))"
-    , ""
-    , "    f = fun  # work around Python's scoping rules"
-    , "    for x in args:"
-    , "      f[0] = APPLY0(f[0], x)"
-    , ""
-    , "    return APPLY0(f, World)  # last step: apply to world"
-    , ""
-    , "  globals()[name] = pyfn"
-    , ""
     , "def _idris_if_main(main):"
     , "  if __name__ == '__main__':"
     , "    APPLY0(main, World)  # apply to world"
@@ -216,7 +202,11 @@ pythonPreamble = vcat . map text $
     ]
 
 pythonLauncher :: Doc
-pythonLauncher = cgApp (cgName $ sMN 0 "runMain") []
+pythonLauncher =
+    text "if" <+> text "__name__" <+> text "==" <+> text "'main'" <> colon
+    $+$ indent (
+        cgApp (cgName $ sMN 0 "runMain") []
+    )
 
 -- The prefix "_" makes all names "hidden".
 -- This is useful when you import the generated module from Python code.
@@ -232,10 +222,22 @@ mangle n = "_idris_" ++ concatMap mangleChar (showCG n)
 codegenPython :: CodeGenerator
 codegenPython ci = writeFile (outputFile ci) (render "#" source)
   where
-    decls = erase $ defunDecls ci
-    source = pythonPreamble $+$ definitions $+$ pythonLauncher
+    source = pythonPreamble $+$ definitions $+$ exports $+$ pythonLauncher
+
+    -- main file
+    decls = defunDecls ci
     ctors = M.fromList [(n, tag) | (n, DConstructor n' tag arity) <- decls]
     definitions = vcat $ map (cgDef ctors) [d | d@(_, DFun _ _ _) <- decls]
+
+    -- all exports
+    exports = vcat $ concatMap cgExport (exportDecls ci)
+
+cgExport :: ExportIFace -> [Doc]
+cgExport (Export _ffiName _fileName es) = map cgExportDecl es
+
+cgExportDecl :: Export -> Doc
+cgExportDecl (ExportData _) = empty
+cgExportDecl ef@(ExportFun n desc ret argTys) = error . show $ ef -- cgExportFun n ret argTys
 
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.
