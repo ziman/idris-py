@@ -25,7 +25,8 @@ data NondepBinder : Type -> Type where
   ||| Optional argument with a non-`None` default.
   ||| Passing "Nothing" to that argument will cause using the default value.
   ||| If you want "Nothing" to mean Python's "None", use simply `Pi (Maybe a)`.
-  Default : {a : Type} -> (dflt : a) -> NondepBinder (Maybe a)
+  Default : (a : Type) -> (dflt : a) -> NondepBinder (Maybe a)
+    -- ^ we make the type explicit although we don't have to
 
 ||| Type of sequences where the value of any element may affect
 ||| the type of the following elements.
@@ -105,8 +106,8 @@ strip : (t : Telescope a) -> (args : a) -> TList t args
 strip (Return _) () = TNil
 strip (Dep (Pi _    ) tf) (x ** xs) = TConsD x $ strip (tf x) xs
 strip (Dep (Forall _) tf) (x ** xs) = TConsD x $ strip (tf x) xs
-strip (Nondep (Default d) t) (Just x  ** xs) = TConsN (Just x) $ strip t xs
-strip (Nondep (Default d) t) (Nothing ** xs) = TConsN (Just d) $ strip t xs
+strip (Nondep (Default _ d) t) (Just x  ** xs) = TConsN (Just x) $ strip t xs
+strip (Nondep (Default _ d) t) (Nothing ** xs) = TConsN (Just d) $ strip t xs
 
 ||| Convert a list of types to the corresponding tuple type.
 toTuple : (xs : List Type) -> Type
