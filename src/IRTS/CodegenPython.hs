@@ -236,8 +236,26 @@ cgExport :: ExportIFace -> [Doc]
 cgExport (Export _ffiName _fileName es) = map cgExportDecl es
 
 cgExportDecl :: Export -> Doc
-cgExportDecl (ExportData _) = empty
-cgExportDecl ef@(ExportFun n desc ret argTys) = error . show $ ef -- cgExportFun n ret argTys
+cgExportDecl (ExportFun fn (FStr en) (FIO ret) argTys)
+    = cgExportFun fn en (length argTys)
+cgExportDecl _ = empty  -- ignore everything else
+-- Example: ExportFun Main.exports, greet (FStr "greet") (FIO (FCon PyUnit)) [] 
+
+cgExportFun :: Name -> String -> Int -> Doc
+cgExportFun fn en argCnt
+    = (empty <?> "export: " ++ show fn)
+    $+$ text "def" <+> cgApp (text en) (map text args) <> colon
+    $+$ indent (
+        cgApp
+            (cgName (sMN 0 "APPLY"))
+            [ cgApp (cgName fn)
+                $ map text args
+            , text "World"
+            ]
+    )
+    $+$ text ""
+  where
+    args = ["arg" ++ show i | i <- [1..argCnt]]
 
 -- Let's not mangle /that/ much. Especially function parameters
 -- like e0 and e1 are nicer when readable.
@@ -285,7 +303,7 @@ cgApp f args = f <> cgTuple maxWidth args
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
     (empty <?> show name')
-    $+$ (text "def" <+> cgName n <> cgTuple maxArgsWidth (map cgName args) <> colon)
+    $+$ (text "def" <+> cgApp (cgName n) (map cgName args) <> colon)
     $+$ indent (
         text "while" <+> text "True" <> colon  -- for tail calls
         $+$ indent (
@@ -296,7 +314,6 @@ cgDef ctors (n, DFun name' args body) =
         )
     $+$ text ""  -- empty line separating definitions
   where
-    maxArgsWidth = 80 - width (cgName n)
     (statements, retVal) = evalState (runReaderT body' initCtx) initState
     body' = runCG . cgExp True $ body
     initCtx = CGCtx ctors (n, args)
