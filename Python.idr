@@ -6,7 +6,6 @@ import public Python.IO
 import public Python.Fields
 import public Python.Functions
 import public Python.Exceptions
-import public Python.Export
 
 %default total
 %access public

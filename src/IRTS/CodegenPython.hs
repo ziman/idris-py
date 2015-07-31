@@ -161,10 +161,6 @@ pythonPreamble = vcat . map text $
     , "def _idris_marshal_PIO(action):"
     , "  return lambda: APPLY0(action, World)  # delayed apply-to-world"
     , ""
-    , "def _idris_if_main(main):"
-    , "  if __name__ == '__main__':"
-    , "    APPLY0(main, World)  # apply to world"
-    , ""
     , "class _ConsIter(object):"
     , "  def __init__(self, node):"
     , "    self.node = node"
@@ -203,7 +199,7 @@ pythonPreamble = vcat . map text $
 
 pythonLauncher :: Doc
 pythonLauncher =
-    text "if" <+> text "__name__" <+> text "==" <+> text "'main'" <> colon
+    text "if" <+> text "__name__" <+> text "==" <+> text "'__main__'" <> colon
     $+$ indent (
         cgApp (cgName $ sMN 0 "runMain") []
     )
