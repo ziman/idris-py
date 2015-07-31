@@ -105,7 +105,7 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 strip : (t : Telescope a) -> (args : a) -> TList t args
 strip (Return _) () = TNil
 strip (Dep (Pi _    ) tf) (x ** xs) = TConsD x $ strip (tf x) xs
-strip (Dep (Forall _) tf) (x ** xs) = TConsD x $ strip (tf x) xs
+strip (Dep (Forall _) tf) (x ** xs) = TSkip    $ strip (tf x) xs
 strip (Nondep (Default _ d) t) (Just x  ** xs) = TConsN (Just x) $ strip t xs
 strip (Nondep (Default _ d) t) (Nothing ** xs) = TConsN (Just d) $ strip t xs
 

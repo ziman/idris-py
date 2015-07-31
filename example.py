@@ -496,12 +496,12 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
       if in0[0] == 1:  # Python.Telescope.Forall
         assert e2[0] == 0  # Builtins.MkSigma
         in2, in3 = e2[1:]
-        return (1, in2, _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in2), in3))  # Python.Telescope.TConsD
+        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in2), in3)
         return _idris_error("unreachable due to case in tail position")
       else:  # Python.Telescope.Pi
         assert e2[0] == 0  # Builtins.MkSigma
         in4, in5 = e2[1:]
-        return (1, in4, _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in4), in5))  # Python.Telescope.TConsD
+        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in4), in5).cons(in4)
         return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
     elif e1[0] == 2:  # Python.Telescope.Nondep
@@ -510,9 +510,9 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
       in7, in8 = e2[1:]
       if in7 is not None:  # Prelude.Maybe.Just
         in9 = in7
-        return (2, in9, _idris_Python_46_Telescope_46_strip(None, in6, in8))  # Python.Telescope.TConsN
+        return _idris_Python_46_Telescope_46_strip(None, in6, in8).cons(in9)
       else:  # Prelude.Maybe.Nothing
-        return (2, None, _idris_Python_46_Telescope_46_strip(None, in6, in8))  # Python.Telescope.TConsN
+        return _idris_Python_46_Telescope_46_strip(None, in6, in8).cons(None)
       return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Telescope.Return
