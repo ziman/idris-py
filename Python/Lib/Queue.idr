@@ -18,7 +18,7 @@ QueueM = signature "QueueM"
   [ "Queue" ::.
       Function 
         (Dep (Forall Type) $ \a =>            -- Type of elements
-          Nondep (Default Int 0) $            -- Maximum size of queue
+          Simp (Default Int 0) $              -- Maximum size of queue
             Return $ Obj (Queue $ unerase a)  -- Returns a Queue of `a`
         )
   ]

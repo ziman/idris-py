@@ -5,27 +5,22 @@ import public Data.Erased
 %default total
 %access public
 
-namespace TupleSugar
-  ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
-  Nil : Unit
-  Nil = ()
+||| Dependence of a binder: dependent or non-dependent.
+data BinderDep : Type where
+  Dependent : BinderDep
+  Simple    : BinderDep
 
-  ||| Infix name for `MkSigma`, useful for the [list, syntax, sugar].
-  (::) : (x : a) -> (y : b x) -> Sigma a b
-  (::) = MkSigma
-
-data DepBinder : Type -> Type where
+data Binder : BinderDep -> Type -> Type where
   ||| Relevant, mandatory, positional argument.
-  Pi     : (a : Type) -> DepBinder a
+  Pi     : (a : Type) -> Binder Dependent a
 
   ||| Erased, mandatory, positional argument.
-  Forall : (a : Type) -> DepBinder (Erased.Erased a)
+  Forall : (a : Type) -> Binder Dependent (Erased.Erased a)
 
-data NondepBinder : Type -> Type where
   ||| Optional argument with a non-`None` default.
   ||| Passing "Nothing" to that argument will cause using the default value.
   ||| If you want "Nothing" to mean Python's "None", use simply `Pi (Maybe a)`.
-  Default : (a : Type) -> (dflt : a) -> NondepBinder (Maybe a)
+  Default : (a : Type) -> (dflt : a) -> Binder Simple (Maybe a)
     -- ^ we make the type explicit although we don't have to
 
 ||| Type of sequences where the value of any element may affect
@@ -39,17 +34,25 @@ data Telescope : Type -> Type where
 
   ||| Argument whose value may affect subsequent types.
   Dep :
-    (bnd : DepBinder a)
+    (bnd : Binder Dependent a)
     -> {b : a -> Type}
     -> (tf : (x : a) -> Telescope (b x))
     -> Telescope (Sigma a b)
 
   ||| Argument whose value does not affect typing.
-  Nondep :
-    (bnd : NondepBinder a)
+  Simp :
+    (bnd : Binder Simple a)
     -> (t : Telescope b)
     -> Telescope (Sigma a $ const b)
 
+namespace TupleSugar
+  ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
+  Nil : Unit
+  Nil = ()
+
+  ||| Infix name for `MkSigma`, useful for the [list, syntax, sugar].
+  (::) : (x : a) -> (y : b x) -> Sigma a b
+  (::) = MkSigma
 
 ||| A list for runtime-relevant values, typed by the given telescope.
 ||| 
@@ -67,7 +70,7 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 
   ||| Prepend an element in front of a `TList`, dependent variant.
   TConsD :
-    .{bnd : DepBinder a}
+    .{bnd : Binder Dependent a}
     -> .{b : a -> Type}
     -> .{tf : (y : a) -> Telescope (b y)}
     -> (x : a)
@@ -75,18 +78,18 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
     -> TList (Dep bnd tf) (x :: args)
 
   ||| Prepend an element in front of a `TList`, non-dependent variant.
-  TConsN :
-    .{bnd : NondepBinder a}
+  TConsS :
+    .{bnd : Binder Simple a}
     -> .{b : Type}
     -> .{t : Telescope b}
     -> (y : a)  -- `y` may be anything of a suitable type, not necessarily `x`
     -> (xs : TList t args)
-    -> TList (Nondep bnd t) (x :: args)
+    -> TList (Simp bnd t) (x :: args)
 
   ||| Skip an element in the telescope.
   ||| (Comes only in the dependent form.)
   TSkip :
-    .{bnd : DepBinder a}
+    .{bnd : Binder Dependent a}
     -> .{b : a -> Type}
     -- There is no (x : a) stored here, it is skipped.
     -- For the type, we assume that the value is "x" coming from args.
@@ -97,8 +100,8 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 -- These are consumed by the FFI.
 %used TConsD x
 %used TConsD xs
-%used TConsN x
-%used TConsN xs
+%used TConsS x
+%used TConsS xs
 %used TSkip xs
 
 ||| Strip the given tuple `xs` to the `TList` of runtime-relevant values.
@@ -106,8 +109,8 @@ strip : (t : Telescope a) -> (args : a) -> TList t args
 strip (Return _) () = TNil
 strip (Dep (Pi _    ) tf) (x ** xs) = TConsD x $ strip (tf x) xs
 strip (Dep (Forall _) tf) (x ** xs) = TSkip    $ strip (tf x) xs
-strip (Nondep (Default _ d) t) (Just x  ** xs) = TConsN (Just x) $ strip t xs
-strip (Nondep (Default _ d) t) (Nothing ** xs) = TConsN (Just d) $ strip t xs
+strip (Simp (Default _ d) t) (Just x  ** xs) = TConsS (Just x) $ strip t xs
+strip (Simp (Default _ d) t) (Nothing ** xs) = TConsS (Just d) $ strip t xs
 
 ||| Convert a list of types to the corresponding tuple type.
 toTuple : (xs : List Type) -> Type
@@ -121,5 +124,5 @@ simple (a :: as) ret = Dep (Pi a) (\x => simple as ret)
 
 retTy : (t : Telescope a) -> (args : a) -> Type
 retTy (Return x) () = x
-retTy (Dep    bnd tf) (MkSigma x xs) = retTy (tf x) xs
-retTy (Nondep bnd t ) (MkSigma x xs) = retTy  t     xs
+retTy (Dep  bnd tf) (MkSigma x xs) = retTy (tf x) xs
+retTy (Simp bnd t ) (MkSigma x xs) = retTy  t     xs
