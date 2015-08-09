@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import importlib
 
 class UnitType:
   pass
@@ -17,14 +18,8 @@ class IdrisError(Exception):
 def _idris_error(msg):
   raise IdrisError(msg)
 
-_MODULES = dict()
-
 def _idris_pymodule(name):
-  mod = _MODULES.get(name)
-  if mod is None:
-    mod = __import__(name)
-    _MODULES[name] = mod
-  return mod
+  return importlib.import_module(name)
 
 def _idris_call(f, args):
   return f(*list(args))
@@ -504,7 +499,9 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
         return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in4), in5).cons(in4)
         return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
-    elif e1[0] == 2:  # Python.Telescope.Nondep
+    elif e1[0] == 0:  # Python.Telescope.Return
+      return ConsList()
+    else:  # Python.Telescope.Simp
       in6 = e1[1]
       assert e2[0] == 0  # Builtins.MkSigma
       in7, in8 = e2[1:]
@@ -515,8 +512,6 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
         return _idris_Python_46_Telescope_46_strip(None, in6, in8).cons(None)
       return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
-    else:  # Python.Telescope.Return
-      return ConsList()
     return _idris_error("unreachable due to case in tail position")
 
 # Python.Exceptions.try
@@ -1320,7 +1315,7 @@ def _idris_Python_46_Prim_46__123_foreach0_125_(e2, e3, e4, in1):
 # Python.Lib.Threading.{forkPIO0}
 def _idris_Python_46_Lib_46_Threading_46__123_forkPIO0_125_(in0):
   while True:
-    return (2, (0,))  # Python.Telescope.Nondep, Python.Telescope.Return
+    return (2, (0,))  # Python.Telescope.Simp, Python.Telescope.Return
 
 # {io_bind0}
 def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
