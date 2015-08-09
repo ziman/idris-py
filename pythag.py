@@ -3,14 +3,8 @@
 import sys
 import importlib
 
-class UnitType:
-  pass
-
-class WorldType:
-  pass
-
-Unit = UnitType()
-World = WorldType()
+Unit = object()
+World = object()
 
 class IdrisError(Exception):
   pass
