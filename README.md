@@ -1,7 +1,5 @@
 # Python back-end for Idris
 
-WARNING: This is just a toy back-end (see [license](https://github.com/ziman/idris-py/blob/master/CRAPL-LICENSE.txt)), I probably won't maintain it actively.
-
 ## Goodies
 
 * expressions in tail positions return directly
