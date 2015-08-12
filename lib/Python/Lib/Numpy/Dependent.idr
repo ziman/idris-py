@@ -1,0 +1,32 @@
+module Python.Lib.Numpy.Dependent
+
+import Python
+import Python.Lib.Numpy
+
+import Data.Vect
+
+%access public
+%default total
+
+record NType where
+  constructor MkNTy
+  numpyName : String
+  idrisType : Type
+
+abstract
+record Array (rows : Nat) (cols : Nat) (ty : NType) where
+  constructor MkArr
+  ndarray : Obj NDArray
+
+instance Show (Array m n ty) where
+  show (MkArr o) = unsafePerformIO (o /. "__str__" $: [])
+
+private
+unsafeNumpy : (Obj Numpy -> PIO a) -> a
+unsafeNumpy action = unsafePerformIO (Numpy.import_ >>= action)
+
+abstract
+array : (ty : NType) -> Vect m (Vect n $ idrisType ty) -> Array m n ty
+array ty xs =
+  unsafeNumpy $ \np =>
+    np /. "array" $: [Erase _, toList $ map toList xs, numpyName ty]
