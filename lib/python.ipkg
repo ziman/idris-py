@@ -1,4 +1,4 @@
-package idris-py
+package python
 
 modules = Python
 	, Python.Prim

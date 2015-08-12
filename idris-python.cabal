@@ -1,4 +1,4 @@
-Name:           idris-py
+Name:           idris-python
 Version:        0.0.0.1
 License:        BSD3
 License-file:   CRAPL-LICENSE.txt
@@ -7,7 +7,7 @@ Maintainer:	Matus Tejiscak <ziman@functor.sk>
 Build-Type:	Simple
 Cabal-Version:  >= 1.8
 
-Executable idris-py
+Executable idris-python
   Main-is:        Main.hs
   hs-source-dirs: src
 
