@@ -58,7 +58,7 @@
 $ cabal sandbox init  # possibly with --sandbox /path/to/idris/.cabal-sandbox
 $ cabal configure && cabal build
 $ export PATH="$PATH:$PWD/dist/build/idris-py"
-$ idris example.idr --codegen py -o example.py
+$ idris example.idr --codegen python -o example.py
 
 $ pip install requests bs4
 $ python example.py
