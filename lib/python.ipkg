@@ -13,3 +13,4 @@ modules = Python
 	, Python.Lib.Threading
 	, Python.Lib.Requests
 	, Python.Lib.BeautifulSoup
+	, Python.Lib.Numpy
