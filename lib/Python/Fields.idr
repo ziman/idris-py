@@ -42,6 +42,8 @@ infixl 2 >:
 
 -- This is a separate function because signatures don't always
 -- come in this form. Therefore we need to check.
+--
+-- FIXME: elaboration of the body of this function takes very long
 private
 simplifySig : TT -> TT
 simplifySig `(MkSignature ~name ~fields ~mixins) = name
