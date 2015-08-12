@@ -11,12 +11,12 @@ import IRTS.CodegenPython
 import System.Environment
 import System.Exit
 
-import Paths_idris_py
+import Paths_idris_python
 
 data Opts = Opts { inputs :: [FilePath],
                    output :: FilePath }
 
-showUsage = do putStrLn "Usage: idris-py <ibc-files> [-o <output-file>]"
+showUsage = do putStrLn "Usage: idris-python <ibc-files> [-o <output-file>]"
                exitWith ExitSuccess
 
 getOpts :: IO Opts
