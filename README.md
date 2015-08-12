@@ -50,17 +50,41 @@
     - lazy `Text` seems to be about as fast as `String`
     - `String` is the simplest
 
-## Example
+
+### Install
+
+First, the codegen:
+```bash
+$ cabal sandbox init --sandbox $IDRIS_PATH/.cabal-sandbox
+$ cabal configure && cabal build
+```
+
+Then, the library:
+```bash
+$ cd lib
+$ idris --install python.ipkg
+```
+
+Some Python libraries for the example programs:
+```bash
+$ pip install requests bs4 numpy
+```
+
+Finally, set up your path appropriately:
+```bash
+$ export PATH="$PATH:$IDRIS_PATH/.cabal-sandbox/bin/"
+```
+
+## Examples
+
+Compile the example
+```bash
+$ cd examples/
+$ idris example.idr -p python --codegen python -o example.py
+```
 
 ### Calling Python from Idris
-
 ```bash
-$ cabal sandbox init  # possibly with --sandbox /path/to/idris/.cabal-sandbox
-$ cabal configure && cabal build
-$ export PATH="$PATH:$PWD/dist/build/idris-py"
-$ idris example.idr --codegen python -o example.py
-
-$ pip install requests bs4
 $ python example.py
 Idris has got the following exciting features:
 1. Full dependent types with dependent pattern matching
