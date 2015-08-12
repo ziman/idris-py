@@ -1,0 +1,15 @@
+package idris-py
+
+modules = Python
+	, Python.Prim
+	, Python.IO
+        , Python.Telescope
+	, Python.Objects
+	, Python.Exceptions
+	, Python.Functions
+	, Python.Fields
+	, Python.Lib.Os
+	, Python.Lib.Queue
+	, Python.Lib.Threading
+	, Python.Lib.Requests
+	, Python.Lib.BeautifulSoup
