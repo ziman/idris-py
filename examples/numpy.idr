@@ -1,9 +1,13 @@
 module Main
 
+import Data.Vect
+
 import Python
 import Python.Lib.Numpy.Dependent
 
 main : PIO ()
 main = do
-  xs <- array [[1,2,3],[4,5,6]]
-  putStrLn "Hello world!"
+    printLn xs
+  where
+    xs : Array 2 3 NFloat
+    xs = array NFloat [[1,2,3],[4,5,6]]

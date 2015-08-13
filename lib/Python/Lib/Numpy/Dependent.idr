@@ -13,6 +13,12 @@ record NType where
   numpyName : String
   idrisType : Type
 
+NFloat : NType
+NFloat = MkNTy "float" Float
+
+NInt : NType
+NInt = MkNTy "int" Int
+
 abstract
 record Array (rows : Nat) (cols : Nat) (ty : NType) where
   constructor MkArr
@@ -27,6 +33,7 @@ unsafeNumpy action = unsafePerformIO (Numpy.import_ >>= action)
 
 abstract
 array : (ty : NType) -> Vect m (Vect n $ idrisType ty) -> Array m n ty
-array ty xs =
+array ty xs = MkArr (
   unsafeNumpy $ \np =>
     np /. "array" $: [Erase _, toList $ map toList xs, numpyName ty]
+)
