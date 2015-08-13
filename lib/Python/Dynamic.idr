@@ -8,14 +8,37 @@ import Python.IO
 %access public
 
 class RTTI a where
-  expectedTypeName : a -> String
+  typeNameOk : a -> String -> Bool
 
-abstract
+instance RTTI Int where
+  typeNameOk _ tn = (tn == "int")
+
+instance RTTI Float where
+  typeNameOk _ tn = (tn == "float")
+
+instance RTTI String where
+  typeNameOk _ tn = (tn == "str") || (tn == "unicode")
+
+instance RTTI Integer where
+  typeNameOk _ tn = (tn == "int")
+
+instance RTTI Bool where
+  typeNameOk _ tn = (tn == "bool")
+
+instance RTTI Char where
+  typeNameOk _ tn = (tn == "str") || (tn == "unicode")
+
+{- TODO
+instance RTTI a => RTTI (Maybe a) where
+  typeNameOk _ tn = typeNameOk ( tn
+-}
+
+private
 verify : RTTI a => a -> Maybe a
 verify {a = a} x = unsafePerformIO $ do
   typeName <- foreign FFI_Py "_idris_typename" (Raw a -> PIO String) (MkRaw x)
   return $
-    if typeName == expectedTypeName x
+    if typeNameOk x typeName
       then Just x
       else Nothing
 
