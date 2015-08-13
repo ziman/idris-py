@@ -1,6 +1,7 @@
 module Python.Lib.Numpy
 
 import Python
+import Python.Prim
 import Data.Erased
 
 %default total
@@ -23,12 +24,15 @@ Numpy = signature "numpy"
         )
     ]
   where
+    PyL : Type -> Type
+    PyL a = Obj $ PyList a
+
     -- workaround for strange elaboration
     rest : (ea : Erased Type) -> Telescope
-      (Sigma (List $ List (unerase ea)) $ \xs =>
+      (Sigma (PyL $ PyL (unerase ea)) $ \xs =>
          Sigma String $ \dtype => ())
     rest (Erase a) =
-      Dep (Pi $ List (List a)) $ \xs =>
+      Dep (Pi $ PyL (PyL a)) $ \xs =>
         Dep (Pi String) $ \dtype =>
           Return (Obj NDArray)
 

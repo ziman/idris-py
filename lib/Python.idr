@@ -22,6 +22,10 @@ importModule : (modName : String) -> PIO (Obj sig)
 importModule {sig = sig} modName =
   foreign FFI_Py "_idris_pymodule" (String -> PIO (Obj sig)) modName
 
+getGlobal : (name : String) -> PIO (Obj sig)
+getGlobal {sig = sig} name =
+  foreign FFI_Py "_idris_get_global" (String -> PIO (Obj sig)) name
+
 ||| Turn a PIO action into a Python function.
 ||| The function can then be used as a target for threading.Thread etc.
 marshalPIO : PIO a -> Obj ([] ~> a)
