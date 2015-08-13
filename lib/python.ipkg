@@ -8,6 +8,7 @@ modules = Python
 	, Python.Exceptions
 	, Python.Functions
 	, Python.Fields
+        , Python.Dynamic
         , Python.Lib.Builtins
 	, Python.Lib.Os
 	, Python.Lib.Queue

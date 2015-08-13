@@ -38,9 +38,13 @@ PyType : Signature
 PyType = MkSignature "PyType" ["__name__" ::: String] []
 
 ||| Object that all Python objects inherit from.
-Object : Signature
-Object = MkSignature "PyObject" ["__class__" ::. PyType] []
+PyObject : Signature
+PyObject = MkSignature "PyObject" ["__class__" ::. PyType] []
 
 ||| Make a signature without mixins other than Object.
 signature : String -> List Field -> Signature
-signature n fs = MkSignature n fs [Object]
+signature n fs = MkSignature n fs [PyObject]
+
+||| Any Python object.
+Object : Type
+Object = Obj PyObject
