@@ -12,6 +12,15 @@ NDArray = signature "NDArray"
   [ "__str__" ::. [] ~> String
   ]
 
+NDArrayClass : Signature
+NDArrayClass = signature "NDArrayClass"
+  [ "reshape" ::. [Obj NDArray, Integer, Integer] ~> Obj NDArray
+  , "__add__" ::. [Obj NDArray, Obj NDArray] ~> Obj NDArray
+  , "__mul__" ::. [Obj NDArray, Obj NDArray] ~> Obj NDArray
+  , "__div__" ::. [Obj NDArray, Obj NDArray] ~> Obj NDArray
+  , "__sub__" ::. [Obj NDArray, Obj NDArray] ~> Obj NDArray
+  ]
+
 Numpy : Signature
 Numpy = signature "numpy"
     [ "array" ::.
@@ -22,6 +31,9 @@ Numpy = signature "numpy"
                    Return (Obj NDArray)
           -}
         )
+    , "ndarray" ::. NDArrayClass
+    , "abs" ::. [Obj NDArray] ~> Obj NDArray
+    , "tile" ::. [Obj NDArray, List Integer] ~> Obj NDArray
     ]
   where
     PyL : Type -> Type
