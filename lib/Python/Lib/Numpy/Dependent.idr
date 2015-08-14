@@ -2,8 +2,7 @@ module Python.Lib.Numpy.Dependent
 
 import Python
 import Python.Prim
-import Python.Lib.Builtins
-import Python.Lib.Numpy
+import Python.Dynamic
 
 import Data.Vect
 
@@ -23,24 +22,33 @@ NInt = MkNTy "int"
 abstract
 record Array (rows : Nat) (cols : Nat) (ty : NType a) where
   constructor MkArr
-  ndarray : Obj NDArray
+  ndarray : Ref
 
 instance Show (Array m n ty) where
   show (MkArr o) = unsafePerformIO (o /. "__str__" $: [])
 
+||| The Numpy module
 private
-unsafeNumpy : (Obj Numpy -> PIO a) -> a
-unsafeNumpy action = unsafePerformIO (Numpy.import_ >>= action)
+Numpy : Type
+Numpy = Ref
 
 private
-unsafeNpArr : (Obj Numpy -> PIO $ Obj NDArray) -> Array m n ty
+import_ : PIO $ Numpy
+import_ = importModule "numpy"
+
+private
+unsafeNumpy : (Numpy -> PIO a) -> a
+unsafeNumpy action = unsafePerformIO (Numpy.Dynamic.import_ >>= action)
+
+private
+unsafeNpArr : (Numpy -> PIO Ref) -> Array m n ty
 unsafeNpArr = MkArr . unsafeNumpy
 
 abstract
 array : (ty : NType a) -> Vect m (Vect n a) -> Array m n ty
 array {a=a} ty xs = MkArr (
       unsafeNumpy $ \np =>
-        np /. "array" $: [Erase a, mkList $ map mkList xs, numpyName ty]
+        np //. "array" $$: [toRef . mkList $ map mkList xs, toRef $ numpyName ty]
     )
   where
     mkList : {a : Type} -> {n : Nat} -> Vect n a -> Obj (PyList a)
