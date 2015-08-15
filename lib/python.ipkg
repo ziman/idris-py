@@ -2,7 +2,7 @@ package python
 
 modules = Python
 	, Python.IO
-	, Python.Dyn
-	, Python.Ref
+	, Python.Builtins
+	, Python.RTS
 	, Python.Exceptions
 	, Python.Lib.Numpy

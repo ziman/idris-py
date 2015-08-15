@@ -2,8 +2,8 @@ module Python.Lib.Numpy
 
 import Python
 import Python.IO
-import Python.Dyn
 import Python.RTS
+import Python.Builtins
 
 import Data.Vect
 
@@ -23,40 +23,40 @@ DInt = MkDType "int"
 abstract
 record Array (rows : Nat) (cols : Nat) (dtype : DType a) where
   constructor MkArr
-  ndarray : Dyn
+  ndarray : Ref
 
 instance Show (Array m n ty) where
   show (MkArr o) = toString o
 
 private
-import_ : PIO Dyn
+import_ : PIO Ref
 import_ = importModule "numpy"
 
 private
-unsafeNumpy : ((numpy : Dyn) -> PIO a) -> a
+unsafeNumpy : ((numpy : Ref) -> PIO a) -> a
 unsafeNumpy action = unsafePerformIO (import_ >>= action)
 
 private
-unsafeNpArr : ((numpy : Dyn) -> PIO Dyn) -> Array m n dtype
+unsafeNpArr : ((numpy : Ref) -> PIO Ref) -> Array m n dtype
 unsafeNpArr = MkArr . unsafeNumpy
 
 abstract
 array : (dtype : DType a) -> Vect m (Vect n a) -> Array m n dtype
-array {a=a} dtype xs =
+array {a=a} (MkDType dtype) xs =
     unsafeNpArr $ \np =>
-      np /. "array" $: [toDyn . mkList $ map mkList xs, toDyn $ numpyName dtype]
+      np /. "array" $: [toRef . mkList $ map mkList xs, toRef dtype]
   where
-    toPyList : {a : Type} -> List a -> Dyn
-    toPyList = convert . toDyn
+    toPyList : {a : Type} -> List a -> Ref
+    toPyList = Builtins.toList . toRef
 
-    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Dyn
+    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Ref
     mkList xs = let ys = toList xs in toPyList ys
 
 abstract
 reshape : Array m n dtype -> {auto pf : m * n = m' * n'} -> Array m' n' dtype
 reshape {m'=m'} {n'=n'} (MkArr x) =
   unsafeNpArr $ \np =>
-    np /. "ndarray" /: "reshape" $: [x, cast m', cast n']
+    np /. "ndarray" /: "reshape" $: [x, toRef m', toRef n']
 
 {-  -- takes ages to typecheck
 abstract
