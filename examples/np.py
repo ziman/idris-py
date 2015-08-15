@@ -21,12 +21,13 @@ def _idris_foreach(it, st, f):
     st = APPLY0(APPLY0(APPLY0(f, st), x), World)
   return st
 
-def _idris_try(f, fail, succ):
+def _idris_try(f, succ, fail):
   try:
     result = APPLY0(f, World)  # apply to world
     return APPLY0(succ, result)
   except Exception as e:
-    return APPLY0(fail, e)
+    # provide the exception class name + the exception itself
+    return APPLY0(APPLY0(fail, e.__class__.__name__), e)
 
 def _idris_raise(e):
   raise e
@@ -79,12 +80,12 @@ def _idris_Python_46__36__46_(e0, e1, _idris_w):
 # Python.$:
 def _idris_Python_46__36__58_(e0, e1):
   while True:
-    return (65661, None, None, None, e0, (65657, e1))  # {U_io_bind1}, {U_Python.{$:0}1}
+    return (U_io_bind1, None, None, None, e0, (_idris__123_U_95_Python_46__123__36__58_0_125_1_125_, e1,),)
 
 # Prelude.Basics..
 def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
   while True:
-    return APPLY0(e3, APPLY0(e4, _idris_x))
+    return e3(e4(_idris_x))
 
 # Python./.
 def _idris_Python_46__47__46_(e0, e1, _idris_w):
@@ -94,7 +95,7 @@ def _idris_Python_46__47__46_(e0, e1, _idris_w):
 # Python./:
 def _idris_Python_46__47__58_(e0, e1):
   while True:
-    return (65661, None, None, None, e0, (65658, e1))  # {U_io_bind1}, {U_Python.{/:0}1}
+    return (U_io_bind1, None, None, None, e0, (_idris__123_U_95_Python_46__123__47__58_0_125_1_125_, e1,),)
 
 # Prelude.Classes.==
 def _idris_Prelude_46_Classes_46__61__61_(e0, e1):
@@ -126,13 +127,29 @@ def _idris_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_S
         (0,), (6,)  # Prelude.Show.Open, Prelude.Show.App
       )
       if not aux1:  # Prelude.Bool.False
-        return ("Just" + (" " + APPLY0(
-          APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65674,), (65679,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac68}1}
+        return ("Just" + (" " + _idris_Prelude_46_Show_46_showPrec(
+          None,
+          (
+            0,  # constructor of Prelude.Show.Show
+            (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac63_125_1_125_,),
+            (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac68_125_1_125_,)
+          )
+        )(
+          None
+        )(
           in9
         )))
       else:  # Prelude.Bool.True
-        return ("(" + (("Just" + (" " + APPLY0(
-          APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65666,), (65671,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac617}1}
+        return ("(" + (("Just" + (" " + _idris_Prelude_46_Show_46_showPrec(
+          None,
+          (
+            0,  # constructor of Prelude.Show.Show
+            (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac612_125_1_125_,),
+            (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac617_125_1_125_,)
+          )
+        )(
+          None
+        )(
           in9
         ))) + ")"))
       return _idris_error("unreachable due to case in tail position")
@@ -158,9 +175,8 @@ def _idris_PE_95_show_95_d9020f8e(e0):
 # Python.Lib.Numpy.array
 def _idris_Python_46_Lib_46_Numpy_46_array(e0, e1, e2, e3, e4):
   while True:
-    return APPLY0(
-      _idris_Python_46_Lib_46_Numpy_46_unsafeNpArr(None, None, None, None),
-      (65652, e4, e3)  # {U_Python.Lib.Numpy.{array0}1}
+    return _idris_Python_46_Lib_46_Numpy_46_unsafeNpArr(None, None, None, None)(
+      (_idris__123_U_95_Python_46_Lib_46_Numpy_46__123_array0_125_1_125_, e4, e3,)
     )
 
 # believe_me
@@ -171,7 +187,7 @@ def _idris_believe_95_me(e0, e1, e2):
 # call__IO
 def _idris_call_95__95_IO(e0, e1, e2):
   while True:
-    return APPLY0(e2, None)
+    return e2(None)
 
 # Prelude.Classes.compare
 def _idris_Prelude_46_Classes_46_compare(e0, e1):
@@ -198,11 +214,11 @@ def _idris_Data_46_VectType_46_Vect_46_foldrImpl(e0, e1, e2, e3, e4, e5, e6):
   while True:
     if e6[0] == 1:  # Data.VectType.Vect.::
       in0, in1 = e6[1:]
-      e0, e1, e2, e3, e4, e5, e6, = None, None, None, e3, e4, (65635, None, None, None, e5, APPLY0(e3, in0)), in1,  # {U_Prelude.Basics..1}
+      e0, e1, e2, e3, e4, e5, e6, = None, None, None, e3, e4, (_idris__123_U_95_Prelude_46_Basics_46__46_1_125_, None, None, None, e5, e3(in0),), in1,
       continue
       return _idris_error("unreachable due to tail call")
     else:  # Data.VectType.Vect.Nil
-      return APPLY0(e5, e4)
+      return e5(e4)
     return _idris_error("unreachable due to case in tail position")
 
 # Python.RTS.getGlobal
@@ -241,7 +257,7 @@ def _idris_Prelude_46_Classes_46_intToBool(e0):
 # io_bind
 def _idris_io_95_bind(e0, e1, e2, e3, e4, _idris_w):
   while True:
-    return APPLY0(io_bind2(e0, e1, e2, e3, e4, _idris_w), APPLY0(e3, _idris_w))
+    return io_bind2(e0, e1, e2, e3, e4, _idris_w)(e3(_idris_w))
 
 # io_return
 def _idris_io_95_return(e0, e1, e2, _idris_w):
@@ -251,19 +267,12 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
 # Main.main
 def _idris_Main_46_main():
   while True:
-    return (
-      65661,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      _idris_PE_95_printLn_95_140bcc5c(None, _idris_Main_46_f(4)),
-      (65634,)  # {U_Main.{main1}1}
-    )
+    return (U_io_bind1, None, None, None, _idris_PE_95_printLn_95_140bcc5c(None, _idris_Main_46_f(4)), (_idris__123_U_95_Main_46__123_main1_125_1_125_,),)
 
 # Prelude.Functor.map
 def _idris_Prelude_46_Functor_46_map(e0, e1, e2, e3):
   while True:
-    return APPLY0(APPLY0(e3, e1), e2)
+    return e3(e1)(e2)
 
 # Python.Builtins.mk
 def _idris_Python_46_Builtins_46_mk(e0):
@@ -271,7 +280,11 @@ def _idris_Python_46_Builtins_46_mk(e0):
     return _idris_unsafePerformIO(
       None,
       None,
-      (65649, _idris_unsafePerformIO(None, None, (65655, "__builtins__")), e0)  # {U_Python./.1}, {U_Python.RTS.getGlobal1}
+      (_idris__123_U_95_Python_46__47__46_1_125_, _idris_unsafePerformIO(
+        None,
+        None,
+        (_idris__123_U_95_Python_46_RTS_46_getGlobal1_125_, "__builtins__",)
+      ), e0,)
     )
 
 # mkForeignPrim
@@ -372,25 +385,24 @@ def _idris_prim_95__95_writeString(op0, op1):
 # prim_io_bind
 def _idris_prim_95_io_95_bind(e0, e1, e2, e3):
   while True:
-    return APPLY0(e3, e2)
+    return e3(e2)
 
 # Prelude.Interactive.putStr
 def _idris_Prelude_46_Interactive_46_putStr(e0, e1):
   while True:
-    return (65661, None, None, None, (65637, e1), (65638,))  # {U_io_bind1}, {U_Prelude.Interactive.{putStr0}1}, {U_Prelude.Interactive.{putStr1}1}
+    return (U_io_bind1, None, None, None, (_idris__123_U_95_Prelude_46_Interactive_46__123_putStr0_125_1_125_, e1,), (_idris__123_U_95_Prelude_46_Interactive_46__123_putStr1_125_1_125_,),)
 
 # Python.Lib.Numpy.reshape
 def _idris_Python_46_Lib_46_Numpy_46_reshape(e0, e1, e2, e3, e4, e5, e6, e7):
   while True:
-    return APPLY0(
-      _idris_Python_46_Lib_46_Numpy_46_unsafeNpArr(None, None, None, None),
-      (65653, e6, e4, e5)  # {U_Python.Lib.Numpy.{reshape0}1}
+    return _idris_Python_46_Lib_46_Numpy_46_unsafeNpArr(None, None, None, None)(
+      (_idris__123_U_95_Python_46_Lib_46_Numpy_46__123_reshape0_125_1_125_, e6, e4, e5,)
     )
 
 # run__IO
 def _idris_run_95__95_IO(e0, e1):
   while True:
-    return APPLY0(e1, None)
+    return e1(None)
 
 # Prelude.Show.show
 def _idris_Prelude_46_Show_46_show(e0, e1):
@@ -423,23 +435,27 @@ def _idris_Python_46_Builtins_46_toList(e0):
     return _idris_unsafePerformIO(
       None,
       None,
-      (65648, _idris_Python_46_Builtins_46_mk("list"), ConsList().cons(e0))  # {U_Python.$.1}
+      (_idris__123_U_95_Python_46__36__46_1_125_, _idris_Python_46_Builtins_46_mk("list"), ConsList().cons(e0),)
     )
 
 # Python.toRef
 def _idris_Python_46_toRef(e0):
   while True:
-    return (65660, None, None)  # {U_believe_me1}
+    return (U_believe_me1, None, None,)
 
 # Python.toString
 def _idris_Python_46_toString(e0):
   while True:
-    return _idris_unsafePerformIO(None, None, (65659, e0))  # {U_Python.{toString0}1}
+    return _idris_unsafePerformIO(
+      None,
+      None,
+      (_idris__123_U_95_Python_46__123_toString0_125_1_125_, e0,)
+    )
 
 # Python.Lib.Numpy.unsafeNpArr
 def _idris_Python_46_Lib_46_Numpy_46_unsafeNpArr(e0, e1, e2, e3):
   while True:
-    return (65635, None, None, None, (65654,), (65651, None))  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.{unsafeNpArr0}1}, {U_Python.Lib.Numpy.unsafeNumpy1}
+    return (_idris__123_U_95_Prelude_46_Basics_46__46_1_125_, None, None, None, (_idris__123_U_95_Python_46_Lib_46_Numpy_46__123_unsafeNpArr0_125_1_125_,), (_idris__123_U_95_Python_46_Lib_46_Numpy_46_unsafeNumpy1_125_, None,),)
 
 # Python.Lib.Numpy.unsafeNumpy
 def _idris_Python_46_Lib_46_Numpy_46_unsafeNumpy(e0, e1):
@@ -447,13 +463,13 @@ def _idris_Python_46_Lib_46_Numpy_46_unsafeNumpy(e0, e1):
     return _idris_unsafePerformIO(
       None,
       None,
-      (65661, None, None, None, (65656, "numpy"), e1)  # {U_io_bind1}, {U_Python.RTS.importModule1}
+      (U_io_bind1, None, None, None, (_idris__123_U_95_Python_46_RTS_46_importModule1_125_, "numpy",), e1,)
     )
 
 # unsafePerformIO
 def _idris_unsafePerformIO(e0, e1, e2):
   while True:
-    return APPLY0(unsafePerformIO1(e0, e1, e2), APPLY0(e2, None))
+    return unsafePerformIO1(e0, e1, e2)(e2(None))
 
 # unsafePerformPrimIO
 def _idris_unsafePerformPrimIO():
@@ -510,267 +526,269 @@ def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
 # Python.{$:0}
 def _idris_Python_46__123__36__58_0_125_(e1, in0):
   while True:
-    return (65648, in0, e1)  # {U_Python.$.1}
+    return (_idris__123_U_95_Python_46__36__46_1_125_, in0, e1,)
 
 # Python.{/:0}
 def _idris_Python_46__123__47__58_0_125_(e1, in0):
   while True:
-    return (65649, in0, e1)  # {U_Python./.1}
+    return (_idris__123_U_95_Python_46__47__46_1_125_, in0, e1,)
 
-# {APPLY0}
-def APPLY0(fn0, arg0):
-  while True:
-    if fn0[0] < 65661:
-      if fn0[0] < 65646:
-        if fn0[0] < 65639:
-          if fn0[0] < 65635:
-            if fn0[0] == 65632:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor1}
-              P_c0, P_c1, P_c2, P_c3 = fn0[1:]
-              return _idris_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n(
-                P_c0, P_c1, P_c2, P_c3, arg0
-              )
-            elif fn0[0] == 65633:  # {U_Main.{main0}1}
-              return _idris_Main_46__123_main0_125_(arg0)
-            else:  # {U_Main.{main1}1}
-              return _idris_Main_46__123_main1_125_(arg0)
-          else:
-            if fn0[0] < 65637:
-              if fn0[0] == 65635:  # {U_Prelude.Basics..1}
-                P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
-                return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-              else:  # {U_Prelude.Basics.id1}
-                P_c0 = fn0[1]
-                return _idris_Prelude_46_Basics_46_id(P_c0, arg0)
-            else:
-              if fn0[0] == 65637:  # {U_Prelude.Interactive.{putStr0}1}
-                P_c0 = fn0[1]
-                return _idris_Prelude_46_Interactive_46__123_putStr0_125_(P_c0, arg0)
-              else:  # {U_Prelude.Interactive.{putStr1}1}
-                return _idris_Prelude_46_Interactive_46__123_putStr1_125_(arg0)
-        else:
-          if fn0[0] < 65642:
-            if fn0[0] == 65639:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
-              P_c0 = fn0[1]
-              return _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(P_c0, arg0)
-            elif fn0[0] == 65640:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
-              P_c0 = fn0[1]
-              return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
-                P_c0, arg0
-              )
-            else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}
-              return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
-                arg0
-              )
-          else:
-            if fn0[0] < 65644:
-              if fn0[0] == 65642:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
-                P_c0 = fn0[1]
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
-                  P_c0, arg0
-                )
-              else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
-                  arg0
-                )
-            else:
-              if fn0[0] == 65644:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
-                P_c0 = fn0[1]
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
-                  P_c0, arg0
-                )
-              else:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
-                  arg0
-                )
-      else:
-        if fn0[0] < 65653:
-          if fn0[0] < 65649:
-            if fn0[0] == 65646:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
-              P_c0 = fn0[1]
-              return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
-                P_c0, arg0
-              )
-            elif fn0[0] == 65647:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
-              return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
-                arg0
-              )
-            else:  # {U_Python.$.1}
-              P_c0, P_c1 = fn0[1:]
-              return _idris_Python_46__36__46_(P_c0, P_c1, arg0)
-          else:
-            if fn0[0] < 65651:
-              if fn0[0] == 65649:  # {U_Python./.1}
-                P_c0, P_c1 = fn0[1:]
-                return _idris_Python_46__47__46_(P_c0, P_c1, arg0)
-              else:  # {U_Python.Lib.Numpy.array, mkList1}
-                P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6 = fn0[1:]
-                return _idris_Python_46_Lib_46_Numpy_46_array_58_mkList_58_0(
-                  P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6, arg0
-                )
-            else:
-              if fn0[0] == 65651:  # {U_Python.Lib.Numpy.unsafeNumpy1}
-                P_c0 = fn0[1]
-                return _idris_Python_46_Lib_46_Numpy_46_unsafeNumpy(P_c0, arg0)
-              else:  # {U_Python.Lib.Numpy.{array0}1}
-                P_c0, P_c1 = fn0[1:]
-                return _idris_Python_46_Lib_46_Numpy_46__123_array0_125_(P_c0, P_c1, arg0)
-        else:
-          if fn0[0] < 65657:
-            if fn0[0] < 65655:
-              if fn0[0] == 65653:  # {U_Python.Lib.Numpy.{reshape0}1}
-                P_c0, P_c1, P_c2 = fn0[1:]
-                return _idris_Python_46_Lib_46_Numpy_46__123_reshape0_125_(P_c0, P_c1, P_c2, arg0)
-              else:  # {U_Python.Lib.Numpy.{unsafeNpArr0}1}
-                return _idris_Python_46_Lib_46_Numpy_46__123_unsafeNpArr0_125_(arg0)
-            else:
-              if fn0[0] == 65655:  # {U_Python.RTS.getGlobal1}
-                P_c0 = fn0[1]
-                return _idris_Python_46_RTS_46_getGlobal(P_c0, arg0)
-              else:  # {U_Python.RTS.importModule1}
-                P_c0 = fn0[1]
-                return _idris_Python_46_RTS_46_importModule(P_c0, arg0)
-          else:
-            if fn0[0] < 65659:
-              if fn0[0] == 65657:  # {U_Python.{$:0}1}
-                P_c0 = fn0[1]
-                return _idris_Python_46__123__36__58_0_125_(P_c0, arg0)
-              else:  # {U_Python.{/:0}1}
-                P_c0 = fn0[1]
-                return _idris_Python_46__123__47__58_0_125_(P_c0, arg0)
-            else:
-              if fn0[0] == 65659:  # {U_Python.{toString0}1}
-                P_c0 = fn0[1]
-                return _idris_Python_46__123_toString0_125_(P_c0, arg0)
-              else:  # {U_believe_me1}
-                P_c0, P_c1 = fn0[1:]
-                return _idris_believe_95_me(P_c0, P_c1, arg0)
-    else:
-      if fn0[0] < 65675:
-        if fn0[0] < 65668:
-          if fn0[0] < 65664:
-            if fn0[0] == 65661:  # {U_io_bind1}
-              P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
-              return _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-            elif fn0[0] == 65662:  # {U_io_return1}
-              P_c0, P_c1, P_c2 = fn0[1:]
-              return _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
-            else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac60_125_(
-                arg0
-              )
-          else:
-            if fn0[0] < 65666:
-              if fn0[0] == 65664:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac610}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac610_125_(
-                  arg0
-                )
-              else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac611_125_(
-                  arg0
-                )
-            else:
-              if fn0[0] == 65666:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac612_125_(
-                  arg0
-                )
-              else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac613_125_(
-                  arg0
-                )
-        else:
-          if fn0[0] < 65671:
-            if fn0[0] == 65668:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac614_125_(
-                arg0
-              )
-            elif fn0[0] == 65669:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac615}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac615_125_(
-                arg0
-              )
-            else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_(
-                arg0
-              )
-          else:
-            if fn0[0] < 65673:
-              if fn0[0] == 65671:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac617}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac617_125_(
-                  arg0
-                )
-              else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_(
-                  arg0
-                )
-            else:
-              if fn0[0] == 65673:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac62_125_(
-                  arg0
-                )
-              else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac63_125_(
-                  arg0
-                )
-      else:
-        if fn0[0] < 65682:
-          if fn0[0] < 65678:
-            if fn0[0] == 65675:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac64_125_(
-                arg0
-              )
-            elif fn0[0] == 65676:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac65}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac65_125_(
-                arg0
-              )
-            else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}1}
-              return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac66_125_(
-                arg0
-              )
-          else:
-            if fn0[0] < 65680:
-              if fn0[0] == 65678:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac67_125_(
-                  arg0
-                )
-              else:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac68}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac68_125_(
-                  arg0
-                )
-            else:
-              if fn0[0] == 65680:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}
-                return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac69_125_(
-                  arg0
-                )
-              else:  # {U_{Python.Lib.Numpy.array, mkList_lam0}1}
-                P_c0 = fn0[1]
-                return _idris__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam0_125_(
-                  P_c0, arg0
-                )
-        else:
-          if fn0[0] < 65686:
-            if fn0[0] < 65684:
-              if fn0[0] == 65682:  # {U_{Python.Lib.Numpy.array, mkList_lam1}1}
-                return _idris__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam1_125_(arg0)
-              else:  # {U_{io_bind1}1}
-                P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = fn0[1:]
-                return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
-            else:
-              if fn0[0] == 65684:  # {U_{unsafePerformIO0}1}
-                return unsafePerformIO0(arg0)
-              else:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor2}
-                P_c0, P_c1, P_c2 = fn0[1:]
-                return (65632, P_c0, P_c1, P_c2, arg0)  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor1}
-          else:
-            if fn0[0] < 65688:
-              if fn0[0] == 65686:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
-                return (65639, arg0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
-              else:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor3}
-                P_c0, P_c1 = fn0[1:]
-                return (65685, P_c0, P_c1, arg0)  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor2}
-            else:
-              assert fn0[0] == 65688  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor4}
-              P_c0 = fn0[1]
-              return (65687, P_c0, arg0)  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor3}
-    return _idris_error("unreachable due to case in tail position")
+def _idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor1_125_(arg0):
+  P_c0, P_c1, P_c2, P_c3 = _idris_arg[1:]
+  return _idris_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n(
+    P_c0, P_c1, P_c2, P_c3, arg0
+  )
+
+def _idris__123_U_95_Main_46__123_main0_125_1_125_(arg0):
+  return _idris_Main_46__123_main0_125_(arg0)
+
+def _idris__123_U_95_Main_46__123_main1_125_1_125_(arg0):
+  return _idris_Main_46__123_main1_125_(arg0)
+
+def _idris__123_U_95_Prelude_46_Basics_46__46_1_125_(arg0):
+  P_c0, P_c1, P_c2, P_c3, P_c4 = _idris_arg[1:]
+  return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+
+def _idris__123_U_95_Prelude_46_Basics_46_id1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Basics_46_id(P_c0, arg0)
+
+def _idris__123_U_95_Prelude_46_Interactive_46__123_putStr0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Interactive_46__123_putStr0_125_(P_c0, arg0)
+
+def _idris__123_U_95_Prelude_46_Interactive_46__123_putStr1_125_1_125_(arg0):
+  return _idris_Prelude_46_Interactive_46__123_putStr1_125_(arg0)
+
+def _idris__123_U_95_Prelude_46_Nat_46_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Eq1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(P_c0, arg0)
+
+def _idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+    P_c0, arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_1_125_(arg0):
+  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+    arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+    P_c0, arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_1_125_(arg0):
+  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+    arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+    P_c0, arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_1_125_(arg0):
+  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+    arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+    P_c0, arg0
+  )
+
+def _idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_1_125_(arg0):
+  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+    arg0
+  )
+
+def _idris__123_U_95_Python_46__36__46_1_125_(arg0):
+  P_c0, P_c1 = _idris_arg[1:]
+  return _idris_Python_46__36__46_(P_c0, P_c1, arg0)
+
+def _idris__123_U_95_Python_46__47__46_1_125_(arg0):
+  P_c0, P_c1 = _idris_arg[1:]
+  return _idris_Python_46__47__46_(P_c0, P_c1, arg0)
+
+def _idris__123_U_95_Python_46_Lib_46_Numpy_46_array_44__32_mkList1_125_(arg0):
+  P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6 = _idris_arg[1:]
+  return _idris_Python_46_Lib_46_Numpy_46_array_58_mkList_58_0(
+    P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6, arg0
+  )
+
+def _idris__123_U_95_Python_46_Lib_46_Numpy_46_unsafeNumpy1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Python_46_Lib_46_Numpy_46_unsafeNumpy(P_c0, arg0)
+
+def _idris__123_U_95_Python_46_Lib_46_Numpy_46__123_array0_125_1_125_(arg0):
+  P_c0, P_c1 = _idris_arg[1:]
+  return _idris_Python_46_Lib_46_Numpy_46__123_array0_125_(P_c0, P_c1, arg0)
+
+def _idris__123_U_95_Python_46_Lib_46_Numpy_46__123_reshape0_125_1_125_(arg0):
+  P_c0, P_c1, P_c2 = _idris_arg[1:]
+  return _idris_Python_46_Lib_46_Numpy_46__123_reshape0_125_(P_c0, P_c1, P_c2, arg0)
+
+def _idris__123_U_95_Python_46_Lib_46_Numpy_46__123_unsafeNpArr0_125_1_125_(arg0):
+  return _idris_Python_46_Lib_46_Numpy_46__123_unsafeNpArr0_125_(arg0)
+
+def _idris__123_U_95_Python_46_RTS_46_getGlobal1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Python_46_RTS_46_getGlobal(P_c0, arg0)
+
+def _idris__123_U_95_Python_46_RTS_46_importModule1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Python_46_RTS_46_importModule(P_c0, arg0)
+
+def _idris__123_U_95_Python_46__123__36__58_0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Python_46__123__36__58_0_125_(P_c0, arg0)
+
+def _idris__123_U_95_Python_46__123__47__58_0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Python_46__123__47__58_0_125_(P_c0, arg0)
+
+def _idris__123_U_95_Python_46__123_toString0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris_Python_46__123_toString0_125_(P_c0, arg0)
+
+def U_believe_me1(arg0):
+  P_c0, P_c1 = _idris_arg[1:]
+  return _idris_believe_95_me(P_c0, P_c1, arg0)
+
+def U_io_bind1(arg0):
+  P_c0, P_c1, P_c2, P_c3, P_c4 = _idris_arg[1:]
+  return _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
+
+def U_io_return1(arg0):
+  P_c0, P_c1, P_c2 = _idris_arg[1:]
+  return _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac60_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac60_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac610_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac610_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac611_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac611_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac612_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac612_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac613_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac613_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac614_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac614_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac615_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac615_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac617_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac617_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac62_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac62_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac63_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac63_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac64_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac64_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac65_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac65_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac66_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac66_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac67_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac67_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac68_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac68_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac69_125_1_125_(arg0):
+  return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac69_125_(
+    arg0
+  )
+
+def _idris__123_U_95__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam0_125_1_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return _idris__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam0_125_(
+    P_c0, arg0
+  )
+
+def _idris__123_U_95__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam1_125_1_125_(arg0):
+  return _idris__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam1_125_(arg0)
+
+def _idris__123_U_95__123_io_95_bind1_125_1_125_(arg0):
+  P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = _idris_arg[1:]
+  return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
+
+def _idris__123_U_95__123_unsafePerformIO0_125_1_125_(arg0):
+  return unsafePerformIO0(arg0)
+
+def _idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor2_125_(arg0):
+  P_c0, P_c1, P_c2 = _idris_arg[1:]
+  return (_idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor1_125_, P_c0, P_c1, P_c2, arg0,)
+
+def _idris__123_U_95_Prelude_46_Nat_46_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Eq2_125_(arg0):
+  return (_idris__123_U_95_Prelude_46_Nat_46_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Eq1_125_, arg0,)
+
+def _idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor3_125_(arg0):
+  P_c0, P_c1 = _idris_arg[1:]
+  return (_idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor2_125_, P_c0, P_c1, arg0,)
+
+def _idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor4_125_(arg0):
+  P_c0 = _idris_arg[1]
+  return (_idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor3_125_, P_c0, arg0,)
 
 # {EVAL0}
 def EVAL0(arg0):
@@ -824,9 +842,8 @@ def _idris__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam0_125_(in0, 
 def _idris_Python_46_Lib_46_Numpy_46__123_array0_125_(e4, e3, in0):
   while True:
     return _idris_Python_46__36__58_(
-      (65649, in0, "array"),  # {U_Python./.1}
-      ConsList().cons(APPLY0(_idris_Python_46_toRef(None), e3)).cons(APPLY0(
-        _idris_Python_46_toRef(None),
+      (_idris__123_U_95_Python_46__47__46_1_125_, in0, "array",),
+      ConsList().cons(_idris_Python_46_toRef(None)(e3)).cons(_idris_Python_46_toRef(None)(
         _idris_Python_46_Lib_46_Numpy_46_array_58_mkList_58_0(
           None,
           None,
@@ -840,7 +857,7 @@ def _idris_Python_46_Lib_46_Numpy_46__123_array0_125_(e4, e3, in0):
             None,
             None,
             None,
-            (65650, None, None, None, None, None, None, None),  # {U_Python.Lib.Numpy.array, mkList1}
+            (_idris__123_U_95_Python_46_Lib_46_Numpy_46_array_44__32_mkList1_125_, None, None, None, None, None, None, None,),
             e4
           )
         )
@@ -850,7 +867,7 @@ def _idris_Python_46_Lib_46_Numpy_46__123_array0_125_(e4, e3, in0):
 # {io_bind0}
 def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
   while True:
-    return APPLY0(e4, in0)
+    return e4(in0)
 
 # Main.{main0}
 def _idris_Main_46__123_main0_125_(in1):
@@ -869,14 +886,17 @@ def _idris_Prelude_46_Interactive_46__123_putStr0_125_(e1, in0):
 def _idris_Python_46_Lib_46_Numpy_46__123_reshape0_125_(e6, e4, e5, in0):
   while True:
     return _idris_Python_46__36__58_(
-      _idris_Python_46__47__58_((65649, in0, "ndarray"), "reshape"),  # {U_Python./.1}
-      ConsList().cons(APPLY0(_idris_Python_46_toRef(None), e5)).cons(APPLY0(_idris_Python_46_toRef(None), e4)).cons(e6)
+      _idris_Python_46__47__58_(
+        (_idris__123_U_95_Python_46__47__46_1_125_, in0, "ndarray",),
+        "reshape"
+      ),
+      ConsList().cons(_idris_Python_46_toRef(None)(e5)).cons(_idris_Python_46_toRef(None)(e4)).cons(e6)
     )
 
 # {runMain0}
 def runMain0():
   while True:
-    return EVAL0(APPLY0(_idris_Main_46_main(), None))
+    return EVAL0(_idris_Main_46_main()(None))
 
 # Python.{toString0}
 def _idris_Python_46__123_toString0_125_(e0, in0):
@@ -898,7 +918,7 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
   in0
 ):
   while True:
-    return (65640, in0)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+    return (_idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_1_125_, in0,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_(
@@ -916,58 +936,45 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
   in0
 ):
   while True:
-    return (65644, in0)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+    return (_idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_1_125_, in0,)
 
 # {Python.Lib.Numpy.array, mkList_lam1}
 def _idris__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam1_125_(in0):
   while True:
-    return (65681, in0)  # {U_{Python.Lib.Numpy.array, mkList_lam0}1}
+    return (_idris__123_U_95__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam0_125_1_125_, in0,)
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
   while True:
-    return APPLY0(io_bind0(e0, e1, e2, e3, e4, _idris_w, in0), _idris_w)
+    return io_bind0(e0, e1, e2, e3, e4, _idris_w, in0)(_idris_w)
 
 # Main.{main1}
 def _idris_Main_46__123_main1_125_(in0):
   while True:
-    return (
-      65661,  # {U_io_bind1}
+    return (U_io_bind1, None, None, None, _idris_Prelude_46_Interactive_46_putStr(
       None,
-      None,
-      None,
-      _idris_Prelude_46_Interactive_46_putStr(
-        None,
-        (_idris_Python_46_toString(_idris_Main_46_xs()) + "\n")
-      ),
-      (65633,)  # {U_Main.{main0}1}
-    )
+      (_idris_Python_46_toString(_idris_Main_46_xs()) + "\n")
+    ), (_idris__123_U_95_Main_46__123_main0_125_1_125_,),)
 
 # Prelude.Interactive.{putStr1}
 def _idris_Prelude_46_Interactive_46__123_putStr1_125_(in1):
   while True:
-    return (65662, None, None, Unit)  # {U_io_return1}
+    return (U_io_return1, None, None, Unit,)
 
 # {unsafePerformIO1}
 def unsafePerformIO1(e0, e1, e2):
   while True:
-    return (65684,)  # {U_{unsafePerformIO0}1}
+    return (_idris__123_U_95__123_unsafePerformIO0_125_1_125_,)
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}
 def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
-    aux1 = APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Classes_46_compare(
-          None,
-          _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
-        ),
-        in2
-      ),
-      in3
-    )
+    aux1 = _idris_Prelude_46_Classes_46_compare(
+      None,
+      _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
+    )(in2)(in3)
     if aux1[0] == 2:  # Prelude.Classes.GT
       return True
     else:
@@ -979,23 +986,17 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in2
 ):
   while True:
-    return (65672,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}1}
+    return (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_1_125_,)
 
 # Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}
 def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
-    aux1 = APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Classes_46_compare(
-          None,
-          _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
-        ),
-        in2
-      ),
-      in3
-    )
+    aux1 = _idris_Prelude_46_Classes_46_compare(
+      None,
+      _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
+    )(in2)(in3)
     if aux1[0] == 2:  # Prelude.Classes.GT
       return True
     else:
@@ -1005,14 +1006,14 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
 # {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, _idris_w):
   while True:
-    return (65683, e0, e1, e2, e3, e4, _idris_w)  # {U_{io_bind1}1}
+    return (_idris__123_U_95__123_io_95_bind1_125_1_125_, e0, e1, e2, e3, e4, _idris_w,)
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}
 def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65642, in2)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+    return (_idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_1_125_, in2,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac63_125_(
@@ -1023,7 +1024,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
       None,
       None,
       None,
-      (0, (65663,), (65673,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
+      (
+        0,  # constructor of Prelude.Show.Show
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac60_125_1_125_,),
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac62_125_1_125_,)
+      ),
       "",
       in0
     ) + "]"))
@@ -1033,7 +1038,7 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
   in2
 ):
   while True:
-    return (65646, in2)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+    return (_idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_1_125_, in2,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac64_125_(
@@ -1062,7 +1067,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in7
 ):
   while True:
-    return (65676,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac65}1}
+    return (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac65_125_1_125_,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac67_125_(
@@ -1072,7 +1077,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
     return _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0(
       None,
       None,
-      (0, (65675,), (65677,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}1}
+      (
+        0,  # constructor of Prelude.Show.Show
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac64_125_1_125_,),
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac66_125_1_125_,)
+      ),
       in5
     )
 
@@ -1081,7 +1090,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in4
 ):
   while True:
-    return (65678,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}1}
+    return (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac67_125_1_125_,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac69_125_(
@@ -1110,7 +1119,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in2
 ):
   while True:
-    return (65664,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac610}1}
+    return (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac610_125_1_125_,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac612_125_(
@@ -1121,7 +1130,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
       None,
       None,
       None,
-      (0, (65680,), (65665,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
+      (
+        0,  # constructor of Prelude.Show.Show
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac69_125_1_125_,),
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac611_125_1_125_,)
+      ),
       "",
       in0
     ) + "]"))
@@ -1153,7 +1166,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in7
 ):
   while True:
-    return (65668,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}1}
+    return (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac614_125_1_125_,)
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_(
@@ -1163,7 +1176,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
     return _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0(
       None,
       None,
-      (0, (65667,), (65669,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac615}1}
+      (
+        0,  # constructor of Prelude.Show.Show
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac613_125_1_125_,),
+        (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac615_125_1_125_,)
+      ),
       in5
     )
 
@@ -1172,7 +1189,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in4
 ):
   while True:
-    return (65670,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}1}
+    return (_idris__123_U_95__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_1_125_,)
 
 # Python.Lib.Numpy.array, mkList
 def _idris_Python_46_Lib_46_Numpy_46_array_58_mkList_58_0(
@@ -1180,15 +1197,14 @@ def _idris_Python_46_Lib_46_Numpy_46_array_58_mkList_58_0(
 ):
   while True:
     return _idris_Python_46_Builtins_46_toList(
-      APPLY0(
-        _idris_Python_46_toRef(None),
+      _idris_Python_46_toRef(None)(
         _idris_Data_46_VectType_46_Vect_46_foldrImpl(
           None,
           None,
           None,
-          (65682,),  # {U_{Python.Lib.Numpy.array, mkList_lam1}1}
+          (_idris__123_U_95__123_Python_46_Lib_46_Numpy_46_array_44__32_mkList_95_lam1_125_1_125_,),
           ConsList(),
-          (65636, None),  # {U_Prelude.Basics.id1}
+          (_idris__123_U_95_Prelude_46_Basics_46_id1_125_, None,),
           e7
         )
       )
@@ -1232,9 +1248,9 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
     if e5:  # Prelude.List.::
       in0, in1 = e5.head, e5.tail
       if not in1:  # Prelude.List.Nil
-        return (e4 + APPLY0(_idris_Prelude_46_Show_46_show(None, e3), in0))
+        return (e4 + _idris_Prelude_46_Show_46_show(None, e3)(in0))
       else:
-        e0, e1, e2, e3, e4, e5, = None, None, None, e3, (e4 + (APPLY0(_idris_Prelude_46_Show_46_show(None, e3), in0) + ", ")), in1,
+        e0, e1, e2, e3, e4, e5, = None, None, None, e3, (e4 + (_idris_Prelude_46_Show_46_show(None, e3)(in0) + ", ")), in1,
         continue
         return _idris_error("unreachable due to tail call")
       return _idris_error("unreachable due to case in tail position")
@@ -1259,7 +1275,14 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_
         return False
       else:
         in1 = (e0 - 1)
-        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65686,)), in1), in0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+        return _idris_Prelude_46_Classes_46__61__61_(
+          None,
+          (_idris__123_U_95_Prelude_46_Nat_46_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Eq2_125_,)
+        )(
+          in1
+        )(
+          in0
+        )
       return _idris_error("unreachable due to case in tail position")
     else:
       return False
@@ -1303,9 +1326,15 @@ def _idris_Prelude_46_Functor_46_Data_46_VectType_46_Vect_46__64_Prelude_46_Func
       in0, in1 = e5[1:]
       return (
         1,  # Data.VectType.Vect.::
-        APPLY0(e4, in0),
-        APPLY0(
-          APPLY0(_idris_Prelude_46_Functor_46_map(None, None, None, (65688, None)), e4),  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor4}
+        e4(in0),
+        _idris_Prelude_46_Functor_46_map(
+          None,
+          None,
+          None,
+          (_idris__123_U_95_Data_46_VectType_46_Vect_46_Vect_32_n_32_instance_32_of_32_Prelude_46_Functor_46_Functor4_125_, None,)
+        )(
+          e4
+        )(
           in1
         )
       )
@@ -1358,16 +1387,10 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord
         return (0,)  # Prelude.Classes.LT
       else:
         in2 = (e0 - 1)
-        return APPLY0(
-          APPLY0(
-            _idris_Prelude_46_Classes_46_compare(
-              None,
-              _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
-            ),
-            in2
-          ),
-          in1
-        )
+        return _idris_Prelude_46_Classes_46_compare(
+          None,
+          _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
+        )(in2)(in1)
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
@@ -1376,16 +1399,10 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Or
   e0, e1
 ):
   while True:
-    aux1 = APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Classes_46__62_(
-          None,
-          _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
-        ),
-        e0
-      ),
-      e1
-    )
+    aux1 = _idris_Prelude_46_Classes_46__62_(
+      None,
+      _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
+    )(e0)(e1)
     if not aux1:  # Prelude.Bool.False
       return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
         e0, e1
@@ -1457,9 +1474,9 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
         e3, (6,)  # Prelude.Show.App
       )
       if not aux1:  # Prelude.Bool.False
-        return ("Just" + (" " + APPLY0(APPLY0(_idris_Prelude_46_Show_46_showPrec(None, e2), None), in0)))
+        return ("Just" + (" " + _idris_Prelude_46_Show_46_showPrec(None, e2)(None)(in0)))
       else:  # Prelude.Bool.True
-        return ("(" + (("Just" + (" " + APPLY0(APPLY0(_idris_Prelude_46_Show_46_showPrec(None, e2), None), in0))) + ")"))
+        return ("(" + (("Just" + (" " + _idris_Prelude_46_Show_46_showPrec(None, e2)(None)(in0))) + ")"))
       return _idris_error("unreachable due to case in tail position")
     else:  # Prelude.Maybe.Nothing
       return "Nothing"
@@ -1506,12 +1523,20 @@ def _idris_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect
 # Prelude.Nat.Nat instance of Prelude.Classes.Ord
 def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat():
   while True:
-    return (0, (65641,), (65643,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
+    return (
+      0,  # constructor of Prelude.Classes.Ord
+      (_idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_1_125_,),
+      (_idris__123_U_95_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_1_125_,)
+    )
 
 # Prelude.Show.Prec instance of Prelude.Classes.Ord
 def _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec():
   while True:
-    return (0, (65645,), (65647,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
+    return (
+      0,  # constructor of Prelude.Classes.Ord
+      (_idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_1_125_,),
+      (_idris__123_U_95_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_1_125_,)
+    )
 
 # case block in Void
 def _idris_Void_95_case():
@@ -1521,7 +1546,7 @@ def _idris_Void_95_case():
 # case block in io_bind
 def _idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
   while True:
-    return APPLY0(e7, e5)
+    return e7(e5)
 
 # <<Void eliminator>>
 def _idris_Void_95_elim():

@@ -287,6 +287,14 @@ cgApp f args = f <> cgTuple maxWidth args
 -- Process one definition. The caller deals with constructor declarations,
 -- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
+cgDef ctors (n, DFun name' args body)
+    | n == sMN 0 "APPLY" = statements  -- we ignore the return value
+  where
+    (statements, retVal) = evalState (runReaderT body' initCtx) initState
+    body' = runCG . cgDefunApply $ body
+    initCtx = CGCtx ctors (n, args)
+    initState = CGState 1
+
 cgDef ctors (n, DFun name' args body) =
     (empty <?> show name')
     $+$ (text "def" <+> cgApp (cgName n) (map cgName args) <> colon)
@@ -309,6 +317,21 @@ cgDef ctors (n, DFun name' args body) =
     trace = text "print" <+> text (show $ mangle n ++ "(" ++ argfmt ++ ")")
                 <+> text "%" <+> cgTuple 80 [text "repr" <> parens (cgName a) | a <- args]
     argfmt = intercalate ", " ["%s" | _ <- args]
+
+cgDefunApply :: DExp -> CG ()
+cgDefunApply (DChkCase e alts) = mapM_ cgDefunBranch alts
+cgDefunApply e = error $ "unrecognised {APPLY0}: " ++ show e
+
+cgDefunBranch :: DAlt -> CG ()
+cgDefunBranch (DDefaultCase _) = return ()
+cgDefunBranch (DConCase tag' ctorName args e) = do
+    Just tag <- ctorTag ctorName
+    emit $ text "def" <+> cgName ctorName <> text "(arg0):"
+    emit . indent $ cgMatch (map Glob args) (Glob $ sUN "arg")
+    result <- sindent $ cgExp True e
+    emit . indent $ text "return" <+> result
+    emit $ text ""
+cgDefunBranch alt = error $ "unrecognised defun alt: " ++ show alt
 
 cgVar :: LVar -> Expr
 cgVar (Loc  i)
@@ -401,6 +424,13 @@ cgTailCall argNames args = do
 
 cgExp :: Bool -> DExp -> CG Expr
 cgExp tailPos (DV var) = return $ cgVar var
+cgExp tailPos (DApp tc n [f, arg])
+    | n == sMN 0 "APPLY"
+    = do
+        f' <- cgExp False f
+        arg' <- cgExp False arg
+        return $ cgApp f' [arg']
+
 cgExp tailPos (DApp tc n args) = do
     tag <- ctorTag n
     case tag of
@@ -416,6 +446,14 @@ cgExp tailPos (DLet n v e) = do
     cgExp tailPos e
 
 cgExp tailPos (DUpdate n e) = return . cgError $ "unimplemented SUpdate for " ++ show n ++ " and " ++ show e
+
+cgExp tailPos (DC _ tag cn@(MN i n) args)
+    | "U_" `isPrefixOf` sn = do
+        args' <- mapM (cgExp False) args
+        return $ cgForceTuple (cgName cn : args')
+  where
+    sn = T.unpack n
+    cgForceTuple xs = parens $ hsep [x <> comma | x <- xs]
 
 cgExp tailPos (DC _ tag n args)
     | Just (ctor, test, match) <- specialCased n = ctor <$> mapM (cgExp False) args
