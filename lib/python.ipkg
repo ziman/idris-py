@@ -1,19 +1,8 @@
 package python
 
 modules = Python
-	, Python.Prim
 	, Python.IO
-        , Python.Telescope
-	, Python.Objects
+	, Python.Dyn
+	, Python.Ref
 	, Python.Exceptions
-	, Python.Functions
-	, Python.Fields
-        , Python.Dynamic
-        , Python.Lib.Builtins
-	, Python.Lib.Os
-	, Python.Lib.Queue
-	, Python.Lib.Threading
-	, Python.Lib.Requests
-	, Python.Lib.BeautifulSoup
 	, Python.Lib.Numpy
-	, Python.Lib.Numpy.Dependent

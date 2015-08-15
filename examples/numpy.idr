@@ -3,7 +3,7 @@ module Main
 import Data.Vect
 
 import Python
-import Python.Lib.Numpy.Dependent
+import Python.Lib.Numpy
 
 %default total
 

@@ -1,17 +1,7 @@
 module Python.Exceptions
 
-import Python.Objects
-import Python.Fields
-import Python.IO
-
 %default total
 %access public
-
-Exception : Signature
-Exception = signature "Exception"
-  [ "message" ::: String
---  , "args" ::. PyList String  -- cyclic dependency on Python.Prim
-  ]
 
 ||| Standard Python exceptions.
 data ExceptionType : Type where
@@ -52,7 +42,7 @@ data ExceptionType : Type where
   UnicodeTranslateError : ExceptionType
   Other : String -> ExceptionType
 
-private
+public
 fromString : String -> ExceptionType
 fromString s = case s of
   "StopIteration" => StopIteration
@@ -98,46 +88,4 @@ data Result : Type -> Type where
   OK : (x : a) -> Result a
 
   ||| An exception was raised.
-  Except : (etype : ExceptionType) -> (e : Obj Exception) -> Result a
-
-||| Catch exceptions in the given PIO action.
-abstract
-try : PIO a -> PIO (Result a)
-try {a = a} x = do
-    MkRaw r <- foreign
-      FFI_Py
-      "_idris_try"
-      (Raw (PIO a)
-        -> (Obj Exception -> Raw (Either (Obj Exception) a))
-        -> (Raw a -> Raw (Either (Obj Exception) a))
-        -> PIO (Raw $ Either (Obj Exception) a)
-      )
-      (MkRaw x)
-      (MkRaw . Left)
-      (MkRaw . Right . unRaw)
-
-    case r of
-      Right x => return $ OK x
-      Left e => do
-        et <- e /. "__class__" /: "__name__"
-        return $ Except (fromString et) e
-
-abstract
-raise : Obj Exception -> PIO a
-raise {a = a} e = unRaw <$> foreign FFI_Py "_idris_raise" (Obj Exception -> PIO (Raw a)) e
-
-catch : PIO (Result a) -> (ExceptionType -> Obj Exception -> PIO a) -> PIO a
-catch action handler = do
-  OK result <- action
-    | Except etype e => handler etype e
-  return result
-
-||| Get basic information about the exception as `String`.
-abstract
-showException : Obj Exception -> String
-showException e =
-  unsafePerformIO
-    $ foreign FFI_Py "str" (Obj Exception -> PIO String) e
-
-instance Show (Obj Exception) where
-  show = showException
+  Except : (etype : ExceptionType) -> (e : Ptr) -> Result a
