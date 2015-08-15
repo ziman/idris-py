@@ -1,5 +1,7 @@
 module Python.Exceptions
 
+import Python.IO
+
 %default total
 %access public
 
@@ -89,3 +91,18 @@ data Result : Type -> Type where
 
   ||| An exception was raised.
   Except : (etype : ExceptionType) -> (e : Ptr) -> Result a
+
+abstract
+try : PIO a -> PIO (Result a)
+try {a = a} action =
+  unRaw <$> foreign
+      FFI_Py
+      "_idris_try"
+      (Raw (PIO a)
+        -> (Raw a -> Raw (Result a))          -- succ
+        -> (String -> Ptr -> Raw (Result a))  -- fail
+        -> PIO (Raw $ Result a)
+      )
+      (MkRaw action)
+      (MkRaw . OK . unRaw)
+      (\et, e => MkRaw $ Except (fromString et) e)

@@ -5,20 +5,17 @@ import Python.IO
 %access abstract
 %default total
 
-private
-getGlobalPrim : (name : String) -> PythonIO Ptr
-getGlobalPrim name = foreign FFI_Py "_idris_get_global" (String -> PythonIO Ptr) name
-
 abstract
 getGlobal : (name : String) -> PIO Ptr
-getGlobal = safeWrap . getGlobalPrim
-
-private
-fromPythonIO : PythonIO a -> Ptr
-fromPythonIO action =
-  unsafePerformIO $
-    foreign FFI_Py "_idris_marshal_IO" (Raw (PythonIO a) -> PythonIO Ptr) (MkRaw action)
+getGlobal name = foreign FFI_Py "_idris_get_global" (String -> PIO Ptr) name
 
 abstract
 fromPIO : PIO a -> Ptr
-fromPIO = fromPythonIO . runPIO
+fromPIO action =
+  unsafePerformIO $
+    foreign FFI_Py "_idris_marshal_IO" (Raw (PIO a) -> PIO Ptr) (MkRaw action)
+
+abstract
+importModule : (modName : String) -> PIO Ptr
+importModule modName =
+  foreign FFI_Py "importlib.import_module" (String -> PIO Ptr) modName

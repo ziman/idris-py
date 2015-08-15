@@ -2,6 +2,8 @@ module Python.Ref
 
 import Python
 import Python.IO
+import Python.Dyn
+import Python.RTS
 
 %default total
 %access public
@@ -54,10 +56,6 @@ PyTuple : PyTy
 PyTuple = mkPyTy "tuple"
 
 abstract
-getClass : Dyn -> Dyn
-getClass x = unsafePerformIO $ foreign FFI_Py "getattr" (Dyn -> String -> PIO Dyn) x "__class__"
-
-abstract
 PyModule : PyTy
 PyModule = unsafePerformIO $ do
   builtins <- getGlobal "__builtins__"
@@ -78,17 +76,12 @@ fromRef : Native a ty => Ref ty -> a
 fromRef (MkRef ref) = believe_me ref
 
 abstract
-toRef : Native a ty => Dyn -> Ref ty
+toRef : Native a ty => a -> Ref ty
 toRef x = MkRef $ believe_me x
 
 abstract
-toDyn : a -> Dyn
-toDyn = believe_me
-
--- TODO: implement in pure python for speed?
-abstract
-fromDyn : Dyn -> Maybe (Ref a)
-fromDyn {a = MkPyTy ty} x = unsafePerformIO $ do
+checkType : (ty : PyTy) -> Dyn -> Maybe (Ref ty)
+checkType (MkPyTy ty) x = unsafePerformIO $ do
     ok <- foreign FFI_Py "isinstance" (Dyn -> Dyn -> PIO Bool) x ty
     return $ if ok
       then Just $ believe_me x
@@ -98,40 +91,40 @@ private
 panic : String -> PIO a
 panic {a=a} msg = unRaw <$> foreign FFI_Py "_idris_error" (String -> PIO (Raw a)) msg
 
-private partial
-verify : Dyn -> PIO (Ref a)
-verify {a = expected} x =
-  case fromDyn {a = expected} x of
-    Just x  => return x
+abstract
+unsafeCheckType : Dyn -> PIO (Ref a)
+unsafeCheckType {a = expected} x =
+  case checkType expected x of
+    Just y  => return y
     Nothing => do
-      actual <- x //. "__class__"
+      actual <- x /. "__class__"
       panic $ "dynamic check failed: cannot cast " ++ toString actual ++ " to " ++ show expected
 
-infixl 4 /.
-abstract partial
-(/.) : Ref a -> String -> PIO (Ref b)
-(/.) (MkRef ref) f = (ref //. f) >>= verify
+abstract
+convert : Dyn -> Ref ty
+convert {ty = MkPyTy ctor} x =
+  unsafePerformIO $
+    (ctor $. [x]) >>= unsafeCheckType
 
-infixl 4 /:
+infixl 4 //.
 abstract partial
-(/:) : PIO (Ref a) -> String -> PIO (Ref b)
-(/:) ref f = ref >>= (/. f)
+(//.) : Ref a -> String -> PIO (Ref b)
+(//.) (MkRef ref) f = (ref /. f) >>= unsafeCheckType
 
-infixl 4 $.
+infixl 4 //:
 abstract partial
-($.) : Ref a -> List Dyn -> PIO (Ref b)
-($.) (MkRef ref) args = (ref $$. args) >>= verify
+(//:) : PIO (Ref a) -> String -> PIO (Ref b)
+(//:) ref f = ref >>= (//. f)
 
-infixl 4 $:
+infixl 4 $$.
 abstract partial
-($:) : PIO (Ref a) -> List Dyn -> PIO (Ref b)
-($:) ref args = ref >>= ($. args)
+($$.) : Ref a -> List Dyn -> PIO (Ref b)
+($$.) (MkRef ref) args = (ref $. args) >>= unsafeCheckType
 
+infixl 4 $$:
 abstract partial
-importModule : (modName : String) -> PIO $ Ref PyModule
-importModule modName =
-  foreign FFI_Py "importlib.import_module" (String -> PIO Dyn) modName
-    >>= verify
+($$:) : PIO (Ref a) -> List Dyn -> PIO (Ref b)
+($$:) ref args = ref >>= ($$. args)
 
 {-
 

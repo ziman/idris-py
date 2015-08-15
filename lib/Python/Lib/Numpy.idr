@@ -2,6 +2,8 @@ module Python.Lib.Numpy
 
 import Python
 import Python.IO
+import Python.Dyn
+import Python.RTS
 
 import Data.Vect
 
@@ -26,30 +28,28 @@ record Array (rows : Nat) (cols : Nat) (dtype : DType a) where
 instance Show (Array m n ty) where
   show (MkArr o) = toString o
 
-||| The Numpy module
-Numpy : Type
-Numpy = Ref PyModule
-
-private partial
-import_ : PIO Numpy
+private
+import_ : PIO Dyn
 import_ = importModule "numpy"
 
 private
-unsafeNumpy : (Numpy -> PIO a) -> a
+unsafeNumpy : ((numpy : Dyn) -> PIO a) -> a
 unsafeNumpy action = unsafePerformIO (import_ >>= action)
 
 private
-unsafeNpArr : (Numpy -> PIO Dyn) -> Array m n dtype
+unsafeNpArr : ((numpy : Dyn) -> PIO Dyn) -> Array m n dtype
 unsafeNpArr = MkArr . unsafeNumpy
 
 abstract
 array : (dtype : DType a) -> Vect m (Vect n a) -> Array m n dtype
-array {a=a} dtype xs = MkArr (
-      unsafeNumpy $ \np =>
-        np //. "array" $$: [toDyn . mkList $ map mkList xs, toDyn $ numpyName dtype]
-    )
+array {a=a} dtype xs =
+    unsafeNpArr $ \np =>
+      np /. "array" $: [toDyn . mkList $ map mkList xs, toDyn $ numpyName dtype]
   where
-    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Obj (PyList a)
+    toPyList : {a : Type} -> List a -> Dyn
+    toPyList = convert . toDyn
+
+    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Dyn
     mkList xs = let ys = toList xs in toPyList ys
 
 abstract
