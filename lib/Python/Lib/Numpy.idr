@@ -87,6 +87,10 @@ dot : Matrix m n ty -> Matrix n k ty -> Matrix m k ty
 dot (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "dot" $: [x, y]
 
 abstract
+transpose : Matrix m n ty -> Matrix n m ty
+transpose (MkMtx x) = unsafeMtxIO $ x /. "transpose" $: []
+
+abstract
 tile : (r, c : Nat) -> Matrix m n ty -> Matrix (r*m) (c*n) ty
 tile r c (MkMtx x) =
   unsafeNpMtx $ \np => np /. "tile" $: [x, listToList [r, c]] 

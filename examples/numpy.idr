@@ -32,4 +32,4 @@ main = do
   printLn ys
   printLn zs
   printLn (xs `dot` zs)
-  printLn (zs `dot` xs)
+  printLn $ transpose (zs `dot` xs)
