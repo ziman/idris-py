@@ -99,11 +99,19 @@ tile : (r, c : Nat) -> Matrix m n ty -> Matrix (r*m) (c*n) ty
 tile r c (MkMtx x) =
   unsafeNpMtx $ \np => np /. "tile" $: [x, listToList [r, c]] 
 
+private
+fromRef : (x : Ref) -> Matrix m n ty
+fromRef {m=m} {n=n} {ty=MkDType dtype} x = unsafeNpMtx $ \np => do
+  xs <- np /. "array" $: [x, toRef dtype]
+  np /. "tile" $: [xs, listToList [m, n]]
+
 abstract
 fromInteger : (x : Integer) -> Matrix m n ty
-fromInteger {m=m} {n=n} {ty=MkDType dtype} x = unsafeNpMtx $ \np => do
-  xs <- np /. "array" $: [toRef x, toRef dtype]
-  np /. "tile" $: [xs, listToList [m, n]]
+fromInteger = fromRef . toRef
+
+abstract
+fromFloat : (x : Float) -> Matrix m n ty
+fromFloat = fromRef . toRef
 
 instance Num (Matrix m n ty) where
   (+) = add
