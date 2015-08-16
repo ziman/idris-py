@@ -87,6 +87,10 @@ dot : Matrix m n ty -> Matrix n k ty -> Matrix m k ty
 dot (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "dot" $: [x, y]
 
 abstract
+(/) : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
+(/) = Numpy.div
+
+abstract
 transpose : Matrix m n ty -> Matrix n m ty
 transpose (MkMtx x) = unsafeMtxIO $ x /. "transpose" $: []
 
