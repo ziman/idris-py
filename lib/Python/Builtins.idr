@@ -30,8 +30,11 @@ str = mk "str"
 list : Ref
 list = mk "list"
 
-toList : Ref -> Ref
-toList x = unsafePerformIO $ list $. [x]
+toList : a -> Ref
+toList x = unsafePerformIO $ list $. [toRef x]
+
+listToList : List a -> Ref
+listToList = toList
 
 dict : Ref
 dict = mk "dict"

@@ -58,26 +58,25 @@ reshape {m'=m'} {n'=n'} (MkArr x) =
   unsafeNpArr $ \np =>
     np /. "ndarray" /: "reshape" $: [x, toRef m', toRef n']
 
-{-  -- takes ages to typecheck
+private
+unsafeArrIO : PIO Ref -> Array m n ty
+unsafeArrIO = MkArr . unsafePerformIO
+
 abstract
 add : Array m n ty -> Array m n ty -> Array m n ty 
-add (MkArr x) (MkArr y) =
-  unsafeNpArr $ \np => np /. "ndarray" /: "__add__" $: [x, y]
+add (MkArr x) (MkArr y) = unsafeArrIO $ x /. "__add__" $: [y]
 
 abstract
 sub : Array m n ty -> Array m n ty -> Array m n ty
-sub (MkArr x) (MkArr y) =
-  unsafeNpArr $ \np => np /. "ndarray" /: "__sub__" $: [x, y]
+sub (MkArr x) (MkArr y) = unsafeArrIO $ x /. "__sub__" $: [y]
 
 abstract
 mul : Array m n ty -> Array m n ty -> Array m n ty
-mul (MkArr x) (MkArr y) =
-  unsafeNpArr $ \np => np /. "ndarray" /: "__mul__" $: [x, y]
+mul (MkArr x) (MkArr y) = unsafeArrIO $ x /. "__mul__" $: [y]
 
 abstract
 div : Array m n ty -> Array m n ty -> Array m n ty
-div (MkArr x) (MkArr y) =
-  unsafeNpArr $ \np => np /. "ndarray" /: "__div__" $: [x, y]
+div (MkArr x) (MkArr y) = unsafeArrIO $ x /. "__div__" $: [y]
 
 abstract
 abs : Array m n ty -> Array m n ty
@@ -86,18 +85,17 @@ abs (MkArr x) = unsafeNpArr $ \np => np /. "abs" $: [x]
 abstract
 tile : (r, c : Nat) -> Array m n ty -> Array (r*m) (c*n) ty
 tile r c (MkArr x) =
-  unsafeNpArr $ \np => np /. "tile" $: [x, map cast [r,c]] 
+  unsafeNpArr $ \np => np /. "tile" $: [x, listToList [r, c]] 
 
 abstract
-fromInteger : Num a => {ty : DType a} -> (x : Integer) -> Array m n ty
-fromInteger {m=m} {n=n} {ty=ty} x = unsafeNpArr $ \np => do
-  xs <- np /. "array" $: [Erase _, toPyList [toPyList [Classes.fromInteger x]], numpyName ty]
-  np /. "tile" $: [xs, map cast [m, n]]
+fromInteger : (x : Integer) -> Array m n ty
+fromInteger {m=m} {n=n} {ty=MkDType dtype} x = unsafeNpArr $ \np => do
+  xs <- np /. "array" $: [toRef x, toRef dtype]
+  np /. "tile" $: [xs, listToList [m, n]]
 
 instance Num (Array m n ty) where
   (+) = add
   (-) = sub
   (*) = mul
-  abs = Numpy.Dependent.abs
-  fromInteger x = Numpy.Dependent.fromInteger
--}
+  abs = Numpy.abs
+  fromInteger = Numpy.fromInteger
