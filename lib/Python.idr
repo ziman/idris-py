@@ -9,14 +9,16 @@ import Python.IO
 Dyn : Type
 Dyn = Ptr
 
+Signature : Type
+Signature = (f : String) -> (ty : Type) -> Type
+
 ||| Type-tagged Python reference
-record Ref (a : Type) where
+record Ref (sig : Signature) where
   constructor MkRef
   ptr : Dyn
 
-record Function (args : List Type) (ret : Type) where
+record CallField (args : List Type) (ret : Type) where
   constructor MkFunction
-  -- no fields
 
 data HList : List Type -> Type where
   Nil : HList []
@@ -27,26 +29,25 @@ toDyn : a -> Dyn
 toDyn = believe_me
 
 abstract
+unsafeFromDyn : Dyn -> a
+unsafeFromDyn = believe_me
+
+abstract
 toString : Dyn -> String
 toString x =
   unsafePerformIO $
     foreign FFI_Py "str" (Dyn -> PIO String) x
 
--- objects
-
-class Object a where
-  getField : Ref a -> String -> Maybe Type
-
 infixl 4 /.
 abstract
-(/.) : Object a => (r : Ref a) -> (f : String) -> {auto pf : getField r f = Just ty} -> ty
+(/.) : (r : Ref sig) -> (f : String) -> {auto pf : sig f ty} -> ty
 (/.) {ty=ty} (MkRef ptr) f =
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) ptr f
 
 infixl 4 $.
 abstract
-($.) : (f : Ref $ Function args ret) -> HList args -> PIO ret
+($.) : (f : Ref sig) -> {auto pf : sig "__call__" $ CallField args ret} -> HList args -> PIO ret
 ($.) {ret=ret} (MkRef ptr) args =
     unRaw <$>
       foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) ptr (fromHList args)
