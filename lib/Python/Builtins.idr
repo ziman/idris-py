@@ -7,47 +7,50 @@ import Python.RTS
 %default total
 %access abstract
 
-data PyType : Signature -> Signature where
-  fName : PyType sig "__name__" String
-  fCall : PyType sig "__call__" $ CallField [Dyn] (Ref sig)
+PyType : Signature -> Signature
+PyType sig "__name__" = Attr String
+PyType sig "__call__" = Call [Dyn] (Ref sig)
 
-data PyInt : Signature where
-  piClass : PyInt "__class__" $ Ref (PyType PyInt)
+PyInt : Signature
+PyInt _ = NotField
 
-data PyFloat : Signature where
-  pfClass : PyFloat "__class__" $ Ref (PyType PyFloat)
+PyFloat : Signature
+PyFloat _ = NotField
 
-data PyBool : Signature where
-  pbClass : PyBool "__class__" $ Ref (PyType PyBool)
+PyBool : Signature
+PyBool _ = NotField
 
-data PyStr : Signature where
-  psClass : PyStr "__class__" $ Ref (PyType PyStr)
+PyStr : Signature
+PyStr _ = NotField
 
-data PyBytes : Signature where
-  pbyClass : PyBytes "__class__" $ Ref (PyType PyBytes)
+PyBytes : Signature
+PyBytes _ = NotField
 
-data PyList : Signature where
-  plClass : PyList "__class__" $ Ref (PyType PyList)
+PyList : Signature
+PyList _ = NotField
 
-data PyDict : Signature where
-  pdClass : PyDict "__class__" $ Ref (PyType PyDict)
+PyDict : Signature
+PyDict _ = NotField
 
-data PyTuple : Signature where
-  ptClass : PyTuple "__class__" $ Ref (PyType PyTuple)
+PyTuple : Signature
+PyTuple _ = NotField
 
-data PySet : Signature where
-  psetClass : PySet "__class__" $ Ref (PyType PySet)
+PySet : Signature
+PySet _ = NotField
 
-data Builtins : Signature where
-  bInt   : Builtins "int"   $ Ref (PyType PyInt)
-  bFloat : Builtins "float" $ Ref (PyType PyFloat)
-  bBool  : Builtins "bool"  $ Ref (PyType PyBool)
-  bStr   : Builtins "str"   $ Ref (PyType PyStr)
-  bList  : Builtins "list"  $ Ref (PyType PyList)
-  bDict  : Builtins "dict"  $ Ref (PyType PyDict)
-  bSet   : Builtins "set"   $ Ref (PyType PySet)
-  bTuple : Builtins "tuple" $ Ref (PyType PyTuple)
+Builtins : Signature
+Builtins f = case f of
+  "int"   => attr $ PyType PyInt
+  "float" => attr $ PyType PyFloat
+  "bool"  => attr $ PyType PyBool
+  "str"   => attr $ PyType PyStr
+  "list"  => attr $ PyType PyList
+  "dict"  => attr $ PyType PyDict
+  "set"   => attr $ PyType PySet
+  "tuple" => attr $ PyType PyTuple
+  _ => NotField
 
+abstract
 builtins : Ref Builtins
 builtins = MkRef (unsafePerformIO $ getGlobal "__builtins__")
 
@@ -69,31 +72,17 @@ set = builtins /. "set"
 tuple : Ref $ PyType PyTuple
 tuple = builtins /. "tuple"
 
-instance Cast (Ref PyInt) Int where
-  cast = unsafeFromDyn . ptr
+data Native : Type -> Signature -> Type where
+  nInt : Native Int PyInt
 
-instance Cast Int (Ref PyInt) where
-  cast = MkRef . toDyn
+abstract
+fromNative : a -> {auto pf : Native a sig} -> Ref sig
+fromNative x = MkRef $ believe_me x
 
-instance Cast (Ref PyFloat) Float where
-  cast = unsafeFromDyn . ptr
+abstract
+toNative : Ref sig -> {auto pf : Native a sig} -> a
+toNative (MkRef ptr) = believe_me ptr
 
-instance Cast Float (Ref PyFloat) where
-  cast = MkRef . toDyn
-
-instance Cast (Ref PyBool) Bool where
-  cast = unsafeFromDyn . ptr
-
-instance Cast Bool (Ref PyBool) where
-  cast = MkRef . toDyn
-
-instance Cast (Ref PyStr) String where
-  cast = unsafeFromDyn . ptr
-
-instance Cast String (Ref PyStr) where
-  cast = MkRef . toDyn
-
-instance Cast (List a) (Ref PyList) where
-  -- runtime representation is iterable
-  -- just call the list constructor
-  cast xs = unsafePerformIO (list $. [toDyn xs])
+abstract
+pyList : List a -> Ref PyList
+pyList xs = unsafePerformIO $ list $. [toDyn xs]

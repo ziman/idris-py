@@ -20,48 +20,52 @@ DFloat = MkDType "float"
 DInt : DType Int
 DInt = MkDType "int"
 
+data NDArray : Signature where
+  ndReshape : NDArray "reshape" $ [Ref NDArray, Nat, Nat] ~> Ref NDArray
+
+data Numpy : Signature where
+  npArray : Numpy "array" $ [Dyn, String] ~> Ref NDArray
+
 abstract
 record Matrix (rows : Nat) (cols : Nat) (dtype : DType a) where
   constructor MkMtx
-  ndarray : Ref
+  ndarray : Ref NDArray
 
 instance Show (Matrix m n ty) where
-  show (MkMtx o) = toString o
+  show (MkMtx $ MkRef o) = toString o
 
 private
-import_ : PIO Ref
-import_ = importModule "numpy"
+import_ : PIO (Ref Numpy)
+import_ = MkRef <$> importModule "numpy"
 
 private
-unsafeNumpy : ((numpy : Ref) -> PIO a) -> a
+unsafeNumpy : (Ref Numpy -> PIO a) -> a
 unsafeNumpy action = unsafePerformIO (import_ >>= action)
 
 private
-unsafeNpMtx : ((numpy : Ref) -> PIO Ref) -> Matrix m n dtype
+unsafeNpMtx : (Ref Numpy -> PIO (Ref NDArray)) -> Matrix m n dtype
 unsafeNpMtx = MkMtx . unsafeNumpy
 
 abstract
 array : (dtype : DType a) -> Vect m (Vect n a) -> Matrix m n dtype
 array {a=a} (MkDType dtype) xs =
     unsafeNpMtx $ \np =>
-      np /. "array" $: [toRef . mkList $ map mkList xs, toRef dtype]
+      np /. "array" $. [toDyn . mkList $ map mkList xs, dtype]
   where
-    toPyList : {a : Type} -> List a -> Ref
-    toPyList = Builtins.toList . toRef
+    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Ref PyList
+    mkList xs = cast $ toList xs
 
-    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Ref
-    mkList xs = let ys = toList xs in toPyList ys
+private
+unsafeMtxIO : PIO (Ref NDArray) -> Matrix m n ty
+unsafeMtxIO = MkMtx . unsafePerformIO
 
 abstract
 reshape : Matrix m n dtype -> {auto pf : m * n = m' * n'} -> Matrix m' n' dtype
 reshape {m'=m'} {n'=n'} (MkMtx x) =
-  unsafeNpMtx $ \np =>
-    np /. "ndarray" /: "reshape" $: [x, toRef m', toRef n']
+  unsafeMtxIO $
+    x /. "reshape" $. [x, m', n']
 
-private
-unsafeMtxIO : PIO Ref -> Matrix m n ty
-unsafeMtxIO = MkMtx . unsafePerformIO
-
+{-
 abstract
 add : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
 add (MkMtx x) (MkMtx y) = unsafeMtxIO $ x /. "__add__" $: [y]
@@ -119,3 +123,4 @@ instance Num (Matrix m n ty) where
   (*) = mul
   abs = Numpy.abs
   fromInteger = Numpy.fromInteger
+-}
