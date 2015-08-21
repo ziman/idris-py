@@ -30,8 +30,8 @@ Function args ret "__call__" = Call args ret
 Function args ret _ = NotField
 
 infixr 3 ~>
-(~>) : (args : List Type) -> (ret : Type) -> Type
-(~>) args ret = Ref $ Function args ret
+(~>) : (args : List Type) -> (ret : Type) -> Field
+(~>) args ret = attr $ Function args ret
 
 data HList : List Type -> Type where
   Nil : HList []

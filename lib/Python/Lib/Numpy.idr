@@ -20,11 +20,28 @@ DFloat = MkDType "float"
 DInt : DType Int
 DInt = MkDType "int"
 
-data NDArray : Signature where
-  ndReshape : NDArray "reshape" $ [Ref NDArray, Nat, Nat] ~> Ref NDArray
+NDArray : Signature
+NDArray f = case f of
+  _ => NotField
 
-data Numpy : Signature where
-  npArray : Numpy "array" $ [Dyn, String] ~> Ref NDArray
+-- talk like a pirate!
+Arr : Type
+Arr = Ref NDArray
+
+Numpy : Signature
+Numpy f = case f of
+  "array" => [Dyn, String] ~> Arr
+  "reshape" => [Arr, Nat, Nat] ~> Arr
+  "abs" => [Arr] ~> Arr
+  "dot" => [Arr, Arr] ~> Arr
+  "transpose" => [Arr] ~> Arr
+  "tile" => [Arr, Ref PyList] ~> Arr
+
+  "__add__" => [Arr, Arr] ~> Arr
+  "__sub__" => [Arr, Arr] ~> Arr
+  "__mul__" => [Arr, Arr] ~> Arr
+  "__div__" => [Arr, Arr] ~> Arr
+  _ => NotField
 
 abstract
 record Matrix (rows : Nat) (cols : Nat) (dtype : DType a) where
@@ -53,7 +70,7 @@ array {a=a} (MkDType dtype) xs =
       np /. "array" $. [toDyn . mkList $ map mkList xs, dtype]
   where
     mkList : {a : Type} -> {n : Nat} -> Vect n a -> Ref PyList
-    mkList xs = cast $ toList xs
+    mkList xs = toPyList $ toList xs
 
 private
 unsafeMtxIO : PIO (Ref NDArray) -> Matrix m n ty
@@ -62,33 +79,39 @@ unsafeMtxIO = MkMtx . unsafePerformIO
 abstract
 reshape : Matrix m n dtype -> {auto pf : m * n = m' * n'} -> Matrix m' n' dtype
 reshape {m'=m'} {n'=n'} (MkMtx x) =
-  unsafeMtxIO $
-    x /. "reshape" $. [x, m', n']
+  unsafeNpMtx $ \np =>
+    np /. "reshape" $. [x, m', n']
 
-{-
+private
+binop :
+  (op : String)
+  -> {auto pf : Numpy op = [Ref NDArray, Ref NDArray] ~> Ref NDArray}
+  -> Matrix m n ty -> Matrix m n ty -> Matrix m n ty
+binop op (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. op $. [x, y]
+
 abstract
 add : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
-add (MkMtx x) (MkMtx y) = unsafeMtxIO $ x /. "__add__" $: [y]
+add = binop "__add__"
 
 abstract
 sub : Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-sub (MkMtx x) (MkMtx y) = unsafeMtxIO $ x /. "__sub__" $: [y]
+sub = binop "__sub__"
 
 abstract
 mul : Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-mul (MkMtx x) (MkMtx y) = unsafeMtxIO $ x /. "__mul__" $: [y]
+mul = binop "__mul__"
 
 abstract
 div : Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-div (MkMtx x) (MkMtx y) = unsafeMtxIO $ x /. "__div__" $: [y]
+div = binop "__div__"
 
 abstract
 abs : Matrix m n ty -> Matrix m n ty
-abs (MkMtx x) = unsafeNpMtx $ \np => np /. "abs" $: [x]
+abs (MkMtx x) = unsafeNpMtx $ \np => np /. "abs" $. [x]
 
 abstract
 dot : Matrix m n ty -> Matrix n k ty -> Matrix m k ty 
-dot (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "dot" $: [x, y]
+dot (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "dot" $. [x, y]
 
 abstract
 (/) : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
@@ -96,26 +119,27 @@ abstract
 
 abstract
 transpose : Matrix m n ty -> Matrix n m ty
-transpose (MkMtx x) = unsafeMtxIO $ x /. "transpose" $: []
+transpose (MkMtx x) = unsafeNpMtx $ \np => np /. "transpose" $. [x]
 
 abstract
 tile : (r, c : Nat) -> Matrix m n ty -> Matrix (r*m) (c*n) ty
 tile r c (MkMtx x) =
-  unsafeNpMtx $ \np => np /. "tile" $: [x, listToList [r, c]] 
+  unsafeNpMtx $ \np => np /. "tile" $. [x, toPyList [r, c]] 
 
 private
-fromRef : (x : Ref) -> Matrix m n ty
-fromRef {m=m} {n=n} {ty=MkDType dtype} x = unsafeNpMtx $ \np => do
-  xs <- np /. "array" $: [x, toRef dtype]
-  np /. "tile" $: [xs, listToList [m, n]]
+fromDyn : (x : Dyn) -> Matrix m n ty
+fromDyn {m=m} {n=n} {ty = MkDType dtype} x =
+  unsafeNpMtx $ \np => do
+    xs <- np /. "array" $. [x, dtype]
+    np /. "tile" $. [xs, toPyList [m, n]]
 
 abstract
 fromInteger : (x : Integer) -> Matrix m n ty
-fromInteger = fromRef . toRef
+fromInteger = fromDyn . toDyn
 
 abstract
 fromFloat : (x : Float) -> Matrix m n ty
-fromFloat = fromRef . toRef
+fromFloat = fromDyn . toDyn
 
 instance Num (Matrix m n ty) where
   (+) = add
@@ -123,4 +147,3 @@ instance Num (Matrix m n ty) where
   (*) = mul
   abs = Numpy.abs
   fromInteger = Numpy.fromInteger
--}

@@ -84,5 +84,5 @@ toNative : Ref sig -> {auto pf : Native a sig} -> a
 toNative (MkRef ptr) = believe_me ptr
 
 abstract
-pyList : List a -> Ref PyList
-pyList xs = unsafePerformIO $ list $. [toDyn xs]
+toPyList : List a -> Ref PyList
+toPyList xs = unsafePerformIO $ list $. [toDyn xs]
