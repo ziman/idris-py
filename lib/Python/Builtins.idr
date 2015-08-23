@@ -7,15 +7,21 @@ import Python.RTS
 %default total
 %access abstract
 
+PyNum : Signature -> Signature
+PyNum a f = case f of
+  "__str__" => [] ~> String
+  "__add__" => [Ref a] ~> Ref a
+  _ => Object f
+
 PyType : Signature -> Signature
 PyType sig "__name__" = Attr String
 PyType sig "__call__" = Call [Dyn] (Ref sig)
 
 PyInt : Signature
-PyInt _ = NotField
+PyInt = PyNum PyInt
 
 PyFloat : Signature
-PyFloat _ = NotField
+PyFloat = PyNum PyFloat
 
 PyBool : Signature
 PyBool _ = NotField
@@ -26,8 +32,10 @@ PyStr _ = NotField
 PyBytes : Signature
 PyBytes _ = NotField
 
-PyList : Signature
-PyList _ = NotField
+PyList : Type -> Signature
+PyList a f = case f of
+  "append" => [a] ~> ()
+  "cons" => [a] ~> Ref (PyList a)  -- hypothetical
 
 PyDict : Signature
 PyDict _ = NotField
@@ -44,7 +52,7 @@ Builtins f = case f of
   "float" => attr $ PyType PyFloat
   "bool"  => attr $ PyType PyBool
   "str"   => attr $ PyType PyStr
-  "list"  => attr $ PyType PyList
+  "list"  => ParAttr Type $ PyType . PyList
   "dict"  => attr $ PyType PyDict
   "set"   => attr $ PyType PySet
   "tuple" => attr $ PyType PyTuple
@@ -54,8 +62,8 @@ abstract
 builtins : Ref Builtins
 builtins = MkRef (unsafePerformIO $ getGlobal "__builtins__")
 
-list : Ref $ PyType PyList
-list = builtins /. "list"
+list : (a : Type) -> Ref $ PyType (PyList a)
+list a = builtins //. ("list", a)
 
 int : Ref $ PyType PyInt
 int = builtins /. "int"

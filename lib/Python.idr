@@ -11,11 +11,21 @@ Dyn = Ptr
 
 data Field : Type where
   Attr : (ty : Type) -> Field
+  ParAttr : (p : Type) -> (tf : p -> Type) -> Field
   Call : (args : List Type) -> (ret : Type) -> Field
   NotField : Field
 
 Signature : Type
 Signature = (f : String) -> Field
+
+instance Semigroup Signature where
+  (<+>) s t =
+    \field => case s field of
+        NotField => t field
+        result   => result
+
+instance Monoid Signature where
+  neutral = const NotField
 
 ||| Type-tagged Python reference
 record Ref (sig : Signature) where
@@ -25,13 +35,28 @@ record Ref (sig : Signature) where
 attr : Signature -> Field
 attr = Attr . Ref
 
-Function : (args : List Type) -> (ret : Type) -> Signature
-Function args ret "__call__" = Call args ret
-Function args ret _ = NotField
+mutual
+  infixr 3 ~>
+  (~>) : (args : List Type) -> (ret : Type) -> Field
+  (~>) args ret = attr $ Function args ret
 
-infixr 3 ~>
-(~>) : (args : List Type) -> (ret : Type) -> Field
-(~>) args ret = attr $ Function args ret
+  -- the root of the inheritance hierarchy
+  Object : Signature
+  Object "__repr__" = [] ~> String
+  Object _          = NotField
+
+  Function : (args : List Type) -> (ret : Type) -> Signature
+  Function args ret "__call__" = Call args ret
+  Function args ret f = Object f
+
+Module : Signature
+Module "__name__" = Attr String
+Module f = Object f
+
+PyType : Type -> Signature
+PyType a "__name__" = Attr String
+PyType a "__call__" = Call [Dyn] a
+PyType a f = Object f
 
 data HList : List Type -> Type where
   Nil : HList []
@@ -41,7 +66,7 @@ abstract
 toDyn : a -> Dyn
 toDyn = believe_me
 
-abstract
+abstract partial
 unsafeFromDyn : Dyn -> a
 unsafeFromDyn = believe_me
 
@@ -58,6 +83,13 @@ abstract
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) ptr f
 
+infixl 4 //.
+abstract
+(//.) : (r : Ref sig) -> (fps : (String, ps)) -> {auto pf : sig (fst fps) = ParAttr ps tf} -> tf (snd fps)
+(//.) {ps=ps} {tf=tf} x (f, params) =
+  unRaw . unsafePerformIO $
+    foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw $ tf params)) (toDyn x) f
+
 infixl 4 $.
 abstract
 ($.) : (f : Ref sig) -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
@@ -68,14 +100,3 @@ abstract
     fromHList : HList as -> List Dyn
     fromHList [] = []
     fromHList (x :: xs) = toDyn x :: fromHList xs
-
-{-
-abstract
-(/:) : Object a => (r : PIO (Ref a)) -> (f : String) -> {auto pf : getField r f = Just ty} -> PIO ty
-(/:) pio f = map (/. f) pio
-
-infixl 4 $:
-abstract
-($:) : PIO (Ref $ Function args ret) -> HList args -> PIO ret
-($:) pio args = map ($. args) pio
--}
