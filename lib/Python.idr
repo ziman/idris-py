@@ -11,6 +11,7 @@ Dyn = Ptr
 
 data Field : Type where
   Attr : (ty : Type) -> Field
+  ParAttr : (params : Type) -> (tyf : params -> Type) -> Field
   Call : (args : List Type) -> (ret : Type) -> Field
   NotField : Field
 
@@ -86,17 +87,24 @@ toString x =
 
 infixl 4 /.
 abstract
-(/.) : Object a sig => (r : a) -> (f : String) -> {auto pf : sig f = Attr ty} -> ty
+(/.) : Object a sig => a -> (f : String) -> {auto pf : sig f = Attr ty} -> ty
 (/.) {ty=ty} x f =
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) (toDyn x) f
 
+infixl 4 //.
+abstract
+(//.) : Object a sig => a -> (fps : (String, params)) -> {auto pf : sig (fst fps) = ParAttr params tyf} -> tyf (snd fps)
+(//.) {params=params} {tyf=tyf} x (f, ps) =
+  unRaw . unsafePerformIO $
+    foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw $ tyf ps)) (toDyn x) f
+
 infixl 4 $.
 abstract
-($.) : Object a sig => (f : a) -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
-($.) {ret=ret} x args =
+($.) : Object a sig => a -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
+($.) {ret=ret} f args =
     unRaw <$>
-      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) (toDyn x) (fromHList args)
+      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) (toDyn f) (fromHList args)
   where
     fromHList : HList as -> List Dyn
     fromHList [] = []

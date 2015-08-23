@@ -85,6 +85,10 @@ Builtins_sig f = case f of
   "float" => Attr $ PyType Float
   "bool"  => Attr $ PyType Bool
   "str"   => Attr $ PyType String
+  "tuple" => Attr $ PyType Tuple
+  "list"  => ParAttr Type $ PyType . PyList
+  "dict"  => ParAttr (Type, Type) $ \(k,v) => PyType (Dict k v)
+  "set"   => ParAttr Type $ PyType . Set
   _ => Module_sig f
 
 instance Object Builtins Builtins_sig where {}
@@ -95,13 +99,9 @@ import_ = importModule "__builtins__"
 builtins : Builtins
 builtins = unsafePerformIO import_  -- __builtins__ are always safe
 
-{-
-  "list"  => attr $ PyType PyList
-  "dict"  => attr $ PyType PyDict
-  "set"   => attr $ PyType PySet
-  "tuple" => attr $ PyType PyTuple
+list : (a : Type) -> PyType (PyList a)
+list a = builtins //. ("list", a)
 
 abstract
-toPyList : List a -> Ref PyList
-toPyList xs = unsafePerformIO $ list $. [toDyn xs]
--}
+toPyList : List a -> PyList a
+toPyList xs = unsafePerformIO $ Builtins.list $. [toDyn xs]
