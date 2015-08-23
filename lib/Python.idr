@@ -1,5 +1,6 @@
 module Python
 
+import Python.Telescope
 import Python.IO
 
 %default total
@@ -12,7 +13,7 @@ Dyn = Ptr
 data Field : Type where
   Attr : (ty : Type) -> Field
   ParAttr : (params : Type) -> (tyf : params -> Type) -> Field
-  Call : (args : List Type) -> (ret : Type) -> Field
+  Call : (t : Telescope a) -> Field
   NotField : Field
 
 Signature : Type
@@ -27,17 +28,11 @@ instance Semigroup Signature where
 instance Monoid Signature where
   neutral = const NotField
 
-data Proxy : Type -> Type where
-  MkProxy : (a : Type) -> Proxy a
-
-class Object a (sig : Signature) | a where
-  -- no methods
-
-data Function : (args : List Type) -> (ret : Type) -> Type where {}
+data Function : (t : Telescope a) -> Type where {}
 
 infixr 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
-(~>) args ret = Attr $ Function args ret
+(~>) args ret = Attr $ Function (simple args ret)
 
 -- the root of the inheritance hierarchy
 Object_sig : Signature
@@ -50,26 +45,16 @@ Module_sig : Signature
 Module_sig "__name__" = Attr String
 Module_sig f = Object_sig f
 
-instance Object Module Module_sig where {}
-
 data PyType : Type -> Type where {}
 
 PyType_sig : Type -> Signature
 PyType_sig a "__name__" = Attr String
-PyType_sig a "__call__" = Call [Dyn] a
+PyType_sig a "__call__" = Call $ simple [Dyn] a
 PyType_sig a f = Object_sig f
 
-instance Object (PyType a) (PyType_sig a) where {}
-
-Function_sig : (args : List Type) -> (ret : Type) -> Signature
-Function_sig args ret "__call__" = Call args ret
-Function_sig args ret f = Object_sig f
-
-instance Object (Function args ret) (Function_sig args ret) where {}
-
-data HList : List Type -> Type where
-  Nil : HList []
-  (::) : a -> HList as -> HList (a :: as)
+Function_sig : (t : Telescope a) -> Signature
+Function_sig t "__call__" = Call t
+Function_sig t f = Object_sig f
 
 abstract
 toDyn : a -> Dyn
@@ -85,30 +70,38 @@ toString x =
   unsafePerformIO $
     foreign FFI_Py "str" (Dyn -> PIO String) x
 
+infix 4 .:
+record FieldSpec where
+  constructor (.:)
+  fieldSig : Signature
+  fieldName : String
+
+
 infixl 4 /.
 abstract
-(/.) : Object a sig => a -> (f : String) -> {auto pf : sig f = Attr ty} -> ty
-(/.) {ty=ty} x f =
+(/.) : (x : a) -> (fs : FieldSpec) -> {auto pf : fieldSig fs (fieldName fs) = Attr ty} -> ty
+(/.) {ty=ty} x (sig .: f) =
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) (toDyn x) f
 
 infixl 4 //.
 abstract
-(//.) : Object a sig => a -> (fps : (String, params)) -> {auto pf : sig (fst fps) = ParAttr params tyf} -> tyf (snd fps)
-(//.) {params=params} {tyf=tyf} x (f, ps) =
+(//.) : (x : a) -> (fsps : (FieldSpec, params))
+  -> {auto pf : fieldSig (fst fsps) (fieldName $ fst fsps) = ParAttr params tyf}
+  -> tyf (snd fsps)
+(//.) {params=params} {tyf=tyf} x (sig .: f, ps) =
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw $ tyf ps)) (toDyn x) f
 
 infixl 4 $.
 abstract
-($.) : Object a sig => a -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
-($.) {ret=ret} f args =
+($.) : (x : a) -> (sigas : (Signature, args)) -> {auto pf : fst sigas "__call__" = Call t} -> PIO $ retTy t (snd sigas)
+($.) {t=t} f (sig, args) =
     unRaw <$>
-      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) (toDyn f) (fromHList args)
-  where
-    fromHList : HList as -> List Dyn
-    fromHList [] = []
-    fromHList (x :: xs) = toDyn x :: fromHList xs
+      foreign FFI_Py "_idris_call"
+        (Dyn -> Raw (TList t args) -> PIO (Raw $ retTy t args))
+        (toDyn f)
+        (MkRaw $ strip t args)
 
 {-
 abstract
