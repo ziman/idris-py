@@ -8,15 +8,16 @@ import Python.Telescope
 %default total
 %access abstract
 
-PyNum : Signature -> Signature
-PyNum a f = case f of
+Num_sig : Type -> Signature
+Num_sig a f = case f of
   "__str__" => [] ~> String
-  "__add__" => [Ref a] ~> Ref a
+  "__add__" => [a] ~> a
   _ => Object f
 
-PyInt : Signature
-PyInt = PyNum PyInt
+Int_sig : Signature
+Int_sig = Num_sig Int
 
+{-
 PyFloat : Signature
 PyFloat = PyNum PyFloat
 
@@ -99,3 +100,4 @@ toNative (MkRef ptr) = believe_me ptr
 abstract
 toPyList : List a -> Ref (PyList a)
 toPyList xs = unsafePerformIO $ list _ $. [toDyn xs]
+-}
