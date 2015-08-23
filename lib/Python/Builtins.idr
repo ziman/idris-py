@@ -7,82 +7,101 @@ import Python.RTS
 %default total
 %access abstract
 
-PyType : Signature -> Signature
-PyType sig "__name__" = Attr String
-PyType sig "__call__" = Call [Dyn] (Ref sig)
+Show_sig : Signature
+Show_sig f = case f of
+  "__str__" => [] ~> String
+  _ => NotField
 
-PyInt : Signature
-PyInt _ = NotField
+Arith_sig : Type -> Signature
+Arith_sig a f = case f of
+  "__add__" => [a] ~> a
+  "__sub__" => [a] ~> a
+  "__mul__" => [a] ~> a
+  "__div__" => [a] ~> a
+  _ => Show_sig f
 
-PyFloat : Signature
-PyFloat _ = NotField
+Int_sig : Signature
+Int_sig = Arith_sig Int <+> Object_sig
 
-PyBool : Signature
-PyBool _ = NotField
+instance Object Int Int_sig where {}
 
-PyStr : Signature
-PyStr _ = NotField
+Float_sig : Signature
+Float_sig = Arith_sig Float <+> Object_sig
 
-PyBytes : Signature
-PyBytes _ = NotField
+instance Object Float Float_sig where {}
 
-PyList : Signature
-PyList _ = NotField
+Bool_sig : Signature
+Bool_sig = Arith_sig Bool <+> Object_sig
 
-PyDict : Signature
-PyDict _ = NotField
+instance Object Bool Bool_sig where {}
 
-PyTuple : Signature
-PyTuple _ = NotField
+Str_sig : Signature
+Str_sig = Object_sig
 
-PySet : Signature
-PySet _ = NotField
+instance Object String Str_sig where {}
 
-Builtins : Signature
-Builtins f = case f of
-  "int"   => attr $ PyType PyInt
-  "float" => attr $ PyType PyFloat
-  "bool"  => attr $ PyType PyBool
-  "str"   => attr $ PyType PyStr
+data Bytes : Type where {}
+
+Bytes_sig : Signature
+Bytes_sig = Object_sig
+
+instance Object Bytes Bytes_sig where {}
+
+data Dict : Type -> Type -> type where {}
+
+Dict_sig : Type -> Type -> Signature
+Dict_sig k v f = case f of
+    "__get__" => [k] ~> v
+    _ => Object_sig f
+
+instance Object (Dict k v) (Dict_sig k v) where {}
+
+data PyList : Type -> Type where {}
+
+PyList_sig : Type -> Signature
+PyList_sig a = Object_sig
+
+instance Object (PyList a) (PyList_sig a) where {}
+
+data Tuple : Type where {}
+
+Tuple_sig : Signature
+Tuple_sig = Object_sig
+
+instance Object Tuple Tuple_sig where {}
+
+data Set : Type -> Type where {}
+
+Set_sig : Type -> Signature
+Set_sig a = Object_sig
+
+instance Object (Set a) (Set_sig a) where {}
+
+data Builtins : Type where {}
+
+Builtins_sig : Signature
+Builtins_sig f = case f of
+  "int"   => Attr $ PyType Int
+  "float" => Attr $ PyType Float
+  "bool"  => Attr $ PyType Bool
+  "str"   => Attr $ PyType String
+  _ => Module_sig f
+
+instance Object Builtins Builtins_sig where {}
+
+import_ : PIO Builtins
+import_ = importModule "__builtins__"
+
+builtins : Builtins
+builtins = unsafePerformIO import_  -- __builtins__ are always safe
+
+{-
   "list"  => attr $ PyType PyList
   "dict"  => attr $ PyType PyDict
   "set"   => attr $ PyType PySet
   "tuple" => attr $ PyType PyTuple
-  _ => NotField
-
-abstract
-builtins : Ref Builtins
-builtins = MkRef (unsafePerformIO $ getGlobal "__builtins__")
-
-list : Ref $ PyType PyList
-list = builtins /. "list"
-
-int : Ref $ PyType PyInt
-int = builtins /. "int"
-
-float : Ref $ PyType PyFloat
-float = builtins /. "float"
-
-dict : Ref $ PyType PyDict
-dict = builtins /. "dict"
-
-set : Ref $ PyType PySet
-set = builtins /. "set"
-
-tuple : Ref $ PyType PyTuple
-tuple = builtins /. "tuple"
-
-data Native : Type -> Signature -> Type where
-  nInt : Native Int PyInt
-
-abstract
-fromNative : a -> {auto pf : Native a sig} -> Ref sig
-fromNative x = MkRef $ believe_me x
-
-abstract
-toNative : Ref sig -> {auto pf : Native a sig} -> a
-toNative (MkRef ptr) = believe_me ptr
 
 abstract
 toPyList : List a -> Ref PyList
 toPyList xs = unsafePerformIO $ list $. [toDyn xs]
+-}

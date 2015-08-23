@@ -16,6 +16,7 @@ fromPIO action =
     foreign FFI_Py "_idris_marshal_IO" (Raw (PIO a) -> PIO Ptr) (MkRaw action)
 
 abstract
-importModule : (modName : String) -> PIO Ptr
-importModule modName =
-  foreign FFI_Py "importlib.import_module" (String -> PIO Ptr) modName
+importModule : (modName : String) -> PIO a
+importModule {a=a} modName =
+  unRaw <$>
+    foreign FFI_Py "importlib.import_module" (String -> PIO (Raw a)) modName

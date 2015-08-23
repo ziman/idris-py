@@ -22,6 +22,10 @@ DInt = MkDType "int"
 
 NDArray : Signature
 NDArray f = case f of
+  "__add__" => [Arr, Arr] ~> Arr
+  "__sub__" => [Arr, Arr] ~> Arr
+  "__mul__" => [Arr, Arr] ~> Arr
+  "__div__" => [Arr, Arr] ~> Arr
   _ => NotField
 
 -- talk like a pirate!
@@ -30,17 +34,13 @@ Arr = Ref NDArray
 
 Numpy : Signature
 Numpy f = case f of
+  "ndarray" => attr PyType NDArray
   "array" => [Dyn, String] ~> Arr
-  "reshape" => [Arr, Nat, Nat] ~> Arr
+  "reshape" => [Arr, Ref PyList] ~> Arr
   "abs" => [Arr] ~> Arr
   "dot" => [Arr, Arr] ~> Arr
   "transpose" => [Arr] ~> Arr
   "tile" => [Arr, Ref PyList] ~> Arr
-
-  "__add__" => [Arr, Arr] ~> Arr
-  "__sub__" => [Arr, Arr] ~> Arr
-  "__mul__" => [Arr, Arr] ~> Arr
-  "__div__" => [Arr, Arr] ~> Arr
   _ => NotField
 
 abstract
@@ -80,14 +80,14 @@ abstract
 reshape : Matrix m n dtype -> {auto pf : m * n = m' * n'} -> Matrix m' n' dtype
 reshape {m'=m'} {n'=n'} (MkMtx x) =
   unsafeNpMtx $ \np =>
-    np /. "reshape" $. [x, m', n']
+    np /. "reshape" $. [x, toPyList [m', n']]
 
 private
 binop :
   (op : String)
-  -> {auto pf : Numpy op = [Ref NDArray, Ref NDArray] ~> Ref NDArray}
+  -> {auto pf : NDArray op = [Ref NDArray, Ref NDArray] ~> Ref NDArray}
   -> Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-binop op (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. op $. [x, y]
+binop op (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "ndarray" /. op $. [x, y]
 
 abstract
 add : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 

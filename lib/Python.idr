@@ -17,21 +17,54 @@ data Field : Type where
 Signature : Type
 Signature = (f : String) -> Field
 
-||| Type-tagged Python reference
-record Ref (sig : Signature) where
-  constructor MkRef
-  ptr : Dyn
+instance Semigroup Signature where
+  (<+>) s t =
+    \field => case s field of
+        NotField => t field
+        result   => result
 
-attr : Signature -> Field
-attr = Attr . Ref
+instance Monoid Signature where
+  neutral = const NotField
 
-Function : (args : List Type) -> (ret : Type) -> Signature
-Function args ret "__call__" = Call args ret
-Function args ret _ = NotField
+data Proxy : Type -> Type where
+  MkProxy : (a : Type) -> Proxy a
+
+class Object a (sig : Signature) | a where
+  -- no methods
+
+data Function : (args : List Type) -> (ret : Type) -> Type where {}
 
 infixr 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
-(~>) args ret = attr $ Function args ret
+(~>) args ret = Attr $ Function args ret
+
+-- the root of the inheritance hierarchy
+Object_sig : Signature
+Object_sig "__repr__" = [] ~> String
+Object_sig _          = NotField
+
+data Module : Type where {}
+
+Module_sig : Signature
+Module_sig "__name__" = Attr String
+Module_sig f = Object_sig f
+
+instance Object Module Module_sig where {}
+
+data PyType : Type -> Type where {}
+
+PyType_sig : Type -> Signature
+PyType_sig a "__name__" = Attr String
+PyType_sig a "__call__" = Call [Dyn] a
+PyType_sig a f = Object_sig f
+
+instance Object (PyType a) (PyType_sig a) where {}
+
+Function_sig : (args : List Type) -> (ret : Type) -> Signature
+Function_sig args ret "__call__" = Call args ret
+Function_sig args ret f = Object_sig f
+
+instance Object (Function args ret) (Function_sig args ret) where {}
 
 data HList : List Type -> Type where
   Nil : HList []
@@ -41,7 +74,7 @@ abstract
 toDyn : a -> Dyn
 toDyn = believe_me
 
-abstract
+abstract partial
 unsafeFromDyn : Dyn -> a
 unsafeFromDyn = believe_me
 
@@ -53,17 +86,17 @@ toString x =
 
 infixl 4 /.
 abstract
-(/.) : (r : Ref sig) -> (f : String) -> {auto pf : sig f = Attr ty} -> ty
-(/.) {ty=ty} (MkRef ptr) f =
+(/.) : Object a sig => (r : a) -> (f : String) -> {auto pf : sig f = Attr ty} -> ty
+(/.) {ty=ty} x f =
   unRaw . unsafePerformIO $
-    foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) ptr f
+    foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) (toDyn x) f
 
 infixl 4 $.
 abstract
-($.) : (f : Ref sig) -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
-($.) {ret=ret} (MkRef ptr) args =
+($.) : Object a sig => (f : a) -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
+($.) {ret=ret} x args =
     unRaw <$>
-      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) ptr (fromHList args)
+      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) (toDyn x) (fromHList args)
   where
     fromHList : HList as -> List Dyn
     fromHList [] = []
