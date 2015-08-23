@@ -1,6 +1,7 @@
 module Python
 
 import Python.IO
+import Python.Telescope
 
 %default total
 %access public
@@ -12,7 +13,7 @@ Dyn = Ptr
 data Field : Type where
   Attr : (ty : Type) -> Field
   ParAttr : (p : Type) -> (tf : p -> Type) -> Field
-  Call : (args : List Type) -> (ret : Type) -> Field
+  Call : (t : Telescope a) -> Field
   NotField : Field
 
 Signature : Type
@@ -38,29 +39,25 @@ attr = Attr . Ref
 mutual
   infixr 3 ~>
   (~>) : (args : List Type) -> (ret : Type) -> Field
-  (~>) args ret = attr $ Function args ret
+  (~>) args ret = attr . Function $ simple args ret
 
   -- the root of the inheritance hierarchy
   Object : Signature
   Object "__repr__" = [] ~> String
   Object _          = NotField
 
-  Function : (args : List Type) -> (ret : Type) -> Signature
-  Function args ret "__call__" = Call args ret
-  Function args ret f = Object f
+  Function : (t : Telescope a) -> Signature
+  Function t "__call__" = Call t
+  Function t f = Object f
 
 Module : Signature
 Module "__name__" = Attr String
 Module f = Object f
 
-PyType : Type -> Signature
-PyType a "__name__" = Attr String
-PyType a "__call__" = Call [Dyn] a
-PyType a f = Object f
-
-data HList : List Type -> Type where
-  Nil : HList []
-  (::) : a -> HList as -> HList (a :: as)
+PyType : Signature -> Signature
+PyType sig "__name__" = Attr String
+PyType sig "__call__" = Call (Dep (Pi Dyn) $ \_=> Return (Ref sig))
+PyType sig f = Object f
 
 abstract
 toDyn : a -> Dyn
@@ -92,11 +89,10 @@ abstract
 
 infixl 4 $.
 abstract
-($.) : (f : Ref sig) -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
-($.) {ret=ret} (MkRef ptr) args =
+($.) : (f : Ref sig) -> {auto pf : sig "__call__" = Call {a=a} t} -> (args : a) -> PIO $ retTy t args
+($.) {t=t} (MkRef ptr) args =
     unRaw <$>
-      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) ptr (fromHList args)
-  where
-    fromHList : HList as -> List Dyn
-    fromHList [] = []
-    fromHList (x :: xs) = toDyn x :: fromHList xs
+      foreign FFI_Py "_idris_call"
+        (Dyn -> Raw (TList t args) -> PIO (Raw $ retTy t args))
+        ptr
+        (MkRaw $ strip t args)

@@ -8,19 +8,10 @@ import Python.Telescope
 %default total
 %access abstract
 
-uncurry : (a -> b -> c) -> (a, b) -> c
-uncurry f (x, y) = f x y
-
 PyNum : Signature -> Signature
 PyNum a f = case f of
   "__str__" => [] ~> String
   "__add__" => [Ref a] ~> Ref a
-  _ => Object f
-
-PyType : Signature -> Signature
-PyType sig f = case f of
-  "__name__" => Attr String
-  "__call__" => Call [Dyn] (Ref sig)
   _ => Object f
 
 PyInt : Signature
@@ -56,16 +47,20 @@ PySet : Type -> Signature
 PySet a f = case f of
   _ => Object f
 
+ptype : Signature -> Field
+ptype = Attr . Ref . PyType
+
+%default total
 Builtins : Signature
 Builtins f = case f of
-  "int"   => attr $ PyType PyInt
-  "float" => attr $ PyType PyFloat
-  "bool"  => attr $ PyType PyBool
-  "str"   => attr $ PyType PyStr
-  "tuple" => attr $ PyType PyTuple
-  "list"  => ParAttr Type . Ref $ PyType . PyList
-  "set"   => ParAttr Type . Ref $ PyType . PySet
-  "dict"  => ParAttr (Type,Type) . Ref $ PyType . uncurry PyDict
+  "int"   => ptype PyInt
+  "float" => ptype PyFloat
+  "bool"  => ptype PyBool
+  "str"   => ptype PyStr
+  "tuple" => ptype PyTuple
+  "list"  => ParAttr Type $ Ref . PyType . PyList
+  "set"   => ParAttr Type $ Ref . PyType . PySet
+  "dict"  => ParAttr (Type,Type) $ Ref . PyType . uncurry PyDict
   _ => Module f
 
 abstract
@@ -82,10 +77,10 @@ float : Ref $ PyType PyFloat
 float = builtins /. "float"
 
 dict : (k, v : Type) -> Ref $ PyType (PyDict k v)
-dict = builtins /. "dict"
+dict k v = builtins //. ("dict", (k, v))
 
 set : (a : Type) -> Ref $ PyType (PySet a)
-set = builtins /. "set"
+set a = builtins //. ("set", a)
 
 tuple : Ref $ PyType PyTuple
 tuple = builtins /. "tuple"
@@ -102,5 +97,5 @@ toNative : Ref sig -> {auto pf : Native a sig} -> a
 toNative (MkRef ptr) = believe_me ptr
 
 abstract
-toPyList : List a -> Ref PyList
-toPyList xs = unsafePerformIO $ list $. [toDyn xs]
+toPyList : List a -> Ref (PyList a)
+toPyList xs = unsafePerformIO $ list _ $. [toDyn xs]
