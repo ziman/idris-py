@@ -7,6 +7,9 @@ import Python.RTS
 %default total
 %access abstract
 
+uncurry : (a -> b -> c) -> (a, b) -> c
+uncurry f (x, y) = f x y
+
 PyNum : Signature -> Signature
 PyNum a f = case f of
   "__str__" => [] ~> String
@@ -24,27 +27,30 @@ PyFloat : Signature
 PyFloat = PyNum PyFloat
 
 PyBool : Signature
-PyBool _ = NotField
+PyBool = Object
 
 PyStr : Signature
-PyStr _ = NotField
+PyStr = Object
 
 PyBytes : Signature
-PyBytes _ = NotField
+PyBytes = Object
 
 PyList : Type -> Signature
 PyList a f = case f of
   "append" => [a] ~> ()
-  "cons" => [a] ~> Ref (PyList a)  -- hypothetical
+  "cons"   => [a] ~> Ref (PyList a)  -- hypothetical
 
-PyDict : Signature
-PyDict _ = NotField
+PyDict : Type -> Type -> Signature
+PyDict k v f = case f of
+  "get" => [k] ~> Maybe v
+  _ => Object f
 
 PyTuple : Signature
-PyTuple _ = NotField
+PyTuple = Object
 
-PySet : Signature
-PySet _ = NotField
+PySet : Type -> Signature
+PySet a f = case f of
+  _ => Object f
 
 Builtins : Signature
 Builtins f = case f of
@@ -53,8 +59,8 @@ Builtins f = case f of
   "bool"  => attr $ PyType PyBool
   "str"   => attr $ PyType PyStr
   "list"  => ParAttr Type $ PyType . PyList
-  "dict"  => attr $ PyType PyDict
-  "set"   => attr $ PyType PySet
+  "set"   => ParAttr Type $ PyType . PySet
+  "dict"  => ParAttr (Type,Type) $ PyType . uncurry PyDict
   "tuple" => attr $ PyType PyTuple
   _ => NotField
 
@@ -71,10 +77,10 @@ int = builtins /. "int"
 float : Ref $ PyType PyFloat
 float = builtins /. "float"
 
-dict : Ref $ PyType PyDict
+dict : (k, v : Type) -> Ref $ PyType (PyDict k v)
 dict = builtins /. "dict"
 
-set : Ref $ PyType PySet
+set : (a : Type) -> Ref $ PyType (PySet a)
 set = builtins /. "set"
 
 tuple : Ref $ PyType PyTuple
