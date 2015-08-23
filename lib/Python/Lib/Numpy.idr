@@ -20,17 +20,17 @@ DFloat = MkDType "float"
 DInt : DType Int
 DInt = MkDType "int"
 
-NDArray : Signature
-NDArray f = case f of
-  _ => NotField
+NDArray : (m, n : Nat) -> (dt : DType a) -> Signature
+NDArray m n dt f = case f of
+  _ => Object f
 
 -- talk like a pirate!
-Arr : Type
-Arr = Ref NDArray
+Arr : (m, n : Nat) -> (dt : DType a) -> Type
+Arr m n dt = Ref $ NDArray m n dt
 
 Numpy : Signature
 Numpy f = case f of
-  "array" => [Dyn, String] ~> Arr
+  "array" => [Dyn, String] ~> Arr m n dt
   "reshape" => [Arr, Nat, Nat] ~> Arr
   "abs" => [Arr] ~> Arr
   "dot" => [Arr, Arr] ~> Arr

@@ -3,6 +3,7 @@ module Python.Builtins
 import Python
 import Python.IO
 import Python.RTS
+import Python.Telescope
 
 %default total
 %access abstract
@@ -17,8 +18,10 @@ PyNum a f = case f of
   _ => Object f
 
 PyType : Signature -> Signature
-PyType sig "__name__" = Attr String
-PyType sig "__call__" = Call [Dyn] (Ref sig)
+PyType sig f = case f of
+  "__name__" => Attr String
+  "__call__" => Call [Dyn] (Ref sig)
+  _ => Object f
 
 PyInt : Signature
 PyInt = PyNum PyInt
@@ -39,6 +42,7 @@ PyList : Type -> Signature
 PyList a f = case f of
   "append" => [a] ~> ()
   "cons"   => [a] ~> Ref (PyList a)  -- hypothetical
+  _ => Object f
 
 PyDict : Type -> Type -> Signature
 PyDict k v f = case f of
@@ -58,11 +62,11 @@ Builtins f = case f of
   "float" => attr $ PyType PyFloat
   "bool"  => attr $ PyType PyBool
   "str"   => attr $ PyType PyStr
-  "list"  => ParAttr Type $ PyType . PyList
-  "set"   => ParAttr Type $ PyType . PySet
-  "dict"  => ParAttr (Type,Type) $ PyType . uncurry PyDict
   "tuple" => attr $ PyType PyTuple
-  _ => NotField
+  "list"  => ParAttr Type . Ref $ PyType . PyList
+  "set"   => ParAttr Type . Ref $ PyType . PySet
+  "dict"  => ParAttr (Type,Type) . Ref $ PyType . uncurry PyDict
+  _ => Module f
 
 abstract
 builtins : Ref Builtins
