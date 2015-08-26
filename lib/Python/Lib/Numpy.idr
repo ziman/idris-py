@@ -1,7 +1,7 @@
 module Python.Lib.Numpy
 
 import Python
-
+import Data.Erased
 import Data.Vect
 
 %access public
@@ -18,47 +18,64 @@ DInt : DType Int
 DInt = MkDType "int"
 
 abstract
-record Matrix (rows : Nat) (cols : Nat) where
+record Matrix (rows : Nat) (cols : Nat) (dt : DType ty) where
   ptr : Dyn
 
-Matrix_sig : (r, c : Nat) -> Signature
-Matrix_sig r c f = case f of
+Matrix_sig : (r, c : Nat) -> (dt : DType ty) -> Signature
+Matrix_sig r c dt f = case f of
+
+    -- reshape requires preserving the number of elements
     "reshape" => fun (rr ** (cc ** (eq : Erased (r*c=rr*cc) ** ()))) $
-      pi $ \rr : Nat =>
-        pi $ \cc : Nat =>
-          forall $ \eq : Erased (r*c = rr*cc) =>
-            Return $ Matrix rr cc
-    _ => (Arith_sig (Matrix r c) <+> Object_sig) f
-  where
-    reshape_rest : (rr : Nat) -> (cc : Nat)
-      -> Telescope (Sigma (Erased (r*c=rr*cc)) $ const ())
-    reshape_rest rr cc =
-      Dep (Forall (r*c = rr*cc)) $ \_=>
-          Return $ Matrix rr cc
+        pi $ \rr : Nat =>
+          pi $ \cc : Nat =>
+            forall {a = r*c = rr*cc} $ \(Erase eq) =>
+              Return $ Matrix rr cc dt
+
+    -- transpose swaps rows/columns
+    "transpose" => [] ~> Matrix c r dt
+
+    -- less interesting ops
+    "dot" => [Matrix r c dt] ~> Matrix r c dt
+
+    _ => (Arith_sig (Matrix r c dt) <+> Object_sig) f
+
+record PyVect (n : Nat) (a : Type) where
+  constructor MkPyVect
+  pyList : PyList a
+
+pyVect : Vect n a -> PyVect n a
+pyVect xs = MkPyVect $ toPyList (toList xs)
+
+pyVect2D : Vect r (Vect c a) -> PyVect r (PyVect c a)
+pyVect2D = pyVect . map pyVect
+
+Numpy_sig : Signature
+Numpy_sig f = case f of
+
+  "abs" => fun (r ** (c ** (ty ** (dt : Erased (DType $ unerase ty) ** (m : Matrix (unerase r) (unerase c) (unerase dt) ** ()))))) $
+      forall $ \(Erase r) =>
+        forall $ \(Erase c) =>
+          forall $ \(Erase ty) =>
+            forall $ \(Erase dt) =>
+              pi $ \m : Matrix r c dt =>
+                Return $ Matrix r c dt
+
+  "array" => fun (r ** (c ** (ty ** (dt : Erased (DType $ unerase ty) ** (x : PyVect (unerase r) (PyVect (unerase c) (unerase ty)) ** ()))))) $
+      forall $ \(Erase r) =>
+        forall $ \(Erase c) =>
+          forall $ \(Erase ty) =>
+            forall $ \(Erase dt) =>
+              pi $ \x : PyVect r (PyVect c ty) =>
+                Return $ Matrix r c dt
+{-
+  "array"   => [Dyn, String] ~> Arr
+  "tile"    => [Arr, Ref PyList] ~> Arr
+-}
+  _ => Module_sig f
 
 {-
--- talk like a pirate!
-Arr : Type
-Arr = Ref NDArray
-
-Numpy : Signature
-Numpy f = case f of
-  "ndarray" => attr PyType NDArray
-  "array" => [Dyn, String] ~> Arr
-  "reshape" => [Arr, Ref PyList] ~> Arr
-  "abs" => [Arr] ~> Arr
-  "dot" => [Arr, Arr] ~> Arr
-  "transpose" => [Arr] ~> Arr
-  "tile" => [Arr, Ref PyList] ~> Arr
-  _ => NotField
-
-abstract
-record Matrix (rows : Nat) (cols : Nat) (dtype : DType a) where
-  constructor MkMtx
-  ndarray : Ref NDArray
-
 instance Show (Matrix m n ty) where
-  show (MkMtx $ MkRef o) = toString o
+  show m = unsafePerformIO (m /. "__str__" $. [])
 
 private
 import_ : PIO (Ref Numpy)
