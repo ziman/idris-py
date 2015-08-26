@@ -1,9 +1,6 @@
 module Python.Builtins
 
 import Python
-import Python.IO
-import Python.RTS
-import Python.Telescope
 
 %default total
 %access abstract
@@ -11,7 +8,7 @@ import Python.Telescope
 Show_sig : Signature
 Show_sig f = case f of
   "__str__" => [] ~> String
-  _ => NotField
+  _ => Object_sig f
 
 Arith_sig : Type -> Signature
 Arith_sig a f = case f of
@@ -22,17 +19,17 @@ Arith_sig a f = case f of
   _ => Show_sig f
 
 Int_sig : Signature
-Int_sig = Arith_sig Int <+> Object_sig
+Int_sig = Arith_sig Int
 
 instance Object Int Int_sig where {}
 
 Float_sig : Signature
-Float_sig = Arith_sig Float <+> Object_sig
+Float_sig = Arith_sig Float
 
 instance Object Float Float_sig where {}
 
 Bool_sig : Signature
-Bool_sig = Arith_sig Bool <+> Object_sig
+Bool_sig = Arith_sig Bool
 
 instance Object Bool Bool_sig where {}
 

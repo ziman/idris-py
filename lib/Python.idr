@@ -1,7 +1,9 @@
 module Python
 
-import Python.Telescope
-import Python.IO
+import public Python.IO
+import public Python.Telescope
+import public Python.Exceptions
+import public Python.RTS
 
 %default total
 %access public
@@ -41,6 +43,9 @@ record Function (t : Telescope a) where
 infixr 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
 (~>) args ret = Attr $ Function (simple args ret)
+
+fun : (t : Telescope a) -> Field
+fun = Attr . Function
 
 -- the root of the inheritance hierarchy
 Object_sig : Signature

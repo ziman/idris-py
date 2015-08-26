@@ -1,8 +1,6 @@
 module Python.Lib.Numpy
 
 import Python
-import Python.IO
-import Python.RTS
 import Python.Builtins
 
 import Data.Vect
@@ -20,14 +18,21 @@ DFloat = MkDType "float"
 DInt : DType Int
 DInt = MkDType "int"
 
-NDArray : Signature
-NDArray f = case f of
-  "__add__" => [Arr, Arr] ~> Arr
-  "__sub__" => [Arr, Arr] ~> Arr
-  "__mul__" => [Arr, Arr] ~> Arr
-  "__div__" => [Arr, Arr] ~> Arr
-  _ => NotField
+abstract
+record Matrix (rows : Nat) (cols : Nat) where
+  ptr : Dyn
 
+Matrix_sig : (r, c : Nat) -> Signature
+Matrix_sig r c f = case f of
+  "reshape" => fun (
+        Dep (Pi Nat) (\rr =>
+          Dep (Pi Nat) (\cc =>
+           (-- Dep (Forall (r*c = rr*cc)) (\eq =>
+              Return $ Unit -- Matrix rr cc
+      ))))
+  _ => (Arith_sig (Matrix r c) <+> Object_sig) f
+
+{-
 -- talk like a pirate!
 Arr : Type
 Arr = Ref NDArray
@@ -147,3 +152,4 @@ instance Num (Matrix m n ty) where
   (*) = mul
   abs = Numpy.abs
   fromInteger = Numpy.fromInteger
+-}
