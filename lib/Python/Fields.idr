@@ -42,8 +42,8 @@ infixr 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
 (~>) args ret = Attr $ Function (simple args ret)
 
-fun : (t : Telescope a) -> Field
-fun = Attr . Function
+fun : (a : Type) -> (t : Telescope a) -> Field
+fun a = Attr . Function
 
 -- the root of the inheritance hierarchy
 Object_sig : Signature

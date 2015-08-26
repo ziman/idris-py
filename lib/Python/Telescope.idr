@@ -45,15 +45,15 @@ data Telescope : Type -> Type where
     -> (t : Telescope b)
     -> Telescope (Sigma a $ const b)
 
-pi : (a : Type) -> {b : a -> Type}
+pi : {a : Type} -> {b : a -> Type}
   -> (tf : (x : a) -> Telescope (b x))
   -> Telescope (Sigma a b)
-pi a tf = Dep (Pi a) tf
+pi tf = Dep (Pi _) tf
 
-forall : (a : Type) -> {b : Erased a -> Type}
+forall : {a : Type} -> {b : Erased a -> Type}
   -> (tf : (x : Erased a) -> Telescope (b x))
   -> Telescope (Sigma (Erased a) b)
-forall a tf = Dep (Forall a) tf
+forall tf = Dep (Forall _) tf
 
 namespace TupleSugar
   ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].

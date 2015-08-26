@@ -23,10 +23,11 @@ record Matrix (rows : Nat) (cols : Nat) where
 
 Matrix_sig : (r, c : Nat) -> Signature
 Matrix_sig r c f = case f of
-    "reshape" => fun $
-          pi Nat $ \rr =>
-            pi Nat $ \cc =>
-              reshape_rest rr cc
+    "reshape" => fun (rr ** (cc ** (eq : Erased (r*c=rr*cc) ** ()))) $
+      pi $ \rr : Nat =>
+        pi $ \cc : Nat =>
+          forall $ \eq : Erased (r*c = rr*cc) =>
+            Return $ Matrix rr cc
     _ => (Arith_sig (Matrix r c) <+> Object_sig) f
   where
     reshape_rest : (rr : Nat) -> (cc : Nat)
