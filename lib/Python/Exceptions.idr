@@ -84,13 +84,18 @@ fromString s = case s of
   "UnicodeTranslateError" => UnicodeTranslateError
   other => Other other
 
+abstract
+record Exception where
+  constructor MkException
+  ptr : Ptr
+
 ||| Result of try-catch.
 data Result : Type -> Type where
   ||| No exception was raised, `PIO` action was performed normally.
   OK : (x : a) -> Result a
 
   ||| An exception was raised.
-  Except : (etype : ExceptionType) -> (e : Ptr) -> Result a
+  Except : (etype : ExceptionType) -> (e : Exception) -> Result a
 
 abstract
 try : PIO a -> PIO (Result a)
@@ -105,4 +110,4 @@ try {a = a} action =
       )
       (MkRaw action)
       (MkRaw . OK . unRaw)
-      (\et, e => MkRaw $ Except (fromString et) e)
+      (\et, e => MkRaw $ Except (fromString et) (MkException e))

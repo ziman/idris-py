@@ -6,3 +6,4 @@ modules = Python
 	, Python.RTS
 	, Python.Exceptions
 	, Python.Lib.Numpy
+	, Python.Telescope
