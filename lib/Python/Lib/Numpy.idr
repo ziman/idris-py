@@ -49,6 +49,10 @@ pyVect xs = MkPyVect $ toPyList (toList xs)
 pyVect2D : Vect r (Vect c a) -> PyVect r (PyVect c a)
 pyVect2D = pyVect . map pyVect
 
+abstract
+record Numpy where
+  ptr : Dyn
+
 Numpy_sig : Signature
 Numpy_sig f = case f of
 
@@ -60,108 +64,36 @@ Numpy_sig f = case f of
               pi $ \m : Matrix r c dt =>
                 Return $ Matrix r c dt
 
-  "array" => fun (r ** (c ** (ty ** (dt : Erased (DType $ unerase ty) ** (x : PyVect (unerase r) (PyVect (unerase c) (unerase ty)) ** ()))))) $
+  "array" => fun (r ** (c ** (ty ** (x : PyVect (unerase r) (PyVect (unerase c) (unerase ty)) ** (dt : DType (unerase ty) ** ()))))) $
       forall $ \(Erase r) =>
         forall $ \(Erase c) =>
           forall $ \(Erase ty) =>
-            forall $ \(Erase dt) =>
-              pi $ \x : PyVect r (PyVect c ty) =>
+            pi $ \x : PyVect r (PyVect c ty) =>
+              pi $ \dt : DType ty =>
                 Return $ Matrix r c dt
-{-
-  "array"   => [Dyn, String] ~> Arr
-  "tile"    => [Arr, Ref PyList] ~> Arr
--}
+
   _ => Module_sig f
 
-{-
-instance Show (Matrix m n ty) where
+instance Show (Matrix m n dt) where
   show m = unsafePerformIO (m /. "__str__" $. [])
 
 private
-import_ : PIO (Ref Numpy)
-import_ = MkRef <$> importModule "numpy"
+import_ : PIO Numpy
+import_ = importModule "numpy"
 
 private
-unsafeNumpy : (Ref Numpy -> PIO a) -> a
+unsafeNumpy : (Numpy -> PIO a) -> a
 unsafeNumpy action = unsafePerformIO (import_ >>= action)
-
-private
-unsafeNpMtx : (Ref Numpy -> PIO (Ref NDArray)) -> Matrix m n dtype
-unsafeNpMtx = MkMtx . unsafeNumpy
-
-abstract
-array : (dtype : DType a) -> Vect m (Vect n a) -> Matrix m n dtype
-array {a=a} (MkDType dtype) xs =
-    unsafeNpMtx $ \np =>
-      np /. "array" $. [toDyn . mkList $ map mkList xs, dtype]
-  where
-    mkList : {a : Type} -> {n : Nat} -> Vect n a -> Ref PyList
-    mkList xs = toPyList $ toList xs
-
-private
-unsafeMtxIO : PIO (Ref NDArray) -> Matrix m n ty
-unsafeMtxIO = MkMtx . unsafePerformIO
-
-abstract
-reshape : Matrix m n dtype -> {auto pf : m * n = m' * n'} -> Matrix m' n' dtype
-reshape {m'=m'} {n'=n'} (MkMtx x) =
-  unsafeNpMtx $ \np =>
-    np /. "reshape" $. [x, toPyList [m', n']]
-
-private
-binop :
-  (op : String)
-  -> {auto pf : NDArray op = [Ref NDArray, Ref NDArray] ~> Ref NDArray}
-  -> Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-binop op (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "ndarray" /. op $. [x, y]
-
-abstract
-add : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
-add = binop "__add__"
-
-abstract
-sub : Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-sub = binop "__sub__"
-
-abstract
-mul : Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-mul = binop "__mul__"
-
-abstract
-div : Matrix m n ty -> Matrix m n ty -> Matrix m n ty
-div = binop "__div__"
-
-abstract
-abs : Matrix m n ty -> Matrix m n ty
-abs (MkMtx x) = unsafeNpMtx $ \np => np /. "abs" $. [x]
-
-abstract
-dot : Matrix m n ty -> Matrix n k ty -> Matrix m k ty 
-dot (MkMtx x) (MkMtx y) = unsafeNpMtx $ \np => np /. "dot" $. [x, y]
 
 abstract
 (/) : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
-(/) = Numpy.div
+(/) x y = unsafePerformIO (x /. "__div__" $. [y])
 
 abstract
-transpose : Matrix m n ty -> Matrix n m ty
-transpose (MkMtx x) = unsafeNpMtx $ \np => np /. "transpose" $. [x]
-
-abstract
-tile : (r, c : Nat) -> Matrix m n ty -> Matrix (r*m) (c*n) ty
-tile r c (MkMtx x) =
-  unsafeNpMtx $ \np => np /. "tile" $. [x, toPyList [r, c]] 
-
-private
-fromDyn : (x : Dyn) -> Matrix m n ty
-fromDyn {m=m} {n=n} {ty = MkDType dtype} x =
-  unsafeNpMtx $ \np => do
-    xs <- np /. "array" $. [x, dtype]
-    np /. "tile" $. [xs, toPyList [m, n]]
-
-abstract
-fromInteger : (x : Integer) -> Matrix m n ty
-fromInteger = fromDyn . toDyn
+fromInteger : {dt : DType a} -> (x : Integer) -> Matrix m n dt
+fromInteger {a=a} {m=m} {n=n} {dt=dt} x =
+  unsafeNumpy $ \np =>
+    np /. "array" $. [m, n, a, pyVect2D $ replicate m (replicate n x), dt]
 
 abstract
 fromFloat : (x : Float) -> Matrix m n ty
@@ -173,4 +105,3 @@ instance Num (Matrix m n ty) where
   (*) = mul
   abs = Numpy.abs
   fromInteger = Numpy.fromInteger
--}
