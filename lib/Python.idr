@@ -101,7 +101,7 @@ abstract
 
 infixl 4 $.
 abstract
-($.) : Object a sig => a -> {auto pf : sig "__call__" = Call args ret} -> HList args -> PIO ret
+($.) : Object a sig => a -> HList args -> {auto pf : sig "__call__" = Call args ret} -> PIO ret
 ($.) {ret=ret} f args =
     unRaw <$>
       foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) (toDyn f) (fromHList args)
@@ -109,14 +109,3 @@ abstract
     fromHList : HList as -> List Dyn
     fromHList [] = []
     fromHList (x :: xs) = toDyn x :: fromHList xs
-
-{-
-abstract
-(/:) : Object a => (r : PIO (Ref a)) -> (f : String) -> {auto pf : getField r f = Just ty} -> PIO ty
-(/:) pio f = map (/. f) pio
-
-infixl 4 $:
-abstract
-($:) : PIO (Ref $ Function args ret) -> HList args -> PIO ret
-($:) pio args = map ($. args) pio
--}

@@ -104,4 +104,4 @@ list a = builtins //. ("list", a)
 
 abstract
 toPyList : List a -> PyList a
-toPyList xs = unsafePerformIO $ Builtins.list $. [toDyn xs]
+toPyList xs = unsafePerformIO $ Builtins.list _ $. [toDyn xs]
