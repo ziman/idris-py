@@ -23,13 +23,17 @@ record Matrix (rows : Nat) (cols : Nat) where
 
 Matrix_sig : (r, c : Nat) -> Signature
 Matrix_sig r c f = case f of
-  "reshape" => fun (
-        Dep (Pi Nat) (\rr =>
-          Dep (Pi Nat) (\cc =>
-           (-- Dep (Forall (r*c = rr*cc)) (\eq =>
-              Return $ Unit -- Matrix rr cc
-      ))))
-  _ => (Arith_sig (Matrix r c) <+> Object_sig) f
+    "reshape" => fun $
+          pi Nat $ \rr =>
+            pi Nat $ \cc =>
+              reshape_rest rr cc
+    _ => (Arith_sig (Matrix r c) <+> Object_sig) f
+  where
+    reshape_rest : (rr : Nat) -> (cc : Nat)
+      -> Telescope (Sigma (Erased (r*c=rr*cc)) $ const ())
+    reshape_rest rr cc =
+      Dep (Forall (r*c = rr*cc)) $ \_=>
+          Return $ Matrix rr cc
 
 {-
 -- talk like a pirate!
