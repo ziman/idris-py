@@ -1,7 +1,6 @@
 module Python.Lib.Numpy
 
 import Python
-import Python.Builtins
 
 import Data.Vect
 

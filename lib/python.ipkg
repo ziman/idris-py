@@ -2,8 +2,9 @@ package python
 
 modules = Python
 	, Python.IO
-	, Python.Builtins
 	, Python.RTS
 	, Python.Exceptions
-	, Python.Lib.Numpy
+	, Python.Fields
 	, Python.Telescope
+	, Python.Builtins
+	, Python.Lib.Numpy

@@ -1,6 +1,7 @@
 module Python.Builtins
 
-import Python
+import Python.RTS
+import Python.Fields
 
 %default total
 %access abstract
