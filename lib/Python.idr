@@ -1,5 +1,6 @@
 module Python
 
+import Python.Telescope
 import Python.IO
 
 %default total
@@ -11,8 +12,8 @@ Dyn = Ptr
 
 data Field : Type where
   Attr : (ty : Type) -> Field
-  ParAttr : (params : Type) -> (tyf : params -> Type) -> Field
-  Call : (args : List Type) -> (ret : Type) -> Field
+  ParAttr : (ps : Type) -> (tyf : ps -> Type) -> Field
+  Call : {ta : Type} -> (t : Telescope ta) -> Field
   NotField : Field
 
 Signature : Type
@@ -34,12 +35,12 @@ class Object a (sig : Signature) | a where
   -- no methods
 
 abstract
-record Function (args : List Type) (ret : Type) where
+record Function (t : Telescope a) where
   ptr : Dyn
 
 infixr 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
-(~>) args ret = Attr $ Function args ret
+(~>) args ret = Attr $ Function (simple args ret)
 
 -- the root of the inheritance hierarchy
 Object_sig : Signature
@@ -62,20 +63,16 @@ record PyType (a : Type) where
 
 PyType_sig : Type -> Signature
 PyType_sig a "__name__" = Attr String
-PyType_sig a "__call__" = Call [Dyn] a
+PyType_sig a "__call__" = Call $ simple [Dyn] a
 PyType_sig a f = Object_sig f
 
 instance Object (PyType a) (PyType_sig a) where {}
 
-Function_sig : (args : List Type) -> (ret : Type) -> Signature
-Function_sig args ret "__call__" = Call args ret
-Function_sig args ret f = Object_sig f
+Function_sig : (t : Telescope a) -> Signature
+Function_sig t "__call__" = Call t
+Function_sig t f = Object_sig f
 
-instance Object (Function args ret) (Function_sig args ret) where {}
-
-data HList : List Type -> Type where
-  Nil : HList []
-  (::) : a -> HList as -> HList (a :: as)
+instance Object (Function t) (Function_sig t) where {}
 
 abstract
 toDyn : a -> Dyn
@@ -107,11 +104,11 @@ abstract
 
 infixl 4 $.
 abstract
-($.) : Object a sig => a -> HList args -> {auto pf : sig "__call__" = Call args ret} -> PIO ret
-($.) {ret=ret} f args =
+($.) : Object a sig => a -> (args : ta) -> {auto pf : sig "__call__" = Call {ta=ta} t} -> PIO ret
+($.) {t=t} {ta=ta} {ret=ret} f args =
     unRaw <$>
-      foreign FFI_Py "_idris_call" (Dyn -> List Dyn -> PIO (Raw ret)) (toDyn f) (fromHList args)
-  where
-    fromHList : HList as -> List Dyn
-    fromHList [] = []
-    fromHList (x :: xs) = toDyn x :: fromHList xs
+      foreign
+        FFI_Py "_idris_call"
+        (Dyn -> TList t args -> PIO (Raw ret))
+        (toDyn f)
+        (strip t args)

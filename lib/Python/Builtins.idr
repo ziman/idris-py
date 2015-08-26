@@ -3,6 +3,7 @@ module Python.Builtins
 import Python
 import Python.IO
 import Python.RTS
+import Python.Telescope
 
 %default total
 %access abstract
@@ -114,4 +115,6 @@ list a = builtins //. ("list", a)
 
 abstract
 toPyList : List a -> PyList a
-toPyList xs = unsafePerformIO $ Builtins.list _ $. [toDyn xs]
+toPyList {a=a} xs =
+  unsafePerformIO $
+    Builtins.list a $. with TupleSugar [toDyn xs]

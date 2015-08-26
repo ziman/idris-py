@@ -1,5 +1,7 @@
 module Python.IO
 
+import Python.Telescope
+
 %default total
 %access public
 
@@ -24,6 +26,7 @@ data FFI_PyTypes : Type -> Type where
   FFI_PyList  : FFI_PyTypes a -> FFI_PyTypes (List a)
   FFI_PyMaybe : FFI_PyTypes a -> FFI_PyTypes (Maybe a)
   FFI_PyFun   : FFI_PyTypes a -> FFI_PyTypes b -> FFI_PyTypes (a -> b)
+  FFI_PyTList : FFI_PyTypes (TList t args)
 
   ||| Python objects, opaque to Idris.
   FFI_PyPtr : FFI_PyTypes Ptr
