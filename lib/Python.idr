@@ -33,7 +33,9 @@ data Proxy : Type -> Type where
 class Object a (sig : Signature) | a where
   -- no methods
 
-data Function : (args : List Type) -> (ret : Type) -> Type where {}
+abstract
+record Function (args : List Type) (ret : Type) where
+  ptr : Dyn
 
 infixr 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
@@ -44,7 +46,9 @@ Object_sig : Signature
 Object_sig "__repr__" = [] ~> String
 Object_sig _          = NotField
 
-data Module : Type where {}
+abstract
+record Module where
+  ptr : Dyn
 
 Module_sig : Signature
 Module_sig "__name__" = Attr String
@@ -52,7 +56,9 @@ Module_sig f = Object_sig f
 
 instance Object Module Module_sig where {}
 
-data PyType : Type -> Type where {}
+abstract
+record PyType (a : Type) where
+  ptr : Dyn
 
 PyType_sig : Type -> Signature
 PyType_sig a "__name__" = Attr String

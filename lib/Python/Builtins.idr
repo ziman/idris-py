@@ -47,7 +47,9 @@ Bytes_sig = Object_sig
 
 instance Object Bytes Bytes_sig where {}
 
-data Dict : Type -> Type -> type where {}
+abstract
+record Dict (k : Type) (v : Type) where
+  ptr : Dyn
 
 Dict_sig : Type -> Type -> Signature
 Dict_sig k v f = case f of
@@ -56,28 +58,36 @@ Dict_sig k v f = case f of
 
 instance Object (Dict k v) (Dict_sig k v) where {}
 
-data PyList : Type -> Type where {}
+abstract
+record PyList (a : Type) where
+  ptr : Dyn
 
 PyList_sig : Type -> Signature
 PyList_sig a = Object_sig
 
 instance Object (PyList a) (PyList_sig a) where {}
 
-data Tuple : Type where {}
+abstract
+record Tuple where
+  ptr : Dyn
 
 Tuple_sig : Signature
 Tuple_sig = Object_sig
 
 instance Object Tuple Tuple_sig where {}
 
-data Set : Type -> Type where {}
+abstract
+record Set (a : Type) where
+  ptr : Dyn
 
 Set_sig : Type -> Signature
 Set_sig a = Object_sig
 
 instance Object (Set a) (Set_sig a) where {}
 
-data Builtins : Type where {}
+abstract
+record Builtins where
+  ptr : Dyn
 
 Builtins_sig : Signature
 Builtins_sig f = case f of
