@@ -39,6 +39,8 @@ Matrix_sig r c dt f = case f of
 
     _ => (Arith_sig (Matrix r c dt) <+> Object_sig) f
 
+instance Object (Matrix r c dt) (Matrix_sig r c dt) where {}
+
 record PyVect (n : Nat) (a : Type) where
   constructor MkPyVect
   pyList : PyList a
@@ -74,8 +76,11 @@ Numpy_sig f = case f of
 
   _ => Module_sig f
 
-instance Show (Matrix m n dt) where
-  show m = unsafePerformIO (m /. "__str__" $. [])
+instance Object Numpy Numpy_sig where {}
+
+instance Show (Matrix r c dt) where
+  -- somehow calling __str__ triggers a compiler bug
+  show = toString . toDyn
 
 private
 import_ : PIO Numpy
@@ -85,9 +90,14 @@ private
 unsafeNumpy : (Numpy -> PIO a) -> a
 unsafeNumpy action = unsafePerformIO (import_ >>= action)
 
+{-
+abstract
+f : Matrix m n ty -> Function $ simple [Matrix m n ty] (Matrix m n ty)
+f m = m /. "__div__"
+
 abstract
 (/) : Matrix m n ty -> Matrix m n ty -> Matrix m n ty 
-(/) x y = unsafePerformIO (x /. "__div__" $. [y])
+(/) x y = unsafePerformIO (x /. "__div__" $. MkSigma y ())
 
 abstract
 fromInteger : {dt : DType a} -> (x : Integer) -> Matrix m n dt
@@ -105,3 +115,4 @@ instance Num (Matrix m n ty) where
   (*) = mul
   abs = Numpy.abs
   fromInteger = Numpy.fromInteger
+-}
