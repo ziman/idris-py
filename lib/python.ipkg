@@ -10,4 +10,5 @@ modules = Python
 	, Python.Lib.Os
 	, Python.Lib.Numpy
 	, Python.Lib.Queue
+	, Python.Lib.Requests
 	, Python.Lib.BeautifulSoup
