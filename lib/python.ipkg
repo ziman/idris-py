@@ -7,5 +7,6 @@ modules = Python
 	, Python.Fields
 	, Python.Telescope
 	, Python.Builtins
+	, Python.Lib.Os
 	, Python.Lib.Numpy
 	, Python.Lib.BeautifulSoup
