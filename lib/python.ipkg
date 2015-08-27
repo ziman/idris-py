@@ -9,4 +9,5 @@ modules = Python
 	, Python.Builtins
 	, Python.Lib.Os
 	, Python.Lib.Numpy
+	, Python.Lib.Queue
 	, Python.Lib.BeautifulSoup

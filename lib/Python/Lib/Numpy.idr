@@ -28,7 +28,7 @@ Matrix_sig r c dt f = case f of
     "reshape" => fun (rr ** (cc ** (eq : Erased (r*c=rr*cc) ** ()))) $
         pi $ \rr : Nat =>
           pi $ \cc : Nat =>
-            forall {a = r*c = rr*cc} $ \(Erase eq) =>
+            forall $ \eq : r*c = rr*cc =>
               Return $ Matrix rr cc dt
 
     -- transpose swaps rows/columns
@@ -59,17 +59,17 @@ Numpy_sig : Signature
 Numpy_sig f = case f of
 
   "abs" => fun (r ** (c ** (ty ** (dt : Erased (DType $ unerase ty) ** (m : Matrix (unerase r) (unerase c) (unerase dt) ** ()))))) $
-      forall $ \(Erase r) =>
-        forall $ \(Erase c) =>
-          forall $ \(Erase ty) =>
-            forall $ \(Erase dt) =>
+      forall $ \r : Nat =>
+        forall $ \c : Nat =>
+          forall $ \ty : Type =>
+            forall $ \dt : DType ty =>
               pi $ \m : Matrix r c dt =>
                 Return $ Matrix r c dt
 
   "array" => fun (r ** (c ** (ty ** (x : PyVect (unerase r) (PyVect (unerase c) (unerase ty)) ** (dt : DType (unerase ty) ** ()))))) $
-      forall $ \(Erase r) =>
-        forall $ \(Erase c) =>
-          forall $ \(Erase ty) =>
+      forall $ \r : Nat =>
+        forall $ \c : Nat =>
+          forall $ \ty : Type =>
             pi $ \x : PyVect r (PyVect c ty) =>
               pi $ \dt : DType ty =>
                 Return $ Matrix r c dt

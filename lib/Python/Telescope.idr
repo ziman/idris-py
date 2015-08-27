@@ -51,9 +51,13 @@ pi : {a : Type} -> {b : a -> Type}
 pi tf = Dep (Pi _) tf
 
 forall : {a : Type} -> {b : Erased a -> Type}
-  -> (tf : (x : Erased a) -> Telescope (b x))
+  -> (tf : (x : a) -> Telescope (b $ Erase x))
   -> Telescope (Sigma (Erased a) b)
-forall tf = Dep (Forall _) tf
+forall tf = Dep (Forall _) (\(Erase x) => tf x)
+
+default : (d : a) -> (t : Telescope b)
+  -> Telescope (Sigma (Maybe a) $ const b)
+default d t = Simp (Default _ d) t
 
 namespace TupleSugar
   ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
