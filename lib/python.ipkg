@@ -8,3 +8,4 @@ modules = Python
 	, Python.Telescope
 	, Python.Builtins
 	, Python.Lib.Numpy
+	, Python.Lib.BeautifulSoup
