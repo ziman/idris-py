@@ -115,4 +115,4 @@ abstract
 toPyList : List a -> PyList a
 toPyList {a=a} xs =
   unsafePerformIO $
-    Builtins.list a $. with TupleSugar [toDyn xs]
+    Builtins.list a `call` with TupleSugar [toDyn xs]

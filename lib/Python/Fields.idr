@@ -1,5 +1,6 @@
 module Python.Fields
 
+import Python.RTS
 import public Python.Telescope
 import public Python.IO
 
@@ -36,14 +37,23 @@ class Object a (sig : Signature) | a where
 
 abstract
 record Function (t : Telescope a) where
+  constructor MkFunction
   ptr : Dyn
 
-infixr 3 ~>
+infix 3 ~~>
+(~~>) : (args : List Type) -> (ret : Type) -> Type
+(~~>) args ret = Function $ simple args ret
+
+infix 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
-(~>) args ret = Attr $ Function (simple args ret)
+(~>) args ret = Attr $ args ~~> ret
 
 fun : (a : Type) -> (t : Telescope a) -> Field
 fun a = Attr . Function
+
+abstract
+marshalPIO : PIO a -> [] ~~> a
+marshalPIO = MkFunction . ptrFromPIO
 
 -- the root of the inheritance hierarchy
 Object_sig : Signature
@@ -93,25 +103,46 @@ toString x =
 
 infixl 4 /.
 abstract
-(/.) : Object a sig => a -> (f : String) -> {auto pf : sig f = Attr ty} -> ty
+(/.) : Object a sig
+  => a -> (f : String)
+  -> {auto pf : sig f = Attr ty}
+  -> ty
 (/.) {ty=ty} x f =
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw ty)) (toDyn x) f
 
 infixl 4 //.
 abstract
-(//.) : Object a sig => a -> (fps : (String, params)) -> {auto pf : sig (fst fps) = ParAttr params tyf} -> tyf (snd fps)
+(//.) : Object a sig
+  => a -> (fps : (String, params))
+  -> {auto pf : sig (fst fps) = ParAttr params tyf}
+  -> tyf (snd fps)
 (//.) {params=params} {tyf=tyf} x (f, ps) =
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Dyn -> String -> PIO (Raw $ tyf ps)) (toDyn x) f
 
-infixl 4 $.
 abstract
-($.) : Object a sig => a -> (args : ta) -> {auto pf : sig "__call__" = Call {ta=ta} t} -> PIO ret
-($.) {t=t} {ta=ta} {ret=ret} f args =
+call : Object a sig
+  => a -> (args : ta)
+  -> {auto pf : sig "__call__" = Call {ta=ta} t}
+  -> PIO $ retTy t args
+call {t=t} {ta=ta} f args =
     unRaw <$>
       foreign
         FFI_Py "_idris_call"
-        (Dyn -> TList t args -> PIO (Raw ret))
+        (Dyn -> TList t args -> PIO (Raw $ retTy t args))
         (toDyn f)
         (strip t args)
+
+infixl 4 $.
+($.) : {t : Telescope a}
+  -> Function t -> (args : a)
+  -> PIO $ retTy t args
+{-
+($.) : Object a sig
+  => a -> (args : ta)
+  -> {auto pf : sig "__call__" = Call {ta=ta} t}
+  -> PIO $ retTy t args
+-}
+($.) f args = call f args
+

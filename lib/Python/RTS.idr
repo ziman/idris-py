@@ -10,8 +10,8 @@ getGlobal : (name : String) -> PIO Ptr
 getGlobal name = foreign FFI_Py "_idris_get_global" (String -> PIO Ptr) name
 
 abstract
-fromPIO : PIO a -> Ptr
-fromPIO action =
+ptrFromPIO : PIO a -> Ptr
+ptrFromPIO action =
   unsafePerformIO $
     foreign FFI_Py "_idris_marshal_IO" (Raw (PIO a) -> PIO Ptr) (MkRaw action)
 
