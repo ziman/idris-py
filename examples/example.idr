@@ -13,10 +13,6 @@ import Python.Lib.Threading
 
 %default total
 
-infixr 1 =<<
-(=<<) : Monad m => (a -> m b) -> m a -> m b
-(=<<) f x = x >>= f
-
 -- Even though field names are strings,
 -- everything is typechecked according to the signatures imported above.
 
