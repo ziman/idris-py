@@ -7,20 +7,20 @@ import Python.Prim
 %default total
 
 Element : Signature
-Element = signature "Element"
-  [ "string"  ::: Maybe String
-  , "strings" ::. PyList String
-  ]
+Element f = case f of
+  "string"  => Attr $ Maybe String
+  "strings" => Attr . Obj $ PyList String
+  _ => Object f
 
 Soup : Signature
-Soup = signature "Soup"
-  [ "select" ::. [String] ~> Obj (PyList $ Obj Element)
-  ]
+Soup f = case f of
+  "select" => [String] ~~> Obj (PyList $ Obj Element)
+  _ => Object f
 
 Bs4 : Signature
-Bs4 = signature "Bs4"
-  [ "BeautifulSoup" ::. [String] ~> Obj Soup
-  ]
+Bs4 f = case f of
+  "BeautifulSoup" => [String] ~~> Obj Soup
+  _ => Module f
 
 import_ : PIO $ Obj Bs4
 import_ = importModule "bs4"

@@ -6,9 +6,9 @@ import Python
 %default total
 
 Os : Signature
-Os = signature "Os"
-  [ "mkdir" ::. [String] ~> ()
-  ]
+Os f = case f of
+  "mkdir" => [String] ~~> Unit
+  _ => Module f
 
 import_ : PIO (Obj Os)
 import_ = importModule "os"

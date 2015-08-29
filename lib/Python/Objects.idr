@@ -1,46 +1,52 @@
 module Python.Objects
 
+import Python.Telescope
+
 %default total
 %access public
 
-infix 4 :::
-||| The "has-type" declaration for fields.
-record Field where
-  constructor (:::)
-  name : String
-  type : Type
+data Field : Type where
+  Attr : Type -> Field
+  Call : (t : Telescope a) -> Field
+  NotField : Field
 
 ||| Python object signature is a list of its fields, plus mixins.
-record Signature where
-  constructor MkSignature
-  name : String  -- for error reporting
-  fields : List Field
-  mixins : List Signature
+Signature : Type
+Signature = String -> Field
+
+instance Semigroup Signature where
+  (<+>) s t =
+    \field => case s field of
+        NotField => t field
+        result   => result
+
+instance Monoid Signature where
+  neutral = const NotField
+
+||| Dynamically typed Python reference.
+Dyn : Type
+Dyn = Ptr
 
 ||| Python object, typed by its signature.
 -- TODO: make this abstract
 record Obj (sig : Signature) where
   constructor MkObj
-  pyObj : Ptr
-
-infix 4 ::.
-||| Convenience variant of (:::) for object fields.
-(::.) : String -> Signature -> Field
-(::.) name sig = name ::: Obj sig
-
-infixr 4 <:
-||| Add a mixin to the signature.
-(<:) : Signature -> Signature -> Signature
-(<:) (MkSignature n fs mixins) sig = MkSignature n fs (sig :: mixins)
+  ptr : Ptr
 
 ||| Python type of Python types.
 PyType : Signature
-PyType = MkSignature "PyType" ["__name__" ::: String] []
+PyType f = case f of
+  "__name__" => Attr String
+  _ => NotField
 
 ||| Object that all Python objects inherit from.
 Object : Signature
-Object = MkSignature "PyObject" ["__class__" ::. PyType] []
+Object f = case f of
+  "__class__" => Attr $ Obj PyType
+  _ => NotField
 
-||| Make a signature without mixins other than Object.
-signature : String -> List Field -> Signature
-signature n fs = MkSignature n fs [Object]
+||| Python modules.
+Module : Signature
+Module f = case f of
+  "__name__" => Attr String
+  _ => Object f

@@ -45,6 +45,15 @@ data Telescope : Type -> Type where
     -> (t : Telescope b)
     -> Telescope (Sigma a $ const b)
 
+pi : (tf : (x : a) -> Telescope (b x)) -> Telescope (Sigma a b)
+pi = Dep (Pi _)
+
+forall : (tf : (x : a) -> Telescope (b $ Erase x)) -> Telescope (Sigma (Erased a) b)
+forall {a=a} tf = Dep (Forall a) (\(Erase x) => tf x)
+
+default : (dflt : a) -> (t : Telescope b) -> Telescope (Sigma (Maybe a) $ const b)
+default dflt = Simp (Default _ dflt)
+
 namespace TupleSugar
   ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
   Nil : Unit

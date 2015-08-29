@@ -7,21 +7,20 @@ import Data.Erased
 %access public
 
 Queue : Type -> Signature
-Queue a = signature "Queue"
-  [ "put" ::. [a]   ~> ()
-  , "get" ::. [Int] ~> a
-  , "task_done" ::. [] ~> ()
-  ]
+Queue a f = case f of
+  "put" => [a]   ~~> ()
+  "get" => [Int] ~~> a
+  "task_done" => [] ~~> ()
+  _ => Object f
 
 QueueM : Signature
-QueueM = signature "QueueM"
-  [ "Queue" ::.
-      Function 
-        (Dep (Forall Type) $ \a =>            -- Type of elements
-          Simp (Default Int 0) $              -- Maximum size of queue
-            Return $ Obj (Queue $ unerase a)  -- Returns a Queue of `a`
-        )
-  ]
+QueueM f = case f of
+  "Queue" => fun $
+    forall $ \a : Type =>
+      default 0 $  -- maxSize : Int
+        Return $ Obj (Queue a)
+
+  _ => Module f
 
 import_ : PIO $ Obj QueueM
 import_ = importModule "Queue"  -- this is lowercase in python3

@@ -8,10 +8,9 @@ import Python.IO
 %access public
 
 Exception : Signature
-Exception = signature "Exception"
-  [ "message" ::: String
---  , "args" ::. PyList String  -- cyclic dependency on Python.Prim
-  ]
+Exception f = case f of
+  "message" => Attr String
+  _ => Object f
 
 ||| Standard Python exceptions.
 data ExceptionType : Type where
@@ -119,7 +118,7 @@ try {a = a} x = do
     case r of
       Right x => return $ OK x
       Left e => do
-        et <- e /. "__class__" /: "__name__"
+        let et = e /. "__class__" /. "__name__"
         return $ Except (fromString et) e
 
 abstract
@@ -139,5 +138,7 @@ showException e =
   unsafePerformIO
     $ foreign FFI_Py "str" (Obj Exception -> PIO String) e
 
+{-
 instance Show (Obj Exception) where
   show = showException
+-}

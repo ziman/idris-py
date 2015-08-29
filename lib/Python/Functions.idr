@@ -8,28 +8,30 @@ import Python.IO
 %default total
 %access public
 
-||| A special field for callable objects.
-abstract
-record CallField (t : Telescope a) where
-  constructor MkCallField
-
 Function : (t : Telescope a) -> Signature
-Function t = signature "Function"
-  [ "__call__" ::: CallField t
-  ]
+Function t f = case f of
+  "__call__" => Call t
+  _ => Object f
 
-infixr 5 ~>
+infix 5 ~>
 ||| Infix alias for functions with fixed arguments.
 (~>) : List Type -> Type -> Signature
 (~>) args ret = Function $ simple args ret
+
+infix 5 ~~>
+(~~>) : List Type -> Type -> Field
+(~~>) args ret = Attr $ Obj (args ~> ret)
+
+fun : (t : Telescope a) -> Field
+fun t = Attr . Obj $ Function t
 
 ||| Duck-typed function call.
 call :
   {t : Telescope a}
   -> (f : Obj sig)
-  -> {auto pf : sig `HasField` ("__call__" ::: CallField t)}
+  -> {auto pf : sig "__call__" = Call t}
   -> (args : a)
-  -> PIO (Telescope.retTy t args)
+  -> PIO $ retTy t args
 call {t = t} (MkObj f) args =
   unRaw <$>
     foreign FFI_Py "_idris_call"
@@ -43,9 +45,16 @@ infixl 4 $.
 abstract
 ($.) :
   {t : Telescope a}
+  -> (f : Obj sig)
+  -> {auto pf : sig "__call__" = Call t}
+  -> (args : a)
+  -> PIO $ retTy t args
+{-
+  {t : Telescope a}
   -> (f : Obj $ Function t)
   -> (args : a)
-  -> PIO (Telescope.retTy t args)
+  -> PIO $ retTy t args
+-}
 ($.) f args = call f args
 
 infixl 4 $:
@@ -54,5 +63,5 @@ infixl 4 $:
   {t : Telescope a}
   -> (f : PIO (Obj $ Function t))
   -> (args : a)
-  -> PIO (Telescope.retTy t args)
+  -> PIO $ retTy t args
 ($:) meth args = meth >>= \m => m $. args

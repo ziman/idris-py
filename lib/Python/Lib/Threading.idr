@@ -10,16 +10,16 @@ import Python.Lib.Queue
 %access public
 
 Thread : Signature
-Thread = signature "Thread"
-  [ "start" ::. [] ~> ()
-  , "join" ::. [] ~> ()
-  ]
+Thread f = case f of
+  "start" => [] ~~> ()
+  "join"  => [] ~~> ()
+  _ => Object f
 
 Threading : Signature
-Threading = signature "threading"
+Threading f = case f of
   -- the first arg must always be Nothing, according to Python spec
-  [ "Thread" ::. [Maybe (), Obj ([] ~> ())] ~> Obj Thread
-  ]
+  "Thread" => [Maybe (), Obj ([] ~> ())] ~~> Obj Thread
+  _ => Module f
 
 import_ : PIO $ Obj Threading
 import_ = importModule "threading"
@@ -30,15 +30,15 @@ forkPIO : PIO a -> PIO (Obj $ Queue a)
 forkPIO {a = a} work = do
     queue <- Queue.import_ /: "Queue" $: [Erase a, Just 1]
     thread <- Threading.import_ /: "Thread" $: [Nothing, marshalPIO $ worker queue]
-    thread /. "start" $: []
+    thread /. "start" $. []
 
     return queue
   where
     worker : (Obj $ Queue a) -> PIO ()
     worker queue = do
       result <- work
-      queue /. "put" $: [result]
+      queue /. "put" $. [result]
 
 ||| Wait for the result of a side thread.
 wait : Obj (Queue a) -> PIO a
-wait q = q /. "get" $: [1]
+wait q = q /. "get" $. [1]

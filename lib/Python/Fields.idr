@@ -7,39 +7,7 @@ import Python.IO
 %access public
 %language ErrorReflection
 
-using (n : String)
-  ||| Proof that a signature contains a field of the given type.
-  ||| (We don't use List.Elem to keep the signature name in the error message.)
-  data HasField : Signature -> Field -> Type where
-    FieldHere  :
-         MkSignature n (f :: fs) ms `HasField` f
-    FieldThere : MkSignature n fs ms `HasField` f
-      -> MkSignature n (f' :: fs) ms `HasField` f
-    InMixinThere : MkSignature n [] ms `HasField` f
-      -> MkSignature n [] (sig :: ms) `HasField` f
-    InMixinHere : sig `HasField` f
-      -> MkSignature n [] (sig :: ms) `HasField` f
-
-using (n : String)
-  ||| Proof that an object can be cast to the signature of one of its mixins.
-  data HasMixin : (sig : Signature) -> (mixin : Signature) -> Type where
-    MixinHere : MkSignature n fs (m :: ms) `HasMixin` m
-    MixinThere : MkSignature n fs ms `HasMixin` m -> MkSignature n fs (m' :: ms) `HasMixin` m
-
-||| Cast an object to the signature of one of its mixins.
-mixout : (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Obj sig -> Obj mixin
-mixout mixin (MkObj obj) = MkObj obj
-
-infixl 2 >.
-||| Cast an object to the signature of one of its mixins.
-(>.) : (obj : Obj sig) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> Obj mixin
-(>.) obj mixin = mixout mixin obj
-
-infixl 2 >:
-||| Cast an object to the signature of one of its mixins, chained version.
-(>:) : (obj : PIO (Obj sig)) -> (mixin : Signature) -> {auto pf : sig `HasMixin` mixin} -> PIO (Obj mixin)
-(>:) obj mixin {pf = pf} = mixout mixin {pf = pf} <$> obj
-
+{-
 -- This is a separate function because signatures don't always
 -- come in this form. Therefore we need to check.
 private
@@ -59,6 +27,7 @@ mixinErr _ = Nothing
 
 %error_handlers Python.Fields.(>.) pf mixinErr
 %error_handlers Python.Fields.(>:) pf mixinErr
+-}
 
 infixl 4 /.
 ||| Attribute accessor.
@@ -66,9 +35,9 @@ infixl 4 /.
 ||| @ obj Obj with the given signature.
 ||| @ f   Name of the requested field.
 abstract
-(/.) : (obj : Obj sig) -> (f : String) -> {auto pf : sig `HasField` (f ::: t)} -> PIO t
+(/.) : (obj : Obj sig) -> (f : String) -> {auto pf : sig f = Attr t} -> t
 (/.) {t = t} (MkObj obj) f =
-  unRaw <$>
+  unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Ptr -> String -> PIO (Raw t)) obj f
 
 infixl 4 /:
@@ -76,9 +45,10 @@ infixl 4 /:
 |||
 ||| @ obj PIO action returning an object.
 ||| @ f   Name of the requested field.
-(/:) : (obj : PIO (Obj sig)) -> (f : String) -> {auto pf : sig `HasField` (f ::: t)} -> PIO t
-(/:) obj f {pf = pf} = obj >>= \o => (/.) o f {pf}
+(/:) : (obj : PIO (Obj sig)) -> (f : String) -> {auto pf : sig f = Attr t} -> PIO t
+(/:) obj f {pf = pf} = (/. f) <$> obj
 
+{-
 -- Error reflection for better error messages.
 fieldErr : Err -> Maybe (List ErrorReportPart)
 fieldErr (CantSolveGoal `(HasField ~sig (~fname ::: ~fty)) ntms)
@@ -91,3 +61,4 @@ fieldErr _ = Nothing
 
 %error_handlers Python.Fields.(/.) pf fieldErr
 %error_handlers Python.Fields.(/:) pf fieldErr
+-}
