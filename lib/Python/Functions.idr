@@ -22,8 +22,8 @@ infix 5 ~~>
 (~~>) : List Type -> Type -> Field
 (~~>) args ret = Attr $ Obj (args ~> ret)
 
-fun : (t : Telescope a) -> Field
-fun t = Attr . Obj $ Function t
+fun : (a : Type) -> (t : Telescope a) -> Field
+fun a t = Attr . Obj $ Function t
 
 ||| Duck-typed function call.
 call :
