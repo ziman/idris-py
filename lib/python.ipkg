@@ -5,7 +5,6 @@ modules = Python
 	, Python.RTS
 	, Python.Exceptions
 	, Python.Fields
-	, Python.Telescope
 	, Python.Builtins
 	, Python.Lib.Os
 	, Python.Lib.Numpy

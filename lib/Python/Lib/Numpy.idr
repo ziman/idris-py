@@ -7,6 +7,7 @@ import Data.Vect
 %access public
 %default total
 
+{-
 record DType a where
   constructor MkDType
   dtypeName : String
@@ -90,7 +91,6 @@ private
 unsafeNumpy : (Numpy -> PIO a) -> a
 unsafeNumpy action = unsafePerformIO (import_ >>= action)
 
-{-
 abstract
 f : Matrix m n ty -> Function $ simple [Matrix m n ty] (Matrix m n ty)
 f m = m /. "__div__"

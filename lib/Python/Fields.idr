@@ -1,7 +1,6 @@
 module Python.Fields
 
 import Python.RTS
-import public Python.Telescope
 import public Python.IO
 
 %default total
@@ -14,7 +13,7 @@ Dyn = Ptr
 data Field : Type where
   Attr : (ty : Type) -> Field
   ParAttr : (ps : Type) -> (tyf : ps -> Type) -> Field
-  Call : {ta : Type} -> (t : Telescope ta) -> Field
+  Call : (as : List Type) -> (ret : Type) -> Field
   NotField : Field
 
 Signature : Type
@@ -36,20 +35,17 @@ class Object a (sig : Signature) | a where
   -- no methods
 
 abstract
-record Function (t : Telescope a) where
+record Function (as : List Type) (ret : Type) where
   constructor MkFunction
   ptr : Dyn
 
 infix 3 ~~>
 (~~>) : (args : List Type) -> (ret : Type) -> Type
-(~~>) args ret = Function $ simple args ret
+(~~>) args ret = Function args ret
 
 infix 3 ~>
 (~>) : (args : List Type) -> (ret : Type) -> Field
 (~>) args ret = Attr $ args ~~> ret
-
-fun : (a : Type) -> (t : Telescope a) -> Field
-fun a = Attr . Function
 
 abstract
 marshalPIO : PIO a -> [] ~~> a
@@ -76,16 +72,16 @@ record PyType (a : Type) where
 
 PyType_sig : Type -> Signature
 PyType_sig a "__name__" = Attr String
-PyType_sig a "__call__" = Call $ simple [Dyn] a
+PyType_sig a "__call__" = Call [Dyn] a
 PyType_sig a f = Object_sig f
 
 instance Object (PyType a) (PyType_sig a) where {}
 
-Function_sig : (t : Telescope a) -> Signature
-Function_sig t "__call__" = Call t
-Function_sig t f = Object_sig f
+Function_sig : (as : List Type) -> (ret : Type) -> Signature
+Function_sig as ret "__call__" = Call as ret
+Function_sig as ret f = Object_sig f
 
-instance Object (Function t) (Function_sig t) where {}
+instance Object (Function as ret) (Function_sig as ret) where {}
 
 abstract
 toDyn : a -> Dyn
@@ -123,21 +119,22 @@ abstract
 
 abstract
 call : Object a sig
-  => a -> (args : ta)
-  -> {auto pf : sig "__call__" = Call {ta=ta} t}
-  -> PIO $ retTy t args
-call {t=t} {ta=ta} f args =
+  => a -> (args : HList as)
+  -> {auto pf : sig "__call__" = Call as ret}
+  -> PIO ret
+call {as=as} {ret=ret} f args =
     unRaw <$>
       foreign
         FFI_Py "_idris_call"
-        (Dyn -> TList t args -> PIO (Raw $ retTy t args))
+        (Dyn -> HList as -> PIO (Raw ret))
         (toDyn f)
-        (strip t args)
+        args                                            --  <--- TODO
 
 infixl 4 $.
-($.) : {t : Telescope a}
-  -> Function t -> (args : a)
-  -> PIO $ retTy t args
+($.) :
+  Function as ret
+  -> (args : HList as)
+  -> PIO ret
 {-
 ($.) : Object a sig
   => a -> (args : ta)

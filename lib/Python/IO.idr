@@ -1,12 +1,14 @@
 module Python.IO
 
-import Python.Telescope
-
 %default total
 %access public
 
 unRaw : FFI_C.Raw a -> a
 unRaw (MkRaw x) = x
+
+data HList : List Type -> Type where
+  Nil : HList []
+  (::) : (x : a) -> HList as -> HList (a :: as)
 
 ||| Supported Python foreign types.
 data FFI_PyTypes : Type -> Type where
@@ -26,7 +28,7 @@ data FFI_PyTypes : Type -> Type where
   FFI_PyList  : FFI_PyTypes a -> FFI_PyTypes (List a)
   FFI_PyMaybe : FFI_PyTypes a -> FFI_PyTypes (Maybe a)
   FFI_PyFun   : FFI_PyTypes a -> FFI_PyTypes b -> FFI_PyTypes (a -> b)
-  FFI_PyTList : FFI_PyTypes (TList t args)
+  FFI_PyHList : FFI_PyTypes (HList as)
 
   ||| Python objects, opaque to Idris.
   FFI_PyPtr : FFI_PyTypes Ptr

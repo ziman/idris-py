@@ -25,10 +25,9 @@ record QueueM where
 
 QueueM_sig : Signature
 QueueM_sig f = case f of
-  "Queue" => fun _ $
-    forall $ \a : Type =>
-      default 0 $ -- \maxSize : Int =>
-        Return $ Queue a
+  "Queue" => ParAttr _ $
+    \a : Type =>
+      [Int] ~~> Queue a
 
   _ => Module_sig f
 

@@ -32,14 +32,14 @@ instance Object Threading Threading_sig where {}
 import_ : PIO Threading
 import_ = importModule "threading"
 
-meth : Object a sig
-  => (x : a)
+meth :
+  Object a sig
+  => (o : a)
   -> (f : String)
-  -> (args : as)
-  -> {t : Telescope as}
-  -> {auto pf : sig f = Attr (Function t)}
-  -> PIO $ retTy t args
-meth {t=t} x f args = the (Function t) (x /. f) $. args
+  -> (args : HList as)
+  -> {auto pf : sig f = Attr (Function as ret)}
+  -> PIO ret
+meth {as=as} {ret=ret} o f args = the (as ~~> ret) (o /. f) $. args
 
 ||| Fork a side thread. The thread will send its result
 ||| through the queue that is returned by this function.
@@ -48,23 +48,17 @@ forkPIO {a = a} work = do
     queueM <- Queue.import_
     threading <- Threading.import_
 
-    queue <- mkQ queueM
-    thread <- mkT queue threading
+    queue <- queueM //. ("Queue", a) $. [Just 1]
+    thread <- meth threading "Thread" [Nothing, marshalPIO $ worker queue]
 
-    meth thread "start" ()
+    meth thread "start" []
 
     return queue
   where
     worker : Queue a -> PIO ()
     worker q = do
       result <- work
-      meth q "put" (result ** ())
-
-    mkQ : QueueM -> PIO (Queue a)
-    mkQ qM = meth qM "Queue" (Erase a ** (Just 1 ** ()))
-
-    mkT : Queue a -> Threading -> PIO Thread
-    mkT q tM = meth tM "Thread" (Nothing ** (marshalPIO (worker q) ** ()))
+      meth q "put" [result]
 
 wait : Queue a -> PIO a
-wait q = the ([Int] ~~> a) (q /. "get") $. [1]
+wait q = meth q "get" [the Int 1]
