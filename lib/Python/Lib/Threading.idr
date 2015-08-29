@@ -58,7 +58,7 @@ forkPIO {a = a} work = do
     worker : Queue a -> PIO ()
     worker q = do
       result <- work
-      the ([a] ~~> ()) (q /. "put") $. [result]
+      meth q "put" (result ** ())
 
     mkQ : QueueM -> PIO (Queue a)
     mkQ qM = meth qM "Queue" (Erase a ** (Just 1 ** ()))
