@@ -72,14 +72,23 @@ class ConsList(object):
     return _ConsIter(self)
 
 # Python.Functions.$.
-def _idris_Python_46_Functions_46__36__46_(e0, e1, e2, e3):
+def _idris_Python_46_Functions_46__36__46_(e0, e1, e2, e3, e4, e5):
   while True:
-    return _idris_Python_46_Functions_46_call(None, None, e1, e2, None, e3)
+    return _idris_Python_46_Functions_46_call(None, None, e2, e3, None, e5)
 
 # Python.Functions.$:
 def _idris_Python_46_Functions_46__36__58_(e0, e1, e2, e3):
   while True:
-    return (65791, None, None, None, e2, (65759, e1, e3))  # {U_io_bind1}, {U_Python.Functions.{$:0}1}
+    return (65760, None, None, None, e2, (65728, e1, e3))  # {U_io_bind1}, {U_Python.Functions.{$:0}1}
+
+# Prelude.Bool.&&
+def _idris_Prelude_46_Bool_46__38__38_(e0, e1):
+  while True:
+    if not e0:  # Prelude.Bool.False
+      return False
+    else:  # Prelude.Bool.True
+      return EVAL0(e1)
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Basics..
 def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
@@ -89,34 +98,36 @@ def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
 # Python.Fields./.
 def _idris_Python_46_Fields_46__47__46_(e0, e1, e2, e3, e4):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-      None,
-      None,
-      None,
-      (65761, None),  # {U_Python.IO.unRaw1}
-      (65757, e2, e3)  # {U_Python.Fields.{/.0}1}
-    )
+    return _idris_unsafePerformIO(None, None, (65726, e2, e3))  # {U_Python.Fields.{/.0}1}
 
 # Python.Fields./:
 def _idris_Python_46_Fields_46__47__58_(e0, e1, e2, e3, e4):
   while True:
-    return (65791, None, None, None, e2, (65758, e3))  # {U_io_bind1}, {U_Python.Fields.{/:0}1}
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+      None,
+      None,
+      None,
+      (65727, e3),  # {U_Python.Fields.{/:0}1}
+      e2
+    )
 
 # Prelude.Algebra.<+>
 def _idris_Prelude_46_Algebra_46__60__43__62_(e0, e1):
   while True:
     return e1
 
-# Python.Fields.>:
-def _idris_Python_46_Fields_46__62__58_(e0, e1, e2, e3):
+# Prelude.Classes.==
+def _idris_Prelude_46_Classes_46__61__61_(e0, e1):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-      None,
-      None,
-      None,
-      (65756, None, None, None),  # {U_Python.Fields.mixout1}
-      e1
-    )
+    return e1
+
+# Prelude.Classes.>
+def _idris_Prelude_46_Classes_46__62_(e0, e1):
+  while True:
+    assert e1[0] == 0  # constructor of Prelude.Classes.Ord
+    in0, in1 = e1[1:]
+    return in1
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Monad.>>=
 def _idris_Prelude_46_Monad_46__62__62__61_(e0, e1, e2, e3):
@@ -146,20 +157,21 @@ def _idris__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative
     return in0
     return _idris_error("unreachable due to case in tail position")
 
-# PE_show_ed1ff29c
-def _idris_PE_95_show_95_ed1ff29c(e0):
+# Force
+def _idris_Force(e0, e1, e2):
   while True:
-    return _idris_Python_46_Exceptions_46_showException(e0)
+    in0 = EVAL0(e2)
+    return in0
 
 # Python.Functions.call
 def _idris_Python_46_Functions_46_call(e0, e1, e2, e3, e4, e5):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
       None,
       None,
       None,
-      (65761, None),  # {U_Python.IO.unRaw1}
-      (65760, e3, e2, e5)  # {U_Python.Functions.{call0}1}
+      (65730, None),  # {U_Python.IO.unRaw1}
+      (65729, e3, e2, e5)  # {U_Python.Functions.{call0}1}
     )
 
 # call__IO
@@ -170,18 +182,26 @@ def _idris_call_95__95_IO(e0, e1, e2):
 # Python.Exceptions.catch
 def _idris_Python_46_Exceptions_46_catch(e0, e1, e2):
   while True:
-    return (65791, None, None, None, e1, (65728, e2))  # {U_io_bind1}, {U_Python.Exceptions.{catch6}1}
+    return (65760, None, None, None, e1, (65705, e2))  # {U_io_bind1}, {U_Python.Exceptions.{catch6}1}
 
 # Python.Prim.collect
 def _idris_Python_46_Prim_46_collect(e0, e1):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
       None,
       None,
       None,
-      (65716, None, ConsList()),  # {U_Prelude.List.reverse, reverse'1}
-      _idris_Python_46_Prim_46_foreach(None, None, e1, ConsList(), (65772,))  # {U_Python.Prim.{collect1}1}
+      (65687, None, ConsList()),  # {U_Prelude.List.reverse, reverse'1}
+      _idris_Python_46_Prim_46_foreach(None, None, e1, ConsList(), (65741,))  # {U_Python.Prim.{collect1}1}
     )
+
+# Prelude.Classes.compare
+def _idris_Prelude_46_Classes_46_compare(e0, e1):
+  while True:
+    assert e1[0] == 0  # constructor of Prelude.Classes.Ord
+    in0, in1 = e1[1:]
+    return in0
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Foldable.concat
 def _idris_Prelude_46_Foldable_46_concat(e0, e1, e2, e3):
@@ -206,71 +226,66 @@ def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
 def _idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Functions_46__36__58_(
+      _idris_Python_46_Functions_46_call(
+        None,
         None,
         (0,),  # Python.Telescope.Return
         _idris_Python_46_Fields_46__47__46_(None, None, e2, "__iter__", None),
+        None,
         Unit
       ),
-      (65774, e2, e3, e4)  # {U_Python.Prim.{foreach1}1}
+      (65743, e2, e3, e4)  # {U_Python.Prim.{foreach1}1}
     )
 
 # Python.Lib.Threading.forkPIO
 def _idris_Python_46_Lib_46_Threading_46_forkPIO(e0, e1):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
       _idris_Python_46_Functions_46__36__58_(
         None,
-        (1, (1,), (65762,)),  # Python.Telescope.Dep, Python.Telescope.Forall, {U_Python.Lib.Threading.{forkPIO0}1}
+        (1, (1,), (65732, e0, e1)),  # Python.Telescope.Dep, Python.Telescope.Forall, {U_Python.Lib.Threading.{forkPIO2}1}
         _idris_Python_46_Fields_46__47__58_(
           None,
           None,
-          _idris_Python_46_Lib_46_Queue_46_import_95_(),
+          (65758, None, "Queue"),  # {U_Python.importModule1}
           "Queue",
           None
         ),
-        (0, (0,), (0, 1, Unit))  # Builtins.MkSigma, Data.Erased.Erase, Builtins.MkSigma
+        (0, e0, (0, 1, Unit))  # Builtins.MkSigma, Builtins.MkSigma
       ),
-      (65767, e1)  # {U_Python.Lib.Threading.{forkPIO5}1}
+      (65737, e1)  # {U_Python.Lib.Threading.{forkPIO7}1}
     )
+
+# Prelude.Bool.ifThenElse
+def _idris_Prelude_46_Bool_46_ifThenElse(e0, e1, e2, e3):
+  while True:
+    if not e1:  # Prelude.Bool.False
+      return EVAL0(e3)
+    else:  # Prelude.Bool.True
+      return EVAL0(e2)
+    return _idris_error("unreachable due to case in tail position")
 
 # Python.importModule
 def _idris_Python_46_importModule(e0, e1, _idris_w):
   while True:
     return _idris_pymodule(e1)
 
-# Python.Lib.BeautifulSoup.import_
-def _idris_Python_46_Lib_46_BeautifulSoup_46_import_95_():
+# Prelude.Classes.intToBool
+def _idris_Prelude_46_Classes_46_intToBool(e0):
   while True:
-    return (65789, None, "bs4")  # {U_Python.importModule1}
-
-# Python.Lib.Os.import_
-def _idris_Python_46_Lib_46_Os_46_import_95_():
-  while True:
-    return (65789, None, "os")  # {U_Python.importModule1}
-
-# Python.Lib.Queue.import_
-def _idris_Python_46_Lib_46_Queue_46_import_95_():
-  while True:
-    return (65789, None, "Queue")  # {U_Python.importModule1}
-
-# Python.Lib.Requests.import_
-def _idris_Python_46_Lib_46_Requests_46_import_95_():
-  while True:
-    return (65789, None, "requests")  # {U_Python.importModule1}
-
-# Python.Lib.Threading.import_
-def _idris_Python_46_Lib_46_Threading_46_import_95_():
-  while True:
-    return (65789, None, "threading")  # {U_Python.importModule1}
+    if e0 == 0:
+      return False
+    else:
+      return True
+    return _idris_error("unreachable due to case in tail position")
 
 # io_bind
 def _idris_io_95_bind(e0, e1, e2, e3, e4, _idris_w):
@@ -286,52 +301,42 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
 def _idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Functions_46__36__58_(
+      _idris_Python_46_Functions_46_call(
+        None,
         None,
         (0,),  # Python.Telescope.Return
         _idris_Python_46_Fields_46__47__46_(None, None, e2, "__iter__", None),
+        None,
         Unit
       ),
-      (65775, e3, e4)  # {U_Python.Prim.{iterate0}1}
+      (65744, e3, e4)  # {U_Python.Prim.{iterate0}1}
     )
 
 # Prelude.Strings.length
 def _idris_Prelude_46_Strings_46_length():
   while True:
     return (
-      65713,  # {U_Prelude.Basics..1}
+      65682,  # {U_Prelude.Basics..1}
       None,
       None,
       None,
-      (65713, None, None, None, (65717,), (65793,)),  # {U_Prelude.Basics..1}, {U_Prelude.Strings.{length0}1}, {U_prim__zextInt_BigInt1}
-      (65794,)  # {U_prim_lenString1}
+      (65682, None, None, None, (65698,), (65764,)),  # {U_Prelude.Basics..1}, {U_Prelude.Strings.{length0}1}, {U_prim__zextInt_BigInt1}
+      (65765,)  # {U_prim_lenString1}
     )
 
 # Main.main
 def _idris_Main_46_main():
   while True:
-    return (
-      65791,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      _idris_Python_46_Lib_46_Requests_46_import_95_(),
-      (65708,)  # {U_Main.{main69}1}
-    )
+    return (65760, None, None, None, (65758, None, "requests"), (65675,))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main44}1}
 
 # Python.marshalPIO
 def _idris_Python_46_marshalPIO(e0, e1):
   while True:
-    return _idris_unsafePerformIO(None, None, (65790, e1))  # {U_Python.{marshalPIO0}1}
-
-# Python.Fields.mixout
-def _idris_Python_46_Fields_46_mixout(e0, e1, e2, e3):
-  while True:
-    return e3
+    return _idris_unsafePerformIO(None, None, (65759, e1))  # {U_Python.{marshalPIO0}1}
 
 # mkForeignPrim
 def _idris_mkForeignPrim():
@@ -350,21 +355,70 @@ def _idris_Prelude_46_Algebra_46_neutral(e0, e1):
 def _idris_Python_46_Prim_46_next(e0, e1):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
       _idris_Python_46_Exceptions_46_try(
         None,
-        _idris_Python_46_Functions_46__36__58_(
+        _idris_Python_46_Functions_46_call(
+          None,
           None,
           (0,),  # Python.Telescope.Return
           _idris_Python_46_Fields_46__47__46_(None, None, e1, "next", None),
+          None,
           Unit
         )
       ),
-      (65779,)  # {U_Python.Prim.{next12}1}
+      (65748,)  # {U_Python.Prim.{next12}1}
     )
+
+# Prelude.Bool.not
+def _idris_Prelude_46_Bool_46_not(e0):
+  while True:
+    if not e0:  # Prelude.Bool.False
+      return True
+    else:  # Prelude.Bool.True
+      return False
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Show.precCon
+def _idris_Prelude_46_Show_46_precCon(e0):
+  while True:
+    if e0[0] == 6:  # Prelude.Show.App
+      return 6
+    elif e0[0] == 3:  # Prelude.Show.Backtick
+      return 3
+    elif e0[0] == 2:  # Prelude.Show.Dollar
+      return 2
+    elif e0[0] == 1:  # Prelude.Show.Eq
+      return 1
+    elif e0[0] == 0:  # Prelude.Show.Open
+      return 0
+    elif e0[0] == 5:  # Prelude.Show.PrefixMinus
+      return 5
+    else:  # Prelude.Show.User
+      in0 = e0[1]
+      return 4
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Show.primNumShow
+def _idris_Prelude_46_Show_46_primNumShow(e0, e1, e2, e3):
+  while True:
+    in0 = APPLY0(e1, e3)
+    aux2 = _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__61__58_0(
+      e2, (5,)  # Prelude.Show.PrefixMinus
+    )
+    if not aux2:  # Prelude.Bool.False
+      aux3 = False
+    else:  # Prelude.Bool.True
+      aux3 = _idris_Prelude_46_Show_46__123_primNumShow2_125_(in0, e0, e1, e2, e3)
+    aux1 = aux3
+    if not aux1:  # Prelude.Bool.False
+      return in0
+    else:  # Prelude.Bool.True
+      return ("(" + (in0 + ")"))
+    return _idris_error("unreachable due to case in tail position")
 
 # prim__addInt
 def _idris_prim_95__95_addInt(op0, op1):
@@ -375,6 +429,31 @@ def _idris_prim_95__95_addInt(op0, op1):
 def _idris_prim_95__95_concat(op0, op1):
   while True:
     return (op0 + op1)
+
+# prim__eqBigInt
+def _idris_prim_95__95_eqBigInt(op0, op1):
+  while True:
+    return (op0 == op1)
+
+# prim__eqChar
+def _idris_prim_95__95_eqChar(op0, op1):
+  while True:
+    return (op0 == op1)
+
+# prim__eqManagedPtr
+def _idris_prim_95__95_eqManagedPtr(op0, op1):
+  while True:
+    return _idris_error("unimplemented external: prim__eqManagedPtr")
+
+# prim__eqPtr
+def _idris_prim_95__95_eqPtr(op0, op1):
+  while True:
+    return _idris_error("unimplemented external: prim__eqPtr")
+
+# prim__eqString
+def _idris_prim_95__95_eqString(op0, op1):
+  while True:
+    return (op0 == op1)
 
 # prim__null
 def _idris_prim_95__95_null():
@@ -391,6 +470,11 @@ def _idris_prim_95__95_registerPtr(op0, op1):
   while True:
     return _idris_error("unimplemented external: prim__registerPtr")
 
+# prim__sltBigInt
+def _idris_prim_95__95_sltBigInt(op0, op1):
+  while True:
+    return (op0 < op1)
+
 # prim__stderr
 def _idris_prim_95__95_stderr():
   while True:
@@ -405,6 +489,11 @@ def _idris_prim_95__95_stdin():
 def _idris_prim_95__95_stdout():
   while True:
     return _idris_error("unimplemented external: prim__stdout")
+
+# prim__strHead
+def _idris_prim_95__95_strHead(op0):
+  while True:
+    return op0[0]
 
 # prim__toStrBigInt
 def _idris_prim_95__95_toStrBigInt(op0):
@@ -451,21 +540,26 @@ def _idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
   while True:
     return APPLY0(e2, e1)
 
-# Prelude.putStr
-def _idris_Prelude_46_putStr(e0, e1):
+# Prelude.Interactive.putStr
+def _idris_Prelude_46_Interactive_46_putStr(e0, e1):
   while True:
-    return (65791, None, None, None, (65718, e1), (65719,))  # {U_io_bind1}, {U_Prelude.{putStr0}1}, {U_Prelude.{putStr1}1}
+    return (65760, None, None, None, (65684, e1), (65685,))  # {U_io_bind1}, {U_Prelude.Interactive.{putStr0}1}, {U_Prelude.Interactive.{putStr1}1}
 
 # Python.Exceptions.raise
 def _idris_Python_46_Exceptions_46_raise(e0, e1):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
       None,
       None,
       None,
-      (65761, None),  # {U_Python.IO.unRaw1}
-      (65729, e1)  # {U_Python.Exceptions.{raise0}1}
+      (65730, None),  # {U_Python.IO.unRaw1}
+      (65706, e1)  # {U_Python.Exceptions.{raise0}1}
     )
+
+# really_believe_me
+def _idris_really_95_believe_95_me(e0, e1, e2):
+  while True:
+    return e2
 
 # run__IO
 def _idris_run_95__95_IO(e0, e1):
@@ -475,7 +569,38 @@ def _idris_run_95__95_IO(e0, e1):
 # Python.Exceptions.showException
 def _idris_Python_46_Exceptions_46_showException(e0):
   while True:
-    return _idris_unsafePerformIO(None, None, (65730, e0))  # {U_Python.Exceptions.{showException0}1}
+    return _idris_unsafePerformIO(None, None, (65707, e0))  # {U_Python.Exceptions.{showException0}1}
+
+# Prelude.Show.showParens
+def _idris_Prelude_46_Show_46_showParens(e0, e1):
+  while True:
+    if not e0:  # Prelude.Bool.False
+      return e1
+    else:  # Prelude.Bool.True
+      return ("(" + (e1 + ")"))
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Strings.strM
+def _idris_Prelude_46_Strings_46_strM(e0):
+  while True:
+    aux3 = (e0 == "")
+    if aux3 == 0:
+      aux4 = False
+    else:
+      aux4 = True
+    aux2 = aux4
+    if not aux2:  # Prelude.Bool.False
+      aux5 = True
+    else:  # Prelude.Bool.True
+      aux5 = False
+    aux1 = _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Bool_58__33_decEq_58_0(
+      aux5, True
+    )
+    if aux1[0] == 1:  # Prelude.Basics.No
+      return _idris_really_95_believe_95_me(None, None, (0,))  # Prelude.Strings.StrNil
+    else:  # Prelude.Basics.Yes
+      return _idris_really_95_believe_95_me(None, None, (1, e0[0]))  # Prelude.Strings.StrCons
+    return _idris_error("unreachable due to case in tail position")
 
 # Python.Telescope.strip
 def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
@@ -511,7 +636,7 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
 # Python.Exceptions.try
 def _idris_Python_46_Exceptions_46_try(e0, e1):
   while True:
-    return (65791, None, None, None, (65750, e1), (65747,))  # {U_io_bind1}, {U_Python.Exceptions.{try4}1}, {U_Python.Exceptions.{try24}1}
+    return (65760, None, None, None, (65720, e1), (65716,))  # {U_io_bind1}, {U_Python.Exceptions.{try4}1}, {U_Python.Exceptions.{try17}1}
 
 # Python.IO.unRaw
 def _idris_Python_46_IO_46_unRaw(e0, e1):
@@ -531,10 +656,12 @@ def _idris_unsafePerformPrimIO():
 # Python.Lib.Threading.wait
 def _idris_Python_46_Lib_46_Threading_46_wait(e0, e1):
   while True:
-    return _idris_Python_46_Functions_46__36__58_(
+    return _idris_Python_46_Functions_46_call(
       None,
-      (1, (0,), (65768,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Threading.{wait0}1}
+      None,
+      (1, (0,), (65738,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Threading.{wait0}1}
       _idris_Python_46_Fields_46__47__46_(None, None, e1, "get", None),
+      None,
       (0, 1, Unit)  # Builtins.MkSigma
     )
 
@@ -543,10 +670,19 @@ def _idris_world(e0):
   while True:
     return e0
 
+# Prelude.Bool.||
+def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
+  while True:
+    if not e0:  # Prelude.Bool.False
+      return EVAL0(e1)
+    else:  # Prelude.Bool.True
+      return True
+    return _idris_error("unreachable due to case in tail position")
+
 # Python.Functions.{$:0}
 def _idris_Python_46_Functions_46__123__36__58_0_125_(e1, e3, in0):
   while True:
-    return _idris_Python_46_Functions_46__36__46_(None, e1, in0, e3)
+    return _idris_Python_46_Functions_46_call(None, None, e1, in0, None, e3)
 
 # Python.Fields.{/.0}
 def _idris_Python_46_Fields_46__123__47__46_0_125_(e2, e3, in0):
@@ -561,585 +697,536 @@ def _idris_Python_46_Fields_46__123__47__58_0_125_(e3, in0):
 # {APPLY0}
 def APPLY0(fn0, arg0):
   while True:
-    if fn0[0] < 65728:
-      if fn0[0] < 65683:
-        if fn0[0] < 65661:
-          if fn0[0] < 65650:
-            if fn0[0] < 65644:
-              if fn0[0] < 65641:
-                if fn0[0] == 65639:  # {U_Main.{case block in main_lam0}1}
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_95_lam0_125_(arg0)
-                else:  # {U_Main.{case block in main_lam1}1}
-                  P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_95_lam1_125_(P_c0, P_c1, arg0)
-              else:
-                if fn0[0] == 65641:  # {U_Main.{case block in main_lam2}1}
-                  P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_95_lam2_125_(P_c0, P_c1, arg0)
-                elif fn0[0] == 65642:  # {U_Main.{case block in main_lam3}1}
-                  P_c0, P_c1, P_c2 = fn0[1:]
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_95_lam3_125_(
-                    P_c0, P_c1, P_c2, arg0
-                  )
-                else:  # {U_Main.{main0}1}
+    if fn0[0] < 65713:
+      if fn0[0] < 65675:
+        if fn0[0] < 65656:
+          if fn0[0] < 65646:
+            if fn0[0] < 65641:
+              if fn0[0] < 65639:
+                if fn0[0] == 65637:  # {U_Main.{main0}1}
                   return _idris_Main_46__123_main0_125_(arg0)
-            else:
-              if fn0[0] < 65647:
-                if fn0[0] == 65644:  # {U_Main.{main10}1}
-                  return _idris_Main_46__123_main10_125_(arg0)
-                elif fn0[0] == 65645:  # {U_Main.{main11}1}
+                else:  # {U_Main.{main10}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main10_125_(P_c0, arg0)
+              else:
+                if fn0[0] == 65639:  # {U_Main.{main11}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main11_125_(P_c0, arg0)
                 else:  # {U_Main.{main12}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main12_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65647:  # {U_Main.{main13}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main13_125_(P_c0, arg0)
-                elif fn0[0] == 65648:  # {U_Main.{main14}1}
-                  return _idris_Main_46__123_main14_125_(arg0)
-                else:  # {U_Main.{main15}1}
-                  return _idris_Main_46__123_main15_125_(arg0)
-          else:
-            if fn0[0] < 65655:
-              if fn0[0] < 65652:
-                if fn0[0] == 65650:  # {U_Main.{main16}1}
-                  return _idris_Main_46__123_main16_125_(arg0)
-                else:  # {U_Main.{main17}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main17_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65652:  # {U_Main.{main18}1}
-                  return _idris_Main_46__123_main18_125_(arg0)
-                elif fn0[0] == 65653:  # {U_Main.{main19}1}
-                  return _idris_Main_46__123_main19_125_(arg0)
-                else:  # {U_Main.{main1}1}
-                  return _idris_Main_46__123_main1_125_(arg0)
             else:
-              if fn0[0] < 65658:
-                if fn0[0] == 65655:  # {U_Main.{main20}1}
-                  return _idris_Main_46__123_main20_125_(arg0)
-                elif fn0[0] == 65656:  # {U_Main.{main21}1}
-                  return _idris_Main_46__123_main21_125_(arg0)
-                else:  # {U_Main.{main22}1}
-                  return _idris_Main_46__123_main22_125_(arg0)
+              if fn0[0] < 65643:
+                if fn0[0] == 65641:  # {U_Main.{main13}1}
+                  return _idris_Main_46__123_main13_125_(arg0)
+                else:  # {U_Main.{main14}1}
+                  return _idris_Main_46__123_main14_125_(arg0)
               else:
-                if fn0[0] == 65658:  # {U_Main.{main23}1}
+                if fn0[0] == 65643:  # {U_Main.{main15}1}
                   P_c0 = fn0[1]
-                  return _idris_Main_46__123_main23_125_(P_c0, arg0)
-                elif fn0[0] == 65659:  # {U_Main.{main24}1}
-                  return _idris_Main_46__123_main24_125_(arg0)
-                else:  # {U_Main.{main25}1}
-                  return _idris_Main_46__123_main25_125_(arg0)
-        else:
-          if fn0[0] < 65672:
-            if fn0[0] < 65666:
-              if fn0[0] < 65663:
-                if fn0[0] == 65661:  # {U_Main.{main26}1}
-                  return _idris_Main_46__123_main26_125_(arg0)
-                else:  # {U_Main.{main27}1}
-                  return _idris_Main_46__123_main27_125_(arg0)
+                  return _idris_Main_46__123_main15_125_(P_c0, arg0)
+                elif fn0[0] == 65644:  # {U_Main.{main16}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main16_125_(P_c0, arg0)
+                else:  # {U_Main.{main17}1}
+                  P_c0, P_c1 = fn0[1:]
+                  return _idris_Main_46__123_main17_125_(P_c0, P_c1, arg0)
+          else:
+            if fn0[0] < 65651:
+              if fn0[0] < 65648:
+                if fn0[0] == 65646:  # {U_Main.{main18}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main18_125_(P_c0, arg0)
+                else:  # {U_Main.{main19}1}
+                  return _idris_Main_46__123_main19_125_(arg0)
               else:
-                if fn0[0] == 65663:  # {U_Main.{main28}1}
+                if fn0[0] == 65648:  # {U_Main.{main1}1}
+                  return _idris_Main_46__123_main1_125_(arg0)
+                elif fn0[0] == 65649:  # {U_Main.{main20}1}
+                  return _idris_Main_46__123_main20_125_(arg0)
+                else:  # {U_Main.{main21}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main21_125_(P_c0, arg0)
+            else:
+              if fn0[0] < 65653:
+                if fn0[0] == 65651:  # {U_Main.{main22}1}
+                  return _idris_Main_46__123_main22_125_(arg0)
+                else:  # {U_Main.{main23}1}
+                  return _idris_Main_46__123_main23_125_(arg0)
+              else:
+                if fn0[0] == 65653:  # {U_Main.{main24}1}
+                  return _idris_Main_46__123_main24_125_(arg0)
+                elif fn0[0] == 65654:  # {U_Main.{main25}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main25_125_(P_c0, arg0)
+                else:  # {U_Main.{main26}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main26_125_(P_c0, arg0)
+        else:
+          if fn0[0] < 65665:
+            if fn0[0] < 65660:
+              if fn0[0] < 65658:
+                if fn0[0] == 65656:  # {U_Main.{main27}1}
+                  return _idris_Main_46__123_main27_125_(arg0)
+                else:  # {U_Main.{main28}1}
                   return _idris_Main_46__123_main28_125_(arg0)
-                elif fn0[0] == 65664:  # {U_Main.{main29}1}
+              else:
+                if fn0[0] == 65658:  # {U_Main.{main29}1}
                   return _idris_Main_46__123_main29_125_(arg0)
                 else:  # {U_Main.{main2}1}
                   return _idris_Main_46__123_main2_125_(arg0)
             else:
-              if fn0[0] < 65669:
-                if fn0[0] == 65666:  # {U_Main.{main30}1}
+              if fn0[0] < 65662:
+                if fn0[0] == 65660:  # {U_Main.{main30}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main30_125_(P_c0, arg0)
-                elif fn0[0] == 65667:  # {U_Main.{main31}1}
-                  return _idris_Main_46__123_main31_125_(arg0)
-                else:  # {U_Main.{main32}1}
-                  return _idris_Main_46__123_main32_125_(arg0)
+                else:  # {U_Main.{main31}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main31_125_(P_c0, arg0)
               else:
-                if fn0[0] == 65669:  # {U_Main.{main33}1}
-                  return _idris_Main_46__123_main33_125_(arg0)
-                elif fn0[0] == 65670:  # {U_Main.{main34}1}
-                  return _idris_Main_46__123_main34_125_(arg0)
-                else:  # {U_Main.{main35}1}
-                  return _idris_Main_46__123_main35_125_(arg0)
+                if fn0[0] == 65662:  # {U_Main.{main32}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main32_125_(P_c0, arg0)
+                elif fn0[0] == 65663:  # {U_Main.{main33}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main33_125_(P_c0, arg0)
+                else:  # {U_Main.{main34}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main34_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65677:
-              if fn0[0] < 65674:
-                if fn0[0] == 65672:  # {U_Main.{main36}1}
+            if fn0[0] < 65670:
+              if fn0[0] < 65667:
+                if fn0[0] == 65665:  # {U_Main.{main35}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main35_125_(P_c0, arg0)
+                else:  # {U_Main.{main36}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main36_125_(P_c0, arg0)
-                else:  # {U_Main.{main37}1}
-                  return _idris_Main_46__123_main37_125_(arg0)
               else:
-                if fn0[0] == 65674:  # {U_Main.{main38}1}
-                  return _idris_Main_46__123_main38_125_(arg0)
-                elif fn0[0] == 65675:  # {U_Main.{main39}1}
-                  return _idris_Main_46__123_main39_125_(arg0)
-                else:  # {U_Main.{main3}1}
+                if fn0[0] == 65667:  # {U_Main.{main37}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main37_125_(P_c0, arg0)
+                elif fn0[0] == 65668:  # {U_Main.{main38}1}
+                  P_c0, P_c1 = fn0[1:]
+                  return _idris_Main_46__123_main38_125_(P_c0, P_c1, arg0)
+                else:  # {U_Main.{main39}1}
+                  P_c0 = fn0[1]
+                  return _idris_Main_46__123_main39_125_(P_c0, arg0)
+            else:
+              if fn0[0] < 65672:
+                if fn0[0] == 65670:  # {U_Main.{main3}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Main_46__123_main3_125_(P_c0, P_c1, arg0)
-            else:
-              if fn0[0] < 65680:
-                if fn0[0] == 65677:  # {U_Main.{main40}1}
+                else:  # {U_Main.{main40}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main40_125_(P_c0, arg0)
-                elif fn0[0] == 65678:  # {U_Main.{main41}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main41_125_(P_c0, arg0)
-                else:  # {U_Main.{main42}1}
+              else:
+                if fn0[0] == 65672:  # {U_Main.{main41}1}
                   P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_main42_125_(P_c0, P_c1, arg0)
-              else:
-                if fn0[0] == 65680:  # {U_Main.{main43}1}
+                  return _idris_Main_46__123_main41_125_(P_c0, P_c1, arg0)
+                elif fn0[0] == 65673:  # {U_Main.{main42}1}
                   P_c0 = fn0[1]
-                  return _idris_Main_46__123_main43_125_(P_c0, arg0)
-                elif fn0[0] == 65681:  # {U_Main.{main44}1}
-                  return _idris_Main_46__123_main44_125_(arg0)
-                else:  # {U_Main.{main45}1}
-                  return _idris_Main_46__123_main45_125_(arg0)
+                  return _idris_Main_46__123_main42_125_(P_c0, arg0)
+                else:  # {U_Main.{main43}1}
+                  return _idris_Main_46__123_main43_125_(arg0)
       else:
-        if fn0[0] < 65705:
-          if fn0[0] < 65694:
-            if fn0[0] < 65688:
-              if fn0[0] < 65685:
-                if fn0[0] == 65683:  # {U_Main.{main46}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main46_125_(P_c0, arg0)
-                else:  # {U_Main.{main47}1}
-                  return _idris_Main_46__123_main47_125_(arg0)
-              else:
-                if fn0[0] == 65685:  # {U_Main.{main48}1}
-                  return _idris_Main_46__123_main48_125_(arg0)
-                elif fn0[0] == 65686:  # {U_Main.{main49}1}
-                  return _idris_Main_46__123_main49_125_(arg0)
+        if fn0[0] < 65694:
+          if fn0[0] < 65684:
+            if fn0[0] < 65679:
+              if fn0[0] < 65677:
+                if fn0[0] == 65675:  # {U_Main.{main44}1}
+                  return _idris_Main_46__123_main44_125_(arg0)
                 else:  # {U_Main.{main4}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main4_125_(P_c0, arg0)
-            else:
-              if fn0[0] < 65691:
-                if fn0[0] == 65688:  # {U_Main.{main50}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main50_125_(P_c0, arg0)
-                elif fn0[0] == 65689:  # {U_Main.{main51}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main51_125_(P_c0, arg0)
-                else:  # {U_Main.{main52}1}
-                  return _idris_Main_46__123_main52_125_(arg0)
               else:
-                if fn0[0] == 65691:  # {U_Main.{main53}1}
-                  return _idris_Main_46__123_main53_125_(arg0)
-                elif fn0[0] == 65692:  # {U_Main.{main54}1}
-                  return _idris_Main_46__123_main54_125_(arg0)
-                else:  # {U_Main.{main55}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main55_125_(P_c0, arg0)
-          else:
-            if fn0[0] < 65699:
-              if fn0[0] < 65696:
-                if fn0[0] == 65694:  # {U_Main.{main56}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main56_125_(P_c0, arg0)
-                else:  # {U_Main.{main57}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main57_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65696:  # {U_Main.{main58}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main58_125_(P_c0, arg0)
-                elif fn0[0] == 65697:  # {U_Main.{main59}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main59_125_(P_c0, arg0)
-                else:  # {U_Main.{main5}1}
+                if fn0[0] == 65677:  # {U_Main.{main5}1}
                   return _idris_Main_46__123_main5_125_(arg0)
-            else:
-              if fn0[0] < 65702:
-                if fn0[0] == 65699:  # {U_Main.{main60}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main60_125_(P_c0, arg0)
-                elif fn0[0] == 65700:  # {U_Main.{main61}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main61_125_(P_c0, arg0)
-                else:  # {U_Main.{main62}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main62_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65702:  # {U_Main.{main63}1}
-                  P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_main63_125_(P_c0, P_c1, arg0)
-                elif fn0[0] == 65703:  # {U_Main.{main64}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main64_125_(P_c0, arg0)
-                else:  # {U_Main.{main65}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main65_125_(P_c0, arg0)
-        else:
-          if fn0[0] < 65716:
-            if fn0[0] < 65710:
-              if fn0[0] < 65707:
-                if fn0[0] == 65705:  # {U_Main.{main66}1}
-                  P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_main66_125_(P_c0, P_c1, arg0)
-                else:  # {U_Main.{main67}1}
-                  P_c0 = fn0[1]
-                  return _idris_Main_46__123_main67_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65707:  # {U_Main.{main68}1}
-                  return _idris_Main_46__123_main68_125_(arg0)
-                elif fn0[0] == 65708:  # {U_Main.{main69}1}
-                  return _idris_Main_46__123_main69_125_(arg0)
                 else:  # {U_Main.{main6}1}
                   return _idris_Main_46__123_main6_125_(arg0)
             else:
-              if fn0[0] < 65713:
-                if fn0[0] == 65710:  # {U_Main.{main7}1}
+              if fn0[0] < 65681:
+                if fn0[0] == 65679:  # {U_Main.{main7}1}
                   return _idris_Main_46__123_main7_125_(arg0)
-                elif fn0[0] == 65711:  # {U_Main.{main8}1}
+                else:  # {U_Main.{main8}1}
                   P_c0 = fn0[1]
                   return _idris_Main_46__123_main8_125_(P_c0, arg0)
-                else:  # {U_Main.{main9}1}
-                  return _idris_Main_46__123_main9_125_(arg0)
               else:
-                if fn0[0] == 65713:  # {U_Prelude.Basics..1}
+                if fn0[0] == 65681:  # {U_Main.{main9}1}
+                  return _idris_Main_46__123_main9_125_(arg0)
+                elif fn0[0] == 65682:  # {U_Prelude.Basics..1}
                   P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                   return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-                elif fn0[0] == 65714:  # {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+                else:  # {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
+                  return _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
                     P_c0, arg0
                   )
-                else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+          else:
+            if fn0[0] < 65689:
+              if fn0[0] < 65686:
+                if fn0[0] == 65684:  # {U_Prelude.Interactive.{putStr0}1}
+                  P_c0 = fn0[1]
+                  return _idris_Prelude_46_Interactive_46__123_putStr0_125_(P_c0, arg0)
+                else:  # {U_Prelude.Interactive.{putStr1}1}
+                  return _idris_Prelude_46_Interactive_46__123_putStr1_125_(arg0)
+              else:
+                if fn0[0] == 65686:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
                   P_c0, P_c1, P_c2, P_c3 = fn0[1:]
                   return _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
                     P_c0, P_c1, P_c2, P_c3, arg0
                   )
-          else:
-            if fn0[0] < 65722:
-              if fn0[0] < 65719:
-                if fn0[0] == 65716:  # {U_Prelude.List.reverse, reverse'1}
+                elif fn0[0] == 65687:  # {U_Prelude.List.reverse, reverse'1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(P_c0, P_c1, arg0)
-                elif fn0[0] == 65717:  # {U_Prelude.Strings.{length0}1}
-                  return _idris_Prelude_46_Strings_46__123_length0_125_(arg0)
-                else:  # {U_Prelude.{putStr0}1}
+                else:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46__123_putStr0_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65719:  # {U_Prelude.{putStr1}1}
-                  return _idris_Prelude_46__123_putStr1_125_(arg0)
-                elif fn0[0] == 65720:  # {U_Python.Exceptions.{case block in case block in try_lam0}1}
-                  P_c0, P_c1 = fn0[1:]
-                  return _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_case_32_block_32_in_32_try_95_lam0_125_(
-                    P_c0, P_c1, arg0
-                  )
-                else:  # {U_Python.Exceptions.{case block in try_lam0}1}
-                  P_c0, P_c1 = fn0[1:]
-                  return _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_try_95_lam0_125_(
-                    P_c0, P_c1, arg0
-                  )
+                  return _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(P_c0, arg0)
             else:
-              if fn0[0] < 65725:
-                if fn0[0] == 65722:  # {U_Python.Exceptions.{catch0}1}
+              if fn0[0] < 65691:
+                if fn0[0] == 65689:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+                  P_c0 = fn0[1]
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                    P_c0, arg0
+                  )
+                else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+                    arg0
+                  )
+              else:
+                if fn0[0] == 65691:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+                  P_c0 = fn0[1]
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                    P_c0, arg0
+                  )
+                elif fn0[0] == 65692:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+                    arg0
+                  )
+                else:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+                  P_c0 = fn0[1]
+                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                    P_c0, arg0
+                  )
+        else:
+          if fn0[0] < 65703:
+            if fn0[0] < 65698:
+              if fn0[0] < 65696:
+                if fn0[0] == 65694:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}
+                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+                    arg0
+                  )
+                else:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+                  P_c0 = fn0[1]
+                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                    P_c0, arg0
+                  )
+              else:
+                if fn0[0] == 65696:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
+                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+                    arg0
+                  )
+                else:  # {U_Prelude.Show.{primNumShow0}1}
+                  return _idris_Prelude_46_Show_46__123_primNumShow0_125_(arg0)
+            else:
+              if fn0[0] < 65700:
+                if fn0[0] == 65698:  # {U_Prelude.Strings.{length0}1}
+                  return _idris_Prelude_46_Strings_46__123_length0_125_(arg0)
+                else:  # {U_Python.Exceptions.{catch0}1}
                   return _idris_Python_46_Exceptions_46__123_catch0_125_(arg0)
-                elif fn0[0] == 65723:  # {U_Python.Exceptions.{catch1}1}
+              else:
+                if fn0[0] == 65700:  # {U_Python.Exceptions.{catch1}1}
                   return _idris_Python_46_Exceptions_46__123_catch1_125_(arg0)
-                else:  # {U_Python.Exceptions.{catch2}1}
+                elif fn0[0] == 65701:  # {U_Python.Exceptions.{catch2}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_catch2_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65725:  # {U_Python.Exceptions.{catch3}1}
+                else:  # {U_Python.Exceptions.{catch3}1}
                   return _idris_Python_46_Exceptions_46__123_catch3_125_(arg0)
-                elif fn0[0] == 65726:  # {U_Python.Exceptions.{catch4}1}
+          else:
+            if fn0[0] < 65708:
+              if fn0[0] < 65705:
+                if fn0[0] == 65703:  # {U_Python.Exceptions.{catch4}1}
                   return _idris_Python_46_Exceptions_46__123_catch4_125_(arg0)
                 else:  # {U_Python.Exceptions.{catch5}1}
                   return _idris_Python_46_Exceptions_46__123_catch5_125_(arg0)
-    else:
-      if fn0[0] < 65773:
-        if fn0[0] < 65750:
-          if fn0[0] < 65739:
-            if fn0[0] < 65733:
-              if fn0[0] < 65730:
-                if fn0[0] == 65728:  # {U_Python.Exceptions.{catch6}1}
+              else:
+                if fn0[0] == 65705:  # {U_Python.Exceptions.{catch6}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_catch6_125_(P_c0, arg0)
-                else:  # {U_Python.Exceptions.{raise0}1}
+                elif fn0[0] == 65706:  # {U_Python.Exceptions.{raise0}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_raise0_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65730:  # {U_Python.Exceptions.{showException0}1}
+                else:  # {U_Python.Exceptions.{showException0}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_showException0_125_(P_c0, arg0)
-                elif fn0[0] == 65731:  # {U_Python.Exceptions.{try0}1}
+            else:
+              if fn0[0] < 65710:
+                if fn0[0] == 65708:  # {U_Python.Exceptions.{try0}1}
                   return _idris_Python_46_Exceptions_46__123_try0_125_(arg0)
                 else:  # {U_Python.Exceptions.{try10}1}
                   return _idris_Python_46_Exceptions_46__123_try10_125_(arg0)
-            else:
-              if fn0[0] < 65736:
-                if fn0[0] == 65733:  # {U_Python.Exceptions.{try11}1}
+              else:
+                if fn0[0] == 65710:  # {U_Python.Exceptions.{try11}1}
                   return _idris_Python_46_Exceptions_46__123_try11_125_(arg0)
-                elif fn0[0] == 65734:  # {U_Python.Exceptions.{try12}1}
+                elif fn0[0] == 65711:  # {U_Python.Exceptions.{try12}1}
                   return _idris_Python_46_Exceptions_46__123_try12_125_(arg0)
                 else:  # {U_Python.Exceptions.{try13}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try13_125_(P_c0, arg0)
-              else:
-                if fn0[0] == 65736:  # {U_Python.Exceptions.{try14}1}
+    else:
+      if fn0[0] < 65751:
+        if fn0[0] < 65732:
+          if fn0[0] < 65722:
+            if fn0[0] < 65717:
+              if fn0[0] < 65715:
+                if fn0[0] == 65713:  # {U_Python.Exceptions.{try14}1}
                   return _idris_Python_46_Exceptions_46__123_try14_125_(arg0)
-                elif fn0[0] == 65737:  # {U_Python.Exceptions.{try15}1}
+                else:  # {U_Python.Exceptions.{try15}1}
                   return _idris_Python_46_Exceptions_46__123_try15_125_(arg0)
-                else:  # {U_Python.Exceptions.{try16}1}
+              else:
+                if fn0[0] == 65715:  # {U_Python.Exceptions.{try16}1}
                   return _idris_Python_46_Exceptions_46__123_try16_125_(arg0)
-          else:
-            if fn0[0] < 65744:
-              if fn0[0] < 65741:
-                if fn0[0] == 65739:  # {U_Python.Exceptions.{try17}1}
-                  P_c0 = fn0[1]
-                  return _idris_Python_46_Exceptions_46__123_try17_125_(P_c0, arg0)
-                else:  # {U_Python.Exceptions.{try18}1}
-                  return _idris_Python_46_Exceptions_46__123_try18_125_(arg0)
-              else:
-                if fn0[0] == 65741:  # {U_Python.Exceptions.{try19}1}
-                  return _idris_Python_46_Exceptions_46__123_try19_125_(arg0)
-                elif fn0[0] == 65742:  # {U_Python.Exceptions.{try1}1}
-                  return _idris_Python_46_Exceptions_46__123_try1_125_(arg0)
-                else:  # {U_Python.Exceptions.{try20}1}
-                  P_c0 = fn0[1]
-                  return _idris_Python_46_Exceptions_46__123_try20_125_(P_c0, arg0)
+                else:  # {U_Python.Exceptions.{try17}1}
+                  return _idris_Python_46_Exceptions_46__123_try17_125_(arg0)
             else:
-              if fn0[0] < 65747:
-                if fn0[0] == 65744:  # {U_Python.Exceptions.{try21}1}
-                  return _idris_Python_46_Exceptions_46__123_try21_125_(arg0)
-                elif fn0[0] == 65745:  # {U_Python.Exceptions.{try22}1}
-                  return _idris_Python_46_Exceptions_46__123_try22_125_(arg0)
-                else:  # {U_Python.Exceptions.{try23}1}
-                  return _idris_Python_46_Exceptions_46__123_try23_125_(arg0)
-              else:
-                if fn0[0] == 65747:  # {U_Python.Exceptions.{try24}1}
-                  return _idris_Python_46_Exceptions_46__123_try24_125_(arg0)
-                elif fn0[0] == 65748:  # {U_Python.Exceptions.{try2}1}
+              if fn0[0] < 65719:
+                if fn0[0] == 65717:  # {U_Python.Exceptions.{try1}1}
+                  return _idris_Python_46_Exceptions_46__123_try1_125_(arg0)
+                else:  # {U_Python.Exceptions.{try2}1}
                   return _idris_Python_46_Exceptions_46__123_try2_125_(arg0)
-                else:  # {U_Python.Exceptions.{try3}1}
+              else:
+                if fn0[0] == 65719:  # {U_Python.Exceptions.{try3}1}
                   return _idris_Python_46_Exceptions_46__123_try3_125_(arg0)
-        else:
-          if fn0[0] < 65761:
-            if fn0[0] < 65755:
-              if fn0[0] < 65752:
-                if fn0[0] == 65750:  # {U_Python.Exceptions.{try4}1}
+                elif fn0[0] == 65720:  # {U_Python.Exceptions.{try4}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try4_125_(P_c0, arg0)
                 else:  # {U_Python.Exceptions.{try5}1}
                   return _idris_Python_46_Exceptions_46__123_try5_125_(arg0)
-              else:
-                if fn0[0] == 65752:  # {U_Python.Exceptions.{try6}1}
+          else:
+            if fn0[0] < 65727:
+              if fn0[0] < 65724:
+                if fn0[0] == 65722:  # {U_Python.Exceptions.{try6}1}
                   return _idris_Python_46_Exceptions_46__123_try6_125_(arg0)
-                elif fn0[0] == 65753:  # {U_Python.Exceptions.{try7}1}
+                else:  # {U_Python.Exceptions.{try7}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Exceptions_46__123_try7_125_(P_c0, arg0)
-                else:  # {U_Python.Exceptions.{try8}1}
+              else:
+                if fn0[0] == 65724:  # {U_Python.Exceptions.{try8}1}
                   return _idris_Python_46_Exceptions_46__123_try8_125_(arg0)
-            else:
-              if fn0[0] < 65758:
-                if fn0[0] == 65755:  # {U_Python.Exceptions.{try9}1}
+                elif fn0[0] == 65725:  # {U_Python.Exceptions.{try9}1}
                   return _idris_Python_46_Exceptions_46__123_try9_125_(arg0)
-                elif fn0[0] == 65756:  # {U_Python.Fields.mixout1}
-                  P_c0, P_c1, P_c2 = fn0[1:]
-                  return _idris_Python_46_Fields_46_mixout(P_c0, P_c1, P_c2, arg0)
                 else:  # {U_Python.Fields.{/.0}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Fields_46__123__47__46_0_125_(P_c0, P_c1, arg0)
-              else:
-                if fn0[0] == 65758:  # {U_Python.Fields.{/:0}1}
+            else:
+              if fn0[0] < 65729:
+                if fn0[0] == 65727:  # {U_Python.Fields.{/:0}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Fields_46__123__47__58_0_125_(P_c0, arg0)
-                elif fn0[0] == 65759:  # {U_Python.Functions.{$:0}1}
+                else:  # {U_Python.Functions.{$:0}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Functions_46__123__36__58_0_125_(P_c0, P_c1, arg0)
-                else:  # {U_Python.Functions.{call0}1}
+              else:
+                if fn0[0] == 65729:  # {U_Python.Functions.{call0}1}
                   P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Functions_46__123_call0_125_(P_c0, P_c1, P_c2, arg0)
-          else:
-            if fn0[0] < 65767:
-              if fn0[0] < 65764:
-                if fn0[0] == 65761:  # {U_Python.IO.unRaw1}
+                elif fn0[0] == 65730:  # {U_Python.IO.unRaw1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_IO_46_unRaw(P_c0, arg0)
-                elif fn0[0] == 65762:  # {U_Python.Lib.Threading.{forkPIO0}1}
+                else:  # {U_Python.Lib.Threading.{forkPIO0}1}
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO0_125_(arg0)
-                else:  # {U_Python.Lib.Threading.{forkPIO1}1}
-                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(arg0)
+        else:
+          if fn0[0] < 65741:
+            if fn0[0] < 65736:
+              if fn0[0] < 65734:
+                if fn0[0] == 65732:  # {U_Python.Lib.Threading.{forkPIO2}1}
+                  P_c0, P_c1 = fn0[1:]
+                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO2_125_(P_c0, P_c1, arg0)
+                else:  # {U_Python.Lib.Threading.{forkPIO3}1}
+                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(arg0)
               else:
-                if fn0[0] == 65764:  # {U_Python.Lib.Threading.{forkPIO2}1}
-                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO2_125_(arg0)
-                elif fn0[0] == 65765:  # {U_Python.Lib.Threading.{forkPIO3}1}
-                  P_c0 = fn0[1]
-                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(P_c0, arg0)
-                else:  # {U_Python.Lib.Threading.{forkPIO4}1}
-                  P_c0 = fn0[1]
-                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO4_125_(P_c0, arg0)
-            else:
-              if fn0[0] < 65770:
-                if fn0[0] == 65767:  # {U_Python.Lib.Threading.{forkPIO5}1}
+                if fn0[0] == 65734:  # {U_Python.Lib.Threading.{forkPIO4}1}
+                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO4_125_(arg0)
+                else:  # {U_Python.Lib.Threading.{forkPIO5}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Lib_46_Threading_46__123_forkPIO5_125_(P_c0, arg0)
-                elif fn0[0] == 65768:  # {U_Python.Lib.Threading.{wait0}1}
-                  return _idris_Python_46_Lib_46_Threading_46__123_wait0_125_(arg0)
-                else:  # {U_Python.Prim.collect1}
+            else:
+              if fn0[0] < 65738:
+                if fn0[0] == 65736:  # {U_Python.Lib.Threading.{forkPIO6}1}
                   P_c0 = fn0[1]
-                  return _idris_Python_46_Prim_46_collect(P_c0, arg0)
+                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO6_125_(P_c0, arg0)
+                else:  # {U_Python.Lib.Threading.{forkPIO7}1}
+                  P_c0 = fn0[1]
+                  return _idris_Python_46_Lib_46_Threading_46__123_forkPIO7_125_(P_c0, arg0)
               else:
-                if fn0[0] == 65770:  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
+                if fn0[0] == 65738:  # {U_Python.Lib.Threading.{wait0}1}
+                  return _idris_Python_46_Lib_46_Threading_46__123_wait0_125_(arg0)
+                elif fn0[0] == 65739:  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(
                     P_c0, P_c1, arg0
                   )
-                elif fn0[0] == 65771:  # {U_Python.Prim.{collect0}1}
+                else:  # {U_Python.Prim.{collect0}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46__123_collect0_125_(P_c0, arg0)
-                else:  # {U_Python.Prim.{collect1}1}
+          else:
+            if fn0[0] < 65746:
+              if fn0[0] < 65743:
+                if fn0[0] == 65741:  # {U_Python.Prim.{collect1}1}
                   return _idris_Python_46_Prim_46__123_collect1_125_(arg0)
-      else:
-        if fn0[0] < 65795:
-          if fn0[0] < 65784:
-            if fn0[0] < 65778:
-              if fn0[0] < 65775:
-                if fn0[0] == 65773:  # {U_Python.Prim.{foreach0}1}
+                else:  # {U_Python.Prim.{foreach0}1}
                   P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_foreach0_125_(P_c0, P_c1, P_c2, arg0)
-                else:  # {U_Python.Prim.{foreach1}1}
+              else:
+                if fn0[0] == 65743:  # {U_Python.Prim.{foreach1}1}
                   P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_foreach1_125_(P_c0, P_c1, P_c2, arg0)
-              else:
-                if fn0[0] == 65775:  # {U_Python.Prim.{iterate0}1}
+                elif fn0[0] == 65744:  # {U_Python.Prim.{iterate0}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Prim_46__123_iterate0_125_(P_c0, P_c1, arg0)
-                elif fn0[0] == 65776:  # {U_Python.Prim.{next0}1}
+                else:  # {U_Python.Prim.{next0}1}
                   return _idris_Python_46_Prim_46__123_next0_125_(arg0)
-                else:  # {U_Python.Prim.{next10}1}
-                  return _idris_Python_46_Prim_46__123_next10_125_(arg0)
             else:
-              if fn0[0] < 65781:
-                if fn0[0] == 65778:  # {U_Python.Prim.{next11}1}
+              if fn0[0] < 65748:
+                if fn0[0] == 65746:  # {U_Python.Prim.{next10}1}
+                  return _idris_Python_46_Prim_46__123_next10_125_(arg0)
+                else:  # {U_Python.Prim.{next11}1}
                   return _idris_Python_46_Prim_46__123_next11_125_(arg0)
-                elif fn0[0] == 65779:  # {U_Python.Prim.{next12}1}
-                  return _idris_Python_46_Prim_46__123_next12_125_(arg0)
-                else:  # {U_Python.Prim.{next1}1}
-                  return _idris_Python_46_Prim_46__123_next1_125_(arg0)
               else:
-                if fn0[0] == 65781:  # {U_Python.Prim.{next2}1}
+                if fn0[0] == 65748:  # {U_Python.Prim.{next12}1}
+                  return _idris_Python_46_Prim_46__123_next12_125_(arg0)
+                elif fn0[0] == 65749:  # {U_Python.Prim.{next1}1}
+                  return _idris_Python_46_Prim_46__123_next1_125_(arg0)
+                else:  # {U_Python.Prim.{next2}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46__123_next2_125_(P_c0, arg0)
-                elif fn0[0] == 65782:  # {U_Python.Prim.{next3}1}
+      else:
+        if fn0[0] < 65770:
+          if fn0[0] < 65760:
+            if fn0[0] < 65755:
+              if fn0[0] < 65753:
+                if fn0[0] == 65751:  # {U_Python.Prim.{next3}1}
                   return _idris_Python_46_Prim_46__123_next3_125_(arg0)
                 else:  # {U_Python.Prim.{next4}1}
                   return _idris_Python_46_Prim_46__123_next4_125_(arg0)
-          else:
-            if fn0[0] < 65789:
-              if fn0[0] < 65786:
-                if fn0[0] == 65784:  # {U_Python.Prim.{next5}1}
+              else:
+                if fn0[0] == 65753:  # {U_Python.Prim.{next5}1}
                   return _idris_Python_46_Prim_46__123_next5_125_(arg0)
                 else:  # {U_Python.Prim.{next6}1}
                   return _idris_Python_46_Prim_46__123_next6_125_(arg0)
-              else:
-                if fn0[0] == 65786:  # {U_Python.Prim.{next7}1}
+            else:
+              if fn0[0] < 65757:
+                if fn0[0] == 65755:  # {U_Python.Prim.{next7}1}
                   return _idris_Python_46_Prim_46__123_next7_125_(arg0)
-                elif fn0[0] == 65787:  # {U_Python.Prim.{next8}1}
+                else:  # {U_Python.Prim.{next8}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Prim_46__123_next8_125_(P_c0, arg0)
-                else:  # {U_Python.Prim.{next9}1}
+              else:
+                if fn0[0] == 65757:  # {U_Python.Prim.{next9}1}
                   return _idris_Python_46_Prim_46__123_next9_125_(arg0)
-            else:
-              if fn0[0] < 65792:
-                if fn0[0] == 65789:  # {U_Python.importModule1}
+                elif fn0[0] == 65758:  # {U_Python.importModule1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_importModule(P_c0, P_c1, arg0)
-                elif fn0[0] == 65790:  # {U_Python.{marshalPIO0}1}
+                else:  # {U_Python.{marshalPIO0}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46__123_marshalPIO0_125_(P_c0, arg0)
-                else:  # {U_io_bind1}
+          else:
+            if fn0[0] < 65765:
+              if fn0[0] < 65762:
+                if fn0[0] == 65760:  # {U_io_bind1}
                   P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                   return _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-              else:
-                if fn0[0] == 65792:  # {U_io_return1}
+                else:  # {U_io_return1}
                   P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
-                elif fn0[0] == 65793:  # {U_prim__zextInt_BigInt1}
+              else:
+                if fn0[0] == 65762:  # {U_prim__toStrBigInt1}
+                  return _idris_prim_95__95_toStrBigInt(arg0)
+                elif fn0[0] == 65763:  # {U_prim__toStrInt1}
+                  return _idris_prim_95__95_toStrInt(arg0)
+                else:  # {U_prim__zextInt_BigInt1}
                   return _idris_prim_95__95_zextInt_95_BigInt(arg0)
-                else:  # {U_prim_lenString1}
+            else:
+              if fn0[0] < 65767:
+                if fn0[0] == 65765:  # {U_prim_lenString1}
                   return _idris_prim_95_lenString(arg0)
-        else:
-          if fn0[0] < 65806:
-            if fn0[0] < 65800:
-              if fn0[0] < 65797:
-                if fn0[0] == 65795:  # {U_{Python.Lib.Threading.forkPIO, worker_lam0}1}
+                else:  # {U_{Python.Lib.Threading.forkPIO, worker_lam0}1}
                   return _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam0_125_(
                     arg0
                   )
-                else:  # {U_{Python.Lib.Threading.forkPIO, worker_lam1}1}
+              else:
+                if fn0[0] == 65767:  # {U_{Python.Lib.Threading.forkPIO, worker_lam1}1}
                   P_c0 = fn0[1]
                   return _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam1_125_(
                     P_c0, arg0
                   )
-              else:
-                if fn0[0] == 65797:  # {U_{Python.Prim.iterate, iter_lam0}1}
+                elif fn0[0] == 65768:  # {U_{Python.Prim.iterate, iter_lam0}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(arg0)
-                elif fn0[0] == 65798:  # {U_{Python.Prim.iterate, iter_lam10}1}
+                else:  # {U_{Python.Prim.iterate, iter_lam10}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam10_125_(arg0)
-                else:  # {U_{Python.Prim.iterate, iter_lam11}1}
+        else:
+          if fn0[0] < 65780:
+            if fn0[0] < 65775:
+              if fn0[0] < 65772:
+                if fn0[0] == 65770:  # {U_{Python.Prim.iterate, iter_lam11}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam11_125_(arg0)
-            else:
-              if fn0[0] < 65803:
-                if fn0[0] == 65800:  # {U_{Python.Prim.iterate, iter_lam12}1}
+                else:  # {U_{Python.Prim.iterate, iter_lam12}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam12_125_(arg0)
-                elif fn0[0] == 65801:  # {U_{Python.Prim.iterate, iter_lam13}1}
+              else:
+                if fn0[0] == 65772:  # {U_{Python.Prim.iterate, iter_lam13}1}
                   P_c0, P_c1, P_c2 = fn0[1:]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(
                     P_c0, P_c1, P_c2, arg0
                   )
-                else:  # {U_{Python.Prim.iterate, iter_lam1}1}
+                elif fn0[0] == 65773:  # {U_{Python.Prim.iterate, iter_lam1}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(arg0)
-              else:
-                if fn0[0] == 65803:  # {U_{Python.Prim.iterate, iter_lam2}1}
+                else:  # {U_{Python.Prim.iterate, iter_lam2}1}
                   P_c0 = fn0[1]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam2_125_(P_c0, arg0)
-                elif fn0[0] == 65804:  # {U_{Python.Prim.iterate, iter_lam3}1}
+            else:
+              if fn0[0] < 65777:
+                if fn0[0] == 65775:  # {U_{Python.Prim.iterate, iter_lam3}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(arg0)
                 else:  # {U_{Python.Prim.iterate, iter_lam4}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam4_125_(arg0)
-          else:
-            if fn0[0] < 65812:
-              if fn0[0] < 65809:
-                if fn0[0] == 65806:  # {U_{Python.Prim.iterate, iter_lam5}1}
+              else:
+                if fn0[0] == 65777:  # {U_{Python.Prim.iterate, iter_lam5}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam5_125_(arg0)
-                elif fn0[0] == 65807:  # {U_{Python.Prim.iterate, iter_lam6}1}
+                elif fn0[0] == 65778:  # {U_{Python.Prim.iterate, iter_lam6}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(P_c0, P_c1, arg0)
                 else:  # {U_{Python.Prim.iterate, iter_lam7}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam7_125_(arg0)
-              else:
-                if fn0[0] == 65809:  # {U_{Python.Prim.iterate, iter_lam8}1}
+          else:
+            if fn0[0] < 65785:
+              if fn0[0] < 65782:
+                if fn0[0] == 65780:  # {U_{Python.Prim.iterate, iter_lam8}1}
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam8_125_(arg0)
-                elif fn0[0] == 65810:  # {U_{Python.Prim.iterate, iter_lam9}1}
+                else:  # {U_{Python.Prim.iterate, iter_lam9}1}
                   P_c0 = fn0[1]
                   return _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam9_125_(P_c0, arg0)
-                else:  # {U_{io_bind1}1}
+              else:
+                if fn0[0] == 65782:  # {U_{io_bind1}1}
                   P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = fn0[1:]
                   return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
-            else:
-              if fn0[0] < 65815:
-                if fn0[0] == 65812:  # {U_{unsafePerformIO0}1}
+                elif fn0[0] == 65783:  # {U_{unsafePerformIO0}1}
                   return unsafePerformIO0(arg0)
-                elif fn0[0] == 65813:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+                else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
                   P_c0, P_c1, P_c2 = fn0[1:]
-                  return (65715, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+                  return (65686, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+            else:
+              if fn0[0] < 65787:
+                if fn0[0] == 65785:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+                  return (65688, arg0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
                 else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
                   P_c0, P_c1 = fn0[1:]
-                  return (65813, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+                  return (65784, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
               else:
-                if fn0[0] == 65815:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                if fn0[0] == 65787:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
                   P_c0 = fn0[1]
-                  return (65814, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+                  return (65786, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
                 else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-                  return (65815, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                  return (65787, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
     return _idris_error("unreachable due to case in tail position")
 
 # {EVAL0}
@@ -1147,12 +1234,39 @@ def EVAL0(arg0):
   while True:
     return arg0
 
-# Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}
-def _idris_Prelude_46_Functor_46__123_Prelude_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
+# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+  in0, in1
+):
+  while True:
+    return _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33_compare_58_0(
+      in0, in1
+    )
+
+# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+  in0, in1
+):
+  while True:
+    return _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33_compare_58_0(
+      in0, in1
+    )
+
+# Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}
+def _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
   e3, in0
 ):
   while True:
-    return (65792, None, None, APPLY0(e3, in0))  # {U_io_return1}
+    return (65761, None, None, APPLY0(e3, in0))  # {U_io_return1}
+
+# Prelude.Classes.{Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=_lam0}
+def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+  e0, e1
+):
+  while True:
+    return _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Eq_36_Prec_58__33__61__61__58_0(
+      e0, e1
+    )
 
 # {Python.Lib.Threading.forkPIO, worker_lam0}
 def _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam0_125_(
@@ -1164,7 +1278,7 @@ def _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam0_125_
 # {Python.Prim.iterate, iter_lam0}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(in2):
   while True:
-    return (65792, None, None, in2)  # {U_io_return1}
+    return (65761, None, None, in2)  # {U_io_return1}
 
 # Python.Functions.{call0}
 def _idris_Python_46_Functions_46__123_call0_125_(e3, e2, e5, in0):
@@ -1173,133 +1287,22 @@ def _idris_Python_46_Functions_46__123_call0_125_(e3, e2, e5, in0):
 
 # Python.Prim.{case block in Python.Prim.iterate, iter_lam0}
 def _idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(
-  e6, e9, in1
+  e6, e8, in1
 ):
   while True:
     return _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-      None, None, None, None, None, None, None, e6, in1, e9
-    )
-
-# Python.Exceptions.{case block in case block in try_lam0}
-def _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_case_32_block_32_in_32_try_95_lam0_125_(
-  e2, in0, in1
-):
-  while True:
-    assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-    in2, in3 = e2[1:]
-    aux1 = in2
-    return APPLY0(
-      _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
-      (
-        1,  # Python.Exceptions.Except
-        {
-          "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-          "AssertionError": (7,),  # Python.Exceptions.AssertionError
-          "AttributeError": (8,),  # Python.Exceptions.AttributeError
-          "BufferError": (2,),  # Python.Exceptions.BufferError
-          "EOFError": (14,),  # Python.Exceptions.EOFError
-          "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-          "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-          "IOError": (10,),  # Python.Exceptions.IOError
-          "ImportError": (15,),  # Python.Exceptions.ImportError
-          "IndentationError": (26,),  # Python.Exceptions.IndentationError
-          "IndexError": (17,),  # Python.Exceptions.IndexError
-          "KeyError": (18,),  # Python.Exceptions.KeyError
-          "LookupError": (16,),  # Python.Exceptions.LookupError
-          "MemoryError": (19,),  # Python.Exceptions.MemoryError
-          "NameError": (20,),  # Python.Exceptions.NameError
-          "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-          "OSError": (11,),  # Python.Exceptions.OSError
-          "OverflowError": (5,),  # Python.Exceptions.OverflowError
-          "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-          "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-          "StandardError": (1,),  # Python.Exceptions.StandardError
-          "StopIteration": (0,),  # Python.Exceptions.StopIteration
-          "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-          "SystemError": (28,),  # Python.Exceptions.SystemError
-          "TabError": (27,),  # Python.Exceptions.TabError
-          "TypeError": (29,),  # Python.Exceptions.TypeError
-          "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-          "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-          "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-          "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-          "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-          "VMSError": (13,),  # Python.Exceptions.VMSError
-          "ValueError": (30,),  # Python.Exceptions.ValueError
-          "WindowsError": (12,),  # Python.Exceptions.WindowsError
-          "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
-        }.get(in1, (35,)),  # Python.Exceptions.Other
-        in0
-      )
-    )
-
-# Main.{case block in main_lam0}
-def _idris_Main_46__123_case_32_block_32_in_32_main_95_lam0_125_(in1):
-  while True:
-    return (0,)  # Python.Telescope.Return
-
-# Python.Exceptions.{case block in try_lam0}
-def _idris_Python_46_Exceptions_46__123_case_32_block_32_in_32_try_95_lam0_125_(
-  e2, in0, in1
-):
-  while True:
-    assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-    in2, in3 = e2[1:]
-    aux1 = in2
-    return APPLY0(
-      _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
-      (
-        1,  # Python.Exceptions.Except
-        {
-          "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-          "AssertionError": (7,),  # Python.Exceptions.AssertionError
-          "AttributeError": (8,),  # Python.Exceptions.AttributeError
-          "BufferError": (2,),  # Python.Exceptions.BufferError
-          "EOFError": (14,),  # Python.Exceptions.EOFError
-          "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-          "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-          "IOError": (10,),  # Python.Exceptions.IOError
-          "ImportError": (15,),  # Python.Exceptions.ImportError
-          "IndentationError": (26,),  # Python.Exceptions.IndentationError
-          "IndexError": (17,),  # Python.Exceptions.IndexError
-          "KeyError": (18,),  # Python.Exceptions.KeyError
-          "LookupError": (16,),  # Python.Exceptions.LookupError
-          "MemoryError": (19,),  # Python.Exceptions.MemoryError
-          "NameError": (20,),  # Python.Exceptions.NameError
-          "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-          "OSError": (11,),  # Python.Exceptions.OSError
-          "OverflowError": (5,),  # Python.Exceptions.OverflowError
-          "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-          "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-          "StandardError": (1,),  # Python.Exceptions.StandardError
-          "StopIteration": (0,),  # Python.Exceptions.StopIteration
-          "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-          "SystemError": (28,),  # Python.Exceptions.SystemError
-          "TabError": (27,),  # Python.Exceptions.TabError
-          "TypeError": (29,),  # Python.Exceptions.TypeError
-          "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-          "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-          "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-          "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-          "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-          "VMSError": (13,),  # Python.Exceptions.VMSError
-          "ValueError": (30,),  # Python.Exceptions.ValueError
-          "WindowsError": (12,),  # Python.Exceptions.WindowsError
-          "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
-        }.get(in1, (35,)),  # Python.Exceptions.Other
-        in0
-      )
+      None, None, None, None, None, None, e6, in1, e8
     )
 
 # Python.Exceptions.{catch0}
 def _idris_Python_46_Exceptions_46__123_catch0_125_(in2):
   while True:
-    return (65792, None, None, in2)  # {U_io_return1}
+    return (65761, None, None, in2)  # {U_io_return1}
 
 # Python.Prim.{collect0}
 def _idris_Python_46_Prim_46__123_collect0_125_(in0, in1):
   while True:
-    return (65792, None, None, in0.cons(in1))  # {U_io_return1}
+    return (65761, None, None, in0.cons(in1))  # {U_io_return1}
 
 # Python.Prim.{foreach0}
 def _idris_Python_46_Prim_46__123_foreach0_125_(e2, e3, e4, in1):
@@ -1307,7 +1310,7 @@ def _idris_Python_46_Prim_46__123_foreach0_125_(e2, e3, e4, in1):
     return _idris_foreach(e2, e3, e4)
 
 # Python.Lib.Threading.{forkPIO0}
-def _idris_Python_46_Lib_46_Threading_46__123_forkPIO0_125_(in0):
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO0_125_(in1):
   while True:
     return (2, (0,))  # Python.Telescope.Simp, Python.Telescope.Return
 
@@ -1320,7 +1323,7 @@ def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
 def _idris_Python_46_Prim_46__123_iterate0_125_(e3, e4, in0):
   while True:
     return _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-      None, None, None, None, None, None, None, in0, e3, e4
+      None, None, None, None, None, None, in0, e3, e4
     )
 
 # Prelude.Strings.{length0}
@@ -1341,10 +1344,20 @@ def _idris_Python_46__123_marshalPIO0_125_(e1, in0):
 # Python.Prim.{next0}
 def _idris_Python_46_Prim_46__123_next0_125_(in2):
   while True:
-    return (65792, None, None, in2)  # {U_io_return1}
+    return (65761, None, None, in2)  # {U_io_return1}
 
-# Prelude.{putStr0}
-def _idris_Prelude_46__123_putStr0_125_(e1, in0):
+# Prelude.Show.{primNumShow0}
+def _idris_Prelude_46_Show_46__123_primNumShow0_125_(in1):
+  while True:
+    aux1 = (in1 == '-')
+    if aux1 == 0:
+      return False
+    else:
+      return True
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Interactive.{putStr0}
+def _idris_Prelude_46_Interactive_46__123_putStr0_125_(e1, in0):
   while True:
     return sys.stdout.write(e1)
 
@@ -1378,59 +1391,64 @@ def _idris_Python_46_Lib_46_Threading_46__123_wait0_125_(in0):
   while True:
     return (0,)  # Python.Telescope.Return
 
+# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+  in0
+):
+  while True:
+    return (65689, in0)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+
+# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+  in0
+):
+  while True:
+    return (65693, in0)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+
 # {Python.Lib.Threading.forkPIO, worker_lam1}
 def _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam1_125_(
   e2, in0
 ):
   while True:
-    return _idris_Python_46_Functions_46__36__58_(
+    return _idris_Python_46_Functions_46_call(
       None,
-      (1, (0,), (65795,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_{Python.Lib.Threading.forkPIO, worker_lam0}1}
+      None,
+      (1, (0,), (65766,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_{Python.Lib.Threading.forkPIO, worker_lam0}1}
       _idris_Python_46_Fields_46__47__46_(None, None, e2, "put", None),
+      None,
       (0, in0, Unit)  # Builtins.MkSigma
     )
 
 # {Python.Prim.iterate, iter_lam1}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(in1):
   while True:
-    return (65797,)  # {U_{Python.Prim.iterate, iter_lam0}1}
-
-# Main.{case block in main_lam1}
-def _idris_Main_46__123_case_32_block_32_in_32_main_95_lam1_125_(e18, in2, in3):
-  while True:
-    assert e18[0] == 0  # constructor of Prelude.Monad.Monad
-    in4, in5 = e18[1:]
-    aux1 = in4
-    return APPLY0(
-      _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
-      APPLY0(_idris_Prelude_46_Strings_46_length(), in2)
-    )
+    return (65768,)  # {U_{Python.Prim.iterate, iter_lam0}1}
 
 # Python.Exceptions.{catch1}
 def _idris_Python_46_Exceptions_46__123_catch1_125_(in1):
   while True:
-    return (65722,)  # {U_Python.Exceptions.{catch0}1}
+    return (65699,)  # {U_Python.Exceptions.{catch0}1}
 
 # Python.Prim.{collect1}
 def _idris_Python_46_Prim_46__123_collect1_125_(in0):
   while True:
-    return (65771, in0)  # {U_Python.Prim.{collect0}1}
+    return (65740, in0)  # {U_Python.Prim.{collect0}1}
 
 # Python.Prim.{foreach1}
 def _idris_Python_46_Prim_46__123_foreach1_125_(e2, e3, e4, in0):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
       None,
       None,
       None,
-      (65761, None),  # {U_Python.IO.unRaw1}
-      (65773, e2, e3, e4)  # {U_Python.Prim.{foreach0}1}
+      (65730, None),  # {U_Python.IO.unRaw1}
+      (65742, e2, e3, e4)  # {U_Python.Prim.{foreach0}1}
     )
 
 # Python.Lib.Threading.{forkPIO1}
-def _idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(in3):
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(e0, e1, in0):
   while True:
-    return (0,)  # Python.Telescope.Return
+    return (65731,)  # {U_Python.Lib.Threading.{forkPIO0}1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
@@ -1445,12 +1463,17 @@ def _idris_Main_46__123_main1_125_(in5):
 # Python.Prim.{next1}
 def _idris_Python_46_Prim_46__123_next1_125_(in1):
   while True:
-    return (65776,)  # {U_Python.Prim.{next0}1}
+    return (65745,)  # {U_Python.Prim.{next0}1}
 
-# Prelude.{putStr1}
-def _idris_Prelude_46__123_putStr1_125_(in1):
+# Prelude.Show.{primNumShow1}
+def _idris_Prelude_46_Show_46__123_primNumShow1_125_(e0, e1, e2, e3, in0, in2):
   while True:
-    return (65792, None, None, Unit)  # {U_io_return1}
+    return (65697,)  # {U_Prelude.Show.{primNumShow0}1}
+
+# Prelude.Interactive.{putStr1}
+def _idris_Prelude_46_Interactive_46__123_putStr1_125_(in1):
+  while True:
+    return (65761, None, None, Unit)  # {U_io_return1}
 
 # Python.Exceptions.{try1}
 def _idris_Python_46_Exceptions_46__123_try1_125_(in2):
@@ -1460,38 +1483,72 @@ def _idris_Python_46_Exceptions_46__123_try1_125_(in2):
 # {unsafePerformIO1}
 def unsafePerformIO1(e0, e1, e2):
   while True:
-    return (65812,)  # {U_{unsafePerformIO0}1}
+    return (65783,)  # {U_{unsafePerformIO0}1}
+
+# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+  in2, in3
+):
+  while True:
+    aux1 = APPLY0(
+      APPLY0(
+        _idris_Prelude_46_Classes_46_compare(
+          None,
+          _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
+        ),
+        in2
+      ),
+      in3
+    )
+    if aux1[0] == 2:  # Prelude.Classes.GT
+      return True
+    else:
+      return False
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+  in2, in3
+):
+  while True:
+    aux1 = APPLY0(
+      APPLY0(
+        _idris_Prelude_46_Classes_46_compare(
+          None,
+          _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
+        ),
+        in2
+      ),
+      in3
+    )
+    if aux1[0] == 2:  # Prelude.Classes.GT
+      return True
+    else:
+      return False
+    return _idris_error("unreachable due to case in tail position")
 
 # {Python.Prim.iterate, iter_lam2}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam2_125_(in5, in6):
   while True:
-    return (65791, None, None, None, in5, in6)  # {U_io_bind1}
-
-# Main.{case block in main_lam2}
-def _idris_Main_46__123_case_32_block_32_in_32_main_95_lam2_125_(e18, e20, in2):
-  while True:
-    return APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e18),
-        _idris_Prelude_46_putStr(None, (("thread " + (e20 + " done")) + "\n"))
-      ),
-      (65640, e18, in2)  # {U_Main.{case block in main_lam1}1}
-    )
+    return (65760, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Python.Exceptions.{catch2}
 def _idris_Python_46_Exceptions_46__123_catch2_125_(in5, in6):
   while True:
-    return (65791, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65760, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Python.Lib.Threading.{forkPIO2}
-def _idris_Python_46_Lib_46_Threading_46__123_forkPIO2_125_(in2):
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO2_125_(e0, e1, in0):
   while True:
-    return (1, (0,), (65763,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Threading.{forkPIO1}1}
+    return APPLY0(
+      _idris_Python_46_Lib_46_Threading_46__123_forkPIO1_125_(e0, e1, in0),
+      in0
+    )
 
 # {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, _idris_w):
   while True:
-    return (65811, e0, e1, e2, e3, e4, _idris_w)  # {U_{io_bind1}1}
+    return (65782, e0, e1, e2, e3, e4, _idris_w)  # {U_{io_bind1}1}
 
 # Main.{main2}
 def _idris_Main_46__123_main2_125_(in7):
@@ -1501,61 +1558,67 @@ def _idris_Main_46__123_main2_125_(in7):
 # Python.Prim.{next2}
 def _idris_Python_46_Prim_46__123_next2_125_(in5, in6):
   while True:
-    return (65791, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65760, None, None, None, in5, in6)  # {U_io_bind1}
+
+# Prelude.Show.{primNumShow2}
+def _idris_Prelude_46_Show_46__123_primNumShow2_125_(in0, e0, e1, e2, e3):
+  while True:
+    aux1 = _idris_Prelude_46_Strings_46_strM(in0)
+    if aux1[0] == 1:  # Prelude.Strings.StrCons
+      in2 = aux1[1]
+      return APPLY0(
+        _idris_Prelude_46_Show_46__123_primNumShow1_125_(e0, e1, e2, e3, in0, in2),
+        in2
+      )
+    else:  # Prelude.Strings.StrNil
+      return False
+    return _idris_error("unreachable due to case in tail position")
 
 # Python.Exceptions.{try2}
 def _idris_Python_46_Exceptions_46__123_try2_125_(in3):
   while True:
     return in3
 
+# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+  in2
+):
+  while True:
+    return (65691, in2)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+
+# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+  in2
+):
+  while True:
+    return (65695, in2)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+
 # {Python.Prim.iterate, iter_lam3}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(in5):
   while True:
-    return (65803, in5)  # {U_{Python.Prim.iterate, iter_lam2}1}
-
-# Main.{case block in main_lam3}
-def _idris_Main_46__123_case_32_block_32_in_32_main_95_lam3_125_(e18, e3, e20, in0):
-  while True:
-    return APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e18),
-        _idris_Python_46_Fields_46__47__58_(
-          None,
-          None,
-          _idris_Python_46_Functions_46__36__58_(
-            None,
-            (1, (0,), (65639,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{case block in main_lam0}1}
-            _idris_Python_46_Fields_46__47__46_(None, None, e3, "get", None),
-            (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
-          ),
-          "text",
-          None
-        )
-      ),
-      (65641, e18, e20)  # {U_Main.{case block in main_lam2}1}
-    )
+    return (65774, in5)  # {U_{Python.Prim.iterate, iter_lam2}1}
 
 # Python.Exceptions.{catch3}
 def _idris_Python_46_Exceptions_46__123_catch3_125_(in5):
   while True:
-    return (65724, in5)  # {U_Python.Exceptions.{catch2}1}
+    return (65701, in5)  # {U_Python.Exceptions.{catch2}1}
 
 # Python.Lib.Threading.{forkPIO3}
-def _idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(in1, in5):
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO3_125_(in4):
   while True:
-    return (65792, None, None, in1)  # {U_io_return1}
+    return (0,)  # Python.Telescope.Return
 
 # Main.{main3}
-def _idris_Main_46__123_main3_125_(in15, in16, in17):
+def _idris_Main_46__123_main3_125_(in14, in15, in16):
   while True:
     return _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
-      None, None, in15, in16, in17
+      None, None, in14, in15, in16
     )
 
 # Python.Prim.{next3}
 def _idris_Python_46_Prim_46__123_next3_125_(in5):
   while True:
-    return (65781, in5)  # {U_Python.Prim.{next2}1}
+    return (65750, in5)  # {U_Python.Prim.{next2}1}
 
 # Python.Exceptions.{try3}
 def _idris_Python_46_Exceptions_46__123_try3_125_(in4):
@@ -1565,120 +1628,79 @@ def _idris_Python_46_Exceptions_46__123_try3_125_(in4):
 # {Python.Prim.iterate, iter_lam4}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam4_125_(in4):
   while True:
-    return (65804,)  # {U_{Python.Prim.iterate, iter_lam3}1}
+    return (65775,)  # {U_{Python.Prim.iterate, iter_lam3}1}
 
 # Python.Exceptions.{catch4}
 def _idris_Python_46_Exceptions_46__123_catch4_125_(in4):
   while True:
-    return (65725,)  # {U_Python.Exceptions.{catch3}1}
+    return (65702,)  # {U_Python.Exceptions.{catch3}1}
 
 # Python.Lib.Threading.{forkPIO4}
-def _idris_Python_46_Lib_46_Threading_46__123_forkPIO4_125_(in1, in4):
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO4_125_(in3):
   while True:
-    return (
-      65791,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      _idris_Python_46_Functions_46__36__58_(
-        None,
-        (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, in4, "start", None),
-        Unit
-      ),
-      (65765, in1)  # {U_Python.Lib.Threading.{forkPIO3}1}
-    )
+    return (1, (0,), (65733,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Threading.{forkPIO3}1}
 
 # Main.{main4}
-def _idris_Main_46__123_main4_125_(in15, in16):
+def _idris_Main_46__123_main4_125_(in14, in15):
   while True:
-    return (65676, in15, in16)  # {U_Main.{main3}1}
+    return (65670, in14, in15)  # {U_Main.{main3}1}
 
 # Python.Prim.{next4}
 def _idris_Python_46_Prim_46__123_next4_125_(in4):
   while True:
-    return (65782,)  # {U_Python.Prim.{next3}1}
+    return (65751,)  # {U_Python.Prim.{next3}1}
 
 # Python.Exceptions.{try4}
 def _idris_Python_46_Exceptions_46__123_try4_125_(e1, in0):
   while True:
     return _idris_try(
       e1,
-      (65713, None, None, None, (65731,), (65742,)),  # {U_Prelude.Basics..1}, {U_Python.Exceptions.{try0}1}, {U_Python.Exceptions.{try1}1}
+      (65682, None, None, None, (65708,), (65717,)),  # {U_Prelude.Basics..1}, {U_Python.Exceptions.{try0}1}, {U_Python.Exceptions.{try1}1}
       (
-        65713,  # {U_Prelude.Basics..1}
+        65682,  # {U_Prelude.Basics..1}
         None,
         None,
         None,
-        (65713, None, None, None, (65748,), (65749,)),  # {U_Prelude.Basics..1}, {U_Python.Exceptions.{try2}1}, {U_Python.Exceptions.{try3}1}
-        (65761, None)  # {U_Python.IO.unRaw1}
+        (65682, None, None, None, (65718,), (65719,)),  # {U_Prelude.Basics..1}, {U_Python.Exceptions.{try2}1}, {U_Python.Exceptions.{try3}1}
+        (65730, None)  # {U_Python.IO.unRaw1}
       )
     )
 
 # {Python.Prim.iterate, iter_lam5}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam5_125_(in3):
   while True:
-    return (65805,)  # {U_{Python.Prim.iterate, iter_lam4}1}
+    return (65776,)  # {U_{Python.Prim.iterate, iter_lam4}1}
 
 # Python.Exceptions.{catch5}
 def _idris_Python_46_Exceptions_46__123_catch5_125_(in3):
   while True:
-    return (65726,)  # {U_Python.Exceptions.{catch4}1}
+    return (65703,)  # {U_Python.Exceptions.{catch4}1}
 
 # Python.Lib.Threading.{forkPIO5}
-def _idris_Python_46_Lib_46_Threading_46__123_forkPIO5_125_(e1, in1):
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO5_125_(in2, in6):
   while True:
-    return (
-      65791,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      _idris_Python_46_Functions_46__36__58_(
-        None,
-        (1, (0,), (65764,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Threading.{forkPIO2}1}
-        _idris_Python_46_Fields_46__47__58_(
-          None,
-          None,
-          _idris_Python_46_Lib_46_Threading_46_import_95_(),
-          "Thread",
-          None
-        ),
-        (
-          0,  # Builtins.MkSigma
-          None,
-          (
-            0,  # Builtins.MkSigma
-            _idris_Python_46_marshalPIO(
-              None,
-              _idris_Python_46_Lib_46_Threading_46_forkPIO_58_worker_58_0(None, e1, in1)
-            ),
-            Unit
-          )
-        )
-      ),
-      (65766, in1)  # {U_Python.Lib.Threading.{forkPIO4}1}
-    )
+    return (65761, None, None, in2)  # {U_io_return1}
 
 # Main.{main5}
-def _idris_Main_46__123_main5_125_(in15):
+def _idris_Main_46__123_main5_125_(in14):
   while True:
-    return (65687, in15)  # {U_Main.{main4}1}
+    return (65676, in14)  # {U_Main.{main4}1}
 
 # Python.Prim.{next5}
 def _idris_Python_46_Prim_46__123_next5_125_(in3):
   while True:
-    return (65783,)  # {U_Python.Prim.{next4}1}
+    return (65752,)  # {U_Python.Prim.{next4}1}
 
 # Python.Exceptions.{try5}
 def _idris_Python_46_Exceptions_46__123_try5_125_(in7):
   while True:
-    return (65792, None, None, in7)  # {U_io_return1}
+    return (65761, None, None, in7)  # {U_io_return1}
 
 # {Python.Prim.iterate, iter_lam6}
-def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(e7, e9, in8):
+def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(e6, e8, in8):
   while True:
     return _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-      None, None, None, None, None, None, None, e7, in8, e9
+      None, None, None, None, None, None, e6, in8, e8
     )
 
 # Python.Exceptions.{catch6}
@@ -1689,149 +1711,215 @@ def _idris_Python_46_Exceptions_46__123_catch6_125_(e2, in0):
       return APPLY0(APPLY0(e2, in7), in8)
     else:  # Python.Exceptions.OK
       in9 = in0[1]
-      aux1 = (0, (65723,), (65727,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{catch1}1}, {U_Python.Exceptions.{catch5}1}
+      aux1 = (0, (65700,), (65704,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{catch1}1}, {U_Python.Exceptions.{catch5}1}
       assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
       in10, in11 = aux1[1:]
       aux2 = in10
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), in9)
     return _idris_error("unreachable due to case in tail position")
 
-# Main.{main6}
-def _idris_Main_46__123_main6_125_(in14):
+# Python.Lib.Threading.{forkPIO6}
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO6_125_(in2, in5):
   while True:
-    return (65698,)  # {U_Main.{main5}1}
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Python_46_Functions_46_call(
+        None,
+        None,
+        (0,),  # Python.Telescope.Return
+        _idris_Python_46_Fields_46__47__46_(None, None, in5, "start", None),
+        None,
+        Unit
+      ),
+      (65735, in2)  # {U_Python.Lib.Threading.{forkPIO5}1}
+    )
+
+# Main.{main6}
+def _idris_Main_46__123_main6_125_(in13):
+  while True:
+    return (65677,)  # {U_Main.{main5}1}
 
 # Python.Prim.{next6}
 def _idris_Python_46_Prim_46__123_next6_125_(in2):
   while True:
-    return (65792, None, None, in2)  # {U_io_return1}
+    return (65761, None, None, in2)  # {U_io_return1}
 
 # Python.Exceptions.{try6}
 def _idris_Python_46_Exceptions_46__123_try6_125_(in6):
   while True:
-    return (65751,)  # {U_Python.Exceptions.{try5}1}
+    return (65721,)  # {U_Python.Exceptions.{try5}1}
 
 # {Python.Prim.iterate, iter_lam7}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam7_125_(in2):
   while True:
-    return (65792, None, None, in2)  # {U_io_return1}
+    return (65761, None, None, in2)  # {U_io_return1}
+
+# Python.Lib.Threading.{forkPIO7}
+def _idris_Python_46_Lib_46_Threading_46__123_forkPIO7_125_(e1, in2):
+  while True:
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Python_46_Functions_46__36__58_(
+        None,
+        (1, (0,), (65734,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Threading.{forkPIO4}1}
+        _idris_Python_46_Fields_46__47__58_(
+          None,
+          None,
+          (65758, None, "threading"),  # {U_Python.importModule1}
+          "Thread",
+          None
+        ),
+        (
+          0,  # Builtins.MkSigma
+          None,
+          (
+            0,  # Builtins.MkSigma
+            _idris_Python_46_marshalPIO(
+              None,
+              _idris_Python_46_Lib_46_Threading_46_forkPIO_58_worker_58_0(None, e1, in2)
+            ),
+            Unit
+          )
+        )
+      ),
+      (65736, in2)  # {U_Python.Lib.Threading.{forkPIO6}1}
+    )
 
 # Main.{main7}
-def _idris_Main_46__123_main7_125_(in13):
+def _idris_Main_46__123_main7_125_(in12):
   while True:
-    return (65709,)  # {U_Main.{main6}1}
+    return (65678,)  # {U_Main.{main6}1}
 
 # Python.Prim.{next7}
 def _idris_Python_46_Prim_46__123_next7_125_(in1):
   while True:
-    return (65785,)  # {U_Python.Prim.{next6}1}
+    return (65754,)  # {U_Python.Prim.{next6}1}
 
 # Python.Exceptions.{try7}
 def _idris_Python_46_Exceptions_46__123_try7_125_(in10, in11):
   while True:
-    return (65791, None, None, None, in10, in11)  # {U_io_bind1}
+    return (65760, None, None, None, in10, in11)  # {U_io_bind1}
 
 # {Python.Prim.iterate, iter_lam8}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam8_125_(in1):
   while True:
-    return (65808,)  # {U_{Python.Prim.iterate, iter_lam7}1}
+    return (65779,)  # {U_{Python.Prim.iterate, iter_lam7}1}
 
 # Main.{main8}
-def _idris_Main_46__123_main8_125_(in18, in19):
+def _idris_Main_46__123_main8_125_(in17, in18):
   while True:
-    return (in18 + in19)
+    return (in17 + in18)
 
 # Python.Prim.{next8}
 def _idris_Python_46_Prim_46__123_next8_125_(in5, in6):
   while True:
-    return (65791, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65760, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Python.Exceptions.{try8}
 def _idris_Python_46_Exceptions_46__123_try8_125_(in10):
   while True:
-    return (65753, in10)  # {U_Python.Exceptions.{try7}1}
+    return (65723, in10)  # {U_Python.Exceptions.{try7}1}
 
 # {Python.Prim.iterate, iter_lam9}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam9_125_(in5, in6):
   while True:
-    return (65791, None, None, None, in5, in6)  # {U_io_bind1}
+    return (65760, None, None, None, in5, in6)  # {U_io_bind1}
 
 # Main.{main9}
-def _idris_Main_46__123_main9_125_(in18):
+def _idris_Main_46__123_main9_125_(in17):
   while True:
-    return (65711, in18)  # {U_Main.{main8}1}
+    return (65680, in17)  # {U_Main.{main8}1}
 
 # Python.Prim.{next9}
 def _idris_Python_46_Prim_46__123_next9_125_(in5):
   while True:
-    return (65787, in5)  # {U_Python.Prim.{next8}1}
+    return (65756, in5)  # {U_Python.Prim.{next8}1}
 
 # Python.Exceptions.{try9}
 def _idris_Python_46_Exceptions_46__123_try9_125_(in9):
   while True:
-    return (65754,)  # {U_Python.Exceptions.{try8}1}
+    return (65724,)  # {U_Python.Exceptions.{try8}1}
 
 # {Python.Prim.iterate, iter_lam10}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam10_125_(in5):
   while True:
-    return (65810, in5)  # {U_{Python.Prim.iterate, iter_lam9}1}
+    return (65781, in5)  # {U_{Python.Prim.iterate, iter_lam9}1}
 
 # Main.{main10}
-def _idris_Main_46__123_main10_125_(in12):
+def _idris_Main_46__123_main10_125_(in10, in20):
   while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-      None,
-      None,
-      None,
-      _idris_Prelude_46_Foldable_46_concat(None, None, (65710,), (0, (65712,), "")),  # {U_Main.{main7}1}, constructor of Prelude.Algebra.Monoid, {U_Main.{main9}1}
-      in12
-    )
+    return (65761, None, None, (in10 + 1))  # {U_io_return1}
 
 # Python.Prim.{next10}
 def _idris_Python_46_Prim_46__123_next10_125_(in4):
   while True:
-    return (65788,)  # {U_Python.Prim.{next9}1}
+    return (65757,)  # {U_Python.Prim.{next9}1}
 
 # Python.Exceptions.{try10}
 def _idris_Python_46_Exceptions_46__123_try10_125_(in8):
   while True:
-    return (65755,)  # {U_Python.Exceptions.{try9}1}
+    return (65725,)  # {U_Python.Exceptions.{try9}1}
 
 # {Python.Prim.iterate, iter_lam11}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam11_125_(in4):
   while True:
-    return (65798,)  # {U_{Python.Prim.iterate, iter_lam10}1}
+    return (65769,)  # {U_{Python.Prim.iterate, iter_lam10}1}
 
 # Main.{main11}
-def _idris_Main_46__123_main11_125_(in10, in21):
+def _idris_Main_46__123_main11_125_(in10, in19):
   while True:
-    return (65792, None, None, (in10 + 1))  # {U_io_return1}
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Prelude_46_Interactive_46_putStr(
+        None,
+        ((_idris_Prelude_46_Show_46_primNumShow(None, (65763,), (0,), (in10 + 1)) + (". " + in19)) + "\n")  # {U_prim__toStrInt1}, Prelude.Show.Open
+      ),
+      (65638, in10)  # {U_Main.{main10}1}
+    )
 
 # Python.Prim.{next11}
 def _idris_Python_46_Prim_46__123_next11_125_(in3):
   while True:
-    return (65777,)  # {U_Python.Prim.{next10}1}
+    return (65746,)  # {U_Python.Prim.{next10}1}
 
 # Python.Exceptions.{try11}
 def _idris_Python_46_Exceptions_46__123_try11_125_(in7):
   while True:
-    return (65792, None, None, in7)  # {U_io_return1}
+    return (65761, None, None, in7)  # {U_io_return1}
 
 # {Python.Prim.iterate, iter_lam12}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam12_125_(in3):
   while True:
-    return (65799,)  # {U_{Python.Prim.iterate, iter_lam11}1}
+    return (65770,)  # {U_{Python.Prim.iterate, iter_lam11}1}
 
 # Main.{main12}
-def _idris_Main_46__123_main12_125_(in10, in20):
+def _idris_Main_46__123_main12_125_(in10, in11):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_putStr(None, ((str((in10 + 1)) + (". " + in20)) + "\n")),
-      (65645, in10)  # {U_Main.{main11}1}
+      _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+        None,
+        None,
+        None,
+        _idris_Prelude_46_Foldable_46_concat(None, None, (65679,), (0, (65681,), "")),  # {U_Main.{main7}1}, constructor of Prelude.Algebra.Monoid, {U_Main.{main9}1}
+        _idris_Python_46_Prim_46_collect(
+          None,
+          _idris_Python_46_Fields_46__47__46_(None, None, in11, "strings", None)
+        )
+      ),
+      (65639, in10)  # {U_Main.{main11}1}
     )
 
 # Python.Prim.{next12}
@@ -1840,7 +1928,7 @@ def _idris_Python_46_Prim_46__123_next12_125_(in0):
     if in0[0] == 1:  # Python.Exceptions.Except
       in7, in8 = in0[1:]
       if in7[0] == 0:  # Python.Exceptions.StopIteration
-        aux1 = (0, (65780,), (65784,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next1}1}, {U_Python.Prim.{next5}1}
+        aux1 = (0, (65749,), (65753,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next1}1}, {U_Python.Prim.{next5}1}
         assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
         in9, in10 = aux1[1:]
         aux2 = in9
@@ -1850,7 +1938,7 @@ def _idris_Python_46_Prim_46__123_next12_125_(in0):
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
       in11 = in0[1]
-      aux3 = (0, (65786,), (65778,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next7}1}, {U_Python.Prim.{next11}1}
+      aux3 = (0, (65755,), (65747,))  # constructor of Prelude.Monad.Monad, {U_Python.Prim.{next7}1}, {U_Python.Prim.{next11}1}
       assert aux3[0] == 0  # constructor of Prelude.Monad.Monad
       in12, in13 = aux3[1:]
       aux4 = in12
@@ -1860,10 +1948,10 @@ def _idris_Python_46_Prim_46__123_next12_125_(in0):
 # Python.Exceptions.{try12}
 def _idris_Python_46_Exceptions_46__123_try12_125_(in6):
   while True:
-    return (65733,)  # {U_Python.Exceptions.{try11}1}
+    return (65710,)  # {U_Python.Exceptions.{try11}1}
 
 # {Python.Prim.iterate, iter_lam13}
-def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e9, e8, e7, in0):
+def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e8, e7, e6, in0):
   while True:
     if in0 is not None:  # Prelude.Maybe.Just
       in7 = in0
@@ -1873,460 +1961,262 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e9, e8, e7, 
             None,
             None,
             None,
-            (0, (65802,), (65806,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam1}1}, {U_{Python.Prim.iterate, iter_lam5}1}
+            (0, (65773,), (65777,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam1}1}, {U_{Python.Prim.iterate, iter_lam5}1}
           ),
-          APPLY0(APPLY0(e9, e8), in7)
+          APPLY0(APPLY0(e8, e7), in7)
         ),
-        (65807, e7, e9)  # {U_{Python.Prim.iterate, iter_lam6}1}
+        (65778, e6, e8)  # {U_{Python.Prim.iterate, iter_lam6}1}
       )
     else:  # Prelude.Maybe.Nothing
-      aux1 = (0, (65809,), (65800,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam8}1}, {U_{Python.Prim.iterate, iter_lam12}1}
+      aux1 = (0, (65780,), (65771,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam8}1}, {U_{Python.Prim.iterate, iter_lam12}1}
       assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
       in9, in10 = aux1[1:]
       aux2 = in9
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), e8)
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), e7)
     return _idris_error("unreachable due to case in tail position")
 
 # Main.{main13}
-def _idris_Main_46__123_main13_125_(in10, in11):
+def _idris_Main_46__123_main13_125_(in10):
   while True:
-    return (
-      65791,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      (
-        65791,  # {U_io_bind1}
-        None,
-        None,
-        None,
-        _idris_Python_46_Fields_46__62__58_(
-          None,
-          _idris_Python_46_Fields_46__47__46_(None, None, in11, "strings", None),
-          None,
-          None
-        ),
-        (65713, None, None, None, (65644,), (65769, None))  # {U_Prelude.Basics..1}, {U_Main.{main10}1}, {U_Python.Prim.collect1}
-      ),
-      (65646, in10)  # {U_Main.{main12}1}
-    )
+    return (65640, in10)  # {U_Main.{main12}1}
 
 # Python.Exceptions.{try13}
 def _idris_Python_46_Exceptions_46__123_try13_125_(in10, in11):
   while True:
-    return (65791, None, None, None, in10, in11)  # {U_io_bind1}
+    return (65760, None, None, None, in10, in11)  # {U_io_bind1}
 
 # Main.{main14}
-def _idris_Main_46__123_main14_125_(in10):
+def _idris_Main_46__123_main14_125_(in27):
   while True:
-    return (65647, in10)  # {U_Main.{main13}1}
+    return (0,)  # Python.Telescope.Return
 
 # Python.Exceptions.{try14}
 def _idris_Python_46_Exceptions_46__123_try14_125_(in10):
   while True:
-    return (65735, in10)  # {U_Python.Exceptions.{try13}1}
+    return (65712, in10)  # {U_Python.Exceptions.{try13}1}
 
 # Main.{main15}
-def _idris_Main_46__123_main15_125_(in28):
+def _idris_Main_46__123_main15_125_(in28, in29):
   while True:
-    return (65792, None, None, in28)  # {U_io_return1}
+    return (65761, None, None, APPLY0(_idris_Prelude_46_Strings_46_length(), in28))  # {U_io_return1}
 
 # Python.Exceptions.{try15}
 def _idris_Python_46_Exceptions_46__123_try15_125_(in9):
   while True:
-    return (65736,)  # {U_Python.Exceptions.{try14}1}
+    return (65713,)  # {U_Python.Exceptions.{try14}1}
 
 # Main.{main16}
-def _idris_Main_46__123_main16_125_(in27):
+def _idris_Main_46__123_main16_125_(in25, in28):
   while True:
-    return (65649,)  # {U_Main.{main15}1}
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Prelude_46_Interactive_46_putStr(
+        None,
+        (("thread " + (in25 + " done")) + "\n")
+      ),
+      (65643, in28)  # {U_Main.{main15}1}
+    )
 
 # Python.Exceptions.{try16}
 def _idris_Python_46_Exceptions_46__123_try16_125_(in8):
   while True:
-    return (65737,)  # {U_Python.Exceptions.{try15}1}
+    return (65714,)  # {U_Python.Exceptions.{try15}1}
 
 # Main.{main17}
-def _idris_Main_46__123_main17_125_(in31, in32):
+def _idris_Main_46__123_main17_125_(in1, in25, in26):
   while True:
-    return (65791, None, None, None, in31, in32)  # {U_io_bind1}
-
-# Python.Exceptions.{try17}
-def _idris_Python_46_Exceptions_46__123_try17_125_(in12, in13):
-  while True:
-    aux1 = (0, (65734,), (65738,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try12}1}, {U_Python.Exceptions.{try16}1}
-    assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-    in14, in15 = aux1[1:]
-    aux2 = in14
-    return APPLY0(
-      _idris_Prelude_46_Applicative_46_pure(None, None, aux2),
-      (
-        1,  # Python.Exceptions.Except
-        {
-          "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-          "AssertionError": (7,),  # Python.Exceptions.AssertionError
-          "AttributeError": (8,),  # Python.Exceptions.AttributeError
-          "BufferError": (2,),  # Python.Exceptions.BufferError
-          "EOFError": (14,),  # Python.Exceptions.EOFError
-          "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-          "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-          "IOError": (10,),  # Python.Exceptions.IOError
-          "ImportError": (15,),  # Python.Exceptions.ImportError
-          "IndentationError": (26,),  # Python.Exceptions.IndentationError
-          "IndexError": (17,),  # Python.Exceptions.IndexError
-          "KeyError": (18,),  # Python.Exceptions.KeyError
-          "LookupError": (16,),  # Python.Exceptions.LookupError
-          "MemoryError": (19,),  # Python.Exceptions.MemoryError
-          "NameError": (20,),  # Python.Exceptions.NameError
-          "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-          "OSError": (11,),  # Python.Exceptions.OSError
-          "OverflowError": (5,),  # Python.Exceptions.OverflowError
-          "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-          "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-          "StandardError": (1,),  # Python.Exceptions.StandardError
-          "StopIteration": (0,),  # Python.Exceptions.StopIteration
-          "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-          "SystemError": (28,),  # Python.Exceptions.SystemError
-          "TabError": (27,),  # Python.Exceptions.TabError
-          "TypeError": (29,),  # Python.Exceptions.TypeError
-          "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-          "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-          "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-          "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-          "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-          "VMSError": (13,),  # Python.Exceptions.VMSError
-          "ValueError": (30,),  # Python.Exceptions.ValueError
-          "WindowsError": (12,),  # Python.Exceptions.WindowsError
-          "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
-        }.get(in13, (35,)),  # Python.Exceptions.Other
-        in12
-      )
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Python_46_Fields_46__47__58_(
+        None,
+        None,
+        _idris_Python_46_Functions_46_call(
+          None,
+          None,
+          (1, (0,), (65642,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main14}1}
+          _idris_Python_46_Fields_46__47__46_(None, None, in1, "get", None),
+          None,
+          (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
+        ),
+        "text",
+        None
+      ),
+      (65644, in25)  # {U_Main.{main16}1}
     )
 
-# Main.{main18}
-def _idris_Main_46__123_main18_125_(in31):
-  while True:
-    return (65651, in31)  # {U_Main.{main17}1}
-
-# Python.Exceptions.{try18}
-def _idris_Python_46_Exceptions_46__123_try18_125_(in7):
-  while True:
-    return (65792, None, None, in7)  # {U_io_return1}
-
-# Main.{main19}
-def _idris_Main_46__123_main19_125_(in30):
-  while True:
-    return (65652,)  # {U_Main.{main18}1}
-
-# Python.Exceptions.{try19}
-def _idris_Python_46_Exceptions_46__123_try19_125_(in6):
-  while True:
-    return (65740,)  # {U_Python.Exceptions.{try18}1}
-
-# Main.{main20}
-def _idris_Main_46__123_main20_125_(in29):
-  while True:
-    return (65653,)  # {U_Main.{main19}1}
-
-# Python.Exceptions.{try20}
-def _idris_Python_46_Exceptions_46__123_try20_125_(in10, in11):
-  while True:
-    return (65791, None, None, None, in10, in11)  # {U_io_bind1}
-
-# Main.{main21}
-def _idris_Main_46__123_main21_125_(in28):
-  while True:
-    return (65792, None, None, in28)  # {U_io_return1}
-
-# Python.Exceptions.{try21}
-def _idris_Python_46_Exceptions_46__123_try21_125_(in10):
-  while True:
-    return (65743, in10)  # {U_Python.Exceptions.{try20}1}
-
-# Main.{main22}
-def _idris_Main_46__123_main22_125_(in27):
-  while True:
-    return (65656,)  # {U_Main.{main21}1}
-
-# Python.Exceptions.{try22}
-def _idris_Python_46_Exceptions_46__123_try22_125_(in9):
-  while True:
-    return (65744,)  # {U_Python.Exceptions.{try21}1}
-
-# Main.{main23}
-def _idris_Main_46__123_main23_125_(in31, in32):
-  while True:
-    return (65791, None, None, None, in31, in32)  # {U_io_bind1}
-
-# Python.Exceptions.{try23}
-def _idris_Python_46_Exceptions_46__123_try23_125_(in8):
-  while True:
-    return (65745,)  # {U_Python.Exceptions.{try22}1}
-
-# Main.{main24}
-def _idris_Main_46__123_main24_125_(in31):
-  while True:
-    return (65658, in31)  # {U_Main.{main23}1}
-
-# Python.Exceptions.{try24}
-def _idris_Python_46_Exceptions_46__123_try24_125_(in5):
+# Python.Exceptions.{try17}
+def _idris_Python_46_Exceptions_46__123_try17_125_(in5):
   while True:
     if in5[0] == 0:  # Prelude.Either.Left
       in12 = in5[1]
+      aux1 = (0, (65722,), (65709,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try6}1}, {U_Python.Exceptions.{try10}1}
+      assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
+      in13, in14 = aux1[1:]
+      aux2 = in13
+      aux3 = _idris_Python_46_Fields_46__47__46_(
+        None,
+        None,
+        _idris_Python_46_Fields_46__47__46_(None, None, in12, "__class__", None),
+        "__name__",
+        None
+      )
       return APPLY0(
-        APPLY0(
-          _idris_Prelude_46_Monad_46__62__62__61_(
-            None,
-            None,
-            None,
-            (0, (65752,), (65732,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try6}1}, {U_Python.Exceptions.{try10}1}
-          ),
-          _idris_Python_46_Fields_46__47__58_(
-            None,
-            None,
-            _idris_Python_46_Fields_46__47__46_(None, None, in12, "__class__", None),
-            "__name__",
-            None
-          )
-        ),
-        (65739, in12)  # {U_Python.Exceptions.{try17}1}
+        _idris_Prelude_46_Applicative_46_pure(None, None, aux2),
+        (
+          1,  # Python.Exceptions.Except
+          {
+            "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
+            "AssertionError": (7,),  # Python.Exceptions.AssertionError
+            "AttributeError": (8,),  # Python.Exceptions.AttributeError
+            "BufferError": (2,),  # Python.Exceptions.BufferError
+            "EOFError": (14,),  # Python.Exceptions.EOFError
+            "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
+            "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
+            "IOError": (10,),  # Python.Exceptions.IOError
+            "ImportError": (15,),  # Python.Exceptions.ImportError
+            "IndentationError": (26,),  # Python.Exceptions.IndentationError
+            "IndexError": (17,),  # Python.Exceptions.IndexError
+            "KeyError": (18,),  # Python.Exceptions.KeyError
+            "LookupError": (16,),  # Python.Exceptions.LookupError
+            "MemoryError": (19,),  # Python.Exceptions.MemoryError
+            "NameError": (20,),  # Python.Exceptions.NameError
+            "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
+            "OSError": (11,),  # Python.Exceptions.OSError
+            "OverflowError": (5,),  # Python.Exceptions.OverflowError
+            "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
+            "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
+            "StandardError": (1,),  # Python.Exceptions.StandardError
+            "StopIteration": (0,),  # Python.Exceptions.StopIteration
+            "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
+            "SystemError": (28,),  # Python.Exceptions.SystemError
+            "TabError": (27,),  # Python.Exceptions.TabError
+            "TypeError": (29,),  # Python.Exceptions.TypeError
+            "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
+            "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
+            "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
+            "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
+            "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
+            "VMSError": (13,),  # Python.Exceptions.VMSError
+            "ValueError": (30,),  # Python.Exceptions.ValueError
+            "WindowsError": (12,),  # Python.Exceptions.WindowsError
+            "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+          }.get(aux3, (35,)),  # Python.Exceptions.Other
+          in12
+        )
       )
     else:  # Prelude.Either.Right
-      in16 = in5[1]
-      aux1 = (0, (65741,), (65746,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try19}1}, {U_Python.Exceptions.{try23}1}
-      assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-      in17, in18 = aux1[1:]
-      aux2 = in17
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), (0, in16))  # Python.Exceptions.OK
+      in15 = in5[1]
+      aux4 = (0, (65711,), (65715,))  # constructor of Prelude.Monad.Monad, {U_Python.Exceptions.{try12}1}, {U_Python.Exceptions.{try16}1}
+      assert aux4[0] == 0  # constructor of Prelude.Monad.Monad
+      in16, in17 = aux4[1:]
+      aux5 = in16
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux5), (0, in15))  # Python.Exceptions.OK
     return _idris_error("unreachable due to case in tail position")
 
-# Main.{main25}
-def _idris_Main_46__123_main25_125_(in30):
+# Main.{main18}
+def _idris_Main_46__123_main18_125_(in1, in25):
   while True:
-    return (65659,)  # {U_Main.{main24}1}
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Prelude_46_Interactive_46_putStr(
+        None,
+        (("thread " + (in25 + " starting")) + "\n")
+      ),
+      (65645, in1, in25)  # {U_Main.{main17}1}
+    )
 
-# Main.{main26}
-def _idris_Main_46__123_main26_125_(in29):
-  while True:
-    return (65660,)  # {U_Main.{main25}1}
-
-# Main.{main27}
-def _idris_Main_46__123_main27_125_(in34):
+# Main.{main19}
+def _idris_Main_46__123_main19_125_(in39):
   while True:
     return (0,)  # Python.Telescope.Return
 
-# Main.{main28}
-def _idris_Main_46__123_main28_125_(in28):
+# Main.{main20}
+def _idris_Main_46__123_main20_125_(in40):
   while True:
-    return (65792, None, None, in28)  # {U_io_return1}
-
-# Main.{main29}
-def _idris_Main_46__123_main29_125_(in27):
-  while True:
-    return (65663,)  # {U_Main.{main28}1}
-
-# Main.{main30}
-def _idris_Main_46__123_main30_125_(in31, in32):
-  while True:
-    return (65791, None, None, None, in31, in32)  # {U_io_bind1}
-
-# Main.{main31}
-def _idris_Main_46__123_main31_125_(in31):
-  while True:
-    return (65666, in31)  # {U_Main.{main30}1}
-
-# Main.{main32}
-def _idris_Main_46__123_main32_125_(in30):
-  while True:
-    return (65667,)  # {U_Main.{main31}1}
-
-# Main.{main33}
-def _idris_Main_46__123_main33_125_(in29):
-  while True:
-    return (65668,)  # {U_Main.{main32}1}
-
-# Main.{main34}
-def _idris_Main_46__123_main34_125_(in28):
-  while True:
-    return (65792, None, None, in28)  # {U_io_return1}
-
-# Main.{main35}
-def _idris_Main_46__123_main35_125_(in27):
-  while True:
-    return (65670,)  # {U_Main.{main34}1}
-
-# Main.{main36}
-def _idris_Main_46__123_main36_125_(in31, in32):
-  while True:
-    return (65791, None, None, None, in31, in32)  # {U_io_bind1}
-
-# Main.{main37}
-def _idris_Main_46__123_main37_125_(in31):
-  while True:
-    return (65672, in31)  # {U_Main.{main36}1}
-
-# Main.{main38}
-def _idris_Main_46__123_main38_125_(in30):
-  while True:
-    return (65673,)  # {U_Main.{main37}1}
-
-# Main.{main39}
-def _idris_Main_46__123_main39_125_(in29):
-  while True:
-    return (65674,)  # {U_Main.{main38}1}
-
-# Main.{main40}
-def _idris_Main_46__123_main40_125_(in35, in36):
-  while True:
-    aux1 = (0, (65671,), (65675,))  # constructor of Prelude.Monad.Monad, {U_Main.{main35}1}, {U_Main.{main39}1}
-    assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
-    in37, in38 = aux1[1:]
-    aux2 = in37
-    return APPLY0(
-      _idris_Prelude_46_Applicative_46_pure(None, None, aux2),
-      APPLY0(_idris_Prelude_46_Strings_46_length(), in35)
-    )
-
-# Main.{main41}
-def _idris_Main_46__123_main41_125_(in26, in35):
-  while True:
-    return APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Monad_46__62__62__61_(
-          None,
-          None,
-          None,
-          (0, (65664,), (65669,))  # constructor of Prelude.Monad.Monad, {U_Main.{main29}1}, {U_Main.{main33}1}
-        ),
-        _idris_Prelude_46_putStr(None, (("thread " + (in26 + " done")) + "\n"))
-      ),
-      (65677, in35)  # {U_Main.{main40}1}
-    )
-
-# Main.{main42}
-def _idris_Main_46__123_main42_125_(in1, in26, in33):
-  while True:
-    return APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Monad_46__62__62__61_(
-          None,
-          None,
-          None,
-          (0, (65657,), (65661,))  # constructor of Prelude.Monad.Monad, {U_Main.{main22}1}, {U_Main.{main26}1}
-        ),
-        _idris_Python_46_Fields_46__47__58_(
-          None,
-          None,
-          _idris_Python_46_Functions_46__36__58_(
-            None,
-            (1, (0,), (65662,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main27}1}
-            _idris_Python_46_Fields_46__47__46_(None, None, in1, "get", None),
-            (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
-          ),
-          "text",
-          None
-        )
-      ),
-      (65678, in26)  # {U_Main.{main41}1}
-    )
-
-# Main.{main43}
-def _idris_Main_46__123_main43_125_(in1, in26):
-  while True:
-    return APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Monad_46__62__62__61_(
-          None,
-          None,
-          None,
-          (0, (65650,), (65655,))  # constructor of Prelude.Monad.Monad, {U_Main.{main16}1}, {U_Main.{main20}1}
-        ),
-        _idris_Prelude_46_putStr(None, (("thread " + (in26 + " starting")) + "\n"))
-      ),
-      (65679, in1, in26)  # {U_Main.{main42}1}
-    )
-
-# Main.{main44}
-def _idris_Main_46__123_main44_125_(in48):
-  while True:
-    return (0,)  # Python.Telescope.Return
-
-# Main.{main45}
-def _idris_Main_46__123_main45_125_(in49):
-  while True:
-    return _idris_Prelude_46_putStr(
+    return _idris_Prelude_46_Interactive_46_putStr(
       None,
       "Something's wrong, your root's homedir is writable!\n"
     )
 
-# Main.{main46}
-def _idris_Main_46__123_main46_125_(in50, in51):
+# Main.{main21}
+def _idris_Main_46__123_main21_125_(in41, in42):
   while True:
-    if in50[0] == 11:  # Python.Exceptions.OSError
-      return _idris_Prelude_46_putStr(
+    if in41[0] == 11:  # Python.Exceptions.OSError
+      return _idris_Prelude_46_Interactive_46_putStr(
         None,
-        (("  -> (1) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in51)) + "\n")
+        (("  -> (1) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in42)) + "\n")
       )
     else:
-      return _idris_Python_46_Exceptions_46_raise(None, in51)
+      return _idris_Python_46_Exceptions_46_raise(None, in42)
     return _idris_error("unreachable due to case in tail position")
 
-# Main.{main47}
-def _idris_Main_46__123_main47_125_(in50):
+# Main.{main22}
+def _idris_Main_46__123_main22_125_(in41):
   while True:
-    return (65683, in50)  # {U_Main.{main46}1}
+    return (65650, in41)  # {U_Main.{main21}1}
 
-# Main.{main48}
-def _idris_Main_46__123_main48_125_(in53):
+# Main.{main23}
+def _idris_Main_46__123_main23_125_(in44):
   while True:
     return (0,)  # Python.Telescope.Return
 
-# Main.{main49}
-def _idris_Main_46__123_main49_125_(in54):
+# Main.{main24}
+def _idris_Main_46__123_main24_125_(in45):
   while True:
-    if in54[0] == 1:  # Python.Exceptions.Except
-      in55, in56 = in54[1:]
-      if in55[0] == 11:  # Python.Exceptions.OSError
-        return _idris_Prelude_46_putStr(
+    if in45[0] == 1:  # Python.Exceptions.Except
+      in46, in47 = in45[1:]
+      if in46[0] == 11:  # Python.Exceptions.OSError
+        return _idris_Prelude_46_Interactive_46_putStr(
           None,
-          (("  -> (2) everything's fine: " + _idris_PE_95_show_95_ed1ff29c(in56)) + "\n")
+          (("  -> (2) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in47)) + "\n")
         )
       else:
-        return _idris_Python_46_Exceptions_46_raise(None, in56)
+        return _idris_Python_46_Exceptions_46_raise(None, in47)
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
-      in57 = in54[1]
-      return _idris_Prelude_46_putStr(
+      in48 = in45[1]
+      return _idris_Prelude_46_Interactive_46_putStr(
         None,
         "Your root could probably use some security lessons!\n"
       )
     return _idris_error("unreachable due to case in tail position")
 
-# Main.{main50}
-def _idris_Main_46__123_main50_125_(in46, in52):
+# Main.{main25}
+def _idris_Main_46__123_main25_125_(in37, in43):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
       _idris_Python_46_Exceptions_46_try(
         None,
-        _idris_Python_46_Functions_46__36__58_(
+        _idris_Python_46_Functions_46_call(
           None,
-          (1, (0,), (65685,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main48}1}
-          _idris_Python_46_Fields_46__47__46_(None, None, in46, "mkdir", None),
+          None,
+          (1, (0,), (65652,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main23}1}
+          _idris_Python_46_Fields_46__47__46_(None, None, in37, "mkdir", None),
+          None,
           (0, "/root/hello", Unit)  # Builtins.MkSigma
         )
       ),
-      (65686,)  # {U_Main.{main49}1}
+      (65653,)  # {U_Main.{main24}1}
     )
 
-# Main.{main51}
-def _idris_Main_46__123_main51_125_(in46, in47):
+# Main.{main26}
+def _idris_Main_46__123_main26_125_(in37, in38):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
@@ -2335,289 +2225,301 @@ def _idris_Main_46__123_main51_125_(in46, in47):
         _idris_Python_46_Exceptions_46_try(
           None,
           (
-            65791,  # {U_io_bind1}
+            65760,  # {U_io_bind1}
             None,
             None,
             None,
-            _idris_Python_46_Functions_46__36__58_(
+            _idris_Python_46_Functions_46_call(
               None,
-              (1, (0,), (65681,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main44}1}
-              _idris_Python_46_Fields_46__47__46_(None, None, in46, "mkdir", None),
+              None,
+              (1, (0,), (65647,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main19}1}
+              _idris_Python_46_Fields_46__47__46_(None, None, in37, "mkdir", None),
+              None,
               (0, "/root/hello", Unit)  # Builtins.MkSigma
             ),
-            (65682,)  # {U_Main.{main45}1}
+            (65649,)  # {U_Main.{main20}1}
           )
         ),
-        (65684,)  # {U_Main.{main47}1}
+        (65651,)  # {U_Main.{main22}1}
       ),
-      (65688, in46)  # {U_Main.{main50}1}
+      (65654, in37)  # {U_Main.{main25}1}
     )
 
-# Main.{main52}
-def _idris_Main_46__123_main52_125_(in46):
+# Main.{main27}
+def _idris_Main_46__123_main27_125_(in37):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_putStr(None, "And now, let's fail!\n"),
-      (65689, in46)  # {U_Main.{main51}1}
+      _idris_Prelude_46_Interactive_46_putStr(None, "And now, let's fail!\n"),
+      (65655, in37)  # {U_Main.{main26}1}
     )
 
-# Main.{main53}
-def _idris_Main_46__123_main53_125_(in45):
+# Main.{main28}
+def _idris_Main_46__123_main28_125_(in36):
   while True:
-    return (65791, None, None, None, _idris_Python_46_Lib_46_Os_46_import_95_(), (65690,))  # {U_io_bind1}, {U_Main.{main52}1}
+    return (65760, None, None, None, (65758, None, "os"), (65656,))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main27}1}
 
-# Main.{main54}
-def _idris_Main_46__123_main54_125_(in44):
-  while True:
-    return (65791, None, None, None, _idris_Prelude_46_putStr(None, "\n"), (65691,))  # {U_io_bind1}, {U_Main.{main53}1}
-
-# Main.{main55}
-def _idris_Main_46__123_main55_125_(in42, in43):
+# Main.{main29}
+def _idris_Main_46__123_main29_125_(in35):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr(None, "\n"),
+      (65657,)  # {U_Main.{main28}1}
+    )
+
+# Main.{main30}
+def _idris_Main_46__123_main30_125_(in33, in34):
+  while True:
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Prelude_46_Interactive_46_putStr(
         None,
         (("thread B says " + _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
-          in42
+          in33
         )) + "\n")
       ),
-      (65692,)  # {U_Main.{main54}1}
+      (65658,)  # {U_Main.{main29}1}
     )
 
-# Main.{main56}
-def _idris_Main_46__123_main56_125_(in41, in42):
+# Main.{main31}
+def _idris_Main_46__123_main31_125_(in32, in33):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr(
         None,
         (("thread A says " + _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
-          in41
+          in32
         )) + "\n")
       ),
-      (65693, in42)  # {U_Main.{main55}1}
+      (65660, in33)  # {U_Main.{main30}1}
     )
 
-# Main.{main57}
-def _idris_Main_46__123_main57_125_(in40, in41):
+# Main.{main32}
+def _idris_Main_46__123_main32_125_(in31, in32):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Lib_46_Threading_46_wait(None, in40),
-      (65694, in41)  # {U_Main.{main56}1}
+      _idris_Python_46_Lib_46_Threading_46_wait(None, in31),
+      (65661, in32)  # {U_Main.{main31}1}
     )
 
-# Main.{main58}
-def _idris_Main_46__123_main58_125_(in39, in40):
+# Main.{main33}
+def _idris_Main_46__123_main33_125_(in30, in31):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Lib_46_Threading_46_wait(None, in39),
-      (65695, in40)  # {U_Main.{main57}1}
+      _idris_Python_46_Lib_46_Threading_46_wait(None, in30),
+      (65662, in31)  # {U_Main.{main32}1}
     )
 
-# Main.{main59}
-def _idris_Main_46__123_main59_125_(in25, in39):
+# Main.{main34}
+def _idris_Main_46__123_main34_125_(in24, in30):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Lib_46_Threading_46_forkPIO(None, APPLY0(in25, "B")),
-      (65696, in39)  # {U_Main.{main58}1}
+      _idris_Python_46_Lib_46_Threading_46_forkPIO((-1,), APPLY0(in24, "B")),  # Prelude.Nat.Nat
+      (65663, in30)  # {U_Main.{main33}1}
     )
 
-# Main.{main60}
-def _idris_Main_46__123_main60_125_(in1, in24):
+# Main.{main35}
+def _idris_Main_46__123_main35_125_(in1, in23):
   while True:
-    in25 = (65680, in1)  # {U_Main.{main43}1}
+    in24 = (65646, in1)  # {U_Main.{main18}1}
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Lib_46_Threading_46_forkPIO(None, APPLY0(in25, "A")),
-      (65697, in25)  # {U_Main.{main59}1}
+      _idris_Python_46_Lib_46_Threading_46_forkPIO((-1,), APPLY0(in24, "A")),  # Prelude.Nat.Nat
+      (65664, in24)  # {U_Main.{main34}1}
     )
 
-# Main.{main61}
-def _idris_Main_46__123_main61_125_(in1, in23):
-  while True:
-    return (65791, None, None, None, _idris_Prelude_46_putStr(None, "\n"), (65699, in1))  # {U_io_bind1}, {U_Main.{main60}1}
-
-# Main.{main62}
-def _idris_Main_46__123_main62_125_(in1, in22):
+# Main.{main36}
+def _idris_Main_46__123_main36_125_(in1, in22):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr(None, "\n"),
+      (65665, in1)  # {U_Main.{main35}1}
+    )
+
+# Main.{main37}
+def _idris_Main_46__123_main37_125_(in1, in21):
+  while True:
+    return (
+      65760,  # {U_io_bind1}
+      None,
+      None,
+      None,
+      _idris_Prelude_46_Interactive_46_putStr(
         None,
-        (("Total number of features: " + str(in22)) + "\n")
+        (("Total number of features: " + _idris_Prelude_46_Show_46_primNumShow(None, (65763,), (0,), in21)) + "\n")  # {U_prim__toStrInt1}, Prelude.Show.Open
       ),
-      (65700, in1)  # {U_Main.{main61}1}
+      (65666, in1)  # {U_Main.{main36}1}
     )
 
-# Main.{main63}
-def _idris_Main_46__123_main63_125_(in8, in1, in9):
+# Main.{main38}
+def _idris_Main_46__123_main38_125_(in8, in1, in9):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Prim_46_iterate(None, None, in8, 0, (65648,)),  # {U_Main.{main14}1}
-      (65701, in1)  # {U_Main.{main62}1}
+      _idris_Python_46_Prim_46_iterate(None, None, in8, 0, (65641,)),  # {U_Main.{main13}1}
+      (65667, in1)  # {U_Main.{main37}1}
     )
 
-# Main.{main64}
-def _idris_Main_46__123_main64_125_(in1, in8):
+# Main.{main39}
+def _idris_Main_46__123_main39_125_(in1, in8):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr(
         None,
         "Idris has got the following exciting features:\n"
       ),
-      (65702, in8, in1)  # {U_Main.{main63}1}
+      (65668, in8, in1)  # {U_Main.{main38}1}
     )
 
-# Main.{main65}
-def _idris_Main_46__123_main65_125_(in1, in6):
+# Main.{main40}
+def _idris_Main_46__123_main40_125_(in1, in6):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Fields_46__62__58_(
+      _idris_Python_46_Functions_46_call(
         None,
-        _idris_Python_46_Functions_46__36__58_(
-          None,
-          (1, (0,), (65665,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main2}1}
-          _idris_Python_46_Fields_46__47__46_(None, None, in6, "select", None),
-          (0, "div.entry-content li", Unit)  # Builtins.MkSigma
-        ),
         None,
-        None
+        (1, (0,), (65659,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main2}1}
+        _idris_Python_46_Fields_46__47__46_(None, None, in6, "select", None),
+        None,
+        (0, "div.entry-content li", Unit)  # Builtins.MkSigma
       ),
-      (65703, in1)  # {U_Main.{main64}1}
+      (65669, in1)  # {U_Main.{main39}1}
     )
 
-# Main.{main66}
-def _idris_Main_46__123_main66_125_(in3, in1, in4):
+# Main.{main41}
+def _idris_Main_46__123_main41_125_(in3, in1, in4):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Functions_46__36__58_(
+      _idris_Python_46_Functions_46_call(
         None,
-        (1, (0,), (65654,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main1}1}
+        None,
+        (1, (0,), (65648,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main1}1}
         _idris_Python_46_Fields_46__47__46_(None, None, in4, "BeautifulSoup", None),
+        None,
         (0, in3, Unit)  # Builtins.MkSigma
       ),
-      (65704, in1)  # {U_Main.{main65}1}
+      (65671, in1)  # {U_Main.{main40}1}
     )
 
-# Main.{main67}
-def _idris_Main_46__123_main67_125_(in1, in3):
+# Main.{main42}
+def _idris_Main_46__123_main42_125_(in1, in3):
   while True:
-    return (
-      65791,  # {U_io_bind1}
-      None,
-      None,
-      None,
-      _idris_Python_46_Lib_46_BeautifulSoup_46_import_95_(),
-      (65705, in3, in1)  # {U_Main.{main66}1}
-    )
+    return (65760, None, None, None, (65758, None, "bs4"), (65672, in3, in1))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main41}1}
 
-# Main.{main68}
-def _idris_Main_46__123_main68_125_(in1):
+# Main.{main43}
+def _idris_Main_46__123_main43_125_(in1):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
       _idris_Python_46_Fields_46__47__58_(
         None,
         None,
-        _idris_Python_46_Functions_46__36__58_(
+        _idris_Python_46_Functions_46_call(
           None,
-          (1, (0,), (65643,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main0}1}
+          None,
+          (1, (0,), (65637,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Main.{main0}1}
           _idris_Python_46_Fields_46__47__46_(None, None, in1, "get", None),
+          None,
           (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
         ),
         "text",
         None
       ),
-      (65706, in1)  # {U_Main.{main67}1}
+      (65673, in1)  # {U_Main.{main42}1}
     )
 
-# Main.{main69}
-def _idris_Main_46__123_main69_125_(in0):
+# Main.{main44}
+def _idris_Main_46__123_main44_125_(in0):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Functions_46__36__58_(
+      _idris_Python_46_Functions_46_call(
+        None,
         None,
         (0,),  # Python.Telescope.Return
         _idris_Python_46_Fields_46__47__46_(None, None, in0, "Session", None),
+        None,
         Unit
       ),
-      (65707,)  # {U_Main.{main68}1}
+      (65674,)  # {U_Main.{main43}1}
     )
 
 # Main.exports, greet
 def _idris_Main_46_exports_58_greet_58_0():
   while True:
-    return _idris_Prelude_46_putStr(None, "Hello world!\n")
+    return _idris_Prelude_46_Interactive_46_putStr(None, "Hello world!\n")
 
 # Python.Lib.Threading.forkPIO, worker
 def _idris_Python_46_Lib_46_Threading_46_forkPIO_58_worker_58_0(e0, e1, e2):
   while True:
-    return (65791, None, None, None, e1, (65796, e2))  # {U_io_bind1}, {U_{Python.Lib.Threading.forkPIO, worker_lam1}1}
+    return (65760, None, None, None, e1, (65767, e2))  # {U_io_bind1}, {U_{Python.Lib.Threading.forkPIO, worker_lam1}1}
 
 # Python.Prim.iterate, iter
 def _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9
+  e0, e1, e2, e3, e4, e5, e6, e7, e8
 ):
   while True:
     return (
-      65791,  # {U_io_bind1}
+      65760,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Python_46_Prim_46_next(None, e7),
-      (65801, e9, e8, e7)  # {U_{Python.Prim.iterate, iter_lam13}1}
+      _idris_Python_46_Prim_46_next(None, e6),
+      (65772, e8, e7, e6)  # {U_{Python.Prim.iterate, iter_lam13}1}
     )
 
 # Prelude.List.reverse, reverse'
@@ -2647,10 +2549,91 @@ def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Eq
   while True:
     return None
 
+# Decidable.Equality.Decidable.Equality.ManagedPtr instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_ManagedPtr_58__33_decEq_58_0_58_primitiveNotEq_58_0():
+  while True:
+    return None
+
+# Decidable.Equality.Decidable.Equality.Ptr instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Ptr_58__33_decEq_58_0_58_primitiveNotEq_58_0():
+  while True:
+    return None
+
 # Decidable.Equality.Decidable.Equality.String instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_String_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
+
+# Decidable.Equality.Decidable.Equality.Bool instance of Decidable.Equality.DecEq, method decEq
+def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Bool_58__33_decEq_58_0(
+  e0, e1
+):
+  while True:
+    if not e1:  # Prelude.Bool.False
+      if not e0:  # Prelude.Bool.False
+        return (0,)  # Prelude.Basics.Yes
+      else:  # Prelude.Bool.True
+        return (1,)  # Prelude.Basics.No
+      return _idris_error("unreachable due to case in tail position")
+    else:  # Prelude.Bool.True
+      if not e0:  # Prelude.Bool.False
+        return (1,)  # Prelude.Basics.No
+      else:  # Prelude.Bool.True
+        return (0,)  # Prelude.Basics.Yes
+      return _idris_error("unreachable due to case in tail position")
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Eq, method ==
+def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
+  e0, e1
+):
+  while True:
+    if e1 == 0:
+      if e0 == 0:
+        return True
+      else:
+        return False
+      return _idris_error("unreachable due to case in tail position")
+    elif True:
+      in0 = (e1 - 1)
+      if e0 == 0:
+        return False
+      else:
+        in1 = (e0 - 1)
+        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65785,)), in1), in0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      return False
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Eq, method ==
+def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Eq_36_Prec_58__33__61__61__58_0(
+  e0, e1
+):
+  while True:
+    if e1[0] == 4:  # Prelude.Show.User
+      in0 = e1[1]
+      if e0[0] == 4:  # Prelude.Show.User
+        in1 = e0[1]
+        return _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
+          in1, in0
+        )
+      else:
+        aux1 = (_idris_Prelude_46_Show_46_precCon(e0) == _idris_Prelude_46_Show_46_precCon(e1))
+        if aux1 == 0:
+          return False
+        else:
+          return True
+        return _idris_error("unreachable due to case in tail position")
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      aux2 = (_idris_Prelude_46_Show_46_precCon(e0) == _idris_Prelude_46_Show_46_precCon(e1))
+      if aux2 == 0:
+        return False
+      else:
+        return True
+      return _idris_error("unreachable due to case in tail position")
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
 def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
@@ -2663,7 +2646,7 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
         APPLY0(e2, in0),
         APPLY0(
           APPLY0(
-            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65816,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65788,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
             e3
           ),
           in1
@@ -2673,19 +2656,173 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
       return e3
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Functor.Prelude.IO' ffi instance of Prelude.Functor.Functor, method map
-def _idris_Prelude_46_Functor_46_Prelude_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+# Prelude.Functor.Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map
+def _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
   e0, e1, e2, e3, e4
 ):
   while True:
-    return (65791, None, None, None, e4, (65714, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+    return (65760, None, None, None, e4, (65683, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+
+# Prelude.Classes.Prelude.Classes.Integer instance of Prelude.Classes.Ord, method compare
+def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
+  e0, e1
+):
+  while True:
+    aux2 = (e0 == e1)
+    if aux2 == 0:
+      aux3 = False
+    else:
+      aux3 = True
+    aux1 = aux3
+    if not aux1:  # Prelude.Bool.False
+      aux5 = (e0 < e1)
+      if aux5 == 0:
+        aux6 = False
+      else:
+        aux6 = True
+      aux4 = aux6
+      if not aux4:  # Prelude.Bool.False
+        return (2,)  # Prelude.Classes.GT
+      else:  # Prelude.Bool.True
+        return (0,)  # Prelude.Classes.LT
+      return _idris_error("unreachable due to case in tail position")
+    else:  # Prelude.Bool.True
+      return (1,)  # Prelude.Classes.EQ
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method compare
+def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33_compare_58_0(
+  e0, e1
+):
+  while True:
+    if e1 == 0:
+      if e0 == 0:
+        return (1,)  # Prelude.Classes.EQ
+      else:
+        in0 = (e0 - 1)
+        return (2,)  # Prelude.Classes.GT
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      in1 = (e1 - 1)
+      if e0 == 0:
+        return (0,)  # Prelude.Classes.LT
+      else:
+        in2 = (e0 - 1)
+        return APPLY0(
+          APPLY0(
+            _idris_Prelude_46_Classes_46_compare(
+              None,
+              _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
+            ),
+            in2
+          ),
+          in1
+        )
+      return _idris_error("unreachable due to case in tail position")
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=
+def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__61__58_0(
+  e0, e1
+):
+  while True:
+    aux1 = APPLY0(
+      APPLY0(
+        _idris_Prelude_46_Classes_46__62_(
+          None,
+          _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
+        ),
+        e0
+      ),
+      e1
+    )
+    if not aux1:  # Prelude.Bool.False
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+        e0, e1
+      )
+    else:  # Prelude.Bool.True
+      return True
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method compare
+def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33_compare_58_0(
+  e0, e1
+):
+  while True:
+    if e1[0] == 4:  # Prelude.Show.User
+      in0 = e1[1]
+      if e0[0] == 4:  # Prelude.Show.User
+        in1 = e0[1]
+        return _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33_compare_58_0(
+          in1, in0
+        )
+      else:
+        return _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
+          _idris_Prelude_46_Show_46_precCon(e0),
+          _idris_Prelude_46_Show_46_precCon(e1)
+        )
+      return _idris_error("unreachable due to case in tail position")
+    else:
+      return _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
+        _idris_Prelude_46_Show_46_precCon(e0),
+        _idris_Prelude_46_Show_46_precCon(e1)
+      )
+    return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Show.Prelude.Show.Nat instance of Prelude.Show.Show, method show
 def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
   e0
 ):
   while True:
-    return str(e0)
+    return _idris_Prelude_46_Show_46_primNumShow(None, (65762,), (0,), e0)  # {U_prim__toStrBigInt1}, Prelude.Show.Open
+
+# with block in Prelude.Strings.strM
+def _idris__95_Prelude_46_Strings_46_strM_95_with_95_21(e0, e1):
+  while True:
+    if e1[0] == 1:  # Prelude.Basics.No
+      return _idris_really_95_believe_95_me(None, None, (0,))  # Prelude.Strings.StrNil
+    else:  # Prelude.Basics.Yes
+      return _idris_really_95_believe_95_me(None, None, (1, e0[0]))  # Prelude.Strings.StrCons
+    return _idris_error("unreachable due to case in tail position")
+
+# with block in Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >
+def _idris__95_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__58_0_95_with_95_27(
+  e0, e1, e2
+):
+  while True:
+    if e0[0] == 2:  # Prelude.Classes.GT
+      return True
+    else:
+      return False
+    return _idris_error("unreachable due to case in tail position")
+
+# with block in Prelude.Show.firstCharIs
+def _idris__95_Prelude_46_Show_46_firstCharIs_95_with_95_44(e0, e1, e2):
+  while True:
+    if e2[0] == 1:  # Prelude.Strings.StrCons
+      in0 = e2[1]
+      return APPLY0(e0, in0)
+    else:  # Prelude.Strings.StrNil
+      return False
+    return _idris_error("unreachable due to case in tail position")
+
+# with block in Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method >
+def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33__62__58_0_95_with_95_83(
+  e0, e1, e2
+):
+  while True:
+    if e0[0] == 2:  # Prelude.Classes.GT
+      return True
+    else:
+      return False
+    return _idris_error("unreachable due to case in tail position")
+
+# Prelude.Nat.Nat instance of Prelude.Classes.Eq
+def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(meth0, meth1):
+  while True:
+    return _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
+      meth0, meth1
+    )
 
 # Prelude.List.List instance of Prelude.Foldable.Foldable
 def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
@@ -2695,6 +2832,16 @@ def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
     return _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
       None, None, meth2, meth3, meth4
     )
+
+# Prelude.Nat.Nat instance of Prelude.Classes.Ord
+def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat():
+  while True:
+    return (0, (65690,), (65692,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
+
+# Prelude.Show.Prec instance of Prelude.Classes.Ord
+def _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec():
+  while True:
+    return (0, (65694,), (65696,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
 
 # case block in Void
 def _idris_Void_95_case():
@@ -2714,6 +2861,11 @@ def _idris_Python_46_Exceptions_46_catch_95_case(e0, e1, e2, e3, e4, e5):
       aux1 = in3
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), in2)
     return _idris_error("unreachable due to case in tail position")
+
+# Python.Telescope.case block in forall
+def _idris_Python_46_Telescope_46_forall_95_case(e0, e1, e2, e3, e4):
+  while True:
+    return APPLY0(e2, e3)
 
 # Python.Exceptions.case block in fromString
 def _idris_Python_46_Exceptions_46_fromString_95_case(e0, e1):
@@ -2764,55 +2916,41 @@ def _idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
 # Main.case block in main
 def _idris_Main_46_main_95_case(
   e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
-  e15, e16, e17, e18, e19, e20, e21
+  e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
+  e28, e29, e30, e31, e32, e33, e34, e35, e36, e37, e38, e39, e40,
+  e41, e42, e43, e44
 ):
   while True:
-    return APPLY0(
-      APPLY0(
-        _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e18),
-        _idris_Prelude_46_putStr(None, (("thread " + (e20 + " starting")) + "\n"))
-      ),
-      (65642, e18, e3, e20)  # {U_Main.{case block in main_lam3}1}
-    )
+    if e42[0] == 11:  # Python.Exceptions.OSError
+      return _idris_Prelude_46_Interactive_46_putStr(
+        None,
+        (("  -> (1) everything's fine: " + _idris_Python_46_Exceptions_46_showException(e43)) + "\n")
+      )
+    else:
+      return _idris_Python_46_Exceptions_46_raise(None, e43)
+    return _idris_error("unreachable due to case in tail position")
 
 # Main.case block in main1
 def _idris_Main_46_main1_95_case(
   e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
   e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
   e28, e29, e30, e31, e32, e33, e34, e35, e36, e37, e38, e39, e40,
-  e41, e42
+  e41, e42, e43, e44, e45
 ):
   while True:
-    if e40[0] == 11:  # Python.Exceptions.OSError
-      return _idris_Prelude_46_putStr(
-        None,
-        (("  -> (1) everything's fine: " + _idris_Python_46_Exceptions_46_showException(e41)) + "\n")
-      )
-    else:
-      return _idris_Python_46_Exceptions_46_raise(None, e41)
-    return _idris_error("unreachable due to case in tail position")
-
-# Main.case block in main2
-def _idris_Main_46_main2_95_case(
-  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
-  e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
-  e28, e29, e30, e31, e32, e33, e34, e35, e36, e37, e38, e39, e40,
-  e41, e42, e43
-):
-  while True:
-    if e42[0] == 1:  # Python.Exceptions.Except
-      in0, in1 = e42[1:]
+    if e44[0] == 1:  # Python.Exceptions.Except
+      in0, in1 = e44[1:]
       if in0[0] == 11:  # Python.Exceptions.OSError
-        return _idris_Prelude_46_putStr(
+        return _idris_Prelude_46_Interactive_46_putStr(
           None,
-          (("  -> (2) everything's fine: " + _idris_PE_95_show_95_ed1ff29c(in1)) + "\n")
+          (("  -> (2) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in1)) + "\n")
         )
       else:
         return _idris_Python_46_Exceptions_46_raise(None, in1)
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Exceptions.OK
-      in2 = e42[1]
-      return _idris_Prelude_46_putStr(
+      in2 = e44[1]
+      return _idris_Prelude_46_Interactive_46_putStr(
         None,
         "Your root could probably use some security lessons!\n"
       )
@@ -2844,72 +2982,154 @@ def _idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4):
   while True:
     if e3[0] == 0:  # Prelude.Either.Left
       in0 = e3[1]
+      assert e2[0] == 0  # constructor of Prelude.Monad.Monad
+      in1, in2 = e2[1:]
+      aux1 = in1
+      aux2 = _idris_Python_46_Fields_46__47__46_(
+        None,
+        None,
+        _idris_Python_46_Fields_46__47__46_(None, None, in0, "__class__", None),
+        "__name__",
+        None
+      )
       return APPLY0(
-        APPLY0(
-          _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e2),
-          _idris_Python_46_Fields_46__47__58_(
-            None,
-            None,
-            _idris_Python_46_Fields_46__47__46_(None, None, in0, "__class__", None),
-            "__name__",
-            None
-          )
-        ),
-        (65721, e2, in0)  # {U_Python.Exceptions.{case block in try_lam0}1}
+        _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
+        (
+          1,  # Python.Exceptions.Except
+          {
+            "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
+            "AssertionError": (7,),  # Python.Exceptions.AssertionError
+            "AttributeError": (8,),  # Python.Exceptions.AttributeError
+            "BufferError": (2,),  # Python.Exceptions.BufferError
+            "EOFError": (14,),  # Python.Exceptions.EOFError
+            "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
+            "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
+            "IOError": (10,),  # Python.Exceptions.IOError
+            "ImportError": (15,),  # Python.Exceptions.ImportError
+            "IndentationError": (26,),  # Python.Exceptions.IndentationError
+            "IndexError": (17,),  # Python.Exceptions.IndexError
+            "KeyError": (18,),  # Python.Exceptions.KeyError
+            "LookupError": (16,),  # Python.Exceptions.LookupError
+            "MemoryError": (19,),  # Python.Exceptions.MemoryError
+            "NameError": (20,),  # Python.Exceptions.NameError
+            "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
+            "OSError": (11,),  # Python.Exceptions.OSError
+            "OverflowError": (5,),  # Python.Exceptions.OverflowError
+            "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
+            "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
+            "StandardError": (1,),  # Python.Exceptions.StandardError
+            "StopIteration": (0,),  # Python.Exceptions.StopIteration
+            "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
+            "SystemError": (28,),  # Python.Exceptions.SystemError
+            "TabError": (27,),  # Python.Exceptions.TabError
+            "TypeError": (29,),  # Python.Exceptions.TypeError
+            "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
+            "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
+            "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
+            "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
+            "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
+            "VMSError": (13,),  # Python.Exceptions.VMSError
+            "ValueError": (30,),  # Python.Exceptions.ValueError
+            "WindowsError": (12,),  # Python.Exceptions.WindowsError
+            "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+          }.get(aux2, (35,)),  # Python.Exceptions.Other
+          in0
+        )
       )
     else:  # Prelude.Either.Right
-      in4 = e3[1]
+      in3 = e3[1]
       assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-      in5, in6 = e2[1:]
-      aux1 = in5
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), (0, in4))  # Python.Exceptions.OK
+      in4, in5 = e2[1:]
+      aux3 = in4
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux3), (0, in3))  # Python.Exceptions.OK
     return _idris_error("unreachable due to case in tail position")
 
 # Python.Prim.case block in Python.Prim.iterate, iter
 def _idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95_case(
-  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11
 ):
   while True:
-    if e11 is not None:  # Prelude.Maybe.Just
-      in0 = e11
+    if e10 is not None:  # Prelude.Maybe.Just
+      in0 = e10
       return APPLY0(
         APPLY0(
-          _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e10),
-          APPLY0(APPLY0(e9, e8), in0)
+          _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e9),
+          APPLY0(APPLY0(e8, e7), in0)
         ),
-        (65770, e6, e9)  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
+        (65739, e6, e8)  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
       )
     else:  # Prelude.Maybe.Nothing
-      assert e10[0] == 0  # constructor of Prelude.Monad.Monad
-      in2, in3 = e10[1:]
+      assert e9[0] == 0  # constructor of Prelude.Monad.Monad
+      in2, in3 = e9[1:]
       aux1 = in2
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), e8)
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), e7)
     return _idris_error("unreachable due to case in tail position")
 
 # Python.Exceptions.case block in case block in try
 def _idris_Python_46_Exceptions_46_try_95_case_95_case(e0, e1, e2, e3, e4, e5):
   while True:
-    if e3[0] == 0:  # Prelude.Either.Left
-      in0 = e3[1]
+    if e2[0] == 0:  # Prelude.Either.Left
+      in0 = e2[1]
+      assert e4[0] == 0  # constructor of Prelude.Monad.Monad
+      in1, in2 = e4[1:]
+      aux1 = in1
+      aux2 = _idris_Python_46_Fields_46__47__46_(
+        None,
+        None,
+        _idris_Python_46_Fields_46__47__46_(None, None, in0, "__class__", None),
+        "__name__",
+        None
+      )
       return APPLY0(
-        APPLY0(
-          _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e2),
-          _idris_Python_46_Fields_46__47__58_(
-            None,
-            None,
-            _idris_Python_46_Fields_46__47__46_(None, None, in0, "__class__", None),
-            "__name__",
-            None
-          )
-        ),
-        (65720, e2, in0)  # {U_Python.Exceptions.{case block in case block in try_lam0}1}
+        _idris_Prelude_46_Applicative_46_pure(None, None, aux1),
+        (
+          1,  # Python.Exceptions.Except
+          {
+            "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
+            "AssertionError": (7,),  # Python.Exceptions.AssertionError
+            "AttributeError": (8,),  # Python.Exceptions.AttributeError
+            "BufferError": (2,),  # Python.Exceptions.BufferError
+            "EOFError": (14,),  # Python.Exceptions.EOFError
+            "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
+            "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
+            "IOError": (10,),  # Python.Exceptions.IOError
+            "ImportError": (15,),  # Python.Exceptions.ImportError
+            "IndentationError": (26,),  # Python.Exceptions.IndentationError
+            "IndexError": (17,),  # Python.Exceptions.IndexError
+            "KeyError": (18,),  # Python.Exceptions.KeyError
+            "LookupError": (16,),  # Python.Exceptions.LookupError
+            "MemoryError": (19,),  # Python.Exceptions.MemoryError
+            "NameError": (20,),  # Python.Exceptions.NameError
+            "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
+            "OSError": (11,),  # Python.Exceptions.OSError
+            "OverflowError": (5,),  # Python.Exceptions.OverflowError
+            "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
+            "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
+            "StandardError": (1,),  # Python.Exceptions.StandardError
+            "StopIteration": (0,),  # Python.Exceptions.StopIteration
+            "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
+            "SystemError": (28,),  # Python.Exceptions.SystemError
+            "TabError": (27,),  # Python.Exceptions.TabError
+            "TypeError": (29,),  # Python.Exceptions.TypeError
+            "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
+            "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
+            "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
+            "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
+            "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
+            "VMSError": (13,),  # Python.Exceptions.VMSError
+            "ValueError": (30,),  # Python.Exceptions.ValueError
+            "WindowsError": (12,),  # Python.Exceptions.WindowsError
+            "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+          }.get(aux2, (35,)),  # Python.Exceptions.Other
+          in0
+        )
       )
     else:  # Prelude.Either.Right
-      in4 = e3[1]
-      assert e2[0] == 0  # constructor of Prelude.Monad.Monad
-      in5, in6 = e2[1:]
-      aux1 = in5
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), (0, in4))  # Python.Exceptions.OK
+      in3 = e2[1]
+      assert e4[0] == 0  # constructor of Prelude.Monad.Monad
+      in4, in5 = e4[1:]
+      aux3 = in4
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux3), (0, in3))  # Python.Exceptions.OK
     return _idris_error("unreachable due to case in tail position")
 
 # <<Void eliminator>>
