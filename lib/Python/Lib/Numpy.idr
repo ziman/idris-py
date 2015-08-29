@@ -13,22 +13,24 @@ record DType (ty : Type) where
 DFloat : DType Float
 DFloat = MkDType "float32"
 
-record Shape where
-  constructor MkShape
-  rows : Nat
-  cols : Nat
-  dtype : DType ty
-
 Matrix : Nat -> Nat -> DType ty -> Signature
 Matrix r c dtype f = case f of
   _ => Object f
 
 NDArrayT : Signature
 NDArrayT f = case f of
-  "transpose" => fun (s : (Erased Shape) ** (m : (Obj $ Matrix (rows $ unerase s) (cols $ unerase s) (dtype $ unerase s)) ** ())) $
-    forall $ \(MkShape r c dtype) =>
-      pi $ \m : Obj (Matrix r c dtype) =>
-        Return $ Obj (Matrix c r dtype)
+  {-
+
+  -- You don't want to go all cranky with dependent types:
+
+  "transpose" => with Erased fun (r : (Erased Nat) ** (c : (Erased Nat) ** (ty : (Erased Type) ** (dt : (Erased $ DType (unerase ty)) ** (m : (Obj $ Matrix (unerase r) (unerase c) (unerase dt)) ** Unit))))) $
+    forall $ \r : Nat =>
+      forall $ \c : Nat =>
+        forall $ \ty : Type =>
+          forall $ \dtype : DType ty =>
+            pi $ \m : Obj (Matrix r c dtype) =>
+              Return $ Obj (Matrix c r dtype)
+  -}
 
   _ => PyType f
 
