@@ -16,8 +16,8 @@ Queue a f = case f of
 QueueM : Signature
 QueueM f = case f of
   "Queue" => fun _ $
-    forall $ \a : Type =>
-      default 0 $  -- maxSize : Int
+    forall a : Type .
+      default maxSize : Int = 0 .
         Return $ Obj (Queue a)
 
   _ => Module f

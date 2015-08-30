@@ -9,6 +9,7 @@ import Data.Erased
 
 NDArray : Signature
 NDArray f = case f of
+  "__str__" => [] ~~> String
   _ => Object f
 
 Arr : Type
@@ -45,8 +46,9 @@ Numpy : Signature
 Numpy f = case f of
 
   "array" => ParAttr _ $ \a : Type =>
-      [Obj (PyList (Obj (PyList a))), String] ~> Obj NDArray
+      [Obj (PyList (Obj (PyList a))), String] ~> Arr
 
+  "reshape" => [Arr, Obj (PyList Nat)] ~~> Arr
   "abs" => [Arr] ~~> Arr
   "dot" => [Arr, Arr] ~~> Arr
   "transpose" => [Arr] ~~> Arr

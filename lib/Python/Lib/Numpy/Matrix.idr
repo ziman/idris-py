@@ -4,6 +4,8 @@ import Python
 import Python.Prim
 import Python.Lib.Numpy
 
+import Data.Vect
+
 %access public
 %default total
 
@@ -53,11 +55,28 @@ abstract
 singleton : {dt : DType a} -> a -> Matrix 1 1 dt
 singleton {a=a} {dt=dt} x =
   unsafeNp $
-    np //. ("array", a) $. [pyList [pyList [x]], dtName dt]
+    np //. FP "array" a $. [pyList [pyList [x]], dtName dt]
 
 abstract
 dot : Matrix r c dt -> Matrix c k dt -> Matrix r k dt
 dot (MkM x) (MkM y) = unsafeNp $ np /. "dot" $. [x,y]
+
+abstract
+transpose : Matrix r c dt -> Matrix c r dt
+transpose (MkM x) = unsafeNp $ np /. "transpose" $. [x]
+
+abstract
+array : (dt : DType a) -> Vect r (Vect c a) -> Matrix r c dt
+array {a=a} dt xs = unsafeNp $ np //. FP "array" a $. [c (map c xs), dtName dt]
+  where
+    c : {a : Type} -> Vect n a -> Obj (PyList a)
+    c xs = pyList $ toList xs
+
+abstract
+reshape : Matrix r c dt -> {auto pf : r*c = r'*c'} -> Matrix r' c' dt
+reshape {r'=r'} {c'=c'} (MkM x) =
+  unsafeNp $
+    np /. "reshape" $. [x, pyList [r', c']]
 
 abstract
 (/) : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
@@ -69,3 +88,6 @@ instance Num (Matrix r c dt) where
   (*) = op "__mul__"
   abs (MkM x) = unsafeNp $ np /. "abs" $. [x]
   fromInteger = Matrix.fromInteger
+
+instance Show (Matrix r c dt) where
+  show (MkM x) = unsafePerformIO $ x /. "__str__" $. []

@@ -38,8 +38,8 @@ namespace Builtins
   Builtins : Signature
   Builtins f = case f of
     "list" => fun (a : (Erased Type) ** (xs : (List $ unerase a) ** ())) $
-      forall $ \a : Type =>
-        pi $ \xs : List a =>
+      forall a : Type .
+        pi xs : (List a) .
           Return $ Obj (PyList a)
 
     _ => Module f
