@@ -4,8 +4,6 @@ import Python.Lib.Numpy.Matrix
 
 %default total
 
--- TODO: try to swap PyList for plain List
-
 f : Nat -> Maybe (List Bool)
 f Z = Just [True, False]
 f (S n) = f n
