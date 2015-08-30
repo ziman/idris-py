@@ -29,5 +29,8 @@ main = do
   printLn xs
   printLn ys
   printLn zs
+  -- printLn (ys `dot` zs)  -- won't work!
   printLn (xs `dot` zs)
+  printLn (xs `dot` transpose xs)
+  printLn (transpose xs `dot` xs)
   printLn $ 2 * transpose (zs `dot` xs) + fromFloat 0.2
