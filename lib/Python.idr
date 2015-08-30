@@ -25,10 +25,10 @@ importModule {sig = sig} modName =
 ||| Turn a PIO action into a Python function.
 ||| The function can then be used as a target for threading.Thread etc.
 abstract
-marshalPIO : PIO a -> Obj ([] ~> a)
+marshalPIO : PIO a -> [] ~> a
 marshalPIO {a = a} action =
   unsafePerformIO $
-    foreign FFI_Py "_idris_marshal_PIO" (Raw (PIO a) -> PIO (Obj $ [] ~> a)) (MkRaw action)
+    foreign FFI_Py "_idris_marshal_PIO" (Raw (PIO a) -> PIO ([] ~> a)) (MkRaw action)
 
 abstract
 getGlobal : (name : String) -> Obj sig

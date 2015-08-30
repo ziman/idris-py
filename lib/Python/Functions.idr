@@ -15,12 +15,12 @@ Function t f = case f of
 
 infix 5 ~>
 ||| Infix alias for functions with fixed arguments.
-(~>) : List Type -> Type -> Signature
-(~>) args ret = Function $ simple args ret
+(~>) : List Type -> Type -> Type
+(~>) args ret = Obj . Function $ simple args ret
 
 infix 5 ~~>
 (~~>) : List Type -> Type -> Field
-(~~>) args ret = Attr $ Obj (args ~> ret)
+(~~>) args ret = Attr $ args ~> ret
 
 fun : (a : Type) -> (t : Telescope a) -> Field
 fun a t = Attr . Obj $ Function t
