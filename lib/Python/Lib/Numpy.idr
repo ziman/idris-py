@@ -25,12 +25,7 @@ ArithT a f = case f of
 
 NDArrayT : Signature
 NDArrayT f = case f of
-
-  "array" => ParAttr _ $ \a : Type =>
-      [Obj (PyList (Obj (PyList a))), String] ~> Obj NDArray
-
   "transpose" => [Arr] ~~> Arr
-
   _ => ArithT Arr f
 
   {-
@@ -48,6 +43,10 @@ NDArrayT f = case f of
 
 Numpy : Signature
 Numpy f = case f of
+
+  "array" => ParAttr _ $ \a : Type =>
+      [Obj (PyList (Obj (PyList a))), String] ~> Obj NDArray
+
   "abs" => [Arr] ~~> Arr
   "transpose" => [Arr] ~~> Arr
   "tile" => [Dyn, Obj $ PyList Nat] ~~> Arr

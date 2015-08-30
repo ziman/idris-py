@@ -17,7 +17,7 @@ nda = np /. "ndarray"
 
 record DType (ty : Type) where
   constructor MkDType
-  pythonName : String
+  dtName : String
   dtFromInteger : Integer -> ty
   dtFromFloat   : Float -> ty
 
@@ -48,6 +48,12 @@ fromInteger {dt=dt} = fill . dtFromInteger dt
 
 fromFloat : Float -> Matrix r c dt
 fromFloat {dt=dt} = fill . dtFromFloat dt
+
+abstract
+singleton : {dt : DType a} -> a -> Matrix 1 1 dt
+singleton {a=a} {dt=dt} x =
+  unsafeNp $
+    np //. ("array", a) $. [pyList [pyList [x]], dtName dt]
 
 abstract
 (/) : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
