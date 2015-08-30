@@ -353,13 +353,14 @@ cgPrim  LStrHead   [x] = x ! "0"
 cgPrim  LStrTail   [x] = x ! "1:"
 cgPrim  LStrLen    [x] = text "len" <> parens x
 
-cgPrim  (LChInt _) [x] = text "ord" <+> parens x
-cgPrim  (LIntCh _) [x] = text "chr" <+> parens x
+cgPrim  (LChInt _) [x] = text "ord" <> parens x
+cgPrim  (LIntCh _) [x] = text "chr" <> parens x
 
 cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
 cgPrim  LReadStr  _ = text "sys.stdin.readline()"
 
 cgPrim (LExternal n) args = cgExtern (show n) args
+cgPrim (LIntFloat _) [x] = text "int" <> parens x
 cgPrim f args = cgError $ "unimplemented prim: " ++ show f ++ ", args = " ++ show args
 
 cgConst :: Const -> Expr

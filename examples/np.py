@@ -37,6 +37,9 @@ def _idris_raise(e):
 def _idris_marshal_PIO(action):
   return lambda: APPLY0(action, World)  # delayed apply-to-world
 
+def _idris_get_global(name):
+  return globals()[name]
+
 class _ConsIter(object):
   def __init__(self, node):
     self.node = node
@@ -511,7 +514,7 @@ def _idris_prim_95__95_stdout():
 # prim__toFloatBigInt
 def _idris_prim_95__95_toFloatBigInt(op0):
   while True:
-    return _idris_error("unimplemented prim: LIntFloat ITBig, args = [op0\n]")
+    return int(op0)
 
 # prim__vm
 def _idris_prim_95__95_vm():
@@ -1174,7 +1177,7 @@ def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
 # Main.{main0}
 def _idris_Main_46__123_main0_125_(in5):
   while True:
-    return _idris_error("unimplemented prim: LIntFloat ITBig, args = [in5\n]")
+    return int(in5)
 
 # Python.Lib.Numpy.Matrix.{op0}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op0_125_(in1):
@@ -1219,7 +1222,7 @@ def unsafePerformIO0(in0):
 # Main.{xs0}
 def _idris_Main_46__123_xs0_125_(in0):
   while True:
-    return _idris_error("unimplemented prim: LIntFloat ITBig, args = [in0\n]")
+    return int(in0)
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}
 def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
@@ -1274,7 +1277,7 @@ def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
 # Main.{main1}
 def _idris_Main_46__123_main1_125_(in6):
   while True:
-    return _idris_error("unimplemented prim: LIntFloat ITBig, args = [in6\n]")
+    return int(in6)
 
 # Python.Lib.Numpy.Matrix.{op1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op1_125_(in0):
