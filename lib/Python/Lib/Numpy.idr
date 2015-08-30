@@ -48,6 +48,7 @@ Numpy f = case f of
       [Obj (PyList (Obj (PyList a))), String] ~> Obj NDArray
 
   "abs" => [Arr] ~~> Arr
+  "dot" => [Arr, Arr] ~~> Arr
   "transpose" => [Arr] ~~> Arr
   "tile" => [Dyn, Obj $ PyList Nat] ~~> Arr
   "ndarray" => Attr $ Obj NDArrayT

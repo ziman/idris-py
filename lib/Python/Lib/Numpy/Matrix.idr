@@ -56,6 +56,10 @@ singleton {a=a} {dt=dt} x =
     np //. ("array", a) $. [pyList [pyList [x]], dtName dt]
 
 abstract
+dot : Matrix r c dt -> Matrix c k dt -> Matrix r k dt
+dot (MkM x) (MkM y) = unsafeNp $ np /. "dot" $. [x,y]
+
+abstract
 (/) : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
 (/) = op "__div__"
 
