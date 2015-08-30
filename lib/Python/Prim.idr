@@ -34,6 +34,22 @@ PyList a = Iterable a  -- nothing else yet
 data PythonPrim : Type -> Signature -> Type where
   PPString : PythonPrim String PyString
 
+namespace Builtins
+  Builtins : Signature
+  Builtins f = case f of
+    "list" => fun (a : (Erased Type) ** (xs : (List $ unerase a) ** ())) $
+      forall $ \a : Type =>
+        pi $ \xs : List a =>
+          Return $ Obj (PyList a)
+
+    _ => Module f
+
+  builtins : Obj Builtins
+  builtins = getGlobal "__builtins__"
+
+pyList : List a -> Obj $ PyList a
+pyList {a=a} xs = unsafePerformIO (builtins /. "list" $. [Erase a, xs])
+
 ||| Promote a primitive to an object. Note that this is a no-oop,
 ||| all primitives already are objects in Python.
 obj : (x : a) -> {auto pf : PythonPrim a sig} -> Obj sig

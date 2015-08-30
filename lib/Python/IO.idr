@@ -13,30 +13,30 @@ unRaw (MkRaw x) = x
 data PyTypes : Type -> Type where
 
   -- Primitive types
-  PyInt     : PyTypes Int
-  PyNat     : PyTypes Nat
-  PyInteger : PyTypes Integer
-  PyFloat   : PyTypes Float
-  PyBool    : PyTypes Bool
-  PyChar    : PyTypes Char
-  PyString  : PyTypes String
+  PyInt_io     : PyTypes Int
+  PyNat_io     : PyTypes Nat
+  PyInteger_io : PyTypes Integer
+  PyFloat_io   : PyTypes Float
+  PyBool_io    : PyTypes Bool
+  PyChar_io    : PyTypes Char
+  PyString_io  : PyTypes String
 
   -- Other types
-  PyUnit  : PyTypes ()
-  PyPair  : PyTypes a -> PyTypes b -> PyTypes (a, b)
-  PyList  : PyTypes a -> PyTypes (List a)
-  PyFun   : PyTypes a -> PyTypes b -> PyTypes (a -> b)
-  PyTList : PyTypes (TList t args)
-  PyMaybe : PyTypes a -> PyTypes (Maybe a)
+  PyUnit_io  : PyTypes ()
+  PyPair_io  : PyTypes a -> PyTypes b -> PyTypes (a, b)
+  PyList_io  : PyTypes a -> PyTypes (List a)
+  PyFun_io   : PyTypes a -> PyTypes b -> PyTypes (a -> b)
+  PyTList_io : PyTypes (TList t args)
+  PyMaybe_io : PyTypes a -> PyTypes (Maybe a)
 
   ||| Python objects, opaque to Idris.
-  PyPtr       : PyTypes Ptr
+  PyPtr_io       : PyTypes Ptr
 
   ||| Arbitrary Idris objects, opaque to Python.
-  PyAny : PyTypes (FFI_C.Raw a)
+  PyAny_io : PyTypes (FFI_C.Raw a)
 
   ||| Python objects with a signature known to Idris.
-  PyObj : PyTypes (Obj sig)
+  PyObj_io : PyTypes (Obj sig)
 
 FFI_Py : FFI
 FFI_Py = MkFFI PyTypes String String

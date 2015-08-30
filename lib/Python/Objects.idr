@@ -7,6 +7,7 @@ import Python.Telescope
 
 data Field : Type where
   Attr : Type -> Field
+  ParAttr : (pt : Type) -> (tf : pt -> Type) -> Field
   Call : (t : Telescope a) -> Field
   NotField : Field
 

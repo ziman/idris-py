@@ -18,13 +18,24 @@ abstract
   unRaw . unsafePerformIO $
     foreign FFI_Py "getattr" (Ptr -> String -> PIO (Raw t)) obj f
 
+infixl 4 //.
+abstract
+(//.) : (obj : Obj sig) -> (fps : (String, pt)) -> {auto pf : sig (fst fps) = ParAttr pt tf} -> tf (snd fps)
+(//.) {tf=tf} (MkObj obj) (f, ps) =
+  unRaw . unsafePerformIO $
+    foreign FFI_Py "getattr" (Ptr -> String -> PIO (Raw $ tf ps)) obj f
+
 infixl 4 /:
 ||| Attribute accessor, useful for chaining.
 |||
 ||| @ obj PIO action returning an object.
 ||| @ f   Name of the requested field.
 (/:) : (obj : PIO (Obj sig)) -> (f : String) -> {auto pf : sig f = Attr t} -> PIO t
-(/:) obj f {pf = pf} = (/. f) <$> obj
+(/:) obj f = (/. f) <$> obj
+
+infixl 4 //:
+(//:) : (obj : PIO (Obj sig)) -> (fps : (String, pt)) -> {auto pf : sig (fst fps) = ParAttr pt tf} -> PIO (tf (snd fps))
+(//:) obj fps = (//. fps) <$> obj
 
 -- Error reflection for better error messages.
 fieldErr : Err -> Maybe (List ErrorReportPart)
@@ -37,4 +48,5 @@ fieldErr (CantSolveGoal `(~(App sig fn) = Attr ~ty) ntms)
 fieldErr _ = Nothing
 
 %error_handlers Python.Fields.(/.) pf fieldErr
+%error_handlers Python.Fields.(//.) pf fieldErr
 %error_handlers Python.Fields.(/:) pf fieldErr
