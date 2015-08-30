@@ -1,7 +1,7 @@
 Name:           idris-python
 Version:        0.0.0.1
 License:        BSD3
-License-file:   CRAPL-LICENSE.txt
+License-file:   LICENSE
 Author:         Matus Tejiscak
 Maintainer:	Matus Tejiscak <ziman@functor.sk>
 Build-Type:	Simple
