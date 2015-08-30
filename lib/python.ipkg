@@ -14,3 +14,4 @@ modules = Python
 	, Python.Lib.Requests
 	, Python.Lib.BeautifulSoup
 	, Python.Lib.Numpy
+	, Python.Lib.Numpy.Matrix

@@ -7,17 +7,6 @@ import Data.Erased
 %default total
 %access public
 
-record DType (ty : Type) where
-  constructor MkDType
-  pythonName : String
-
-DFloat : DType Float
-DFloat = MkDType "float32"
-
-Matrix : Nat -> Nat -> DType ty -> Signature
-Matrix r c dtype f = case f of
-  _ => Object f
-
 NDArray : Signature
 NDArray f = case f of
   _ => Object f
@@ -38,7 +27,7 @@ NDArrayT : Signature
 NDArrayT f = case f of
 
   "array" => ParAttr _ $ \a : Type =>
-      [Obj (PyList (Obj (PyList a))), DType a] ~> Obj NDArray
+      [Obj (PyList (Obj (PyList a))), String] ~> Obj NDArray
 
   "transpose" => [Arr] ~~> Arr
 
@@ -59,6 +48,9 @@ NDArrayT f = case f of
 
 Numpy : Signature
 Numpy f = case f of
+  "abs" => [Arr] ~~> Arr
+  "transpose" => [Arr] ~~> Arr
+  "tile" => [Dyn, Obj $ PyList Nat] ~~> Arr
   "ndarray" => Attr $ Obj NDArrayT
   _ => Module f
 

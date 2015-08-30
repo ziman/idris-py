@@ -28,6 +28,10 @@ instance Monoid Signature where
 Dyn : Type
 Dyn = Ptr
 
+abstract
+toDyn : a -> Dyn
+toDyn = believe_me
+
 ||| Python object, typed by its signature.
 -- TODO: make this abstract
 record Obj (sig : Signature) where
