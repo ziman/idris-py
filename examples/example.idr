@@ -97,5 +97,5 @@ exports =
     Fun greet "greet" $
     End
   where
-    greet : PIO ()
-    greet = putStrLn "Hello world!"
+    greet : String -> PIO ()
+    greet name = putStrLn $ "Hello " ++ name ++ "!"
