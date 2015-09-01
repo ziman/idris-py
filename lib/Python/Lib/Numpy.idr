@@ -48,11 +48,11 @@ Numpy f = case f of
   "array" => ParAttr _ $ \a : Type =>
       [Obj (PyList (Obj (PyList a))), String] ~> Arr
 
-  "reshape" => [Arr, Obj (PyList Nat)] ~~> Arr
+  "reshape" => [Arr, (Nat, Nat)] ~~> Arr
   "abs" => [Arr] ~~> Arr
   "dot" => [Arr, Arr] ~~> Arr
   "transpose" => [Arr] ~~> Arr
-  "tile" => [Dyn, Obj $ PyList Nat] ~~> Arr
+  "tile" => [Dyn, (Nat, Nat)] ~~> Arr
   "ndarray" => Attr $ Obj NDArrayT
   _ => Module f
 

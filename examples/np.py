@@ -303,11 +303,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fill(e0, e1, e2, e3, e4):
           None
         ),
         None,
-        (
-          0,  # Builtins.MkSigma
-          APPLY0(_idris_Python_46_Objects_46_toDyn(None), e4),
-          (0, _idris_Python_46_Prim_46_pyList(None, ConsList().cons(e2).cons(e1)), Unit)  # Builtins.MkSigma
-        )
+        (0, APPLY0(_idris_Python_46_Objects_46_toDyn(None), e4), (0, (e1, e2), Unit))  # Builtins.MkSigma, Builtins.MkSigma
       )
     )
 
@@ -582,11 +578,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_reshape(
           None
         ),
         None,
-        (
-          0,  # Builtins.MkSigma
-          e6,
-          (0, _idris_Python_46_Prim_46_pyList(None, ConsList().cons(e5).cons(e4)), Unit)  # Builtins.MkSigma
-        )
+        (0, e6, (0, (e4, e5), Unit))  # Builtins.MkSigma, Builtins.MkSigma
       )
     )
 

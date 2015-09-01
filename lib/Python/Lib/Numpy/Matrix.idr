@@ -43,7 +43,7 @@ op f (MkM x) (MkM y) = unsafeNp $ nda /. f $. [x, y]
 
 abstract
 fill : {dt : DType a} -> a -> Matrix r c dt
-fill {r=r} {c=c} x = unsafeNp $ np /. "tile" $. [toDyn x, pyList [r,c]]
+fill {r=r} {c=c} x = unsafeNp $ np /. "tile" $. [toDyn x, (r,c)]
 
 fromInteger : Integer -> Matrix r c dt
 fromInteger {dt=dt} = fill . dtFromInteger dt
@@ -76,7 +76,7 @@ abstract
 reshape : Matrix r c dt -> {auto pf : r*c = r'*c'} -> Matrix r' c' dt
 reshape {r'=r'} {c'=c'} (MkM x) =
   unsafeNp $
-    np /. "reshape" $. [x, pyList [r', c']]
+    np /. "reshape" $. [x, (r', c')]
 
 abstract
 (/) : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
