@@ -188,14 +188,22 @@ def _idris_Python_46_Exceptions_46_catch(e0, e1, e2):
     return (65760, None, None, None, e1, (65706, e2))  # {U_io_bind1}, {U_Python.Exceptions.{catch6}1}
 
 # Python.Prim.collect
-def _idris_Python_46_Prim_46_collect(e0, e1):
+def _idris_Python_46_Prim_46_collect(e0, e1, e2, e3):
   while True:
     return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
       None,
       None,
       None,
       (65688, None, ConsList()),  # {U_Prelude.List.reverse, reverse'1}
-      _idris_Python_46_Prim_46_foreach(None, None, e1, ConsList(), (65741,))  # {U_Python.Prim.{collect1}1}
+      _idris_Python_46_Prim_46_foreach(
+        None,
+        None,
+        None,
+        e2,
+        ConsList(),
+        (65741,),  # {U_Python.Prim.{collect1}1}
+        None
+      )
     )
 
 # Prelude.Classes.compare
@@ -226,7 +234,7 @@ def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
     return APPLY0(APPLY0(e3, e1), e2)
 
 # Python.Prim.foreach
-def _idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4):
+def _idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4, e5, e6):
   while True:
     return (
       65760,  # {U_io_bind1}
@@ -237,11 +245,11 @@ def _idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4):
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, e2, "__iter__", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, e3, "__iter__", None),
         None,
         Unit
       ),
-      (65743, e2, e3, e4)  # {U_Python.Prim.{foreach1}1}
+      (65743, e3, e4, e5)  # {U_Python.Prim.{foreach1}1}
     )
 
 # Python.Lib.Threading.forkPIO
@@ -301,7 +309,7 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
     return e2
 
 # Python.Prim.iterate
-def _idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4):
+def _idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4, e5, e6):
   while True:
     return (
       65760,  # {U_io_bind1}
@@ -312,11 +320,11 @@ def _idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4):
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, e2, "__iter__", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, e3, "__iter__", None),
         None,
         Unit
       ),
-      (65744, e3, e4)  # {U_Python.Prim.{iterate0}1}
+      (65744, e4, e5)  # {U_Python.Prim.{iterate0}1}
     )
 
 # Prelude.Strings.length
@@ -1287,11 +1295,11 @@ def _idris_Python_46_Functions_46__123_call0_125_(e3, e2, e5, in0):
 
 # Python.Prim.{case block in Python.Prim.iterate, iter_lam0}
 def _idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(
-  e6, e8, in1
+  e8, e10, in1
 ):
   while True:
     return _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-      None, None, None, None, None, None, e6, in1, e8
+      None, None, None, None, None, None, None, None, e8, in1, e10
     )
 
 # Python.Exceptions.{catch0}
@@ -1305,9 +1313,9 @@ def _idris_Python_46_Prim_46__123_collect0_125_(in0, in1):
     return (65761, None, None, in0.cons(in1))  # {U_io_return1}
 
 # Python.Prim.{foreach0}
-def _idris_Python_46_Prim_46__123_foreach0_125_(e2, e3, e4, in1):
+def _idris_Python_46_Prim_46__123_foreach0_125_(e3, e4, e5, in1):
   while True:
-    return _idris_foreach(e2, e3, e4)
+    return _idris_foreach(e3, e4, e5)
 
 # Python.Lib.Threading.{forkPIO0}
 def _idris_Python_46_Lib_46_Threading_46__123_forkPIO0_125_(in0):
@@ -1320,10 +1328,10 @@ def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
     return APPLY0(e4, in0)
 
 # Python.Prim.{iterate0}
-def _idris_Python_46_Prim_46__123_iterate0_125_(e3, e4, in0):
+def _idris_Python_46_Prim_46__123_iterate0_125_(e4, e5, in0):
   while True:
     return _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-      None, None, None, None, None, None, in0, e3, e4
+      None, None, None, None, None, None, None, None, in0, e4, e5
     )
 
 # Prelude.Strings.{length0}
@@ -1435,14 +1443,14 @@ def _idris_Python_46_Prim_46__123_collect1_125_(in0):
     return (65740, in0)  # {U_Python.Prim.{collect0}1}
 
 # Python.Prim.{foreach1}
-def _idris_Python_46_Prim_46__123_foreach1_125_(e2, e3, e4, in0):
+def _idris_Python_46_Prim_46__123_foreach1_125_(e3, e4, e5, in0):
   while True:
     return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
       None,
       None,
       None,
       (65731, None),  # {U_Python.IO.unRaw1}
-      (65742, e2, e3, e4)  # {U_Python.Prim.{foreach0}1}
+      (65742, e3, e4, e5)  # {U_Python.Prim.{foreach0}1}
     )
 
 # Python.Lib.Threading.{forkPIO1}
@@ -1737,10 +1745,10 @@ def _idris_Python_46_Exceptions_46__123_try5_125_(in7):
     return (65761, None, None, in7)  # {U_io_return1}
 
 # {Python.Prim.iterate, iter_lam6}
-def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(e6, e8, in8):
+def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam6_125_(e8, e10, in8):
   while True:
     return _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-      None, None, None, None, None, None, e6, in8, e8
+      None, None, None, None, None, None, None, None, e8, in8, e10
     )
 
 # Python.Exceptions.{catch6}
@@ -1903,7 +1911,9 @@ def _idris_Main_46__123_main12_125_(in10, in11):
         _idris_Prelude_46_Foldable_46_concat(None, None, (65680,), (0, (65682,), "")),  # {U_Main.{main7}1}, constructor of Prelude.Algebra.Monoid, {U_Main.{main9}1}
         _idris_Python_46_Prim_46_collect(
           None,
-          _idris_Python_46_Fields_46__47__46_(None, None, in11, "strings", None)
+          None,
+          _idris_Python_46_Fields_46__47__46_(None, None, in11, "strings", None),
+          None
         )
       ),
       (65640, in10)  # {U_Main.{main11}1}
@@ -1938,7 +1948,9 @@ def _idris_Python_46_Exceptions_46__123_try12_125_(in6):
     return (65711,)  # {U_Python.Exceptions.{try11}1}
 
 # {Python.Prim.iterate, iter_lam13}
-def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e8, e7, e6, in0):
+def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(
+  e10, e9, e8, in0
+):
   while True:
     if in0 is not None:  # Prelude.Maybe.Just
       in7 = in0
@@ -1950,16 +1962,16 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam13_125_(e8, e7, e6, 
             None,
             (0, (65773,), (65777,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam1}1}, {U_{Python.Prim.iterate, iter_lam5}1}
           ),
-          APPLY0(APPLY0(e8, e7), in7)
+          APPLY0(APPLY0(e10, e9), in7)
         ),
-        (65778, e6, e8)  # {U_{Python.Prim.iterate, iter_lam6}1}
+        (65778, e8, e10)  # {U_{Python.Prim.iterate, iter_lam6}1}
       )
     else:  # Prelude.Maybe.Nothing
       aux1 = (0, (65780,), (65771,))  # constructor of Prelude.Monad.Monad, {U_{Python.Prim.iterate, iter_lam8}1}, {U_{Python.Prim.iterate, iter_lam12}1}
       assert aux1[0] == 0  # constructor of Prelude.Monad.Monad
       in9, in10 = aux1[1:]
       aux2 = in9
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), e7)
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux2), e9)
     return _idris_error("unreachable due to case in tail position")
 
 # Main.{main13}
@@ -2379,7 +2391,7 @@ def _idris_Main_46__123_main38_125_(in8, in1, in9):
       None,
       None,
       None,
-      _idris_Python_46_Prim_46_iterate(None, None, in8, 0, (65642,)),  # {U_Main.{main13}1}
+      _idris_Python_46_Prim_46_iterate(None, None, None, in8, 0, (65642,), None),  # {U_Main.{main13}1}
       (65668, in1)  # {U_Main.{main37}1}
     )
 
@@ -2497,7 +2509,7 @@ def _idris_Python_46_Lib_46_Threading_46_forkPIO_58_worker_58_0(e0, e1, e2):
 
 # Python.Prim.iterate, iter
 def _idris_Python_46_Prim_46_iterate_58_iter_58_0(
-  e0, e1, e2, e3, e4, e5, e6, e7, e8
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10
 ):
   while True:
     return (
@@ -2505,8 +2517,8 @@ def _idris_Python_46_Prim_46_iterate_58_iter_58_0(
       None,
       None,
       None,
-      _idris_Python_46_Prim_46_next(None, e6),
-      (65772, e8, e7, e6)  # {U_{Python.Prim.iterate, iter_lam13}1}
+      _idris_Python_46_Prim_46_next(None, e8),
+      (65772, e10, e9, e8)  # {U_{Python.Prim.iterate, iter_lam13}1}
     )
 
 # Prelude.List.reverse, reverse'
@@ -3028,23 +3040,23 @@ def _idris_Python_46_Exceptions_46_try_95_case(e0, e1, e2, e3, e4):
 
 # Python.Prim.case block in Python.Prim.iterate, iter
 def _idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95_case(
-  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11
+  e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13
 ):
   while True:
-    if e10 is not None:  # Prelude.Maybe.Just
-      in0 = e10
+    if e12 is not None:  # Prelude.Maybe.Just
+      in0 = e12
       return APPLY0(
         APPLY0(
-          _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e9),
-          APPLY0(APPLY0(e8, e7), in0)
+          _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e11),
+          APPLY0(APPLY0(e10, e9), in0)
         ),
-        (65739, e6, e8)  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
+        (65739, e8, e10)  # {U_Python.Prim.{case block in Python.Prim.iterate, iter_lam0}1}
       )
     else:  # Prelude.Maybe.Nothing
-      assert e9[0] == 0  # constructor of Prelude.Monad.Monad
-      in2, in3 = e9[1:]
+      assert e11[0] == 0  # constructor of Prelude.Monad.Monad
+      in2, in3 = e11[1:]
       aux1 = in2
-      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), e7)
+      return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), e9)
     return _idris_error("unreachable due to case in tail position")
 
 # Python.Exceptions.case block in case block in try

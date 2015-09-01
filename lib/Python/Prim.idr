@@ -63,13 +63,17 @@ next {a = a} it = do
     | Except _ e => raise e
   return $ Just x
 
-||| A left-fold over an iterable, implemented in Idris.
+||| A left-fold over an iterable object, implemented in Idris.
 ||| This is not very efficient (TCO does not kick in here)
 ||| but it's a demonstration we can do it easily.
 |||
 ||| See also `foreach`, which is a native Python for-loop.
 partial
-iterate : (iterable : Obj $ Iterable a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
+iterate : (o : Obj sig)
+  -> (st : b)
+  -> (f : b -> a -> PIO b)
+  -> {auto pf : sig "__iter__" = [] ~~> Obj (Iterator a)}
+  -> PIO b
 iterate iterable st f = do
     iterator <- iterable /. "__iter__" $. []
     iter iterator st f
@@ -81,27 +85,28 @@ iterate iterable st f = do
       st' <- f st x
       iter it st' f
 
-||| A left-fold over an iterable, implemented as a for-loop in Python.
+||| A left-fold over an iterable object, implemented as a for-loop in Python.
 |||
-||| @ iterable The iterable.
+||| @ o The iterable object.
 ||| @ st Initial state.
 ||| @ f  PIO action called for every element, transforms the state.
 partial abstract
 foreach :
-  (iterable : Obj $ Iterable a)
+  (o : Obj sig)
   -> (st : b)
   -> (f : b -> a -> PIO b)
+  -> {auto pf : sig "__iter__" = [] ~~> Obj (Iterator a)}
   -> PIO b
-foreach {a = a} {b = b} iterable st f = do
+foreach {a=a} {b=b} {sig=sig} iterable st f = do
   iterator <- iterable /. "__iter__" $. []
   unRaw <$>
     foreign FFI_Py "_idris_foreach"
-      (Obj (Iterable a) -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
+      (Obj sig -> Raw b -> Raw (b -> a -> PIO b) -> PIO (Raw b))
       iterable
       (MkRaw st)
       (MkRaw f)
 
 ||| Collect all elements of an iterator into a list.
 partial
-collect : (it : Obj $ Iterable a) -> PIO (List a)
+collect : (it : Obj sig) -> {auto pf : sig "__iter__" = [] ~~> Obj (Iterator a)} -> PIO (List a)
 collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
