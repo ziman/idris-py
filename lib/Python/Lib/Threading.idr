@@ -18,7 +18,7 @@ Thread f = case f of
 Threading : Signature
 Threading f = case f of
   -- the first arg must always be Nothing, according to Python spec
-  "Thread" => [Maybe (), [] ~> ()] ~~> Obj Thread
+  "Thread" => [Maybe Void, [] ~> ()] ~~> Obj Thread
   _ => Module f
 
 import_ : PIO $ Obj Threading
