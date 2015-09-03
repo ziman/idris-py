@@ -7,12 +7,15 @@ import public Data.Erased
 %default total
 %access public
 
-data Binder : Type -> Type where
+data Binder : (argTy : Type) -> (depTy : Type) -> (argTy -> depTy) -> Type where
   ||| Relevant, mandatory, positional argument.
-  Pi : (a : Type) -> Binder a
+  Pi : (a : Type) -> Binder a a id
 
   ||| Erased, mandatory, positional argument.
-  Forall : (a : Type) -> Binder (Erased a)
+  Forall : (a : Type) -> Binder (Erased a) (Erased a) id
+
+  ||| An argument with a default value.
+  Default : (a : Type) -> (d : a) -> Binder (Maybe a) a (fromMaybe d)
 
 ||| Type of sequences where the value of any element may affect
 ||| the type of the following elements.
@@ -25,10 +28,10 @@ data Telescope : Type -> Type where
 
   ||| Value on which subsequent types may depend.
   Bind :
-    (bnd : Binder a)
-    -> {b : a -> Type}
-    -> (tf : (x : a) -> Telescope (b x))
-    -> Telescope (Sigma a b)
+    (bnd : Binder argTy depTy fromArg)
+    -> {b : depTy -> Type}
+    -> (tf : (x : depTy) -> Telescope (b x))
+    -> Telescope (Sigma argTy (b . fromArg))
 
 term syntax "pi" {x} ":" [t] "." [rhs]
   = Bind (Pi t) (\x : t => rhs);
@@ -61,20 +64,20 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 
   ||| Prepend an element in front of a `TList`, dependent variant.
   TCons :
-    .{bnd : Binder a}
-    -> .{b : a -> Type}
-    -> .{tf : (y : a) -> Telescope (b y)}
-    -> (x : a)
-    -> (xs : TList (tf x) args)
+    .{bnd : Binder argTy depTy fromArg}
+    -> .{b : depTy -> Type}
+    -> .{tf : (q : depTy) -> Telescope (b q)}
+    -> (x : argTy)
+    -> (xs : TList (tf $ fromArg x) args)
     -> TList (Bind bnd tf) (x :: args)
 
   TSkip :
-  .{bnd : Binder a}
-    -> .{b : a -> Type}
-    -> .{tf : (y : a) -> Telescope (b y)}
+  .{bnd : Binder argTy depTy fromArg}
+    -> .{b : depTy -> Type}
+    -> .{tf : (y : depTy) -> Telescope (b y)}
     -- There is no (x : argTy) stored here, it is skipped.
     -- For the type, we assume that the value is "x" coming from args.
-    -> (xs : TList (tf x) args)
+    -> (xs : TList (tf $ fromArg x) args)
     -> TList (Bind bnd tf) (x :: args)
 
 -- These are consumed by the FFI.
@@ -87,6 +90,8 @@ strip : (t : Telescope a) -> (args : a) -> TList t args
 strip (Return _) () = TNil
 strip (Bind (Pi      _  ) tf) (x ** xs) = TCons x $ strip (tf x) xs
 strip (Bind (Forall  _  ) tf) (x ** xs) = TSkip   $ strip (tf x) xs
+strip (Bind (Default _ d) tf) (x ** xs)
+  = TCons x $ strip (tf $ fromMaybe d x) xs
 
 ||| Convert a list of types to the corresponding tuple type.
 toTuple : (xs : List Type) -> Type
@@ -100,4 +105,4 @@ simple (a :: as) ret = Bind (Pi a) (\x => simple as ret)
 
 retTy : (t : Telescope a) -> (args : a) -> Type
 retTy (Return x) () = x
-retTy (Bind bnd tf) (MkSigma x xs) = retTy (tf x) xs
+retTy (Bind {fromArg = fromArg} bnd tf) (MkSigma x xs) = retTy (tf $ fromArg x) xs
