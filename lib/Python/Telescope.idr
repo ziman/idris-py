@@ -39,6 +39,13 @@ term syntax "pi" {x} ":" [t] "." [rhs]
 term syntax "forall" {x} ":" [t] "." [rhs]
   = Bind (Forall t) (\ex : Erased t => let x = unerase ex in rhs);
 
+namespace SigmaSugar
+  Nil : Type
+  Nil = Unit
+
+  (::) : Type -> Type -> Type
+  (::) a b = Sigma a (const b)
+
 namespace TupleSugar
   ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
   Nil : Unit
