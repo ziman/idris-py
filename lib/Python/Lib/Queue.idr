@@ -15,13 +15,9 @@ Queue a f = case f of
 
 QueueM : Signature
 QueueM f = case f of
-  "Queue" => fun (a : Erased Type ** (s : Maybe Int ** ())) $
-{-
+  "Queue" => fun (ea : (Erased Type) ** (ms : (Maybe Int) ** ())) $
     forall a : Type .
       pi maxSize : (Maybe Int) .  -- default: no limit
--}
-    Bind (Forall Type) $ \(Erase a) =>
-      Bind (Pi $ Maybe Int) $ \maxSize =>
         Return $ Obj (Queue a)
 
   _ => Module f
