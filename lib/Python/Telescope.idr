@@ -39,6 +39,9 @@ term syntax "pi" {x} ":" [t] "." [rhs]
 term syntax "forall" {x} ":" [t] "." [rhs]
   = Bind (Forall t) (\ex : Erased t => let x = unerase ex in rhs);
 
+term syntax "default" {x} ":" [t] "=" [dflt] "." [rhs]
+  = Bind (Default t dflt) (\x : t => rhs);
+
 namespace SigmaSugar
   Nil : Type
   Nil = Unit
