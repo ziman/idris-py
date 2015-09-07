@@ -635,8 +635,7 @@ specialCased n = lookup n
 
     -- Compile TLists the same way as ordinary lists, to a convenient ConsList.
     , item "Python.Telescope" "TNil"   nil  falseTest nomatch
-    , item "Python.Telescope" "TConsD" cons id        uncons
-    , item "Python.Telescope" "TConsS" cons id        uncons
+    , item "Python.Telescope" "TCons"  cons id        uncons
     , item "Python.Telescope" "TSkip"  skip id        match
     ]
   where

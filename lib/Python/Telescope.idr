@@ -2,26 +2,20 @@ module Python.Telescope
 
 import public Data.Erased
 
+%hide Language.Reflection.Binder
+
 %default total
 %access public
 
-||| Dependence of a binder: dependent or non-dependent.
-data BinderDep : Type where
-  Dependent : BinderDep
-  Simple    : BinderDep
-
-data Binder : BinderDep -> Type -> Type where
+data Binder : (argTy : Type) -> (depTy : Type) -> (argTy -> depTy) -> Type where
   ||| Relevant, mandatory, positional argument.
-  Pi     : (a : Type) -> Binder Dependent a
+  Pi : (a : Type) -> Binder a a id
 
   ||| Erased, mandatory, positional argument.
-  Forall : (a : Type) -> Binder Dependent (Erased.Erased a)
+  Forall : (a : Type) -> Binder (Erased a) (Erased a) id
 
-  ||| Optional argument with a non-`None` default.
-  ||| Passing "Nothing" to that argument will cause using the default value.
-  ||| If you want "Nothing" to mean Python's "None", use simply `Pi (Maybe a)`.
-  Default : (a : Type) -> (dflt : a) -> Binder Simple (Maybe a)
-    -- ^ we make the type explicit although we don't have to
+  ||| An argument with a default value.
+  Default : (a : Type) -> (d : a) -> Binder (Maybe a) a (fromMaybe d)
 
 ||| Type of sequences where the value of any element may affect
 ||| the type of the following elements.
@@ -32,27 +26,28 @@ data Telescope : Type -> Type where
   ||| Empty telescope.
   Return : Type -> Telescope Unit
 
-  ||| Argument whose value may affect subsequent types.
-  Dep :
-    (bnd : Binder Dependent a)
-    -> {b : a -> Type}
-    -> (tf : (x : a) -> Telescope (b x))
-    -> Telescope (Sigma a b)
-
-  ||| Argument whose value does not affect typing.
-  Simp :
-    (bnd : Binder Simple a)
-    -> (t : Telescope b)
-    -> Telescope (Sigma a $ const b)
+  ||| Value on which subsequent types may depend.
+  Bind :
+    (bnd : Binder argTy depTy fromArg)
+    -> {b : depTy -> Type}
+    -> (tf : (x : depTy) -> Telescope (b x))
+    -> Telescope (Sigma argTy (b . fromArg))
 
 term syntax "pi" {x} ":" [t] "." [rhs]
-  = Dep (Pi t) (\x : t => rhs);
+  = Bind (Pi t) (\x : t => rhs);
 
 term syntax "forall" {x} ":" [t] "." [rhs]
-  = Dep (Forall t) (\ex : Erased t => let x = unerase ex in rhs);
+  = Bind (Forall t) (\ex : Erased t => let x = unerase ex in rhs);
 
-term syntax "default" {x} ":" [t] "=" [dflt] "." [rhs] 
-  = Simp (Default t dflt) rhs;
+term syntax "default" {x} ":" [t] "=" [dflt] "." [rhs]
+  = Bind (Default t dflt) (\x : t => rhs);
+
+namespace SigmaSugar
+  Nil : Type
+  Nil = Unit
+
+  (::) : Type -> Type -> Type
+  (::) a b = Sigma a (const b)
 
 namespace TupleSugar
   ||| Alternative name for `MkUnit`, useful for the [list, syntax, sugar].
@@ -78,48 +73,35 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
   TNil : TList (Return x) []
 
   ||| Prepend an element in front of a `TList`, dependent variant.
-  TConsD :
-    .{bnd : Binder Dependent a}
-    -> .{b : a -> Type}
-    -> .{tf : (y : a) -> Telescope (b y)}
-    -> (x : a)
-    -> (xs : TList (tf x) args)
-    -> TList (Dep bnd tf) (x :: args)
+  TCons :
+    .{bnd : Binder argTy depTy fromArg}
+    -> .{b : depTy -> Type}
+    -> .{tf : (q : depTy) -> Telescope (b q)}
+    -> (x : argTy)
+    -> (xs : TList (tf $ fromArg x) args)
+    -> TList (Bind bnd tf) (x :: args)
 
-  ||| Prepend an element in front of a `TList`, non-dependent variant.
-  TConsS :
-    .{bnd : Binder Simple a}
-    -> .{b : Type}
-    -> .{t : Telescope b}
-    -> (y : a)  -- `y` may be anything of a suitable type, not necessarily `x`
-    -> (xs : TList t args)
-    -> TList (Simp bnd t) (x :: args)
-
-  ||| Skip an element in the telescope.
-  ||| (Comes only in the dependent form.)
   TSkip :
-    .{bnd : Binder Dependent a}
-    -> .{b : a -> Type}
-    -- There is no (x : a) stored here, it is skipped.
+  .{bnd : Binder argTy depTy fromArg}
+    -> .{b : depTy -> Type}
+    -> .{tf : (y : depTy) -> Telescope (b y)}
+    -- There is no (x : argTy) stored here, it is skipped.
     -- For the type, we assume that the value is "x" coming from args.
-    -> .{tf : (x : a) -> Telescope (b x)}
-    -> (xs : TList (tf x) args)
-    -> TList (Dep bnd tf) (x :: args)
+    -> (xs : TList (tf $ fromArg x) args)
+    -> TList (Bind bnd tf) (x :: args)
 
 -- These are consumed by the FFI.
-%used TConsD x
-%used TConsD xs
-%used TConsS x
-%used TConsS xs
+%used TCons x
+%used TCons xs
 %used TSkip xs
 
 ||| Strip the given tuple `xs` to the `TList` of runtime-relevant values.
 strip : (t : Telescope a) -> (args : a) -> TList t args
 strip (Return _) () = TNil
-strip (Dep (Pi _    ) tf) (x ** xs) = TConsD x $ strip (tf x) xs
-strip (Dep (Forall _) tf) (x ** xs) = TSkip    $ strip (tf x) xs
-strip (Simp (Default _ d) t) (Just x  ** xs) = TConsS (Just x) $ strip t xs
-strip (Simp (Default _ d) t) (Nothing ** xs) = TConsS (Just d) $ strip t xs
+strip (Bind (Pi      _  ) tf) (x ** xs) = TCons x $ strip (tf x) xs
+strip (Bind (Forall  _  ) tf) (x ** xs) = TSkip   $ strip (tf x) xs
+strip (Bind (Default _ d) tf) (x ** xs)
+  = TCons x $ strip (tf $ fromMaybe d x) xs
 
 ||| Convert a list of types to the corresponding tuple type.
 toTuple : (xs : List Type) -> Type
@@ -129,9 +111,8 @@ toTuple (x :: xs) = Sigma x (const $ toTuple xs)
 ||| Convert a list of types to the corresponding simple telescope.
 simple : (xs : List Type) -> (ret : Type) -> Telescope (toTuple xs)
 simple []        ret = Return ret
-simple (a :: as) ret = Dep (Pi a) (\x => simple as ret)
+simple (a :: as) ret = Bind (Pi a) (\x => simple as ret)
 
 retTy : (t : Telescope a) -> (args : a) -> Type
 retTy (Return x) () = x
-retTy (Dep  bnd tf) (MkSigma x xs) = retTy (tf x) xs
-retTy (Simp bnd t ) (MkSigma x xs) = retTy  t     xs
+retTy (Bind {fromArg = fromArg} bnd tf) (MkSigma x xs) = retTy (tf $ fromArg x) xs
