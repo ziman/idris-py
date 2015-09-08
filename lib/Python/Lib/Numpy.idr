@@ -24,23 +24,21 @@ ArithT a f = case f of
   "__str__" => [a] ~~> String
   _ => PyType f
 
+Mat : Nat -> Nat -> Maybe a -> Signature
+Mat _ _ _ = Object
+
 NDArrayT : Signature
 NDArrayT f = case f of
   "transpose" => [Arr] ~~> Arr
   _ => ArithT Arr f
 
-  {-
-
-  -- You don't want to go all cranky with dependent types:
-
-  "transpose" => with Erased fun (r : (Erased Nat) ** (c : (Erased Nat) ** (ty : (Erased Type) ** (dt : (Erased $ DType (unerase ty)) ** (m : (Obj $ Matrix (unerase r) (unerase c) (unerase dt)) ** Unit))))) $
-    forall $ \r : Nat =>
-      forall $ \c : Nat =>
-        forall $ \ty : Type =>
-          forall $ \dtype : DType ty =>
-            pi $ \m : Obj (Matrix r c dtype) =>
-              Return $ Obj (Matrix c r dtype)
-  -}
+  "transpose_fulldep" => fun $
+    forall r : Nat .
+      forall c : Nat .
+        forall a : Type .
+          forall dtype : (Maybe a) .
+            pi m : (Obj $ Mat r c dtype) .
+              Return (Obj $ Mat c r dtype)
 
 Numpy : Signature
 Numpy f = case f of

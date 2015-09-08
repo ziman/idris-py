@@ -37,7 +37,7 @@ data PythonPrim : Type -> Signature -> Type where
 namespace Builtins
   Builtins : Signature
   Builtins f = case f of
-    "list" => fun (a : (Erased Type) ** (xs : (List $ unerase a) ** ())) $
+    "list" => fun $
       forall a : Type .
         pi xs : (List a) .
           Return $ Obj (PyList a)
