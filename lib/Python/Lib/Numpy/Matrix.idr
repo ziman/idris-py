@@ -82,11 +82,17 @@ abstract
 (/) : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
 (/) = op "__div__"
 
+abstract
+minus : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
+minus = op "__sub__"
+
+abstract
+abs : Matrix r c dt -> Matrix r c dt
+abs (MkM x) = unsafeNp $ np /. "abs" $. [x]
+
 instance Num (Matrix r c dt) where
   (+) = op "__add__"
-  (-) = op "__sub__"
   (*) = op "__mul__"
-  abs (MkM x) = unsafeNp $ np /. "abs" $. [x]
   fromInteger = Matrix.fromInteger
 
 instance Show (Matrix r c dt) where
