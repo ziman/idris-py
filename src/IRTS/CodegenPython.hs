@@ -287,6 +287,9 @@ cgApp f args = f <> cgTuple maxWidth args
 -- Process one definition. The caller deals with constructor declarations,
 -- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
+
+-- compile APPLY0 specially:
+-- every case-branch becomes a separate function
 cgDef ctors (n, DFun name' args body)
     | n == sMN 0 "APPLY" = statements  -- we ignore the return value
   where
@@ -326,7 +329,7 @@ cgDefunBranch :: DAlt -> CG ()
 cgDefunBranch (DDefaultCase _) = return ()
 cgDefunBranch (DConCase tag' ctorName args e) = do
     Just tag <- ctorTag ctorName
-    emit $ text "def" <+> cgName ctorName <> text "(arg0):"
+    emit $ text "def" <+> cgName ctorName <> text "(_idris_arg, arg0):"
     emit . indent $ cgMatch (map Glob args) (Glob $ sUN "arg")
     result <- sindent $ cgExp True e
     emit . indent $ text "return" <+> result
@@ -427,9 +430,14 @@ cgExp tailPos (DV var) = return $ cgVar var
 cgExp tailPos (DApp tc n [f, arg])
     | n == sMN 0 "APPLY"
     = do
+        fv <- fresh
         f' <- cgExp False f
+        emit $ cgAssign fv f'
+        -- add an extra _idris_arg argument to the little functions from APPLY0
         arg' <- cgExp False arg
-        return $ cgApp f' [arg']
+        -- we don't project fv[1:] because the APPLY code expects the 0-th element
+        -- to be the tag
+        return $ cgApp (cgVar fv <> text "[0]") [cgVar fv, arg']
 
 cgExp tailPos (DApp tc n args) = do
     tag <- ctorTag n
