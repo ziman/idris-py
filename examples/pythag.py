@@ -217,7 +217,7 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
 # Main.main
 def _idris_Main_46_main():
   while True:
-    return (U_io_bind1, None, None, None, _idris_PE_95_print_95_0(None, _idris_Main_46_pythag(20)), (_idris__123_U_95_Main_46__123_main0_125_1_125_,),)
+    return (U_io_bind1, None, None, None, _idris_PE_95_print_95_0(None, _idris_Main_46_pythag(75)), (_idris__123_U_95_Main_46__123_main0_125_1_125_,),)
 
 # mkForeignPrim
 def _idris_mkForeignPrim():
