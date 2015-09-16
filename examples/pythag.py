@@ -167,7 +167,7 @@ def _idris_PE_95_print_95_0(e0, e1):
 def _idris_call_95__95_IO(e0, e1, e2):
   while True:
     aux1 = e2
-    return aux1[0](aux1, None)  # APPLY
+    return aux1[0](aux1, None)
 
 # Prelude.Classes.compare
 def _idris_Prelude_46_Classes_46_compare(e0, e1):
@@ -181,8 +181,8 @@ def _idris_Prelude_46_Classes_46_compare(e0, e1):
 def _idris_Prelude_46_Foldable_46_foldr(e0, e1, e2, e3):
   while True:
     aux2 = e3
-    aux1 = aux2[0](aux2, e1)  # APPLY
-    return aux1[0](aux1, e2)  # APPLY
+    aux1 = aux2[0](aux2, e1)
+    return aux1[0](aux1, e2)
 
 # Prelude.Bool.ifThenElse
 def _idris_Prelude_46_Bool_46_ifThenElse(e0, e1, e2, e3):
@@ -207,7 +207,7 @@ def _idris_io_95_bind(e0, e1, e2, e3, e4, _idris_w):
   while True:
     aux1 = io_bind2(e0, e1, e2, e3, e4, _idris_w)
     aux2 = e3
-    return aux1[0](aux1, aux2[0](aux2, _idris_w))  # APPLY, APPLY
+    return aux1[0](aux1, aux2[0](aux2, _idris_w))
 
 # io_return
 def _idris_io_95_return(e0, e1, e2, _idris_w):
@@ -217,7 +217,7 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
 # Main.main
 def _idris_Main_46_main():
   while True:
-    return (U_io_bind1, None, None, None, _idris_PE_95_print_95_0(None, _idris_Main_46_pythag(75)), (_idris__123_U_95_Main_46__123_main0_125_1_125_,),)
+    return (U_io_bind1, None, None, None, _idris_PE_95_print_95_0(None, _idris_Main_46_pythag(120)), (_idris__123_U_95_Main_46__123_main0_125_1_125_,),)
 
 # mkForeignPrim
 def _idris_mkForeignPrim():
@@ -257,7 +257,7 @@ def _idris_Prelude_46_Show_46_precCon(e0):
 def _idris_Prelude_46_Show_46_primNumShow(e0, e1, e2, e3):
   while True:
     aux1 = e1
-    in0 = aux1[0](aux1, e3)  # APPLY
+    in0 = aux1[0](aux1, e3)
     aux3 = _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__61__58_0(
       e2, (5,)  # Prelude.Show.PrefixMinus
     )
@@ -396,13 +396,13 @@ def _idris_prim_95__95_writeString(op0, op1):
 def _idris_prim_95_io_95_bind(e0, e1, e2, e3):
   while True:
     aux1 = e3
-    return aux1[0](aux1, e2)  # APPLY
+    return aux1[0](aux1, e2)
 
 # Prelude.Applicative.pure
 def _idris_Prelude_46_Applicative_46_pure(e0, e1, e2):
   while True:
     aux1 = e2
-    return aux1[0](aux1, e1)  # APPLY
+    return aux1[0](aux1, e1)
 
 # Prelude.Interactive.putStr
 def _idris_Prelude_46_Interactive_46_putStr(e0, e1):
@@ -430,7 +430,7 @@ def _idris_really_95_believe_95_me(e0, e1, e2):
 def _idris_run_95__95_IO(e0, e1):
   while True:
     aux1 = e1
-    return aux1[0](aux1, None)  # APPLY
+    return aux1[0](aux1, None)
 
 # Prelude.Show.show
 def _idris_Prelude_46_Show_46_show(e0, e1):
@@ -891,8 +891,8 @@ def _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_S
       None,
       _idris_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Int()
     )
-    aux1 = aux2[0](aux2, (0,))  # APPLY, Prelude.Show.Open
-    return aux1[0](aux1, in0)  # APPLY
+    aux1 = aux2[0](aux2, (0,))  # Prelude.Show.Open
+    return aux1[0](aux1, in0)
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}
 def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
@@ -911,7 +911,7 @@ def _idris__123_PE_95_concatMap_95_00_125_(e2, in0):
       (_idris__123_U_95_PE_95__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a_95_02_125_, None,)
     )
     aux2 = e2
-    return aux1[0](aux1, aux2[0](aux2, in0))  # APPLY, APPLY
+    return aux1[0](aux1, aux2[0](aux2, in0))
 
 # {PE_print_00}
 def _idris__123_PE_95_print_95_00_125_(in2):
@@ -920,8 +920,8 @@ def _idris__123_PE_95_print_95_00_125_(in2):
       None,
       _idris_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Int()
     )
-    aux1 = aux2[0](aux2, (0,))  # APPLY, Prelude.Show.Open
-    return aux1[0](aux1, in2)  # APPLY
+    aux1 = aux2[0](aux2, (0,))  # Prelude.Show.Open
+    return aux1[0](aux1, in2)
 
 # Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}
 def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
@@ -957,7 +957,7 @@ def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_
 def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
   while True:
     aux1 = e4
-    return aux1[0](aux1, in0)  # APPLY
+    return aux1[0](aux1, in0)
 
 # Main.{main0}
 def _idris_Main_46__123_main0_125_(in0):
@@ -988,7 +988,7 @@ def _idris_Main_46__123_pythag0_125_(in2, in1, in0, in3):
 def runMain0():
   while True:
     aux1 = _idris_Main_46_main()
-    return EVAL0(aux1[0](aux1, None))  # APPLY
+    return EVAL0(aux1[0](aux1, None))
 
 # Prelude.Show.{(a, b) instance of Prelude.Show.Show_lam1}
 def _idris_Prelude_46_Show_46__123__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam1_125_(
@@ -1001,7 +1001,7 @@ def _idris_Prelude_46_Show_46__123__40_a_44__32_b_41__32_instance_32_of_32_Prelu
         None, None, e2, e3
       )
     )
-    return aux1[0](aux1, in2)  # APPLY
+    return aux1[0](aux1, in2)
 
 # Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}
 def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
@@ -1040,7 +1040,7 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
   while True:
     aux1 = io_bind0(e0, e1, e2, e3, e4, _idris_w, in0)
-    return aux1[0](aux1, _idris_w)  # APPLY
+    return aux1[0](aux1, _idris_w)
 
 # Prelude.Show.{primNumShow1}
 def _idris_Prelude_46_Show_46__123_primNumShow1_125_(e0, e1, e2, e3, in0, in2):
@@ -1069,7 +1069,7 @@ def _idris_Main_46__123_pythag1_125_(in1, in0, in2):
         None,
         (_idris__123_U_95_PE_95__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f_95_02_125_,)
       )
-      aux4 = aux5[0](aux5, Unit)  # APPLY
+      aux4 = aux5[0](aux5, Unit)
     return _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
       None,
       None,
@@ -1093,8 +1093,8 @@ def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classe
       None,
       _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int()
     )
-    aux2 = aux3[0](aux3, in2)  # APPLY
-    aux1 = aux2[0](aux2, in3)  # APPLY
+    aux2 = aux3[0](aux3, in2)
+    aux1 = aux2[0](aux2, in3)
     if aux1[0] == 0:  # Prelude.Classes.LT
       return True
     else:
@@ -1117,8 +1117,8 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       None,
       _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
     )
-    aux2 = aux3[0](aux3, in2)  # APPLY
-    aux1 = aux2[0](aux2, in3)  # APPLY
+    aux2 = aux3[0](aux3, in2)
+    aux1 = aux2[0](aux2, in3)
     if aux1[0] == 0:  # Prelude.Classes.LT
       return True
     else:
@@ -1139,8 +1139,8 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
       None,
       _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
     )
-    aux2 = aux3[0](aux3, in2)  # APPLY
-    aux1 = aux2[0](aux2, in3)  # APPLY
+    aux2 = aux3[0](aux3, in2)
+    aux1 = aux2[0](aux2, in3)
     if aux1[0] == 0:  # Prelude.Classes.LT
       return True
     else:
@@ -1159,7 +1159,7 @@ def _idris_Prelude_46_Show_46__123_primNumShow2_125_(in0, e0, e1, e2, e3):
     if aux1[0] == 1:  # Prelude.Strings.StrCons
       in2 = aux1[1]
       aux2 = _idris_Prelude_46_Show_46__123_primNumShow1_125_(e0, e1, e2, e3, in0, in2)
-      return aux2[0](aux2, in2)  # APPLY
+      return aux2[0](aux2, in2)
     else:  # Prelude.Strings.StrNil
       return False
     return _idris_error("unreachable due to case in tail position")
@@ -1223,8 +1223,8 @@ def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classe
       None,
       _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int()
     )
-    aux2 = aux3[0](aux3, in4)  # APPLY
-    aux1 = aux2[0](aux2, in5)  # APPLY
+    aux2 = aux3[0](aux3, in4)
+    aux1 = aux2[0](aux2, in5)
     if aux1[0] == 2:  # Prelude.Classes.GT
       return True
     else:
@@ -1240,8 +1240,8 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       None,
       _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
     )
-    aux2 = aux3[0](aux3, in4)  # APPLY
-    aux1 = aux2[0](aux2, in5)  # APPLY
+    aux2 = aux3[0](aux3, in4)
+    aux1 = aux2[0](aux2, in5)
     if aux1[0] == 2:  # Prelude.Classes.GT
       return True
     else:
@@ -1262,8 +1262,8 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
       None,
       _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
     )
-    aux2 = aux3[0](aux3, in4)  # APPLY
-    aux1 = aux2[0](aux2, in5)  # APPLY
+    aux2 = aux3[0](aux3, in4)
+    aux1 = aux2[0](aux2, in5)
     if aux1[0] == 2:  # Prelude.Classes.GT
       return True
     else:
@@ -1416,8 +1416,8 @@ def _idris__123_PE_95_print_95_019_125_(in22):
       None,
       _idris_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Int()
     )
-    aux1 = aux2[0](aux2, (0,))  # APPLY, Prelude.Show.Open
-    return aux1[0](aux1, in22)  # APPLY
+    aux1 = aux2[0](aux2, (0,))  # Prelude.Show.Open
+    return aux1[0](aux1, in22)
 
 # {PE_print_020}
 def _idris__123_PE_95_print_95_020_125_(in23, in24):
@@ -1556,7 +1556,7 @@ def _idris__123_PE_95_print_95_037_125_(in21):
         )
       )
     )
-    return aux1[0](aux1, in21)  # APPLY
+    return aux1[0](aux1, in21)
 
 # {PE_print_038}
 def _idris__123_PE_95_print_95_038_125_(in20):
@@ -1635,10 +1635,10 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
       in0, in1 = e5.head, e5.tail
       if not in1:  # Prelude.List.Nil
         aux1 = _idris_Prelude_46_Show_46_show(None, e3)
-        return (e4 + aux1[0](aux1, in0))  # APPLY
+        return (e4 + aux1[0](aux1, in0))
       else:
         aux2 = _idris_Prelude_46_Show_46_show(None, e3)
-        e0, e1, e2, e3, e4, e5, = None, None, None, e3, (e4 + (aux2[0](aux2, in0) + ", ")), in1,  # APPLY
+        e0, e1, e2, e3, e4, e5, = None, None, None, e3, (e4 + (aux2[0](aux2, in0) + ", ")), in1,
         continue
         return _idris_error("unreachable due to tail call")
       return _idris_error("unreachable due to case in tail position")
@@ -1706,8 +1706,8 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_
           None,
           (_idris__123_U_95_Prelude_46_Nat_46_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Eq2_125_,)
         )
-        aux1 = aux2[0](aux2, in1)  # APPLY
-        return aux1[0](aux1, in0)  # APPLY
+        aux1 = aux2[0](aux2, in1)
+        return aux1[0](aux1, in0)
       return _idris_error("unreachable due to case in tail position")
     else:
       return False
@@ -1750,16 +1750,16 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
     if e4:  # Prelude.List.::
       in0, in1 = e4.head, e4.tail
       aux2 = e2
-      aux1 = aux2[0](aux2, in0)  # APPLY
+      aux1 = aux2[0](aux2, in0)
       aux5 = _idris_Prelude_46_Foldable_46_foldr(
         None,
         None,
         None,
         (_idris__123_U_95_Prelude_46_List_46_List_32_instance_32_of_32_Prelude_46_Foldable_46_Foldable5_125_,)
       )
-      aux4 = aux5[0](aux5, e2)  # APPLY
-      aux3 = aux4[0](aux4, e3)  # APPLY
-      return aux1[0](aux1, aux3[0](aux3, in1))  # APPLY, APPLY
+      aux4 = aux5[0](aux5, e2)
+      aux3 = aux4[0](aux4, e3)
+      return aux1[0](aux1, aux3[0](aux3, in1))
     else:  # Prelude.List.Nil
       return e3
     return _idris_error("unreachable due to case in tail position")
@@ -1780,8 +1780,8 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       None,
       _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int()
     )
-    aux2 = aux3[0](aux3, e0)  # APPLY
-    aux1 = aux2[0](aux2, e1)  # APPLY
+    aux2 = aux3[0](aux3, e0)
+    aux1 = aux2[0](aux2, e1)
     if not aux1:  # Prelude.Bool.False
       return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
         e0, e1
@@ -1866,8 +1866,8 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord
           None,
           _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat()
         )
-        aux1 = aux2[0](aux2, in2)  # APPLY
-        return aux1[0](aux1, in1)  # APPLY
+        aux1 = aux2[0](aux2, in2)
+        return aux1[0](aux1, in1)
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
@@ -1880,8 +1880,8 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Or
       None,
       _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec()
     )
-    aux2 = aux3[0](aux3, e0)  # APPLY
-    aux1 = aux2[0](aux2, e1)  # APPLY
+    aux2 = aux3[0](aux3, e0)
+    aux1 = aux2[0](aux2, e1)
     if not aux1:  # Prelude.Bool.False
       return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
         e0, e1
@@ -1924,7 +1924,7 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
     in0, in1 = e6
     aux1 = _idris_Prelude_46_Show_46_show(None, e4)
     aux2 = _idris_Prelude_46_Show_46_show(None, e5)
-    return ("(" + (aux1[0](aux1, in0) + (", " + (aux2[0](aux2, in1) + ")"))))  # APPLY, APPLY
+    return ("(" + (aux1[0](aux1, in0) + (", " + (aux2[0](aux2, in1) + ")"))))
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Show.Prelude.Show.List a instance of Prelude.Show.Show, method show
@@ -1973,7 +1973,7 @@ def _idris__95_Prelude_46_Show_46_firstCharIs_95_with_95_41(e0, e1, e2):
     if e2[0] == 1:  # Prelude.Strings.StrCons
       in0 = e2[1]
       aux1 = e0
-      return aux1[0](aux1, in0)  # APPLY
+      return aux1[0](aux1, in0)
     else:  # Prelude.Strings.StrNil
       return False
     return _idris_error("unreachable due to case in tail position")
@@ -2097,7 +2097,7 @@ def _idris_Void_95_case():
 def _idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
   while True:
     aux1 = e7
-    return aux1[0](aux1, e5)  # APPLY
+    return aux1[0](aux1, e5)
 
 # <<Void eliminator>>
 def _idris_Void_95_elim():

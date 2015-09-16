@@ -9,5 +9,5 @@ pythag max = [(x, y, z) | z <- [1..max], y <- [1..z], x <- [1..y],
 -- run into GAP's recursion depth trap.
 main : IO ()
 main = do
-  print (pythag 75)
+  print (pythag 120)
   putStrLn ""
