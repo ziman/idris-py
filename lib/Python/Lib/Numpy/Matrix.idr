@@ -21,10 +21,10 @@ record DType (ty : Type) where
   constructor MkDType
   dtName : String
   dtFromInteger : Integer -> ty
-  dtFromFloat   : Float -> ty
+  dtFromDouble   : Double -> ty
 
-DFloat : DType Float
-DFloat = MkDType "float" fromInteger id
+DDouble : DType Double
+DDouble = MkDType "float" fromInteger id
 
 abstract
 record Matrix (rows : Nat) (cols : Nat) (dtype : DType a) where
@@ -48,8 +48,8 @@ fill {r=r} {c=c} x = unsafeNp $ np /. "tile" $. [toDyn x, (r,c)]
 fromInteger : Integer -> Matrix r c dt
 fromInteger {dt=dt} = fill . dtFromInteger dt
 
-fromFloat : Float -> Matrix r c dt
-fromFloat {dt=dt} = fill . dtFromFloat dt
+fromDouble : Double -> Matrix r c dt
+fromDouble {dt=dt} = fill . dtFromDouble dt
 
 abstract
 singleton : {dt : DType a} -> a -> Matrix 1 1 dt

@@ -16,7 +16,7 @@ data PyTypes : Type -> Type where
   PyInt_io     : PyTypes Int
   PyNat_io     : PyTypes Nat
   PyInteger_io : PyTypes Integer
-  PyFloat_io   : PyTypes Float
+  PyDouble_io   : PyTypes Double
   PyBool_io    : PyTypes Bool
   PyChar_io    : PyTypes Char
   PyString_io  : PyTypes String

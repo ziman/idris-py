@@ -9,10 +9,10 @@ import public Data.Erased
 
 data Binder : (argTy : Type) -> (depTy : Type) -> (argTy -> depTy) -> Type where
   ||| Relevant, mandatory, positional argument.
-  Pi : (a : Type) -> Binder a a id
+  Pi : (a : Type) -> Binder a a Basics.id
 
   ||| Erased, mandatory, positional argument.
-  Forall : (a : Type) -> Binder (Erased a) (Erased a) id
+  Forall : (a : Type) -> Binder (Erased a) (Erased a) Basics.id
 
   ||| An argument with a default value.
   Default : (a : Type) -> (d : a) -> Binder (Maybe a) a (fromMaybe d)
@@ -98,7 +98,7 @@ data TList : (t : Telescope a) -> (xs : a) -> Type where
 ||| Strip the given tuple `xs` to the `TList` of runtime-relevant values.
 strip : (t : Telescope a) -> (args : a) -> TList t args
 strip (Return _) () = TNil
-strip (Bind (Pi      _  ) tf) (x ** xs) = TCons x $ strip (tf x) xs
+strip (Bind (Pi      _  ) tf) (x ** xs) = TCons x $ strip (tf (id x)) xs
 strip (Bind (Forall  _  ) tf) (x ** xs) = TSkip   $ strip (tf x) xs
 strip (Bind (Default _ d) tf) (x ** xs)
   = TCons x $ strip (tf $ fromMaybe d x) xs

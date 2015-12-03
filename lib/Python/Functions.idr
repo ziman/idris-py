@@ -9,8 +9,8 @@ import Python.IO
 %access public
 
 Function : (t : Telescope a) -> Signature
-Function t f = case f of
-  "__call__" => Call t
+Function {a = a} t f = case f of
+  "__call__" => Call {a = a} t
   _ => Object f
 
 infix 5 ~>
