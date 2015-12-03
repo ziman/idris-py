@@ -37,7 +37,7 @@ main = do
   bs4 <- BeautifulSoup.import_
 
   -- construct soup from HTML
-  soup <- bs4 /. "BeautifulSoup" $. [html]
+  soup <- bs4 /. "BeautifulSoup" $. [html, Parsers.HTML]
 
   -- get the iterator over <li> elements, given by CSS selector
   features <- soup /. "select" $. ["div.entry-content li"]

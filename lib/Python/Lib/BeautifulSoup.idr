@@ -6,6 +6,14 @@ import Python.Prim
 %access public
 %default total
 
+namespace Parsers
+
+  LXML : String
+  LXML = "lxml"
+
+  HTML : String
+  HTML = "html.parser"
+
 Element : Signature
 Element f = case f of
   "string"  => Attr $ Maybe String
@@ -19,7 +27,7 @@ Soup f = case f of
 
 Bs4 : Signature
 Bs4 f = case f of
-  "BeautifulSoup" => [String] ~~> Obj Soup
+  "BeautifulSoup" => [String, String] ~~> Obj Soup
   _ => Module f
 
 import_ : PIO $ Obj Bs4
