@@ -87,12 +87,12 @@ def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
 # Python.Fields./.
 def _idris_Python_46_Fields_46__47__46_(e0, e1, e2, e3, e4):
   while True:
-    return _idris_unsafePerformIO(None, None, (65668, e2, e3))  # {U_Python.Fields.{/.0}1}
+    return _idris_unsafePerformIO(None, None, (65679, e2, e3))  # {U_Python.Fields.{/.0}1}
 
 # Python.Fields.//.
 def _idris_Python_46_Fields_46__47__47__46_(e0, e1, e2, e3, e4, e5):
   while True:
-    return _idris_unsafePerformIO(None, None, (65669, e3, e4))  # {U_Python.Fields.{//.0}1}
+    return _idris_unsafePerformIO(None, None, (65680, e3, e4))  # {U_Python.Fields.{//.0}1}
 
 # Prelude.Classes.==
 def _idris_Prelude_46_Classes_46__61__61_(e0, e1):
@@ -125,12 +125,12 @@ def _idris_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_S
       )
       if not aux1:  # Prelude.Bool.False
         return ("Just" + (" " + APPLY0(
-          APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65708,), (65713,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac68}1}
+          APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65719,), (65724,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac68}1}
           in9
         )))
       else:  # Prelude.Bool.True
         return ("(" + (("Just" + (" " + APPLY0(
-          APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65700,), (65705,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac617}1}
+          APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65711,), (65716,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac617}1}
           in9
         ))) + ")"))
       return _idris_error("unreachable due to case in tail position")
@@ -138,10 +138,10 @@ def _idris_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_S
       return "Nothing"
     return _idris_error("unreachable due to case in tail position")
 
-# PE_printLn_140bcc5c
-def _idris_PE_95_printLn_95_140bcc5c(e0, e1):
+# PE_printLn'_3e9fcf72
+def _idris_PE_95_printLn_39__95_3e9fcf72(e0, e1):
   while True:
-    return _idris_Prelude_46_Interactive_46_putStr(
+    return _idris_Prelude_46_Interactive_46_putStr_39_(
       None,
       (_idris_PE_95_show_95_d9020f8e(e1) + "\n")
     )
@@ -164,12 +164,12 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_array(e0, e1, e2, e3, e4):
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (0,), (65676,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{array1}1}
+        (1, (0,), (65687,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{array1}1}
         _idris_Python_46_Fields_46__47__47__46_(
           None,
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65691, None, "numpy")),  # {U_Python.importModule1}
+          _idris_unsafePerformIO(None, None, (65702, None, "numpy")),  # {U_Python.importModule1}
           "array",
           None
         ),
@@ -178,19 +178,19 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_array(e0, e1, e2, e3, e4):
           0,  # Builtins.MkSigma
           _idris_Python_46_Prim_46_pyList(
             None,
-            _idris_Data_46_VectType_46_Vect_46_foldrImpl(
+            _idris_Data_46_Vect_46_foldrImpl(
               None,
               None,
               None,
-              (65678,),  # {U_Python.Lib.Numpy.Matrix.{array3}1}
+              (65689,),  # {U_Python.Lib.Numpy.Matrix.{array3}1}
               ConsList(),
-              (65655, None),  # {U_Prelude.Basics.id1}
-              _idris_Prelude_46_Functor_46_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n_58__33_map_58_0(
+              (65666, None),  # {U_Prelude.Basics.id1}
+              _idris_Prelude_46_Functor_46_Data_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n_58__33_map_58_0(
                 None,
                 None,
                 None,
                 None,
-                (65672, None, None, None, None, None, None, None),  # {U_Python.Lib.Numpy.Matrix.array, c1}
+                (65683, None, None, None, None, None, None, None),  # {U_Python.Lib.Numpy.Matrix.array, c1}
                 e4
               )
             )
@@ -212,8 +212,8 @@ def _idris_Python_46_Functions_46_call(e0, e1, e2, e3, e4, e5):
       None,
       None,
       None,
-      (65671, None),  # {U_Python.IO.unRaw1}
-      (65670, e3, e2, e5)  # {U_Python.Functions.{call0}1}
+      (65682, None),  # {U_Python.IO.unRaw1}
+      (65681, e3, e2, e5)  # {U_Python.Functions.{call0}1}
     )
 
 # call__IO
@@ -237,11 +237,11 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_dot(e0, e1, e2, e3, e4, e5, e6):
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (0,), (65680,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{dot1}1}
+        (1, (0,), (65691,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{dot1}1}
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65691, None, "numpy")),  # {U_Python.importModule1}
+          _idris_unsafePerformIO(None, None, (65702, None, "numpy")),  # {U_Python.importModule1}
           "dot",
           None
         ),
@@ -250,8 +250,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_dot(e0, e1, e2, e3, e4, e5, e6):
       )
     )
 
-# Python.Lib.Numpy.Matrix.DType.dtFromFloat
-def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_DType_46_dtFromFloat(e0, e1):
+# Python.Lib.Numpy.Matrix.DType.dtFromDouble
+def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_DType_46_dtFromDouble(e0, e1):
   while True:
     assert e1[0] == 0  # Python.Lib.Numpy.Matrix.MkDType
     in0, in1, in2 = e1[1:]
@@ -294,51 +294,61 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fill(e0, e1, e2, e3, e4):
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (0,), (65682,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{fill1}1}
+        (1, (0,), (65693,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{fill1}1}
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65691, None, "numpy")),  # {U_Python.importModule1}
+          _idris_unsafePerformIO(None, None, (65702, None, "numpy")),  # {U_Python.importModule1}
           "tile",
           None
         ),
         None,
-        (0, APPLY0(_idris_Python_46_Objects_46_toDyn(None), e4), (0, (e1, e2), Unit))  # Builtins.MkSigma, Builtins.MkSigma
+        (0, APPLY0(_idris_Python_46_Objects_46_toDyn(None), e4), (0, (e1, e0), Unit))  # Builtins.MkSigma, Builtins.MkSigma
       )
     )
 
-# Data.VectType.Vect.foldrImpl
-def _idris_Data_46_VectType_46_Vect_46_foldrImpl(e0, e1, e2, e3, e4, e5, e6):
+# Data.Vect.foldrImpl
+def _idris_Data_46_Vect_46_foldrImpl(e0, e1, e2, e3, e4, e5, e6):
   while True:
-    if e6[0] == 1:  # Data.VectType.Vect.::
+    if e6[0] == 1:  # Data.Vect.::
       in0, in1 = e6[1:]
-      e0, e1, e2, e3, e4, e5, e6, = None, None, None, e3, e4, (65654, None, None, None, e5, APPLY0(e3, in0)), in1,  # {U_Prelude.Basics..1}
+      e0, e1, e2, e3, e4, e5, e6, = None, None, None, e3, e4, (65665, None, None, None, e5, APPLY0(e3, in0)), in1,  # {U_Prelude.Basics..1}
       continue
       return _idris_error("unreachable due to tail call")
-    else:  # Data.VectType.Vect.Nil
+    else:  # Data.Vect.Nil
       return APPLY0(e5, e4)
     return _idris_error("unreachable due to case in tail position")
 
-# Python.Lib.Numpy.Matrix.fromFloat
-def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromFloat(e0, e1, e2, e3):
+# Python.Lib.Numpy.Matrix.fromDouble
+def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromDouble(e0, e1, e2, e3):
   while True:
-    assert e3[0] == 0  # Python.Lib.Numpy.Matrix.MkDType
-    in0, in1, in2 = e3[1:]
+    assert e1[0] == 0  # Python.Lib.Numpy.Matrix.MkDType
+    in0, in1, in2 = e1[1:]
     aux1 = in2
-    return (65654, None, None, None, (65673, None, e1, e2, None), aux1)  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.Matrix.fill1}
+    return (65665, None, None, None, (65684, e2, e3, None, None), aux1)  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.Matrix.fill1}
 
 # Python.Lib.Numpy.Matrix.fromInteger
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromInteger(e0, e1, e2, e3):
   while True:
-    assert e3[0] == 0  # Python.Lib.Numpy.Matrix.MkDType
-    in0, in1, in2 = e3[1:]
+    assert e1[0] == 0  # Python.Lib.Numpy.Matrix.MkDType
+    in0, in1, in2 = e1[1:]
     aux1 = in1
-    return (65654, None, None, None, (65673, None, e1, e2, None), aux1)  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.Matrix.fill1}
+    return (65665, None, None, None, (65684, e2, e3, None, None), aux1)  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.Matrix.fill1}
+
+# Prelude.Maybe.fromMaybe
+def _idris_Prelude_46_Maybe_46_fromMaybe(e0, e1, e2):
+  while True:
+    if e2 is not None:  # Prelude.Maybe.Just
+      in0 = e2
+      return in0
+    else:  # Prelude.Maybe.Nothing
+      return EVAL0(e1)
+    return _idris_error("unreachable due to case in tail position")
 
 # Python.getGlobal
 def _idris_Python_46_getGlobal(e0, e1):
   while True:
-    return _idris_unsafePerformIO(None, None, (65692, e1))  # {U_Python.{getGlobal0}1}
+    return _idris_unsafePerformIO(None, None, (65703, e1))  # {U_Python.{getGlobal0}1}
 
 # Prelude.Basics.id
 def _idris_Prelude_46_Basics_46_id(e0, e1):
@@ -382,12 +392,12 @@ def _idris_io_95_return(e0, e1, e2, _idris_w):
 def _idris_Main_46_main():
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_PE_95_printLn_95_140bcc5c(None, _idris_Main_46_f(4)),
-      (65652,)  # {U_Main.{main8}1}
+      _idris_PE_95_printLn_39__95_3e9fcf72(None, _idris_Main_46_f(4)),
+      (65663,)  # {U_Main.{main8}1}
     )
 
 # Prelude.Functor.map
@@ -406,7 +416,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_nda():
     return _idris_Python_46_Fields_46__47__46_(
       None,
       None,
-      _idris_unsafePerformIO(None, None, (65691, None, "numpy")),  # {U_Python.importModule1}
+      _idris_unsafePerformIO(None, None, (65702, None, "numpy")),  # {U_Python.importModule1}
       "ndarray",
       None
     )
@@ -419,7 +429,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_op(e0, e1, e2, e3, e4, e5, e6, e7
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (0,), (65684,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{op1}1}
+        (1, (0,), (65695,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{op1}1}
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
@@ -532,10 +542,10 @@ def _idris_prim_95_io_95_bind(e0, e1, e2, e3):
   while True:
     return APPLY0(e3, e2)
 
-# Prelude.Interactive.putStr
-def _idris_Prelude_46_Interactive_46_putStr(e0, e1):
+# Prelude.Interactive.putStr'
+def _idris_Prelude_46_Interactive_46_putStr_39_(e0, e1):
   while True:
-    return (65694, None, None, None, (65657, e1), (65658,))  # {U_io_bind1}, {U_Prelude.Interactive.{putStr0}1}, {U_Prelude.Interactive.{putStr1}1}
+    return (65705, None, None, None, (65668, e1), (65669,))  # {U_io_bind1}, {U_Prelude.Interactive.{putStr'0}1}, {U_Prelude.Interactive.{putStr'1}1}
 
 # Python.Prim.pyList
 def _idris_Python_46_Prim_46_pyList(e0, e1):
@@ -546,7 +556,7 @@ def _idris_Python_46_Prim_46_pyList(e0, e1):
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (1,), (65690,)),  # Python.Telescope.Dep, Python.Telescope.Forall, {U_Python.Prim.{pyList1}1}
+        (1, (1,), (65701,)),  # Python.Telescope.Bind, Python.Telescope.Forall, {U_Python.Prim.{pyList1}1}
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
@@ -569,16 +579,16 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_reshape(
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (0,), (65686,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{reshape1}1}
+        (1, (0,), (65697,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{reshape1}1}
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65691, None, "numpy")),  # {U_Python.importModule1}
+          _idris_unsafePerformIO(None, None, (65702, None, "numpy")),  # {U_Python.importModule1}
           "reshape",
           None
         ),
         None,
-        (0, e6, (0, (e4, e5), Unit))  # Builtins.MkSigma, Builtins.MkSigma
+        (0, e6, (0, (e3, e2), Unit))  # Builtins.MkSigma, Builtins.MkSigma
       )
     )
 
@@ -615,38 +625,38 @@ def _idris_Prelude_46_Show_46_showPrec(e0, e1):
 # Python.Telescope.strip
 def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
   while True:
-    if e1[0] == 1:  # Python.Telescope.Dep
+    if e1[0] == 1:  # Python.Telescope.Bind
       in0, in1 = e1[1:]
-      if in0[0] == 1:  # Python.Telescope.Forall
+      if in0[0] == 2:  # Python.Telescope.Default
+        in2 = in0[1]
         assert e2[0] == 0  # Builtins.MkSigma
-        in2, in3 = e2[1:]
-        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in2), in3)
+        in3, in4 = e2[1:]
+        if in3 is not None:  # Prelude.Maybe.Just
+          in5 = in3
+          aux1 = in5
+        else:  # Prelude.Maybe.Nothing
+          aux1 = _idris_Python_46_Telescope_46__123_strip0_125_(in2)
+        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, aux1), in4).cons(in3)
+        return _idris_error("unreachable due to case in tail position")
+      elif in0[0] == 1:  # Python.Telescope.Forall
+        assert e2[0] == 0  # Builtins.MkSigma
+        in6, in7 = e2[1:]
+        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in6), in7)
         return _idris_error("unreachable due to case in tail position")
       else:  # Python.Telescope.Pi
         assert e2[0] == 0  # Builtins.MkSigma
-        in4, in5 = e2[1:]
-        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in4), in5).cons(in4)
+        in8, in9 = e2[1:]
+        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in8), in9).cons(in8)
         return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
-    elif e1[0] == 0:  # Python.Telescope.Return
+    else:  # Python.Telescope.Return
       return ConsList()
-    else:  # Python.Telescope.Simp
-      in6 = e1[1]
-      assert e2[0] == 0  # Builtins.MkSigma
-      in7, in8 = e2[1:]
-      if in7 is not None:  # Prelude.Maybe.Just
-        in9 = in7
-        return _idris_Python_46_Telescope_46_strip(None, in6, in8).cons(in9)
-      else:  # Prelude.Maybe.Nothing
-        return _idris_Python_46_Telescope_46_strip(None, in6, in8).cons(None)
-      return _idris_error("unreachable due to case in tail position")
-      return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
 # Python.Objects.toDyn
 def _idris_Python_46_Objects_46_toDyn(e0):
   while True:
-    return (65693, None, None)  # {U_believe_me1}
+    return (65704, None, None)  # {U_believe_me1}
 
 # Python.Lib.Numpy.Matrix.transpose
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_transpose(e0, e1, e2, e3, e4):
@@ -656,11 +666,11 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_transpose(e0, e1, e2, e3, e4):
       _idris_Python_46_Functions_46_call(
         None,
         None,
-        (1, (0,), (65687,)),  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{transpose0}1}
+        (1, (0,), (65698,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{transpose0}1}
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65691, None, "numpy")),  # {U_Python.importModule1}
+          _idris_unsafePerformIO(None, None, (65702, None, "numpy")),  # {U_Python.importModule1}
           "transpose",
           None
         ),
@@ -677,7 +687,7 @@ def _idris_Python_46_IO_46_unRaw(e0, e1):
 # Python.Lib.Numpy.Matrix.unsafeNp
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(e0, e1, e2, e3):
   while True:
-    return (65654, None, None, None, (65688,), (65696, None, None))  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.Matrix.{unsafeNp0}1}, {U_unsafePerformIO1}
+    return (65665, None, None, None, (65699,), (65707, None, None))  # {U_Prelude.Basics..1}, {U_Python.Lib.Numpy.Matrix.{unsafeNp0}1}, {U_unsafePerformIO1}
 
 # unsafePerformIO
 def _idris_unsafePerformIO(e0, e1, e2):
@@ -701,14 +711,14 @@ def _idris_Main_46_xs():
       None,
       None,
       None,
-      (0, "float", (65653,), (65655, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{xs0}1}, {U_Prelude.Basics.id1}
+      (0, "float", (65664,), (65666, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{xs0}1}, {U_Prelude.Basics.id1}
       (
-        1,  # Data.VectType.Vect.::
-        (1, 1.0, (1, -2.1, (1, 3.3, (1, -0.1, (0,))))),  # Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.Nil
+        1,  # Data.Vect.::
+        (1, 1.0, (1, -2.1, (1, 3.3, (1, -0.1, (0,))))),  # Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.Nil
         (
-          1,  # Data.VectType.Vect.::
-          (1, 3.5, (1, 7.0, (1, 0.0, (1, -5.2, (0,))))),  # Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.Nil
-          (1, (1, 0.5, (1, 7.2, (1, -1.1, (1, 0.0, (0,))))), (0,))  # Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.::, Data.VectType.Vect.Nil, Data.VectType.Vect.Nil
+          1,  # Data.Vect.::
+          (1, 3.5, (1, 7.0, (1, 0.0, (1, -5.2, (0,))))),  # Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.Nil
+          (1, (1, 0.5, (1, 7.2, (1, -1.1, (1, 0.0, (0,))))), (0,))  # Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.Nil, Data.Vect.Nil
         )
       )
     )
@@ -719,10 +729,10 @@ def _idris_Main_46_ys():
     return _idris_Python_46_Lib_46_Numpy_46_Matrix_46_reshape(
       None,
       None,
-      None,
-      None,
-      6,
       2,
+      6,
+      None,
+      None,
       _idris_Main_46_xs(),
       None
     )
@@ -733,10 +743,10 @@ def _idris_Main_46_zs():
     return _idris_Python_46_Lib_46_Numpy_46_Matrix_46_reshape(
       None,
       None,
-      None,
-      None,
-      4,
       3,
+      4,
+      None,
+      None,
       _idris_Main_46_ys(),
       None
     )
@@ -763,72 +773,72 @@ def _idris_Python_46_Fields_46__123__47__47__46_0_125_(e3, e4, in0):
 # {APPLY0}
 def APPLY0(fn0, arg0):
   while True:
-    if fn0[0] < 65684:
-      if fn0[0] < 65663:
-        if fn0[0] < 65653:
-          if fn0[0] < 65648:
-            if fn0[0] < 65645:
-              if fn0[0] == 65643:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor1}
+    if fn0[0] < 65695:
+      if fn0[0] < 65674:
+        if fn0[0] < 65664:
+          if fn0[0] < 65659:
+            if fn0[0] < 65656:
+              if fn0[0] == 65654:  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor1}
                 P_c0, P_c1, P_c2, P_c3 = fn0[1:]
-                return _idris_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n(
+                return _idris_Data_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n(
                   P_c0, P_c1, P_c2, P_c3, arg0
                 )
               else:  # {U_Main.{main0}1}
                 return _idris_Main_46__123_main0_125_(arg0)
             else:
-              if fn0[0] == 65645:  # {U_Main.{main1}1}
+              if fn0[0] == 65656:  # {U_Main.{main1}1}
                 return _idris_Main_46__123_main1_125_(arg0)
-              elif fn0[0] == 65646:  # {U_Main.{main2}1}
+              elif fn0[0] == 65657:  # {U_Main.{main2}1}
                 return _idris_Main_46__123_main2_125_(arg0)
               else:  # {U_Main.{main3}1}
                 return _idris_Main_46__123_main3_125_(arg0)
           else:
-            if fn0[0] < 65650:
-              if fn0[0] == 65648:  # {U_Main.{main4}1}
+            if fn0[0] < 65661:
+              if fn0[0] == 65659:  # {U_Main.{main4}1}
                 return _idris_Main_46__123_main4_125_(arg0)
               else:  # {U_Main.{main5}1}
                 return _idris_Main_46__123_main5_125_(arg0)
             else:
-              if fn0[0] == 65650:  # {U_Main.{main6}1}
+              if fn0[0] == 65661:  # {U_Main.{main6}1}
                 return _idris_Main_46__123_main6_125_(arg0)
-              elif fn0[0] == 65651:  # {U_Main.{main7}1}
+              elif fn0[0] == 65662:  # {U_Main.{main7}1}
                 return _idris_Main_46__123_main7_125_(arg0)
               else:  # {U_Main.{main8}1}
                 return _idris_Main_46__123_main8_125_(arg0)
         else:
-          if fn0[0] < 65658:
-            if fn0[0] < 65655:
-              if fn0[0] == 65653:  # {U_Main.{xs0}1}
+          if fn0[0] < 65669:
+            if fn0[0] < 65666:
+              if fn0[0] == 65664:  # {U_Main.{xs0}1}
                 return _idris_Main_46__123_xs0_125_(arg0)
               else:  # {U_Prelude.Basics..1}
                 P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                 return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
             else:
-              if fn0[0] == 65655:  # {U_Prelude.Basics.id1}
+              if fn0[0] == 65666:  # {U_Prelude.Basics.id1}
                 P_c0 = fn0[1]
                 return _idris_Prelude_46_Basics_46_id(P_c0, arg0)
-              elif fn0[0] == 65656:  # {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+              elif fn0[0] == 65667:  # {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
                 P_c0 = fn0[1]
                 return _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
                   P_c0, arg0
                 )
-              else:  # {U_Prelude.Interactive.{putStr0}1}
+              else:  # {U_Prelude.Interactive.{putStr'0}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Interactive_46__123_putStr0_125_(P_c0, arg0)
+                return _idris_Prelude_46_Interactive_46__123_putStr_39_0_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65660:
-              if fn0[0] == 65658:  # {U_Prelude.Interactive.{putStr1}1}
-                return _idris_Prelude_46_Interactive_46__123_putStr1_125_(arg0)
+            if fn0[0] < 65671:
+              if fn0[0] == 65669:  # {U_Prelude.Interactive.{putStr'1}1}
+                return _idris_Prelude_46_Interactive_46__123_putStr_39_1_125_(arg0)
               else:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
                 P_c0 = fn0[1]
                 return _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(P_c0, arg0)
             else:
-              if fn0[0] == 65660:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+              if fn0[0] == 65671:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
                 P_c0 = fn0[1]
                 return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                   P_c0, arg0
                 )
-              elif fn0[0] == 65661:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}
+              elif fn0[0] == 65672:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}
                 return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                   arg0
                 )
@@ -838,10 +848,10 @@ def APPLY0(fn0, arg0):
                   P_c0, arg0
                 )
       else:
-        if fn0[0] < 65673:
-          if fn0[0] < 65668:
-            if fn0[0] < 65665:
-              if fn0[0] == 65663:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
+        if fn0[0] < 65684:
+          if fn0[0] < 65679:
+            if fn0[0] < 65676:
+              if fn0[0] == 65674:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
                 return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                   arg0
                 )
@@ -851,11 +861,11 @@ def APPLY0(fn0, arg0):
                   P_c0, arg0
                 )
             else:
-              if fn0[0] == 65665:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}
+              if fn0[0] == 65676:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}
                 return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                   arg0
                 )
-              elif fn0[0] == 65666:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+              elif fn0[0] == 65677:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
                 P_c0 = fn0[1]
                 return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                   P_c0, arg0
@@ -865,18 +875,18 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
           else:
-            if fn0[0] < 65670:
-              if fn0[0] == 65668:  # {U_Python.Fields.{/.0}1}
+            if fn0[0] < 65681:
+              if fn0[0] == 65679:  # {U_Python.Fields.{/.0}1}
                 P_c0, P_c1 = fn0[1:]
                 return _idris_Python_46_Fields_46__123__47__46_0_125_(P_c0, P_c1, arg0)
               else:  # {U_Python.Fields.{//.0}1}
                 P_c0, P_c1 = fn0[1:]
                 return _idris_Python_46_Fields_46__123__47__47__46_0_125_(P_c0, P_c1, arg0)
             else:
-              if fn0[0] == 65670:  # {U_Python.Functions.{call0}1}
+              if fn0[0] == 65681:  # {U_Python.Functions.{call0}1}
                 P_c0, P_c1, P_c2 = fn0[1:]
                 return _idris_Python_46_Functions_46__123_call0_125_(P_c0, P_c1, P_c2, arg0)
-              elif fn0[0] == 65671:  # {U_Python.IO.unRaw1}
+              elif fn0[0] == 65682:  # {U_Python.IO.unRaw1}
                 P_c0 = fn0[1]
                 return _idris_Python_46_IO_46_unRaw(P_c0, arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.array, c1}
@@ -885,9 +895,9 @@ def APPLY0(fn0, arg0):
                   P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6, arg0
                 )
         else:
-          if fn0[0] < 65678:
-            if fn0[0] < 65675:
-              if fn0[0] == 65673:  # {U_Python.Lib.Numpy.Matrix.fill1}
+          if fn0[0] < 65689:
+            if fn0[0] < 65686:
+              if fn0[0] == 65684:  # {U_Python.Lib.Numpy.Matrix.fill1}
                 P_c0, P_c1, P_c2, P_c3 = fn0[1:]
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fill(P_c0, P_c1, P_c2, P_c3, arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.op1}
@@ -896,74 +906,74 @@ def APPLY0(fn0, arg0):
                   P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, P_c6, arg0
                 )
             else:
-              if fn0[0] == 65675:  # {U_Python.Lib.Numpy.Matrix.{array0}1}
+              if fn0[0] == 65686:  # {U_Python.Lib.Numpy.Matrix.{array0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array0_125_(arg0)
-              elif fn0[0] == 65676:  # {U_Python.Lib.Numpy.Matrix.{array1}1}
+              elif fn0[0] == 65687:  # {U_Python.Lib.Numpy.Matrix.{array1}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array1_125_(arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.{array2}1}
                 P_c0 = fn0[1]
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array2_125_(P_c0, arg0)
           else:
-            if fn0[0] < 65681:
-              if fn0[0] == 65678:  # {U_Python.Lib.Numpy.Matrix.{array3}1}
+            if fn0[0] < 65692:
+              if fn0[0] == 65689:  # {U_Python.Lib.Numpy.Matrix.{array3}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array3_125_(arg0)
-              elif fn0[0] == 65679:  # {U_Python.Lib.Numpy.Matrix.{dot0}1}
+              elif fn0[0] == 65690:  # {U_Python.Lib.Numpy.Matrix.{dot0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_dot0_125_(arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.{dot1}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_dot1_125_(arg0)
             else:
-              if fn0[0] == 65681:  # {U_Python.Lib.Numpy.Matrix.{fill0}1}
+              if fn0[0] == 65692:  # {U_Python.Lib.Numpy.Matrix.{fill0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_fill0_125_(arg0)
-              elif fn0[0] == 65682:  # {U_Python.Lib.Numpy.Matrix.{fill1}1}
+              elif fn0[0] == 65693:  # {U_Python.Lib.Numpy.Matrix.{fill1}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_fill1_125_(arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.{op0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op0_125_(arg0)
     else:
-      if fn0[0] < 65704:
-        if fn0[0] < 65694:
-          if fn0[0] < 65689:
-            if fn0[0] < 65686:
-              if fn0[0] == 65684:  # {U_Python.Lib.Numpy.Matrix.{op1}1}
+      if fn0[0] < 65715:
+        if fn0[0] < 65705:
+          if fn0[0] < 65700:
+            if fn0[0] < 65697:
+              if fn0[0] == 65695:  # {U_Python.Lib.Numpy.Matrix.{op1}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op1_125_(arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.{reshape0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_reshape0_125_(arg0)
             else:
-              if fn0[0] == 65686:  # {U_Python.Lib.Numpy.Matrix.{reshape1}1}
+              if fn0[0] == 65697:  # {U_Python.Lib.Numpy.Matrix.{reshape1}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_reshape1_125_(arg0)
-              elif fn0[0] == 65687:  # {U_Python.Lib.Numpy.Matrix.{transpose0}1}
+              elif fn0[0] == 65698:  # {U_Python.Lib.Numpy.Matrix.{transpose0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_transpose0_125_(arg0)
               else:  # {U_Python.Lib.Numpy.Matrix.{unsafeNp0}1}
                 return _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_unsafeNp0_125_(arg0)
           else:
-            if fn0[0] < 65691:
-              if fn0[0] == 65689:  # {U_Python.Prim.{pyList0}1}
+            if fn0[0] < 65702:
+              if fn0[0] == 65700:  # {U_Python.Prim.{pyList0}1}
                 return _idris_Python_46_Prim_46__123_pyList0_125_(arg0)
               else:  # {U_Python.Prim.{pyList1}1}
                 return _idris_Python_46_Prim_46__123_pyList1_125_(arg0)
             else:
-              if fn0[0] == 65691:  # {U_Python.importModule1}
+              if fn0[0] == 65702:  # {U_Python.importModule1}
                 P_c0, P_c1 = fn0[1:]
                 return _idris_Python_46_importModule(P_c0, P_c1, arg0)
-              elif fn0[0] == 65692:  # {U_Python.{getGlobal0}1}
+              elif fn0[0] == 65703:  # {U_Python.{getGlobal0}1}
                 P_c0 = fn0[1]
                 return _idris_Python_46__123_getGlobal0_125_(P_c0, arg0)
               else:  # {U_believe_me1}
                 P_c0, P_c1 = fn0[1:]
                 return _idris_believe_95_me(P_c0, P_c1, arg0)
         else:
-          if fn0[0] < 65699:
-            if fn0[0] < 65696:
-              if fn0[0] == 65694:  # {U_io_bind1}
+          if fn0[0] < 65710:
+            if fn0[0] < 65707:
+              if fn0[0] == 65705:  # {U_io_bind1}
                 P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                 return _idris_io_95_bind(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
               else:  # {U_io_return1}
                 P_c0, P_c1, P_c2 = fn0[1:]
                 return _idris_io_95_return(P_c0, P_c1, P_c2, arg0)
             else:
-              if fn0[0] == 65696:  # {U_unsafePerformIO1}
+              if fn0[0] == 65707:  # {U_unsafePerformIO1}
                 P_c0, P_c1 = fn0[1:]
                 return _idris_unsafePerformIO(P_c0, P_c1, arg0)
-              elif fn0[0] == 65697:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}
+              elif fn0[0] == 65708:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac60_125_(
                   arg0
                 )
@@ -972,8 +982,8 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
           else:
-            if fn0[0] < 65701:
-              if fn0[0] == 65699:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
+            if fn0[0] < 65712:
+              if fn0[0] == 65710:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac611_125_(
                   arg0
                 )
@@ -982,11 +992,11 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
             else:
-              if fn0[0] == 65701:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}1}
+              if fn0[0] == 65712:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac613_125_(
                   arg0
                 )
-              elif fn0[0] == 65702:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}1}
+              elif fn0[0] == 65713:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac614_125_(
                   arg0
                 )
@@ -995,10 +1005,10 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
       else:
-        if fn0[0] < 65714:
-          if fn0[0] < 65709:
-            if fn0[0] < 65706:
-              if fn0[0] == 65704:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}1}
+        if fn0[0] < 65725:
+          if fn0[0] < 65720:
+            if fn0[0] < 65717:
+              if fn0[0] == 65715:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_(
                   arg0
                 )
@@ -1007,11 +1017,11 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
             else:
-              if fn0[0] == 65706:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}1}
+              if fn0[0] == 65717:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_(
                   arg0
                 )
-              elif fn0[0] == 65707:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
+              elif fn0[0] == 65718:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac62_125_(
                   arg0
                 )
@@ -1020,8 +1030,8 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
           else:
-            if fn0[0] < 65711:
-              if fn0[0] == 65709:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}1}
+            if fn0[0] < 65722:
+              if fn0[0] == 65720:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac64_125_(
                   arg0
                 )
@@ -1030,11 +1040,11 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
             else:
-              if fn0[0] == 65711:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}1}
+              if fn0[0] == 65722:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac66_125_(
                   arg0
                 )
-              elif fn0[0] == 65712:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}1}
+              elif fn0[0] == 65723:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac67_125_(
                   arg0
                 )
@@ -1043,9 +1053,9 @@ def APPLY0(fn0, arg0):
                   arg0
                 )
         else:
-          if fn0[0] < 65719:
-            if fn0[0] < 65716:
-              if fn0[0] == 65714:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}
+          if fn0[0] < 65730:
+            if fn0[0] < 65727:
+              if fn0[0] == 65725:  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}
                 return _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac69_125_(
                   arg0
                 )
@@ -1055,32 +1065,32 @@ def APPLY0(fn0, arg0):
                   P_c0, arg0
                 )
             else:
-              if fn0[0] == 65716:  # {U_{Python.Lib.Numpy.Matrix.array, c_lam1}1}
+              if fn0[0] == 65727:  # {U_{Python.Lib.Numpy.Matrix.array, c_lam1}1}
                 return _idris__123_Python_46_Lib_46_Numpy_46_Matrix_46_array_44__32_c_95_lam1_125_(
                   arg0
                 )
-              elif fn0[0] == 65717:  # {U_{io_bind1}1}
+              elif fn0[0] == 65728:  # {U_{io_bind1}1}
                 P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = fn0[1:]
                 return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
               else:  # {U_{unsafePerformIO0}1}
                 return unsafePerformIO0(arg0)
           else:
-            if fn0[0] < 65722:
-              if fn0[0] == 65719:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor2}
+            if fn0[0] < 65733:
+              if fn0[0] == 65730:  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor2}
                 P_c0, P_c1, P_c2 = fn0[1:]
-                return (65643, P_c0, P_c1, P_c2, arg0)  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor1}
-              elif fn0[0] == 65720:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
-                return (65659, arg0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
+                return (65654, P_c0, P_c1, P_c2, arg0)  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor1}
+              elif fn0[0] == 65731:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+                return (65670, arg0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
               else:  # {U_Python.Lib.Numpy.Matrix.op2}
                 P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = fn0[1:]
-                return (65674, P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)  # {U_Python.Lib.Numpy.Matrix.op1}
+                return (65685, P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)  # {U_Python.Lib.Numpy.Matrix.op1}
             else:
-              if fn0[0] == 65722:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor3}
+              if fn0[0] == 65733:  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor3}
                 P_c0, P_c1 = fn0[1:]
-                return (65719, P_c0, P_c1, arg0)  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor2}
-              else:  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor4}
+                return (65730, P_c0, P_c1, arg0)  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor2}
+              else:  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor4}
                 P_c0 = fn0[1]
-                return (65722, P_c0, arg0)  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor3}
+                return (65733, P_c0, arg0)  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor3}
     return _idris_error("unreachable due to case in tail position")
 
 # {EVAL0}
@@ -1122,7 +1132,7 @@ def _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_insta
   e3, in0
 ):
   while True:
-    return (65695, None, None, APPLY0(e3, in0))  # {U_io_return1}
+    return (65706, None, None, APPLY0(e3, in0))  # {U_io_return1}
 
 # Prelude.Classes.{Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=_lam0}
 def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
@@ -1180,8 +1190,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op0_125_(in1):
   while True:
     return (0,)  # Python.Telescope.Return
 
-# Prelude.Interactive.{putStr0}
-def _idris_Prelude_46_Interactive_46__123_putStr0_125_(e1, in0):
+# Prelude.Interactive.{putStr'0}
+def _idris_Prelude_46_Interactive_46__123_putStr_39_0_125_(e1, in0):
   while True:
     return sys.stdout.write(e1)
 
@@ -1199,6 +1209,11 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_reshape0_125_(in1):
 def runMain0():
   while True:
     return EVAL0(APPLY0(_idris_Main_46_main(), None))
+
+# Python.Telescope.{strip0}
+def _idris_Python_46_Telescope_46__123_strip0_125_(in2):
+  while True:
+    return in2
 
 # Python.Lib.Numpy.Matrix.{transpose0}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_transpose0_125_(in0):
@@ -1225,7 +1240,7 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
   in0
 ):
   while True:
-    return (65660, in0)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+    return (65671, in0)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac61_125_(
@@ -1243,27 +1258,27 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
   in0
 ):
   while True:
-    return (65664, in0)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+    return (65675, in0)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
 
 # {Python.Lib.Numpy.Matrix.array, c_lam1}
 def _idris__123_Python_46_Lib_46_Numpy_46_Matrix_46_array_44__32_c_95_lam1_125_(in0):
   while True:
-    return (65715, in0)  # {U_{Python.Lib.Numpy.Matrix.array, c_lam0}1}
+    return (65726, in0)  # {U_{Python.Lib.Numpy.Matrix.array, c_lam0}1}
 
 # Python.Lib.Numpy.Matrix.{array1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array1_125_(in0):
   while True:
-    return (1, (0,), (65675,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{array0}1}
+    return (1, (0,), (65686,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{array0}1}
 
 # Python.Lib.Numpy.Matrix.{dot1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_dot1_125_(in0):
   while True:
-    return (1, (0,), (65679,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{dot0}1}
+    return (1, (0,), (65690,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{dot0}1}
 
 # Python.Lib.Numpy.Matrix.{fill1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_fill1_125_(in0):
   while True:
-    return (1, (0,), (65681,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{fill0}1}
+    return (1, (0,), (65692,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{fill0}1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
@@ -1278,27 +1293,27 @@ def _idris_Main_46__123_main1_125_(in8):
 # Python.Lib.Numpy.Matrix.{op1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op1_125_(in0):
   while True:
-    return (1, (0,), (65683,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{op0}1}
+    return (1, (0,), (65694,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{op0}1}
 
-# Prelude.Interactive.{putStr1}
-def _idris_Prelude_46_Interactive_46__123_putStr1_125_(in1):
+# Prelude.Interactive.{putStr'1}
+def _idris_Prelude_46_Interactive_46__123_putStr_39_1_125_(in1):
   while True:
-    return (65695, None, None, Unit)  # {U_io_return1}
+    return (65706, None, None, Unit)  # {U_io_return1}
 
 # Python.Prim.{pyList1}
 def _idris_Python_46_Prim_46__123_pyList1_125_(in0):
   while True:
-    return (1, (0,), (65689,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Prim.{pyList0}1}
+    return (1, (0,), (65700,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Prim.{pyList0}1}
 
 # Python.Lib.Numpy.Matrix.{reshape1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_reshape1_125_(in0):
   while True:
-    return (1, (0,), (65685,))  # Python.Telescope.Dep, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{reshape0}1}
+    return (1, (0,), (65696,))  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{reshape0}1}
 
 # {unsafePerformIO1}
 def unsafePerformIO1(e0, e1, e2):
   while True:
-    return (65718,)  # {U_{unsafePerformIO0}1}
+    return (65729,)  # {U_{unsafePerformIO0}1}
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}
 def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
@@ -1326,7 +1341,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in2
 ):
   while True:
-    return (65706,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}1}
+    return (65717,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac61}1}
 
 # Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}
 def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
@@ -1357,12 +1372,12 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array2_125_(in2, in3):
 # {io_bind2}
 def io_bind2(e0, e1, e2, e3, e4, _idris_w):
   while True:
-    return (65717, e0, e1, e2, e3, e4, _idris_w)  # {U_{io_bind1}1}
+    return (65728, e0, e1, e2, e3, e4, _idris_w)  # {U_{io_bind1}1}
 
 # Main.{main2}
 def _idris_Main_46__123_main2_125_(in6):
   while True:
-    return _idris_Prelude_46_Interactive_46_putStr(
+    return _idris_Prelude_46_Interactive_46_putStr_39_(
       None,
       (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
         None,
@@ -1382,9 +1397,9 @@ def _idris_Main_46__123_main2_125_(in6):
                 APPLY0(
                   _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromInteger(
                     None,
+                    (0, "float", (65655,), (65666, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main0}1}, {U_Prelude.Basics.id1}
                     4,
-                    4,
-                    (0, "float", (65644,), (65655, None))  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main0}1}, {U_Prelude.Basics.id1}
+                    4
                   ),
                   2
                 )
@@ -1407,11 +1422,11 @@ def _idris_Main_46__123_main2_125_(in6):
             )
           ),
           APPLY0(
-            _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromFloat(
+            _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromDouble(
               None,
+              (0, "float", (65656,), (65666, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main1}1}, {U_Prelude.Basics.id1}
               4,
-              4,
-              (0, "float", (65645,), (65655, None))  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main1}1}, {U_Prelude.Basics.id1}
+              4
             ),
             0.2
           )
@@ -1424,7 +1439,7 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
   in2
 ):
   while True:
-    return (65662, in2)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+    return (65673, in2)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac63_125_(
@@ -1435,7 +1450,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
       None,
       None,
       None,
-      (0, (65697,), (65707,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
+      (0, (65708,), (65718,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
       "",
       in0
     ) + "]"))
@@ -1445,22 +1460,22 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
   in2
 ):
   while True:
-    return (65666, in2)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+    return (65677, in2)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
 
 # Python.Lib.Numpy.Matrix.{array3}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array3_125_(in2):
   while True:
-    return (65677, in2)  # {U_Python.Lib.Numpy.Matrix.{array2}1}
+    return (65688, in2)  # {U_Python.Lib.Numpy.Matrix.{array2}1}
 
 # Main.{main3}
 def _idris_Main_46__123_main3_125_(in5):
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
         (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
           None,
@@ -1484,7 +1499,7 @@ def _idris_Main_46__123_main3_125_(in5):
           )
         ) + "\n")
       ),
-      (65646,)  # {U_Main.{main2}1}
+      (65657,)  # {U_Main.{main2}1}
     )
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}
@@ -1502,11 +1517,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 def _idris_Main_46__123_main4_125_(in4):
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
         (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
           None,
@@ -1530,7 +1545,7 @@ def _idris_Main_46__123_main4_125_(in4):
           )
         ) + "\n")
       ),
-      (65647,)  # {U_Main.{main3}1}
+      (65658,)  # {U_Main.{main3}1}
     )
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac65}
@@ -1548,11 +1563,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 def _idris_Main_46__123_main5_125_(in3):
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
         (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
           None,
@@ -1570,7 +1585,7 @@ def _idris_Main_46__123_main5_125_(in3):
           )
         ) + "\n")
       ),
-      (65648,)  # {U_Main.{main4}1}
+      (65659,)  # {U_Main.{main4}1}
     )
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}
@@ -1578,17 +1593,17 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in7
 ):
   while True:
-    return (65710,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac65}1}
+    return (65721,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac65}1}
 
 # Main.{main6}
 def _idris_Main_46__123_main6_125_(in2):
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
         (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
           None,
@@ -1598,7 +1613,7 @@ def _idris_Main_46__123_main6_125_(in2):
           _idris_Main_46_zs()
         ) + "\n")
       ),
-      (65649,)  # {U_Main.{main5}1}
+      (65660,)  # {U_Main.{main5}1}
     )
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}
@@ -1609,7 +1624,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
     return _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0(
       None,
       None,
-      (0, (65709,), (65711,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}1}
+      (0, (65720,), (65722,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac64}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac66}1}
       in5
     )
 
@@ -1617,11 +1632,11 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 def _idris_Main_46__123_main7_125_(in1):
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
         (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
           None,
@@ -1631,7 +1646,7 @@ def _idris_Main_46__123_main7_125_(in1):
           _idris_Main_46_ys()
         ) + "\n")
       ),
-      (65650,)  # {U_Main.{main6}1}
+      (65661,)  # {U_Main.{main6}1}
     )
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac68}
@@ -1639,17 +1654,17 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in4
 ):
   while True:
-    return (65712,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}1}
+    return (65723,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac67}1}
 
 # Main.{main8}
 def _idris_Main_46__123_main8_125_(in0):
   while True:
     return (
-      65694,  # {U_io_bind1}
+      65705,  # {U_io_bind1}
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr(
+      _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
         (_idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
           None,
@@ -1659,7 +1674,7 @@ def _idris_Main_46__123_main8_125_(in0):
           _idris_Main_46_xs()
         ) + "\n")
       ),
-      (65651,)  # {U_Main.{main7}1}
+      (65662,)  # {U_Main.{main7}1}
     )
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}
@@ -1689,7 +1704,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in2
 ):
   while True:
-    return (65698,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac610}1}
+    return (65709,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac610}1}
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac612_125_(
@@ -1700,7 +1715,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
       None,
       None,
       None,
-      (0, (65714,), (65699,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
+      (0, (65725,), (65710,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
       "",
       in0
     ) + "]"))
@@ -1732,7 +1747,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in7
 ):
   while True:
-    return (65702,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}1}
+    return (65713,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}1}
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac616_125_(
@@ -1742,7 +1757,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
     return _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0(
       None,
       None,
-      (0, (65701,), (65703,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac615}1}
+      (0, (65712,), (65714,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac615}1}
       in5
     )
 
@@ -1751,7 +1766,7 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in4
 ):
   while True:
-    return (65704,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}1}
+    return (65715,)  # {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac616}1}
 
 # Python.Lib.Numpy.Matrix.array, c
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_array_58_c_58_0(
@@ -1760,13 +1775,13 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_array_58_c_58_0(
   while True:
     return _idris_Python_46_Prim_46_pyList(
       None,
-      _idris_Data_46_VectType_46_Vect_46_foldrImpl(
+      _idris_Data_46_Vect_46_foldrImpl(
         None,
         None,
         None,
-        (65716,),  # {U_{Python.Lib.Numpy.Matrix.array, c_lam1}1}
+        (65727,),  # {U_{Python.Lib.Numpy.Matrix.array, c_lam1}1}
         ConsList(),
-        (65655, None),  # {U_Prelude.Basics.id1}
+        (65666, None),  # {U_Prelude.Basics.id1}
         e7
       )
     )
@@ -1836,7 +1851,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_
         return False
       else:
         in1 = (e0 - 1)
-        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65720,)), in1), in0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65731,)), in1), in0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
       return _idris_error("unreachable due to case in tail position")
     else:
       return False
@@ -1876,25 +1891,25 @@ def _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_F
   e0, e1, e2, e3, e4
 ):
   while True:
-    return (65694, None, None, None, e4, (65656, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+    return (65705, None, None, None, e4, (65667, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
 
-# Prelude.Functor.Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor, method map
-def _idris_Prelude_46_Functor_46_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n_58__33_map_58_0(
+# Prelude.Functor.Data.Vect.Vect n instance of Prelude.Functor.Functor, method map
+def _idris_Prelude_46_Functor_46_Data_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n_58__33_map_58_0(
   e0, e1, e2, e3, e4, e5
 ):
   while True:
-    if e5[0] == 1:  # Data.VectType.Vect.::
+    if e5[0] == 1:  # Data.Vect.::
       in0, in1 = e5[1:]
       return (
-        1,  # Data.VectType.Vect.::
+        1,  # Data.Vect.::
         APPLY0(e4, in0),
         APPLY0(
-          APPLY0(_idris_Prelude_46_Functor_46_map(None, None, None, (65723, None)), e4),  # {U_Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor4}
+          APPLY0(_idris_Prelude_46_Functor_46_map(None, None, None, (65734, None)), e4),  # {U_Data.Vect.Vect n instance of Prelude.Functor.Functor4}
           in1
         )
       )
-    else:  # Data.VectType.Vect.Nil
-      return (0,)  # Data.VectType.Vect.Nil
+    else:  # Data.Vect.Nil
+      return (0,)  # Data.Vect.Nil
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Classes.Python.Lib.Numpy.Matrix.Matrix r c dt instance of Prelude.Classes.Num, method *
@@ -1902,14 +1917,14 @@ def _idris_Prelude_46_Classes_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude
   e0, e1, e2, e3
 ):
   while True:
-    return (65721, None, None, None, None, "__mul__", None)  # {U_Python.Lib.Numpy.Matrix.op2}
+    return (65732, None, None, None, None, "__mul__", None)  # {U_Python.Lib.Numpy.Matrix.op2}
 
 # Prelude.Classes.Python.Lib.Numpy.Matrix.Matrix r c dt instance of Prelude.Classes.Num, method +
 def _idris_Prelude_46_Classes_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Classes_46_Num_36_Matrix_32_r_32_c_32_dt_58__33__43__58_0(
   e0, e1, e2, e3
 ):
   while True:
-    return (65721, None, None, None, None, "__add__", None)  # {U_Python.Lib.Numpy.Matrix.op2}
+    return (65732, None, None, None, None, "__add__", None)  # {U_Python.Lib.Numpy.Matrix.op2}
 
 # Prelude.Classes.Prelude.Classes.Integer instance of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
@@ -2086,7 +2101,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_4
     return _idris_error("unreachable due to case in tail position")
 
 # with block in Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method >
-def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33__62__58_0_95_with_95_83(
+def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33__62__58_0_95_with_95_84(
   e0, e1, e2
 ):
   while True:
@@ -2103,34 +2118,36 @@ def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(meth0, meth1):
       meth0, meth1
     )
 
-# Data.VectType.Vect.Vect n instance of Prelude.Functor.Functor
-def _idris_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n(
+# Data.Vect.Vect n instance of Prelude.Functor.Functor
+def _idris_Data_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n(
   e0, meth0, meth1, meth2, meth3
 ):
   while True:
-    return _idris_Prelude_46_Functor_46_Data_46_VectType_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n_58__33_map_58_0(
+    return _idris_Prelude_46_Functor_46_Data_46_Vect_46__64_Prelude_46_Functor_46_Functor_36_Vect_32_n_58__33_map_58_0(
       None, None, None, None, meth2, meth3
     )
 
 # Prelude.Nat.Nat instance of Prelude.Classes.Ord
 def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat():
   while True:
-    return (0, (65661,), (65663,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
+    return (0, (65672,), (65674,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
 
 # Prelude.Show.Prec instance of Prelude.Classes.Ord
 def _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec():
   while True:
-    return (0, (65665,), (65667,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
+    return (0, (65676,), (65678,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
+
+# case block in io_bind at IO.idr:109:34
+def _idris_io_95_bind_95_IO_95__95_idr_95_109_95_34_95_case(
+  e0, e1, e2, e3, e4, e5, e6, e7
+):
+  while True:
+    return APPLY0(e7, e5)
 
 # case block in Void
 def _idris_Void_95_case():
   while True:
     return None
-
-# case block in io_bind
-def _idris_io_95_bind_95_case(e0, e1, e2, e3, e4, e5, e6, e7):
-  while True:
-    return APPLY0(e7, e5)
 
 # <<Void eliminator>>
 def _idris_Void_95_elim():

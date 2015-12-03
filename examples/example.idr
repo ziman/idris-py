@@ -43,23 +43,23 @@ main = do
   features <- soup /. "select" $. ["div.entry-content li"]
 
   -- print all <li> elements as features
-  putStrLn $ "Idris has got the following exciting features:"
+  putStrLn' $ "Idris has got the following exciting features:"
   count <- iterate features 0 $ \i : Int, li : Obj Element => do
     -- collect : Iterator a -> PIO (List a)
     line <- concat <$> collect (li /. "strings")
-    putStrLn $ show (i+1) ++ ". " ++ line
+    putStrLn' $ show (i+1) ++ ". " ++ line
     return $ i + 1
 
-  putStrLn $ "Total number of features: " ++ show count
-  putStrLn ""
+  putStrLn' $ "Total number of features: " ++ show count
+  putStrLn' ""
 
 
   -- ###  Concurrency  ###
 
   let thread : (String -> PIO Nat) = \name => do
-    putStrLn $ "thread " ++ name ++ " starting"
+    putStrLn' $ "thread " ++ name ++ " starting"
     html <- session /. "get" $. ["http://idris-lang.org"] /: "text"
-    putStrLn $ "thread " ++ name ++ " done"
+    putStrLn' $ "thread " ++ name ++ " done"
     return $ length html
 
   thrA <- forkPIO $ thread "A"
@@ -67,30 +67,30 @@ main = do
   resA <- wait thrA
   resB <- wait thrB
 
-  putStrLn $ "thread A says " ++ show resA
-  putStrLn $ "thread B says " ++ show resB
-  putStrLn ""
+  putStrLn' $ "thread A says " ++ show resA
+  putStrLn' $ "thread B says " ++ show resB
+  putStrLn' ""
 
 
   -- ###  Exceptions  ###
 
   os <- Os.import_
-  putStrLn "And now, let's fail!"
+  putStrLn' "And now, let's fail!"
 
   -- the standard try-catch variant
   try (do
     os /. "mkdir" $. ["/root/hello"]
-    putStrLn $ "Something's wrong, your root's homedir is writable!"
+    putStrLn' $ "Something's wrong, your root's homedir is writable!"
   ) `catch` (\etype, e => case etype of
-    OSError => putStrLn $ "  -> (1) everything's fine: " ++ showException e
+    OSError => putStrLn' $ "  -> (1) everything's fine: " ++ showException e
     _       => raise e
   )
 
   -- Idris sugar, originally used in Effects
   OK ret <- try $ os /. "mkdir" $. ["/root/hello"]
-    | Except OSError e => putStrLn ("  -> (2) everything's fine: " ++ showException e)
+    | Except OSError e => putStrLn' ("  -> (2) everything's fine: " ++ showException e)
     | Except _       e => raise e
-  putStrLn $ "Your root could probably use some security lessons!"
+  putStrLn' $ "Your root could probably use some security lessons!"
 
 exports : FFI_Export FFI_Py "example.py" []
 exports =
@@ -98,4 +98,4 @@ exports =
     End
   where
     greet : String -> PIO ()
-    greet name = putStrLn $ "Hello " ++ name ++ "!"
+    greet name = putStrLn' $ "Hello " ++ name ++ "!"
