@@ -25,6 +25,11 @@ infix 5 ~~>
 fun : (t : Telescope a) -> Field
 fun t = Attr . Obj $ Function t
 
+toDynList : TList t args -> List Dyn
+toDynList  TNil        = []
+toDynList (TCons x xs) = toDyn x :: toDynList xs
+toDynList (TSkip   xs) = toDynList xs
+
 ||| Duck-typed function call.
 call :
   {t : Telescope a}
@@ -35,9 +40,9 @@ call :
 call {t = t} (MkObj f) args =
   unRaw <$>
     foreign FFI_Py "_idris_call"
-      (Ptr -> (TList t args) -> PIO (Raw $ Telescope.retTy t args))
+      (Ptr -> List Dyn -> PIO (Raw $ Telescope.retTy t args))
       f
-      (strip t args)
+      (toDynList $ strip t args)
 
 infixl 4 $.
 ||| Function call specialised to ``Function t``.

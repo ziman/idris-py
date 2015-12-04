@@ -636,27 +636,42 @@ def _idris_Python_46_Telescope_46_strip(e0, e1, e2):
           aux1 = in5
         else:  # Prelude.Maybe.Nothing
           aux1 = _idris_Python_46_Telescope_46__123_strip0_125_(in2)
-        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, aux1), in4).cons(in3)
+        return (1, in3, _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, aux1), in4))  # Python.Telescope.TCons
         return _idris_error("unreachable due to case in tail position")
       elif in0[0] == 1:  # Python.Telescope.Forall
         assert e2[0] == 0  # Builtins.MkSigma
         in6, in7 = e2[1:]
-        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in6), in7)
+        return (2, _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in6), in7))  # Python.Telescope.TSkip
         return _idris_error("unreachable due to case in tail position")
       else:  # Python.Telescope.Pi
         assert e2[0] == 0  # Builtins.MkSigma
         in8, in9 = e2[1:]
-        return _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in8), in9).cons(in8)
+        return (1, in8, _idris_Python_46_Telescope_46_strip(None, APPLY0(in1, in8), in9))  # Python.Telescope.TCons
         return _idris_error("unreachable due to case in tail position")
       return _idris_error("unreachable due to case in tail position")
     else:  # Python.Telescope.Return
-      return ConsList()
+      return (0,)  # Python.Telescope.TNil
     return _idris_error("unreachable due to case in tail position")
 
 # Python.Objects.toDyn
 def _idris_Python_46_Objects_46_toDyn(e0):
   while True:
     return (65704, None, None)  # {U_believe_me1}
+
+# Python.Functions.toDynList
+def _idris_Python_46_Functions_46_toDynList(e0, e1, e2, e3):
+  while True:
+    if e3[0] == 1:  # Python.Telescope.TCons
+      in0, in1 = e3[1:]
+      return _idris_Python_46_Functions_46_toDynList(None, None, None, in1).cons(APPLY0(_idris_Python_46_Objects_46_toDyn(None), in0))
+    elif e3[0] == 0:  # Python.Telescope.TNil
+      return ConsList()
+    else:  # Python.Telescope.TSkip
+      in2 = e3[1]
+      e0, e1, e2, e3, = None, None, None, in2,
+      continue
+      return _idris_error("unreachable due to tail call")
+    return _idris_error("unreachable due to case in tail position")
 
 # Python.Lib.Numpy.Matrix.transpose
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_transpose(e0, e1, e2, e3, e4):
@@ -1158,7 +1173,15 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array0_125_(in1):
 # Python.Functions.{call0}
 def _idris_Python_46_Functions_46__123_call0_125_(e3, e2, e5, in0):
   while True:
-    return _idris_call(e3, _idris_Python_46_Telescope_46_strip(None, e2, e5))
+    return _idris_call(
+      e3,
+      _idris_Python_46_Functions_46_toDynList(
+        None,
+        None,
+        None,
+        _idris_Python_46_Telescope_46_strip(None, e2, e5)
+      )
+    )
 
 # Python.Lib.Numpy.Matrix.{dot0}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_dot0_125_(in1):
