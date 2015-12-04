@@ -1,7 +1,6 @@
 module Python.IO
 
 import Python.Objects
-import Python.Telescope
 
 %default total
 %access public
@@ -26,7 +25,6 @@ data PyTypes : Type -> Type where
   PyPair_io  : PyTypes a -> PyTypes b -> PyTypes (a, b)
   PyList_io  : PyTypes a -> PyTypes (List a)
   PyFun_io   : PyTypes a -> PyTypes b -> PyTypes (a -> b)
-  PyTList_io : PyTypes (TList t args)
   PyMaybe_io : PyTypes a -> PyTypes (Maybe a)
 
   ||| Python objects, opaque to Idris.
