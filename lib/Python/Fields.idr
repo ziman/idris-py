@@ -3,6 +3,8 @@ module Python.Fields
 import Python.Objects
 import Python.IO
 
+import Language.Reflection
+
 %default total
 %access public
 %language ErrorReflection
@@ -59,13 +61,32 @@ infixl 4 //:
 (//:) obj fps = (//. fps) <$> obj
 
 -- Error reflection for better error messages.
+-- TODO: generalise this
 fieldErr : Err -> Maybe (List ErrorReportPart)
-fieldErr (CantSolveGoal `(~(App sig fn) = Attr ~ty) ntms)
+{-
+fieldErr (CantSolveGoal `(~(App sig fn) = PAttr Unit ~(Bind v (Lam _) ty)) ntms)
   = Just
-      [ TextPart "Field", TermPart fn
-      , TextPart "does not exist in object signature", TermPart sig
-      , TextPart "with the type", TermPart ty
-      ]
+    [ TextPart "Field", TermPart fn
+    , TextPart "does not exist in object signature", TermPart sig
+    , TextPart "with the type", TermPart ty, TextPart "(or at all)."
+    ]
+fieldErr (CantSolveGoal `(~(App sig fn) = ~rhs) ntms)
+  = Just
+    [ TextPart "Field", TermPart fn
+    , TextPart "does not exist in object signature", TermPart sig
+    , TextPart "with the correct type (or at all)."
+    ]
+-}
+fieldErr (CantSolveGoal `(PAttr Unit ~(Bind _ (Lam _) tyl) = PAttr Unit ~(Bind _ (Lam _) tyr)) ntms)
+  = Just
+    [ TextPart "Cannot match field type", TermPart tyl
+    , TextPart "with context-required type", TermPart tyr
+    ]
+
+fieldErr (CantSolveGoal `(NotField = ~rhs) ntms)
+  = Just
+    [ TextPart "The requested field does not exist."
+    ]
 fieldErr _ = Nothing
 
 %error_handlers Python.Fields.(/.) pf fieldErr

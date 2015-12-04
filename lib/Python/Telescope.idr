@@ -2,8 +2,6 @@ module Python.Telescope
 
 import public Data.Erased
 
-%hide Language.Reflection.Binder
-
 %default total
 %access public
 

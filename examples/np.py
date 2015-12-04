@@ -77,7 +77,13 @@ class ConsList(object):
 # Python.Functions.$.
 def _idris_Python_46_Functions_46__36__46_(e0, e1, e2, e3, e4, e5):
   while True:
-    return _idris_Python_46_Functions_46_call(None, None, e2, e3, None, e5)
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+      None,
+      None,
+      None,
+      (65681, None),  # {U_Python.IO.unRaw1}
+      (65680, e3, e2, e5)  # {U_Python.Functions.{$.0}1}
+    )
 
 # Prelude.Basics..
 def _idris_Prelude_46_Basics_46__46_(e0, e1, e2, e3, e4, _idris_x):
@@ -161,7 +167,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_array(e0, e1, e2, e3, e4):
     aux1 = in4
     return APPLY0(
       _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(None, None, None, None),
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65686,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{array1}1}
@@ -205,17 +211,6 @@ def _idris_believe_95_me(e0, e1, e2):
   while True:
     return e2
 
-# Python.Functions.call
-def _idris_Python_46_Functions_46_call(e0, e1, e2, e3, e4, e5):
-  while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-      None,
-      None,
-      None,
-      (65681, None),  # {U_Python.IO.unRaw1}
-      (65680, e3, e2, e5)  # {U_Python.Functions.{call0}1}
-    )
-
 # call__IO
 def _idris_call_95__95_IO(e0, e1, e2):
   while True:
@@ -234,7 +229,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_dot(e0, e1, e2, e3, e4, e5, e6):
   while True:
     return APPLY0(
       _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(None, None, None, None),
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65690,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{dot1}1}
@@ -291,7 +286,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fill(e0, e1, e2, e3, e4):
   while True:
     return APPLY0(
       _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(None, None, None, None),
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65692,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{fill1}1}
@@ -426,7 +421,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_op(e0, e1, e2, e3, e4, e5, e6, e7
   while True:
     return APPLY0(
       _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(None, None, None, None),
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65694,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{op1}1}
@@ -553,7 +548,7 @@ def _idris_Python_46_Prim_46_pyList(e0, e1):
     return _idris_unsafePerformIO(
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (1,), (65700,)),  # Python.Telescope.Bind, Python.Telescope.Forall, {U_Python.Prim.{pyList1}1}
@@ -576,7 +571,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_reshape(
   while True:
     return APPLY0(
       _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(None, None, None, None),
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65696,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{reshape1}1}
@@ -665,7 +660,7 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_transpose(e0, e1, e2, e3, e4):
   while True:
     return APPLY0(
       _idris_Python_46_Lib_46_Numpy_46_Matrix_46_unsafeNp(None, None, None, None),
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65697,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Numpy.Matrix.{transpose0}1}
@@ -761,6 +756,11 @@ def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
     else:  # Prelude.Bool.True
       return True
     return _idris_error("unreachable due to case in tail position")
+
+# Python.Functions.{$.0}
+def _idris_Python_46_Functions_46__123__36__46_0_125_(e3, e2, e5, in0):
+  while True:
+    return _idris_call(e3, _idris_Python_46_Functions_46_strip(None, e2, e5))
 
 # Python.Fields.{/.0}
 def _idris_Python_46_Fields_46__123__47__46_0_125_(e2, e3, in0):
@@ -885,9 +885,9 @@ def APPLY0(fn0, arg0):
                 P_c0, P_c1 = fn0[1:]
                 return _idris_Python_46_Fields_46__123__47__47__46_0_125_(P_c0, P_c1, arg0)
             else:
-              if fn0[0] == 65680:  # {U_Python.Functions.{call0}1}
+              if fn0[0] == 65680:  # {U_Python.Functions.{$.0}1}
                 P_c0, P_c1, P_c2 = fn0[1:]
-                return _idris_Python_46_Functions_46__123_call0_125_(P_c0, P_c1, P_c2, arg0)
+                return _idris_Python_46_Functions_46__123__36__46_0_125_(P_c0, P_c1, P_c2, arg0)
               elif fn0[0] == 65681:  # {U_Python.IO.unRaw1}
                 P_c0 = fn0[1]
                 return _idris_Python_46_IO_46_unRaw(P_c0, arg0)
@@ -1156,11 +1156,6 @@ def _idris__123_Python_46_Lib_46_Numpy_46_Matrix_46_array_44__32_c_95_lam0_125_(
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_array0_125_(in1):
   while True:
     return (0,)  # Python.Telescope.Return
-
-# Python.Functions.{call0}
-def _idris_Python_46_Functions_46__123_call0_125_(e3, e2, e5, in0):
-  while True:
-    return _idris_call(e3, _idris_Python_46_Functions_46_strip(None, e2, e5))
 
 # Python.Lib.Numpy.Matrix.{dot0}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_dot0_125_(in1):
@@ -2062,7 +2057,7 @@ def _idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46
     return _idris_unsafePerformIO(
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (0,),  # Python.Telescope.Return

@@ -77,12 +77,18 @@ class ConsList(object):
 # Python.Functions.$.
 def _idris_Python_46_Functions_46__36__46_(e0, e1, e2, e3, e4, e5):
   while True:
-    return _idris_Python_46_Functions_46_call(None, None, e2, e3, None, e5)
+    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
+      None,
+      None,
+      None,
+      (65770, None),  # {U_Python.IO.unRaw1}
+      (65768, e3, e2, e5)  # {U_Python.Functions.{$.0}1}
+    )
 
 # Python.Functions.$:
-def _idris_Python_46_Functions_46__36__58_(e0, e1, e2, e3):
+def _idris_Python_46_Functions_46__36__58_(e0, e1, e2, e3, e4, e5):
   while True:
-    return (65801, None, None, None, e2, (65768, e1, e3))  # {U_io_bind1}, {U_Python.Functions.{$:0}1}
+    return (65801, None, None, None, e3, (65769, e2, e5))  # {U_io_bind1}, {U_Python.Functions.{$:0}1}
 
 # Prelude.Bool.&&
 def _idris_Prelude_46_Bool_46__38__38_(e0, e1):
@@ -171,17 +177,6 @@ def _idris_believe_95_me(e0, e1, e2):
   while True:
     return e2
 
-# Python.Functions.call
-def _idris_Python_46_Functions_46_call(e0, e1, e2, e3, e4, e5):
-  while True:
-    return _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
-      None,
-      None,
-      None,
-      (65770, None),  # {U_Python.IO.unRaw1}
-      (65769, e3, e2, e5)  # {U_Python.Functions.{call0}1}
-    )
-
 # call__IO
 def _idris_call_95__95_IO(e0, e1, e2):
   while True:
@@ -246,7 +241,7 @@ def _idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4, e5, e6):
       None,
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (0,),  # Python.Telescope.Return
@@ -267,6 +262,7 @@ def _idris_Python_46_Lib_46_Threading_46_forkPIO(e0, e1):
       None,
       _idris_Python_46_Functions_46__36__58_(
         None,
+        None,
         (1, (1,), (65772,)),  # Python.Telescope.Bind, Python.Telescope.Forall, {U_Python.Lib.Threading.{forkPIO1}1}
         _idris_Python_46_Fields_46__47__58_(
           None,
@@ -275,6 +271,7 @@ def _idris_Python_46_Lib_46_Threading_46_forkPIO(e0, e1):
           "Queue",
           None
         ),
+        None,
         (0, (0,), (0, 1, Unit))  # Builtins.MkSigma, Data.Erased.Erase, Builtins.MkSigma
       ),
       (65777, e1)  # {U_Python.Lib.Threading.{forkPIO6}1}
@@ -331,7 +328,7 @@ def _idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4, e5, e6):
       None,
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (0,),  # Python.Telescope.Return
@@ -387,7 +384,7 @@ def _idris_Python_46_Prim_46_next(e0, e1):
       None,
       _idris_Python_46_Exceptions_46_try(
         None,
-        _idris_Python_46_Functions_46_call(
+        _idris_Python_46_Functions_46__36__46_(
           None,
           None,
           (0,),  # Python.Telescope.Return
@@ -689,7 +686,7 @@ def _idris_unsafePerformPrimIO():
 # Python.Lib.Threading.wait
 def _idris_Python_46_Lib_46_Threading_46_wait(e0, e1):
   while True:
-    return _idris_Python_46_Functions_46_call(
+    return _idris_Python_46_Functions_46__36__46_(
       None,
       None,
       (1, (0,), (65778,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Threading.{wait0}1}
@@ -712,10 +709,15 @@ def _idris_Prelude_46_Bool_46__124__124_(e0, e1):
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Python.Functions.{$:0}
-def _idris_Python_46_Functions_46__123__36__58_0_125_(e1, e3, in0):
+# Python.Functions.{$.0}
+def _idris_Python_46_Functions_46__123__36__46_0_125_(e3, e2, e5, in0):
   while True:
-    return _idris_Python_46_Functions_46_call(None, None, e1, in0, None, e3)
+    return _idris_call(e3, _idris_Python_46_Functions_46_strip(None, e2, e5))
+
+# Python.Functions.{$:0}
+def _idris_Python_46_Functions_46__123__36__58_0_125_(e2, e5, in0):
+  while True:
+    return _idris_Python_46_Functions_46__36__46_(None, None, e2, in0, None, e5)
 
 # Python.Fields.{/.0}
 def _idris_Python_46_Fields_46__123__47__46_0_125_(e2, e3, in0):
@@ -1137,12 +1139,12 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65767:  # {U_Python.Fields.{/:0}1}
                   P_c0 = fn0[1]
                   return _idris_Python_46_Fields_46__123__47__58_0_125_(P_c0, arg0)
-                elif fn0[0] == 65768:  # {U_Python.Functions.{$:0}1}
+                elif fn0[0] == 65768:  # {U_Python.Functions.{$.0}1}
+                  P_c0, P_c1, P_c2 = fn0[1:]
+                  return _idris_Python_46_Functions_46__123__36__46_0_125_(P_c0, P_c1, P_c2, arg0)
+                else:  # {U_Python.Functions.{$:0}1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Python_46_Functions_46__123__36__58_0_125_(P_c0, P_c1, arg0)
-                else:  # {U_Python.Functions.{call0}1}
-                  P_c0, P_c1, P_c2 = fn0[1:]
-                  return _idris_Python_46_Functions_46__123_call0_125_(P_c0, P_c1, P_c2, arg0)
               else:
                 if fn0[0] == 65770:  # {U_Python.IO.unRaw1}
                   P_c0 = fn0[1]
@@ -1388,11 +1390,6 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam0_125_(in2):
   while True:
     return (65802, None, None, in2)  # {U_io_return1}
 
-# Python.Functions.{call0}
-def _idris_Python_46_Functions_46__123_call0_125_(e3, e2, e5, in0):
-  while True:
-    return _idris_call(e3, _idris_Python_46_Functions_46_strip(None, e2, e5))
-
 # Python.Prim.{case block in Python.Prim.iterate, iter at ./Python/Prim.idr:84:17_lam0}
 def _idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_iterate_44__32_iter_32_at_32__46__47_Python_47_Prim_46_idr_58_84_58_17_95_lam0_125_(
   e8, e10, in1
@@ -1530,7 +1527,7 @@ def _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam1_125_
   e2, in0
 ):
   while True:
-    return _idris_Python_46_Functions_46_call(
+    return _idris_Python_46_Functions_46__36__46_(
       None,
       None,
       (1, (0,), (65807,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_{Python.Lib.Threading.forkPIO, worker_lam0}1}
@@ -1755,7 +1752,7 @@ def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47
         _idris_Python_46_Fields_46__47__58_(
           None,
           None,
-          _idris_Python_46_Functions_46_call(
+          _idris_Python_46_Functions_46__36__46_(
             None,
             None,
             (1, (0,), (65648,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{case block in main at ./examples/example.idr:59:44_lam0}1}
@@ -1856,7 +1853,7 @@ def _idris_Python_46_Lib_46_Threading_46__123_forkPIO5_125_(in2, in5):
       None,
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (0,),  # Python.Telescope.Return
@@ -1914,6 +1911,7 @@ def _idris_Python_46_Lib_46_Threading_46__123_forkPIO6_125_(e1, in2):
       None,
       _idris_Python_46_Functions_46__36__58_(
         None,
+        None,
         (1, (0,), (65774,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Threading.{forkPIO3}1}
         _idris_Python_46_Fields_46__47__58_(
           None,
@@ -1922,6 +1920,7 @@ def _idris_Python_46_Lib_46_Threading_46__123_forkPIO6_125_(e1, in2):
           "Thread",
           None
         ),
+        None,
         (
           0,  # Builtins.MkSigma
           None,
@@ -2415,7 +2414,7 @@ def _idris_Main_46__123_main42_125_(in1, in26, in33):
         _idris_Python_46_Fields_46__47__58_(
           None,
           None,
-          _idris_Python_46_Functions_46_call(
+          _idris_Python_46_Functions_46__36__46_(
             None,
             None,
             (1, (0,), (65671,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main27}1}
@@ -2515,7 +2514,7 @@ def _idris_Main_46__123_main50_125_(in46, in52):
       None,
       _idris_Python_46_Exceptions_46_try(
         None,
-        _idris_Python_46_Functions_46_call(
+        _idris_Python_46_Functions_46__36__46_(
           None,
           None,
           (1, (0,), (65694,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main48}1}
@@ -2544,7 +2543,7 @@ def _idris_Main_46__123_main51_125_(in46, in47):
             None,
             None,
             None,
-            _idris_Python_46_Functions_46_call(
+            _idris_Python_46_Functions_46__36__46_(
               None,
               None,
               (1, (0,), (65690,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main44}1}
@@ -2734,7 +2733,7 @@ def _idris_Main_46__123_main65_125_(in1, in7):
       None,
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65685,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main3}1}
@@ -2753,7 +2752,7 @@ def _idris_Main_46__123_main66_125_(in3, in1, in4):
       None,
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (1, (0,), (65674,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main2}1}
@@ -2780,7 +2779,7 @@ def _idris_Main_46__123_main68_125_(in1):
       _idris_Python_46_Fields_46__47__58_(
         None,
         None,
-        _idris_Python_46_Functions_46_call(
+        _idris_Python_46_Functions_46__36__46_(
           None,
           None,
           (1, (0,), (65652,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main0}1}
@@ -2802,7 +2801,7 @@ def _idris_Main_46__123_main69_125_(in0):
       None,
       None,
       None,
-      _idris_Python_46_Functions_46_call(
+      _idris_Python_46_Functions_46__36__46_(
         None,
         None,
         (0,),  # Python.Telescope.Return
