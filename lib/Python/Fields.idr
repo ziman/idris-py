@@ -34,7 +34,7 @@ infixl 4 //.
 abstract
 (//.) :
   (obj : Obj sig) -> (fps : FieldParams pt)
-  -> {auto pf : sig (fpName fps) = ParAttr pt tf}
+  -> {auto pf : sig (fpName fps) = PAttr pt tf}
   -> tf (fpParams fps)
 (//.) {tf=tf} (MkObj obj) (FP f ps) =
   unRaw . unsafePerformIO $
@@ -54,7 +54,7 @@ infixl 4 /:
 infixl 4 //:
 (//:) :
   (obj : PIO (Obj sig)) -> (fps : FieldParams pt)
-  -> {auto pf : sig (fpName fps) = ParAttr pt tf}
+  -> {auto pf : sig (fpName fps) = PAttr pt tf}
   -> PIO (tf (fpParams fps))
 (//:) obj fps = (//. fps) <$> obj
 

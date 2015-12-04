@@ -43,7 +43,7 @@ NDArrayT f = case f of
 Numpy : Signature
 Numpy f = case f of
 
-  "array" => ParAttr _ $ \a : Type =>
+  "array" => PAttr _ $ \a : Type =>
       [Obj (PyList (Obj (PyList a))), String] ~> Arr
 
   "reshape" => [Arr, (Nat, Nat)] ~~> Arr

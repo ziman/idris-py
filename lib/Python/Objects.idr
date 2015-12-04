@@ -6,10 +6,12 @@ import Python.Telescope
 %access public
 
 data Field : Type where
-  Attr : Type -> Field
-  ParAttr : (pt : Type) -> (tf : pt -> Type) -> Field
+  PAttr : (pt : Type) -> (tf : pt -> Type) -> Field
   Call : (t : Telescope a) -> Field
   NotField : Field
+
+Attr : Type -> Field
+Attr t = PAttr Unit $ const t
 
 ||| Python object signature is a list of its fields, plus mixins.
 Signature : Type
