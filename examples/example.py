@@ -724,24 +724,24 @@ def APPLY0(fn0, arg0):
           if fn0[0] < 65660:
             if fn0[0] < 65654:
               if fn0[0] < 65651:
-                if fn0[0] == 65649:  # {U_Main.{case block in main at example.idr:59:44_lam0}1}
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam0_125_(
+                if fn0[0] == 65649:  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam0}1}
+                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam0_125_(
                     arg0
                   )
-                else:  # {U_Main.{case block in main at example.idr:59:44_lam1}1}
+                else:  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam1}1}
                   P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam1_125_(
+                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam1_125_(
                     P_c0, P_c1, arg0
                   )
               else:
-                if fn0[0] == 65651:  # {U_Main.{case block in main at example.idr:59:44_lam2}1}
+                if fn0[0] == 65651:  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam2}1}
                   P_c0, P_c1 = fn0[1:]
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam2_125_(
+                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam2_125_(
                     P_c0, P_c1, arg0
                   )
-                elif fn0[0] == 65652:  # {U_Main.{case block in main at example.idr:59:44_lam3}1}
+                elif fn0[0] == 65652:  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam3}1}
                   P_c0, P_c1, P_c2 = fn0[1:]
-                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam3_125_(
+                  return _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam3_125_(
                     P_c0, P_c1, P_c2, arg0
                   )
                 else:  # {U_Main.{main0}1}
@@ -1387,8 +1387,8 @@ def _idris_Python_46_Prim_46__123_case_32_block_32_in_32_Python_46_Prim_46_itera
       None, None, None, None, None, None, None, None, e8, in1, e10
     )
 
-# Main.{case block in main at example.idr:59:44_lam0}
-def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam0_125_(
+# Main.{case block in main at ./examples/example.idr:59:44_lam0}
+def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam0_125_(
   in1
 ):
   while True:
@@ -1529,8 +1529,8 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam1_125_(in1):
   while True:
     return (65809,)  # {U_{Python.Prim.iterate, iter_lam0}1}
 
-# Main.{case block in main at example.idr:59:44_lam1}
-def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam1_125_(
+# Main.{case block in main at ./examples/example.idr:59:44_lam1}
+def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam1_125_(
   e18, in2, in3
 ):
   while True:
@@ -1650,8 +1650,8 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam2_125_(in5, in6):
   while True:
     return (65801, None, None, None, in5, in6)  # {U_io_bind1}
 
-# Main.{case block in main at example.idr:59:44_lam2}
-def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam2_125_(
+# Main.{case block in main at ./examples/example.idr:59:44_lam2}
+def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam2_125_(
   e18, e20, in2
 ):
   while True:
@@ -1663,7 +1663,7 @@ def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_5
           (("thread " + (e20 + " done")) + "\n")
         )
       ),
-      (65650, e18, in2)  # {U_Main.{case block in main at example.idr:59:44_lam1}1}
+      (65650, e18, in2)  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam1}1}
     )
 
 # Python.Exceptions.{catch2}
@@ -1729,8 +1729,8 @@ def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(in5):
   while True:
     return (65815, in5)  # {U_{Python.Prim.iterate, iter_lam2}1}
 
-# Main.{case block in main at example.idr:59:44_lam3}
-def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_59_58_44_95_lam3_125_(
+# Main.{case block in main at ./examples/example.idr:59:44_lam3}
+def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47_example_46_idr_58_59_58_44_95_lam3_125_(
   e18, e3, e20, in0
 ):
   while True:
@@ -1743,7 +1743,7 @@ def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_5
           _idris_Python_46_Functions_46_call(
             None,
             None,
-            (1, (0,), (65649,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{case block in main at example.idr:59:44_lam0}1}
+            (1, (0,), (65649,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{case block in main at ./examples/example.idr:59:44_lam0}1}
             _idris_Python_46_Fields_46__47__46_(None, None, e3, "get", None),
             None,
             (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
@@ -1752,7 +1752,7 @@ def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32_example_46_idr_58_5
           None
         )
       ),
-      (65651, e18, e20)  # {U_Main.{case block in main at example.idr:59:44_lam2}1}
+      (65651, e18, e20)  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam2}1}
     )
 
 # Python.Exceptions.{catch3}
@@ -3387,15 +3387,8 @@ def _idris_Python_46_Prim_46_Python_46_Prim_46_iterate_58_iter_58_0_95__95__95__
       return APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, aux1), e9)
     return _idris_error("unreachable due to case in tail position")
 
-# case block in io_bind at IO.idr:109:34
-def _idris_io_95_bind_95_IO_95__95_idr_95_109_95_34_95_case(
-  e0, e1, e2, e3, e4, e5, e6, e7
-):
-  while True:
-    return APPLY0(e7, e5)
-
-# Main.case block in main at example.idr:59:44
-def _idris_Main_46_main_95_example_95__95_idr_95_59_95_44_95_case(
+# Main.case block in main at ./examples/example.idr:59:44
+def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95_59_95_44_95_case(
   e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
   e15, e16, e17, e18, e19, e20, e21
 ):
@@ -3408,11 +3401,11 @@ def _idris_Main_46_main_95_example_95__95_idr_95_59_95_44_95_case(
           (("thread " + (e20 + " starting")) + "\n")
         )
       ),
-      (65652, e18, e3, e20)  # {U_Main.{case block in main at example.idr:59:44_lam3}1}
+      (65652, e18, e3, e20)  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam3}1}
     )
 
-# Main.case block in main at example.idr:84:32
-def _idris_Main_46_main_95_example_95__95_idr_95_84_95_32_95_case(
+# Main.case block in main at ./examples/example.idr:84:32
+def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95_84_95_32_95_case(
   e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
   e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
   e28, e29, e30, e31, e32, e33, e34, e35, e36, e37, e38, e39, e40,
@@ -3428,8 +3421,8 @@ def _idris_Main_46_main_95_example_95__95_idr_95_84_95_32_95_case(
       return _idris_Python_46_Exceptions_46_raise(None, e43)
     return _idris_error("unreachable due to case in tail position")
 
-# Main.case block in main at example.idr:90:13
-def _idris_Main_46_main_95_example_95__95_idr_95_90_95_13_95_case(
+# Main.case block in main at ./examples/example.idr:90:13
+def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95_90_95_13_95_case(
   e0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13, e14,
   e15, e16, e17, e18, e19, e20, e21, e22, e23, e24, e25, e26, e27,
   e28, e29, e30, e31, e32, e33, e34, e35, e36, e37, e38, e39, e40,
@@ -3453,6 +3446,13 @@ def _idris_Main_46_main_95_example_95__95_idr_95_90_95_13_95_case(
         "Your root could probably use some security lessons!\n"
       )
     return _idris_error("unreachable due to case in tail position")
+
+# case block in io_bind at IO.idr:109:34
+def _idris_io_95_bind_95_IO_95__95_idr_95_109_95_34_95_case(
+  e0, e1, e2, e3, e4, e5, e6, e7
+):
+  while True:
+    return APPLY0(e7, e5)
 
 # case block in Void
 def _idris_Void_95_case():
