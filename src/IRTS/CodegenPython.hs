@@ -376,6 +376,7 @@ pyShowStr :: String -> String
 pyShowStr s = "u'" ++ concatMap pyShowChr s ++ "'"
 
 pyShowChr :: Char -> String
+pyShowChr '\'' = "\\'"
 pyShowChr c
     | c >= ' ' && c < '\x7F'  = [c]
     | c <= '\xFFFF' = "\\u" ++ showHexN 4 (ord c)
