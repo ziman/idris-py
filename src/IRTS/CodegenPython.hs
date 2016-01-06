@@ -8,6 +8,7 @@ import IRTS.Defunctionalise hiding (lift)
 
 import Idris.Core.TT
 
+import Numeric
 import Data.Maybe
 import Data.Char
 import Data.List
@@ -338,8 +339,8 @@ cgPrim (LSDiv  _) [x, y] = parens $ x <+> text "/" <+> y
 cgPrim (LURem  _) [x, y] = parens $ x <+> text "%" <+> y
 cgPrim (LSRem  _) [x, y] = parens $ x <+> text "%" <+> y
 
-cgPrim (LEq    _) [x, y] = parens $ x <+> text "==" <+> y
-cgPrim (LSLt   _) [x, y] = parens $ x <+> text "<" <+> y
+cgPrim (LEq    _) [x, y] = text "int" <> parens (x <+> text "==" <+> y)
+cgPrim (LSLt   _) [x, y] = text "int" <> parens (x <+> text "<" <+> y)
 cgPrim (LSExt _ _)[x]    = x
 cgPrim (LZExt _ _)[x]    = x
 
@@ -348,7 +349,7 @@ cgPrim (LStrInt _) [x] = text "int" <> parens x
 cgPrim  LStrRev    [x] = x ! "::-1"
 cgPrim  LStrConcat [x, y] = parens $ x <+> text "+" <+> y
 cgPrim  LStrCons   [x, y] = parens $ x <+> text "+" <+> y
-cgPrim  LStrEq     [x, y] = parens $ x <+> text "==" <+> y
+cgPrim  LStrEq     [x, y] = text "int" <> parens (x <+> text "==" <+> y)
 cgPrim  LStrHead   [x] = x ! "0"
 cgPrim  LStrTail   [x] = x ! "1:"
 cgPrim  LStrLen    [x] = text "len" <> parens x
@@ -367,9 +368,24 @@ cgConst :: Const -> Expr
 cgConst (I i) = text $ show i
 cgConst (BI i) = text $ show i
 cgConst (Fl f) = text $ show f
-cgConst (Ch c) = text $ show c
-cgConst (Str s) = text $ show s
+cgConst (Ch c) = text $ pyShowStr [c]
+cgConst (Str s) = text $ pyShowStr s
 cgConst c = cgError $ "unimplemented constant: " ++ show c
+
+pyShowStr :: String -> String
+pyShowStr s = "u'" ++ concatMap pyShowChr s ++ "'"
+
+pyShowChr :: Char -> String
+pyShowChr c
+    | c >= ' ' && c < '\x7F'  = [c]
+    | c <= '\xFFFF' = "\\u" ++ showHexN 4 (ord c)
+    | otherwise     = "\\U" ++ showHexN 8 (ord c)
+
+showHexN :: Int -> Int -> String
+showHexN 0 _ = ""
+showHexN w n =
+  let (p,q) = n `divMod` 16
+    in showHexN (w-1) p ++ showHex q ""
 
 cgCtor :: Int -> Name -> [Expr] -> Expr
 cgCtor tag n [] = parens (int tag <> comma) <?> show n
