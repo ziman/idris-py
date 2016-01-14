@@ -90,10 +90,10 @@ abstract
 abs : Matrix r c dt -> Matrix r c dt
 abs (MkM x) = unsafeNp $ np /. "abs" $. [x]
 
-instance Num (Matrix r c dt) where
+implementation Num (Matrix r c dt) where
   (+) = op "__add__"
   (*) = op "__mul__"
   fromInteger = Matrix.fromInteger
 
-instance Show (Matrix r c dt) where
+implementation Show (Matrix r c dt) where
   show (MkM x) = unsafePerformIO $ x /. "__str__" $. []

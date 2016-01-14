@@ -17,13 +17,13 @@ Attr t = PAttr Unit $ const t
 Signature : Type
 Signature = String -> Field
 
-instance Semigroup Signature where
+implementation Semigroup Signature where
   (<+>) s t =
     \field => case s field of
         NotField => t field
         result   => result
 
-instance Monoid Signature where
+implementation Monoid Signature where
   neutral = const NotField
 
 ||| Dynamically typed Python reference.
