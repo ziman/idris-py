@@ -2,6 +2,7 @@
 
 import sys
 import importlib
+import math
 
 Unit = object()
 World = object()
@@ -130,18 +131,18 @@ def _idris_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_S
         (0,), (6,)  # Prelude.Show.Open, Prelude.Show.App
       )
       if not aux1:  # Prelude.Bool.False
-        return ("Just" + (" " + APPLY0(
+        return (u'Just' + (u' ' + APPLY0(
           APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65718,), (65723,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac63}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac68}1}
           in9
         )))
       else:  # Prelude.Bool.True
-        return ("(" + (("Just" + (" " + APPLY0(
+        return (u'(' + ((u'Just' + (u' ' + APPLY0(
           APPLY0(_idris_Prelude_46_Show_46_showPrec(None, (0, (65710,), (65715,))), None),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac612}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac617}1}
           in9
-        ))) + ")"))
+        ))) + u')'))
       return _idris_error("unreachable due to case in tail position")
     else:  # Prelude.Maybe.Nothing
-      return "Nothing"
+      return u'Nothing'
     return _idris_error("unreachable due to case in tail position")
 
 # PE_printLn'_3e9fcf72
@@ -149,7 +150,7 @@ def _idris_PE_95_printLn_39__95_3e9fcf72(e0, e1):
   while True:
     return _idris_Prelude_46_Interactive_46_putStr_39_(
       None,
-      (_idris_PE_95_show_95_d9020f8e(e1) + "\n")
+      (_idris_PE_95_show_95_d9020f8e(e1) + u'\u000a')
     )
 
 # PE_show_d9020f8e
@@ -175,8 +176,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_array(e0, e1, e2, e3, e4):
           None,
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65701, None, "numpy")),  # {U_Python.importModule1}
-          "array",
+          _idris_unsafePerformIO(None, None, (65701, None, u'numpy')),  # {U_Python.importModule1}
+          u'array',
           None
         ),
         None,
@@ -236,8 +237,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_dot(e0, e1, e2, e3, e4, e5, e6):
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65701, None, "numpy")),  # {U_Python.importModule1}
-          "dot",
+          _idris_unsafePerformIO(None, None, (65701, None, u'numpy')),  # {U_Python.importModule1}
+          u'dot',
           None
         ),
         None,
@@ -293,8 +294,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fill(e0, e1, e2, e3, e4):
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65701, None, "numpy")),  # {U_Python.importModule1}
-          "tile",
+          _idris_unsafePerformIO(None, None, (65701, None, u'numpy')),  # {U_Python.importModule1}
+          u'tile',
           None
         ),
         None,
@@ -411,8 +412,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_nda():
     return _idris_Python_46_Fields_46__47__46_(
       None,
       None,
-      _idris_unsafePerformIO(None, None, (65701, None, "numpy")),  # {U_Python.importModule1}
-      "ndarray",
+      _idris_unsafePerformIO(None, None, (65701, None, u'numpy')),  # {U_Python.importModule1}
+      u'ndarray',
       None
     )
 
@@ -515,7 +516,7 @@ def _idris_prim_95__95_stdout():
 # prim__toFloatBigInt
 def _idris_prim_95__95_toFloatBigInt(op0):
   while True:
-    return int(op0)
+    return float(op0)
 
 # prim__vm
 def _idris_prim_95__95_vm():
@@ -555,8 +556,8 @@ def _idris_Python_46_Prim_46_pyList(e0, e1):
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_Python_46_getGlobal(None, "__builtins__"),
-          "list",
+          _idris_Python_46_getGlobal(None, u'__builtins__'),
+          u'list',
           None
         ),
         None,
@@ -578,8 +579,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_reshape(
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65701, None, "numpy")),  # {U_Python.importModule1}
-          "reshape",
+          _idris_unsafePerformIO(None, None, (65701, None, u'numpy')),  # {U_Python.importModule1}
+          u'reshape',
           None
         ),
         None,
@@ -606,7 +607,7 @@ def _idris_Prelude_46_Show_46_showParens(e0, e1):
     if not e0:  # Prelude.Bool.False
       return e1
     else:  # Prelude.Bool.True
-      return ("(" + (e1 + ")"))
+      return (u'(' + (e1 + u')'))
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Show.showPrec
@@ -667,8 +668,8 @@ def _idris_Python_46_Lib_46_Numpy_46_Matrix_46_transpose(e0, e1, e2, e3, e4):
         _idris_Python_46_Fields_46__47__46_(
           None,
           None,
-          _idris_unsafePerformIO(None, None, (65701, None, "numpy")),  # {U_Python.importModule1}
-          "transpose",
+          _idris_unsafePerformIO(None, None, (65701, None, u'numpy')),  # {U_Python.importModule1}
+          u'transpose',
           None
         ),
         None,
@@ -708,7 +709,7 @@ def _idris_Main_46_xs():
       None,
       None,
       None,
-      (0, "float", (65663,), (65665, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{xs0}1}, {U_Prelude.Basics.id1}
+      (0, u'float', (65663,), (65665, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{xs0}1}, {U_Prelude.Basics.id1}
       (
         1,  # Data.Vect.::
         (1, 1.0, (1, -2.1, (1, 3.3, (1, -0.1, (0,))))),  # Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.::, Data.Vect.Nil
@@ -1115,9 +1116,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in1:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}
@@ -1180,7 +1181,7 @@ def io_bind0(e0, e1, e2, e3, e4, _idris_w, in0):
 # Main.{main0}
 def _idris_Main_46__123_main0_125_(in7):
   while True:
-    return int(in7)
+    return float(in7)
 
 # Python.Lib.Numpy.Matrix.{op0}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op0_125_(in1):
@@ -1230,7 +1231,7 @@ def unsafePerformIO0(in0):
 # Main.{xs0}
 def _idris_Main_46__123_xs0_125_(in0):
   while True:
-    return int(in0)
+    return float(in0)
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}
 def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
@@ -1245,9 +1246,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in3:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}
@@ -1285,7 +1286,7 @@ def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
 # Main.{main1}
 def _idris_Main_46__123_main1_125_(in8):
   while True:
-    return int(in8)
+    return float(in8)
 
 # Python.Lib.Numpy.Matrix.{op1}
 def _idris_Python_46_Lib_46_Numpy_46_Matrix_46__123_op1_125_(in0):
@@ -1394,7 +1395,7 @@ def _idris_Main_46__123_main2_125_(in6):
                 APPLY0(
                   _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromInteger(
                     None,
-                    (0, "float", (65654,), (65665, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main0}1}, {U_Prelude.Basics.id1}
+                    (0, u'float', (65654,), (65665, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main0}1}, {U_Prelude.Basics.id1}
                     4,
                     4
                   ),
@@ -1421,14 +1422,14 @@ def _idris_Main_46__123_main2_125_(in6):
           APPLY0(
             _idris_Python_46_Lib_46_Numpy_46_Matrix_46_fromDouble(
               None,
-              (0, "float", (65655,), (65665, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main1}1}, {U_Prelude.Basics.id1}
+              (0, u'float', (65655,), (65665, None)),  # Python.Lib.Numpy.Matrix.MkDType, {U_Main.{main1}1}, {U_Prelude.Basics.id1}
               4,
               4
             ),
             0.2
           )
         )
-      ) + "\n")
+      ) + u'\u000a')
     )
 
 # Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}
@@ -1443,14 +1444,14 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in0
 ):
   while True:
-    return ("[" + (_idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
+    return (u'[' + (_idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
       None,
       None,
       None,
       (0, (65707,), (65717,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac60}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac62}1}
-      "",
+      u'',
       in0
-    ) + "]"))
+    ) + u']'))
 
 # Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}
 def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
@@ -1494,7 +1495,7 @@ def _idris_Main_46__123_main3_125_(in5):
             ),
             _idris_Main_46_xs()
           )
-        ) + "\n")
+        ) + u'\u000a')
       ),
       (65656,)  # {U_Main.{main2}1}
     )
@@ -1505,9 +1506,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in6:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # Main.{main4}
@@ -1540,7 +1541,7 @@ def _idris_Main_46__123_main4_125_(in4):
               _idris_Main_46_xs()
             )
           )
-        ) + "\n")
+        ) + u'\u000a')
       ),
       (65657,)  # {U_Main.{main3}1}
     )
@@ -1551,9 +1552,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in8:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # Main.{main5}
@@ -1580,7 +1581,7 @@ def _idris_Main_46__123_main5_125_(in3):
             _idris_Main_46_xs(),
             _idris_Main_46_zs()
           )
-        ) + "\n")
+        ) + u'\u000a')
       ),
       (65658,)  # {U_Main.{main4}1}
     )
@@ -1608,7 +1609,7 @@ def _idris_Main_46__123_main6_125_(in2):
           None,
           None,
           _idris_Main_46_zs()
-        ) + "\n")
+        ) + u'\u000a')
       ),
       (65659,)  # {U_Main.{main5}1}
     )
@@ -1641,7 +1642,7 @@ def _idris_Main_46__123_main7_125_(in1):
           None,
           None,
           _idris_Main_46_ys()
-        ) + "\n")
+        ) + u'\u000a')
       ),
       (65660,)  # {U_Main.{main6}1}
     )
@@ -1669,7 +1670,7 @@ def _idris_Main_46__123_main8_125_(in0):
           None,
           None,
           _idris_Main_46_xs()
-        ) + "\n")
+        ) + u'\u000a')
       ),
       (65661,)  # {U_Main.{main7}1}
     )
@@ -1680,9 +1681,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in1:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac610}
@@ -1691,9 +1692,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in3:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}
@@ -1708,14 +1709,14 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
   in0
 ):
   while True:
-    return ("[" + (_idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
+    return (u'[' + (_idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
       None,
       None,
       None,
       (0, (65724,), (65709,)),  # constructor of Prelude.Show.Show, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac69}1}, {U_{PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac611}1}
-      "",
+      u'',
       in0
-    ) + "]"))
+    ) + u']'))
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac613}
 def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_bb6a4ac613_125_(
@@ -1723,9 +1724,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in6:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac614}
@@ -1734,9 +1735,9 @@ def _idris__123_PE_95_Prelude_46_Show_46_Maybe_32_a_32_instance_32_of_32_Prelude
 ):
   while True:
     if not in8:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # {PE_Prelude.Show.Maybe a instance of Prelude.Show.Show, method show_bb6a4ac615}
@@ -1823,7 +1824,7 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
       if not in1:  # Prelude.List.Nil
         return (e4 + APPLY0(_idris_Prelude_46_Show_46_show(None, e3), in0))
       else:
-        e0, e1, e2, e3, e4, e5, = None, None, None, e3, (e4 + (APPLY0(_idris_Prelude_46_Show_46_show(None, e3), in0) + ", ")), in1,
+        e0, e1, e2, e3, e4, e5, = None, None, None, e3, (e4 + (APPLY0(_idris_Prelude_46_Show_46_show(None, e3), in0) + u', ')), in1,
         continue
         return _idris_error("unreachable due to tail call")
       return _idris_error("unreachable due to case in tail position")
@@ -1914,14 +1915,14 @@ def _idris_Prelude_46_Classes_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude
   e0, e1, e2, e3
 ):
   while True:
-    return (65731, None, None, None, None, "__mul__", None)  # {U_Python.Lib.Numpy.Matrix.op2}
+    return (65731, None, None, None, None, u'__mul__', None)  # {U_Python.Lib.Numpy.Matrix.op2}
 
 # Prelude.Classes.Python.Lib.Numpy.Matrix.Matrix r c dt instance of Prelude.Classes.Num, method +
 def _idris_Prelude_46_Classes_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Classes_46_Num_36_Matrix_32_r_32_c_32_dt_58__33__43__58_0(
   e0, e1, e2, e3
 ):
   while True:
-    return (65731, None, None, None, None, "__add__", None)  # {U_Python.Lib.Numpy.Matrix.op2}
+    return (65731, None, None, None, None, u'__add__', None)  # {U_Python.Lib.Numpy.Matrix.op2}
 
 # Prelude.Classes.Prelude.Classes.Integer instance of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
@@ -2035,9 +2036,9 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
 ):
   while True:
     if not e0:  # Prelude.Bool.False
-      return "False"
+      return u'False'
     else:  # Prelude.Bool.True
-      return "True"
+      return u'True'
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Show.Prelude.Show.List a instance of Prelude.Show.Show, method show
@@ -2045,9 +2046,9 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
   e0, e1, e2, e3
 ):
   while True:
-    return ("[" + (_idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
-      None, None, None, e2, "", e3
-    ) + "]"))
+    return (u'[' + (_idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
+      None, None, None, e2, u'', e3
+    ) + u']'))
 
 # Prelude.Show.Python.Lib.Numpy.Matrix.Matrix r c dt instance of Prelude.Show.Show, method show
 def _idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46_Show_46_Show_36_Matrix_32_r_32_c_32_dt_58__33_show_58_0(
@@ -2061,7 +2062,7 @@ def _idris_Prelude_46_Show_46_Python_46_Lib_46_Numpy_46_Matrix_46__64_Prelude_46
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, e4, "__str__", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, e4, u'__str__', None),
         None,
         Unit
       )
@@ -2078,12 +2079,12 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
         e3, (6,)  # Prelude.Show.App
       )
       if not aux1:  # Prelude.Bool.False
-        return ("Just" + (" " + APPLY0(APPLY0(_idris_Prelude_46_Show_46_showPrec(None, e2), None), in0)))
+        return (u'Just' + (u' ' + APPLY0(APPLY0(_idris_Prelude_46_Show_46_showPrec(None, e2), None), in0)))
       else:  # Prelude.Bool.True
-        return ("(" + (("Just" + (" " + APPLY0(APPLY0(_idris_Prelude_46_Show_46_showPrec(None, e2), None), in0))) + ")"))
+        return (u'(' + ((u'Just' + (u' ' + APPLY0(APPLY0(_idris_Prelude_46_Show_46_showPrec(None, e2), None), in0))) + u')'))
       return _idris_error("unreachable due to case in tail position")
     else:  # Prelude.Maybe.Nothing
-      return "Nothing"
+      return u'Nothing'
     return _idris_error("unreachable due to case in tail position")
 
 # with block in Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >

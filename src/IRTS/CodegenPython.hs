@@ -116,6 +116,7 @@ pythonPreamble = vcat . map text $
     , ""
     , "import sys"
     , "import importlib"
+    , "import math"
     , ""
     , "Unit = object()"
     , "World = object()"
@@ -330,39 +331,85 @@ cgExtern n args = cgError $ "unimplemented external: " ++ n
 (!) :: Expr -> String -> Expr
 x ! i = x <> brackets (text i)
 
+cgPOp :: String -> [Expr] -> Expr
+cgPOp op [x, y] = parens $ x <+> text op <+> y
+
+cgPFun :: String -> [Expr] -> Expr
+cgPFun fun = cgApp $ text fun
+
 cgPrim :: PrimFn -> [Expr] -> Expr
-cgPrim (LPlus  _) [x, y] = parens $ x <+> text "+" <+> y
-cgPrim (LMinus _) [x, y] = parens $ x <+> text "-" <+> y
-cgPrim (LTimes _) [x, y] = parens $ x <+> text "*" <+> y
-cgPrim (LUDiv  _) [x, y] = parens $ x <+> text "/" <+> y
-cgPrim (LSDiv  _) [x, y] = parens $ x <+> text "/" <+> y
-cgPrim (LURem  _) [x, y] = parens $ x <+> text "%" <+> y
-cgPrim (LSRem  _) [x, y] = parens $ x <+> text "%" <+> y
+cgPrim (LPlus  _) = cgPOp "+"
+cgPrim (LMinus _) = cgPOp "-"
+cgPrim (LTimes _) = cgPOp "*"
+cgPrim (LUDiv  _) = cgPOp "/"
+cgPrim (LSDiv  _) = cgPOp "/"
+cgPrim (LURem  _) = cgPOp "%"
+cgPrim (LSRem  _) = cgPOp "%"
 
-cgPrim (LEq    _) [x, y] = text "int" <> parens (x <+> text "==" <+> y)
-cgPrim (LSLt   _) [x, y] = text "int" <> parens (x <+> text "<" <+> y)
-cgPrim (LSExt _ _)[x]    = x
-cgPrim (LZExt _ _)[x]    = x
+cgPrim (LAnd   _) = cgPOp "&"
+cgPrim (LOr    _) = cgPOp "|"
+cgPrim (LXOr   _) = cgPOp "^"
+cgPrim (LSHL   _) = cgPOp "<<"
+cgPrim (LASHR  _) = cgPOp ">>"
+cgPrim (LLSHR  _) = cgPOp ">>"  -- because Python numbers have an infinite number of bits, LSHR and ASHR coincide
+cgPrim (LCompl _) = \[x] -> text "~" <> x
 
-cgPrim (LIntStr _) [x] = text "str" <> parens x  
-cgPrim (LStrInt _) [x] = text "int" <> parens x
-cgPrim  LStrRev    [x] = x ! "::-1"
-cgPrim  LStrConcat [x, y] = parens $ x <+> text "+" <+> y
-cgPrim  LStrCons   [x, y] = parens $ x <+> text "+" <+> y
-cgPrim  LStrEq     [x, y] = text "int" <> parens (x <+> text "==" <+> y)
-cgPrim  LStrHead   [x] = x ! "0"
-cgPrim  LStrTail   [x] = x ! "1:"
-cgPrim  LStrLen    [x] = text "len" <> parens x
+cgPrim (LEq    _) = cgPOp "=="
+cgPrim (LLt    _) = cgPOp "<"
+cgPrim (LSLt   _) = cgPOp "<"
+cgPrim (LLe    _) = cgPOp "<="
+cgPrim (LSLe   _) = cgPOp "<="
+cgPrim (LGt    _) = cgPOp ">"
+cgPrim (LSGt   _) = cgPOp ">"
+cgPrim (LGe    _) = cgPOp ">="
+cgPrim (LSGe   _) = cgPOp ">="
 
-cgPrim  (LChInt _) [x] = text "ord" <> parens x
-cgPrim  (LIntCh _) [x] = text "chr" <> parens x
+-- this is probably not entirely right
+cgPrim (LSExt _ _) = head
+cgPrim (LZExt _ _) = head
+cgPrim (LTrunc _ _) = head
+cgPrim (LBitCast _ _) = head
 
-cgPrim  LWriteStr [world, s] = text "sys.stdout.write" <> parens s
-cgPrim  LReadStr  _ = text "sys.stdin.readline()"
+cgPrim (LIntStr _) = cgPFun "str"
+cgPrim (LStrInt _) = cgPFun "int"
+cgPrim  LStrRev    = \[x] -> x ! "::-1"
+cgPrim  LStrConcat = cgPOp "+"
+cgPrim  LStrCons   = cgPOp "+"
+cgPrim  LStrLt     = cgPOp "<"
+cgPrim  LStrEq     = cgPOp "=="
+cgPrim  LStrHead   = \[x] -> x ! "0"
+cgPrim  LStrTail   = \[x] -> x ! "1:"
+cgPrim  LStrIndex  = \[x,i] -> x <> brackets i
+cgPrim  LStrLen    = cgPFun "len"
 
-cgPrim (LExternal n) args = cgExtern (show n) args
-cgPrim (LIntFloat _) [x] = text "int" <> parens x
-cgPrim f args = cgError $ "unimplemented prim: " ++ show f ++ ", args = " ++ show args
+cgPrim LStrSubstr = \[ofs,len,s] -> s <> brackets (ofs <> colon <> cgPOp "+" [ofs,len])
+
+cgPrim  (LChInt _) = cgPFun "ord"
+cgPrim  (LIntCh _) = cgPFun "unichr"
+
+cgPrim  LWriteStr = \[world, s] -> text "sys.stdout.write" <> parens s
+cgPrim  LReadStr  = \_ -> text "sys.stdin.readline()"
+
+cgPrim (LExternal n) = cgExtern $ show n
+cgPrim (LIntFloat _) = cgPFun "float"
+cgPrim (LFloatInt _) = cgPFun "int"
+cgPrim LFloatStr = cgPFun "str"
+cgPrim LStrFloat = cgPFun "float"
+
+cgPrim LFExp = cgPFun "math.exp"
+cgPrim LFLog = cgPFun "math.log"
+cgPrim LFSin = cgPFun "math.sin"
+cgPrim LFCos = cgPFun "math.cos"
+cgPrim LFTan = cgPFun "math.tan"
+cgPrim LFASin = cgPFun "math.asin"
+cgPrim LFACos = cgPFun "math.acos"
+cgPrim LFATan = cgPFun "math.atan"
+cgPrim LFSqrt = cgPFun "math.sqrt"
+cgPrim LFFloor = cgPFun "math.floor"
+cgPrim LFCeil  = cgPFun "math.ceil"
+cgPrim LFNegate = \[x] -> text "-" <> x
+
+cgPrim f = \args -> cgError $ "unimplemented prim: " ++ show f ++ ", args = " ++ show args
 
 cgConst :: Const -> Expr
 cgConst (I i) = text $ show i

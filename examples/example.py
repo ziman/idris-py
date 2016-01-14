@@ -2,6 +2,7 @@
 
 import sys
 import importlib
+import math
 
 Unit = object()
 World = object()
@@ -245,7 +246,7 @@ def _idris_Python_46_Prim_46_foreach(e0, e1, e2, e3, e4, e5, e6):
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, e3, "__iter__", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, e3, u'__iter__', None),
         None,
         Unit
       ),
@@ -267,8 +268,8 @@ def _idris_Python_46_Lib_46_Threading_46_forkPIO(e0, e1):
         _idris_Python_46_Fields_46__47__58_(
           None,
           None,
-          (65798, None, "Queue"),  # {U_Python.importModule1}
-          "Queue",
+          (65798, None, u'Queue'),  # {U_Python.importModule1}
+          u'Queue',
           None
         ),
         None,
@@ -332,7 +333,7 @@ def _idris_Python_46_Prim_46_iterate(e0, e1, e2, e3, e4, e5, e6):
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, e3, "__iter__", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, e3, u'__iter__', None),
         None,
         Unit
       ),
@@ -354,7 +355,7 @@ def _idris_Prelude_46_Strings_46_length():
 # Main.main
 def _idris_Main_46_main():
   while True:
-    return (65801, None, None, None, (65798, None, "requests"), (65717,))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main69}1}
+    return (65801, None, None, None, (65798, None, u'requests'), (65717,))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main69}1}
 
 # Python.marshalPIO
 def _idris_Python_46_marshalPIO(e0, e1):
@@ -388,7 +389,7 @@ def _idris_Python_46_Prim_46_next(e0, e1):
           None,
           None,
           (0,),  # Python.Telescope.Return
-          _idris_Python_46_Fields_46__47__46_(None, None, e1, "next", None),
+          _idris_Python_46_Fields_46__47__46_(None, None, e1, u'next', None),
           None,
           Unit
         )
@@ -440,7 +441,7 @@ def _idris_Prelude_46_Show_46_primNumShow(e0, e1, e2, e3):
     if not aux1:  # Prelude.Bool.False
       return in0
     else:  # Prelude.Bool.True
-      return ("(" + (in0 + ")"))
+      return (u'(' + (in0 + u')'))
     return _idris_error("unreachable due to case in tail position")
 
 # prim__addInt
@@ -600,13 +601,13 @@ def _idris_Prelude_46_Show_46_showParens(e0, e1):
     if not e0:  # Prelude.Bool.False
       return e1
     else:  # Prelude.Bool.True
-      return ("(" + (e1 + ")"))
+      return (u'(' + (e1 + u')'))
     return _idris_error("unreachable due to case in tail position")
 
 # Prelude.Strings.strM
 def _idris_Prelude_46_Strings_46_strM(e0):
   while True:
-    aux3 = (e0 == "")
+    aux3 = (e0 == u'')
     if aux3 == 0:
       aux4 = False
     else:
@@ -690,7 +691,7 @@ def _idris_Python_46_Lib_46_Threading_46_wait(e0, e1):
       None,
       None,
       (1, (0,), (65778,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Python.Lib.Threading.{wait0}1}
-      _idris_Python_46_Fields_46__47__46_(None, None, e1, "get", None),
+      _idris_Python_46_Fields_46__47__46_(None, None, e1, u'get', None),
       None,
       (0, 1, Unit)  # Builtins.MkSigma
     )
@@ -1461,7 +1462,7 @@ def _idris_Python_46_Prim_46__123_next0_125_(in2):
 # Prelude.Show.{primNumShow0}
 def _idris_Prelude_46_Show_46__123_primNumShow0_125_(in1):
   while True:
-    aux1 = (in1 == '-')
+    aux1 = (in1 == u'-')
     if aux1 == 0:
       return False
     else:
@@ -1531,7 +1532,7 @@ def _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam1_125_
       None,
       None,
       (1, (0,), (65807,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_{Python.Lib.Threading.forkPIO, worker_lam0}1}
-      _idris_Python_46_Fields_46__47__46_(None, None, e2, "put", None),
+      _idris_Python_46_Fields_46__47__46_(None, None, e2, u'put', None),
       None,
       (0, in0, Unit)  # Builtins.MkSigma
     )
@@ -1672,7 +1673,7 @@ def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47
         _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e18),
         _idris_Prelude_46_Interactive_46_putStr_39_(
           None,
-          (("thread " + (e20 + " done")) + "\n")
+          ((u'thread ' + (e20 + u' done')) + u'\u000a')
         )
       ),
       (65649, e18, in2)  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam1}1}
@@ -1756,11 +1757,11 @@ def _idris_Main_46__123_case_32_block_32_in_32_main_32_at_32__46__47_examples_47
             None,
             None,
             (1, (0,), (65648,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{case block in main at ./examples/example.idr:59:44_lam0}1}
-            _idris_Python_46_Fields_46__47__46_(None, None, e3, "get", None),
+            _idris_Python_46_Fields_46__47__46_(None, None, e3, u'get', None),
             None,
-            (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
+            (0, u'http://idris-lang.org', Unit)  # Builtins.MkSigma
           ),
-          "text",
+          u'text',
           None
         )
       ),
@@ -1857,7 +1858,7 @@ def _idris_Python_46_Lib_46_Threading_46__123_forkPIO5_125_(in2, in5):
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, in5, "start", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, in5, u'start', None),
         None,
         Unit
       ),
@@ -1916,8 +1917,8 @@ def _idris_Python_46_Lib_46_Threading_46__123_forkPIO6_125_(e1, in2):
         _idris_Python_46_Fields_46__47__58_(
           None,
           None,
-          (65798, None, "threading"),  # {U_Python.importModule1}
-          "Thread",
+          (65798, None, u'threading'),  # {U_Python.importModule1}
+          u'Thread',
           None
         ),
         None,
@@ -2067,7 +2068,7 @@ def _idris_Main_46__123_main12_125_(in11, in20):
       None,
       _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        ((_idris_Prelude_46_Show_46_primNumShow(None, (65804,), (0,), (in11 + 1)) + (". " + in20)) + "\n")  # {U_prim__toStrInt1}, Prelude.Show.Open
+        ((_idris_Prelude_46_Show_46_primNumShow(None, (65804,), (0,), (in11 + 1)) + (u'. ' + in20)) + u'\u000a')  # {U_prim__toStrInt1}, Prelude.Show.Open
       ),
       (65654, in11)  # {U_Main.{main11}1}
     )
@@ -2139,11 +2140,11 @@ def _idris_Main_46__123_main13_125_(in11, in12):
         None,
         None,
         None,
-        _idris_Prelude_46_Foldable_46_concat(None, None, (65720,), (0, (65653,), "")),  # {U_Main.{main8}1}, constructor of Prelude.Algebra.Monoid, {U_Main.{main10}1}
+        _idris_Prelude_46_Foldable_46_concat(None, None, (65720,), (0, (65653,), u'')),  # {U_Main.{main8}1}, constructor of Prelude.Algebra.Monoid, {U_Main.{main10}1}
         _idris_Python_46_Prim_46_collect(
           None,
           None,
-          _idris_Python_46_Fields_46__47__46_(None, None, in12, "strings", None),
+          _idris_Python_46_Fields_46__47__46_(None, None, in12, u'strings', None),
           None
         )
       ),
@@ -2202,8 +2203,8 @@ def _idris_Python_46_Exceptions_46__123_try17_125_(in5):
       aux3 = _idris_Python_46_Fields_46__47__46_(
         None,
         None,
-        _idris_Python_46_Fields_46__47__46_(None, None, in12, "__class__", None),
-        "__name__",
+        _idris_Python_46_Fields_46__47__46_(None, None, in12, u'__class__', None),
+        u'__name__',
         None
       )
       return APPLY0(
@@ -2211,41 +2212,41 @@ def _idris_Python_46_Exceptions_46__123_try17_125_(in5):
         (
           1,  # Python.Exceptions.Except
           {
-            "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-            "AssertionError": (7,),  # Python.Exceptions.AssertionError
-            "AttributeError": (8,),  # Python.Exceptions.AttributeError
-            "BufferError": (2,),  # Python.Exceptions.BufferError
-            "EOFError": (14,),  # Python.Exceptions.EOFError
-            "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-            "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-            "IOError": (10,),  # Python.Exceptions.IOError
-            "ImportError": (15,),  # Python.Exceptions.ImportError
-            "IndentationError": (26,),  # Python.Exceptions.IndentationError
-            "IndexError": (17,),  # Python.Exceptions.IndexError
-            "KeyError": (18,),  # Python.Exceptions.KeyError
-            "LookupError": (16,),  # Python.Exceptions.LookupError
-            "MemoryError": (19,),  # Python.Exceptions.MemoryError
-            "NameError": (20,),  # Python.Exceptions.NameError
-            "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-            "OSError": (11,),  # Python.Exceptions.OSError
-            "OverflowError": (5,),  # Python.Exceptions.OverflowError
-            "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-            "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-            "StandardError": (1,),  # Python.Exceptions.StandardError
-            "StopIteration": (0,),  # Python.Exceptions.StopIteration
-            "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-            "SystemError": (28,),  # Python.Exceptions.SystemError
-            "TabError": (27,),  # Python.Exceptions.TabError
-            "TypeError": (29,),  # Python.Exceptions.TypeError
-            "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-            "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-            "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-            "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-            "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-            "VMSError": (13,),  # Python.Exceptions.VMSError
-            "ValueError": (30,),  # Python.Exceptions.ValueError
-            "WindowsError": (12,),  # Python.Exceptions.WindowsError
-            "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+            u'ArithmeticError': (3,),  # Python.Exceptions.ArithmeticError
+            u'AssertionError': (7,),  # Python.Exceptions.AssertionError
+            u'AttributeError': (8,),  # Python.Exceptions.AttributeError
+            u'BufferError': (2,),  # Python.Exceptions.BufferError
+            u'EOFError': (14,),  # Python.Exceptions.EOFError
+            u'EnvironmentError': (9,),  # Python.Exceptions.EnvironmentError
+            u'FloatingPointError': (4,),  # Python.Exceptions.FloatingPointError
+            u'IOError': (10,),  # Python.Exceptions.IOError
+            u'ImportError': (15,),  # Python.Exceptions.ImportError
+            u'IndentationError': (26,),  # Python.Exceptions.IndentationError
+            u'IndexError': (17,),  # Python.Exceptions.IndexError
+            u'KeyError': (18,),  # Python.Exceptions.KeyError
+            u'LookupError': (16,),  # Python.Exceptions.LookupError
+            u'MemoryError': (19,),  # Python.Exceptions.MemoryError
+            u'NameError': (20,),  # Python.Exceptions.NameError
+            u'NotImplementedError': (24,),  # Python.Exceptions.NotImplementedError
+            u'OSError': (11,),  # Python.Exceptions.OSError
+            u'OverflowError': (5,),  # Python.Exceptions.OverflowError
+            u'ReferenceError': (22,),  # Python.Exceptions.ReferenceError
+            u'RuntimeError': (23,),  # Python.Exceptions.RuntimeError
+            u'StandardError': (1,),  # Python.Exceptions.StandardError
+            u'StopIteration': (0,),  # Python.Exceptions.StopIteration
+            u'SyntaxError': (25,),  # Python.Exceptions.SyntaxError
+            u'SystemError': (28,),  # Python.Exceptions.SystemError
+            u'TabError': (27,),  # Python.Exceptions.TabError
+            u'TypeError': (29,),  # Python.Exceptions.TypeError
+            u'UnboundLocalError': (21,),  # Python.Exceptions.UnboundLocalError
+            u'UnicodeDecodeError': (32,),  # Python.Exceptions.UnicodeDecodeError
+            u'UnicodeEncodeError': (33,),  # Python.Exceptions.UnicodeEncodeError
+            u'UnicodeError': (31,),  # Python.Exceptions.UnicodeError
+            u'UnicodeTranslateError': (34,),  # Python.Exceptions.UnicodeTranslateError
+            u'VMSError': (13,),  # Python.Exceptions.VMSError
+            u'ValueError': (30,),  # Python.Exceptions.ValueError
+            u'WindowsError': (12,),  # Python.Exceptions.WindowsError
+            u'ZeroDivisionError': (6,)  # Python.Exceptions.ZeroDivisionError
           }.get(aux3, (35,)),  # Python.Exceptions.Other
           in12
         )
@@ -2394,7 +2395,7 @@ def _idris_Main_46__123_main41_125_(in26, in35):
         ),
         _idris_Prelude_46_Interactive_46_putStr_39_(
           None,
-          (("thread " + (in26 + " done")) + "\n")
+          ((u'thread ' + (in26 + u' done')) + u'\u000a')
         )
       ),
       (65686, in35)  # {U_Main.{main40}1}
@@ -2418,11 +2419,11 @@ def _idris_Main_46__123_main42_125_(in1, in26, in33):
             None,
             None,
             (1, (0,), (65671,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main27}1}
-            _idris_Python_46_Fields_46__47__46_(None, None, in1, "get", None),
+            _idris_Python_46_Fields_46__47__46_(None, None, in1, u'get', None),
             None,
-            (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
+            (0, u'http://idris-lang.org', Unit)  # Builtins.MkSigma
           ),
-          "text",
+          u'text',
           None
         )
       ),
@@ -2442,7 +2443,7 @@ def _idris_Main_46__123_main43_125_(in1, in26):
         ),
         _idris_Prelude_46_Interactive_46_putStr_39_(
           None,
-          (("thread " + (in26 + " starting")) + "\n")
+          ((u'thread ' + (in26 + u' starting')) + u'\u000a')
         )
       ),
       (65688, in1, in26)  # {U_Main.{main42}1}
@@ -2458,7 +2459,7 @@ def _idris_Main_46__123_main45_125_(in49):
   while True:
     return _idris_Prelude_46_Interactive_46_putStr_39_(
       None,
-      "Something's wrong, your root's homedir is writable!\n"
+      u'Something\'s wrong, your root\'s homedir is writable!\u000a'
     )
 
 # Main.{main46}
@@ -2467,7 +2468,7 @@ def _idris_Main_46__123_main46_125_(in50, in51):
     if in50[0] == 11:  # Python.Exceptions.OSError
       return _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        (("  -> (1) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in51)) + "\n")
+        ((u'  -> (1) everything\'s fine: ' + _idris_Python_46_Exceptions_46_showException(in51)) + u'\u000a')
       )
     else:
       return _idris_Python_46_Exceptions_46_raise(None, in51)
@@ -2491,7 +2492,7 @@ def _idris_Main_46__123_main49_125_(in54):
       if in55[0] == 11:  # Python.Exceptions.OSError
         return _idris_Prelude_46_Interactive_46_putStr_39_(
           None,
-          (("  -> (2) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in56)) + "\n")
+          ((u'  -> (2) everything\'s fine: ' + _idris_Python_46_Exceptions_46_showException(in56)) + u'\u000a')
         )
       else:
         return _idris_Python_46_Exceptions_46_raise(None, in56)
@@ -2500,7 +2501,7 @@ def _idris_Main_46__123_main49_125_(in54):
       in57 = in54[1]
       return _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        "Your root could probably use some security lessons!\n"
+        u'Your root could probably use some security lessons!\u000a'
       )
     return _idris_error("unreachable due to case in tail position")
 
@@ -2518,9 +2519,9 @@ def _idris_Main_46__123_main50_125_(in46, in52):
           None,
           None,
           (1, (0,), (65694,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main48}1}
-          _idris_Python_46_Fields_46__47__46_(None, None, in46, "mkdir", None),
+          _idris_Python_46_Fields_46__47__46_(None, None, in46, u'mkdir', None),
           None,
-          (0, "/root/hello", Unit)  # Builtins.MkSigma
+          (0, u'/root/hello', Unit)  # Builtins.MkSigma
         )
       ),
       (65695,)  # {U_Main.{main49}1}
@@ -2547,9 +2548,9 @@ def _idris_Main_46__123_main51_125_(in46, in47):
               None,
               None,
               (1, (0,), (65690,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main44}1}
-              _idris_Python_46_Fields_46__47__46_(None, None, in46, "mkdir", None),
+              _idris_Python_46_Fields_46__47__46_(None, None, in46, u'mkdir', None),
               None,
-              (0, "/root/hello", Unit)  # Builtins.MkSigma
+              (0, u'/root/hello', Unit)  # Builtins.MkSigma
             ),
             (65691,)  # {U_Main.{main45}1}
           )
@@ -2567,14 +2568,17 @@ def _idris_Main_46__123_main52_125_(in46):
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr_39_(None, "And now, let's fail!\n"),
+      _idris_Prelude_46_Interactive_46_putStr_39_(
+        None,
+        u'And now, let\'s fail!\u000a'
+      ),
       (65698, in46)  # {U_Main.{main51}1}
     )
 
 # Main.{main53}
 def _idris_Main_46__123_main53_125_(in45):
   while True:
-    return (65801, None, None, None, (65798, None, "os"), (65699,))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main52}1}
+    return (65801, None, None, None, (65798, None, u'os'), (65699,))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main52}1}
 
 # Main.{main54}
 def _idris_Main_46__123_main54_125_(in44):
@@ -2584,7 +2588,7 @@ def _idris_Main_46__123_main54_125_(in44):
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr_39_(None, "\n"),
+      _idris_Prelude_46_Interactive_46_putStr_39_(None, u'\u000a'),
       (65700,)  # {U_Main.{main53}1}
     )
 
@@ -2598,9 +2602,9 @@ def _idris_Main_46__123_main55_125_(in42, in43):
       None,
       _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        (("thread B says " + _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
+        ((u'thread B says ' + _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
           in42
-        )) + "\n")
+        )) + u'\u000a')
       ),
       (65701,)  # {U_Main.{main54}1}
     )
@@ -2615,9 +2619,9 @@ def _idris_Main_46__123_main56_125_(in41, in42):
       None,
       _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        (("thread A says " + _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
+        ((u'thread A says ' + _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
           in41
-        )) + "\n")
+        )) + u'\u000a')
       ),
       (65702, in42)  # {U_Main.{main55}1}
     )
@@ -2654,7 +2658,7 @@ def _idris_Main_46__123_main59_125_(in25, in39):
       None,
       None,
       None,
-      _idris_Python_46_Lib_46_Threading_46_forkPIO(None, APPLY0(in25, "B")),
+      _idris_Python_46_Lib_46_Threading_46_forkPIO(None, APPLY0(in25, u'B')),
       (65705, in39)  # {U_Main.{main58}1}
     )
 
@@ -2667,7 +2671,7 @@ def _idris_Main_46__123_main60_125_(in1, in24):
       None,
       None,
       None,
-      _idris_Python_46_Lib_46_Threading_46_forkPIO(None, APPLY0(in25, "A")),
+      _idris_Python_46_Lib_46_Threading_46_forkPIO(None, APPLY0(in25, u'A')),
       (65706, in25)  # {U_Main.{main59}1}
     )
 
@@ -2679,7 +2683,7 @@ def _idris_Main_46__123_main61_125_(in1, in23):
       None,
       None,
       None,
-      _idris_Prelude_46_Interactive_46_putStr_39_(None, "\n"),
+      _idris_Prelude_46_Interactive_46_putStr_39_(None, u'\u000a'),
       (65708, in1)  # {U_Main.{main60}1}
     )
 
@@ -2693,7 +2697,7 @@ def _idris_Main_46__123_main62_125_(in1, in22):
       None,
       _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        (("Total number of features: " + _idris_Prelude_46_Show_46_primNumShow(None, (65804,), (0,), in22)) + "\n")  # {U_prim__toStrInt1}, Prelude.Show.Open
+        ((u'Total number of features: ' + _idris_Prelude_46_Show_46_primNumShow(None, (65804,), (0,), in22)) + u'\u000a')  # {U_prim__toStrInt1}, Prelude.Show.Open
       ),
       (65709, in1)  # {U_Main.{main61}1}
     )
@@ -2720,7 +2724,7 @@ def _idris_Main_46__123_main64_125_(in1, in9):
       None,
       _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        "Idris has got the following exciting features:\n"
+        u'Idris has got the following exciting features:\u000a'
       ),
       (65711, in9, in1)  # {U_Main.{main63}1}
     )
@@ -2737,9 +2741,9 @@ def _idris_Main_46__123_main65_125_(in1, in7):
         None,
         None,
         (1, (0,), (65685,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main3}1}
-        _idris_Python_46_Fields_46__47__46_(None, None, in7, "select", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, in7, u'select', None),
         None,
-        (0, "div.entry-content li", Unit)  # Builtins.MkSigma
+        (0, u'div.entry-content li', Unit)  # Builtins.MkSigma
       ),
       (65712, in1)  # {U_Main.{main64}1}
     )
@@ -2756,9 +2760,9 @@ def _idris_Main_46__123_main66_125_(in3, in1, in4):
         None,
         None,
         (1, (0,), (65674,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main2}1}
-        _idris_Python_46_Fields_46__47__46_(None, None, in4, "BeautifulSoup", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, in4, u'BeautifulSoup', None),
         None,
-        (0, in3, (0, "html.parser", Unit))  # Builtins.MkSigma, Builtins.MkSigma
+        (0, in3, (0, u'html.parser', Unit))  # Builtins.MkSigma, Builtins.MkSigma
       ),
       (65713, in1)  # {U_Main.{main65}1}
     )
@@ -2766,7 +2770,7 @@ def _idris_Main_46__123_main66_125_(in3, in1, in4):
 # Main.{main67}
 def _idris_Main_46__123_main67_125_(in1, in3):
   while True:
-    return (65801, None, None, None, (65798, None, "bs4"), (65714, in3, in1))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main66}1}
+    return (65801, None, None, None, (65798, None, u'bs4'), (65714, in3, in1))  # {U_io_bind1}, {U_Python.importModule1}, {U_Main.{main66}1}
 
 # Main.{main68}
 def _idris_Main_46__123_main68_125_(in1):
@@ -2783,11 +2787,11 @@ def _idris_Main_46__123_main68_125_(in1):
           None,
           None,
           (1, (0,), (65652,)),  # Python.Telescope.Bind, Python.Telescope.Pi, {U_Main.{main0}1}
-          _idris_Python_46_Fields_46__47__46_(None, None, in1, "get", None),
+          _idris_Python_46_Fields_46__47__46_(None, None, in1, u'get', None),
           None,
-          (0, "http://idris-lang.org", Unit)  # Builtins.MkSigma
+          (0, u'http://idris-lang.org', Unit)  # Builtins.MkSigma
         ),
-        "text",
+        u'text',
         None
       ),
       (65715, in1)  # {U_Main.{main67}1}
@@ -2805,7 +2809,7 @@ def _idris_Main_46__123_main69_125_(in0):
         None,
         None,
         (0,),  # Python.Telescope.Return
-        _idris_Python_46_Fields_46__47__46_(None, None, in0, "Session", None),
+        _idris_Python_46_Fields_46__47__46_(None, None, in0, u'Session', None),
         None,
         Unit
       ),
@@ -2817,7 +2821,7 @@ def _idris_Main_46_exports_58_greet_58_0(e0):
   while True:
     return _idris_Prelude_46_Interactive_46_putStr_39_(
       None,
-      (("Hello " + (e0 + "!")) + "\n")
+      ((u'Hello ' + (e0 + u'!')) + u'\u000a')
     )
 
 # Python.Lib.Threading.forkPIO, worker
@@ -3166,41 +3170,41 @@ def _idris_Python_46_Exceptions_46_fromString_95__95__95__95__95_Python_95__95_E
 ):
   while True:
     return {
-      "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-      "AssertionError": (7,),  # Python.Exceptions.AssertionError
-      "AttributeError": (8,),  # Python.Exceptions.AttributeError
-      "BufferError": (2,),  # Python.Exceptions.BufferError
-      "EOFError": (14,),  # Python.Exceptions.EOFError
-      "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-      "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-      "IOError": (10,),  # Python.Exceptions.IOError
-      "ImportError": (15,),  # Python.Exceptions.ImportError
-      "IndentationError": (26,),  # Python.Exceptions.IndentationError
-      "IndexError": (17,),  # Python.Exceptions.IndexError
-      "KeyError": (18,),  # Python.Exceptions.KeyError
-      "LookupError": (16,),  # Python.Exceptions.LookupError
-      "MemoryError": (19,),  # Python.Exceptions.MemoryError
-      "NameError": (20,),  # Python.Exceptions.NameError
-      "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-      "OSError": (11,),  # Python.Exceptions.OSError
-      "OverflowError": (5,),  # Python.Exceptions.OverflowError
-      "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-      "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-      "StandardError": (1,),  # Python.Exceptions.StandardError
-      "StopIteration": (0,),  # Python.Exceptions.StopIteration
-      "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-      "SystemError": (28,),  # Python.Exceptions.SystemError
-      "TabError": (27,),  # Python.Exceptions.TabError
-      "TypeError": (29,),  # Python.Exceptions.TypeError
-      "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-      "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-      "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-      "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-      "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-      "VMSError": (13,),  # Python.Exceptions.VMSError
-      "ValueError": (30,),  # Python.Exceptions.ValueError
-      "WindowsError": (12,),  # Python.Exceptions.WindowsError
-      "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+      u'ArithmeticError': (3,),  # Python.Exceptions.ArithmeticError
+      u'AssertionError': (7,),  # Python.Exceptions.AssertionError
+      u'AttributeError': (8,),  # Python.Exceptions.AttributeError
+      u'BufferError': (2,),  # Python.Exceptions.BufferError
+      u'EOFError': (14,),  # Python.Exceptions.EOFError
+      u'EnvironmentError': (9,),  # Python.Exceptions.EnvironmentError
+      u'FloatingPointError': (4,),  # Python.Exceptions.FloatingPointError
+      u'IOError': (10,),  # Python.Exceptions.IOError
+      u'ImportError': (15,),  # Python.Exceptions.ImportError
+      u'IndentationError': (26,),  # Python.Exceptions.IndentationError
+      u'IndexError': (17,),  # Python.Exceptions.IndexError
+      u'KeyError': (18,),  # Python.Exceptions.KeyError
+      u'LookupError': (16,),  # Python.Exceptions.LookupError
+      u'MemoryError': (19,),  # Python.Exceptions.MemoryError
+      u'NameError': (20,),  # Python.Exceptions.NameError
+      u'NotImplementedError': (24,),  # Python.Exceptions.NotImplementedError
+      u'OSError': (11,),  # Python.Exceptions.OSError
+      u'OverflowError': (5,),  # Python.Exceptions.OverflowError
+      u'ReferenceError': (22,),  # Python.Exceptions.ReferenceError
+      u'RuntimeError': (23,),  # Python.Exceptions.RuntimeError
+      u'StandardError': (1,),  # Python.Exceptions.StandardError
+      u'StopIteration': (0,),  # Python.Exceptions.StopIteration
+      u'SyntaxError': (25,),  # Python.Exceptions.SyntaxError
+      u'SystemError': (28,),  # Python.Exceptions.SystemError
+      u'TabError': (27,),  # Python.Exceptions.TabError
+      u'TypeError': (29,),  # Python.Exceptions.TypeError
+      u'UnboundLocalError': (21,),  # Python.Exceptions.UnboundLocalError
+      u'UnicodeDecodeError': (32,),  # Python.Exceptions.UnicodeDecodeError
+      u'UnicodeEncodeError': (33,),  # Python.Exceptions.UnicodeEncodeError
+      u'UnicodeError': (31,),  # Python.Exceptions.UnicodeError
+      u'UnicodeTranslateError': (34,),  # Python.Exceptions.UnicodeTranslateError
+      u'VMSError': (13,),  # Python.Exceptions.VMSError
+      u'ValueError': (30,),  # Python.Exceptions.ValueError
+      u'WindowsError': (12,),  # Python.Exceptions.WindowsError
+      u'ZeroDivisionError': (6,)  # Python.Exceptions.ZeroDivisionError
     }.get(e0, (35,))  # Python.Exceptions.Other
 
 # Python.Exceptions.case block in try at ./Python/Exceptions.idr:106:16
@@ -3216,8 +3220,8 @@ def _idris_Python_46_Exceptions_46_try_95__95__95__95__95_Python_95__95_Exceptio
       aux2 = _idris_Python_46_Fields_46__47__46_(
         None,
         None,
-        _idris_Python_46_Fields_46__47__46_(None, None, in0, "__class__", None),
-        "__name__",
+        _idris_Python_46_Fields_46__47__46_(None, None, in0, u'__class__', None),
+        u'__name__',
         None
       )
       return APPLY0(
@@ -3225,41 +3229,41 @@ def _idris_Python_46_Exceptions_46_try_95__95__95__95__95_Python_95__95_Exceptio
         (
           1,  # Python.Exceptions.Except
           {
-            "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-            "AssertionError": (7,),  # Python.Exceptions.AssertionError
-            "AttributeError": (8,),  # Python.Exceptions.AttributeError
-            "BufferError": (2,),  # Python.Exceptions.BufferError
-            "EOFError": (14,),  # Python.Exceptions.EOFError
-            "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-            "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-            "IOError": (10,),  # Python.Exceptions.IOError
-            "ImportError": (15,),  # Python.Exceptions.ImportError
-            "IndentationError": (26,),  # Python.Exceptions.IndentationError
-            "IndexError": (17,),  # Python.Exceptions.IndexError
-            "KeyError": (18,),  # Python.Exceptions.KeyError
-            "LookupError": (16,),  # Python.Exceptions.LookupError
-            "MemoryError": (19,),  # Python.Exceptions.MemoryError
-            "NameError": (20,),  # Python.Exceptions.NameError
-            "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-            "OSError": (11,),  # Python.Exceptions.OSError
-            "OverflowError": (5,),  # Python.Exceptions.OverflowError
-            "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-            "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-            "StandardError": (1,),  # Python.Exceptions.StandardError
-            "StopIteration": (0,),  # Python.Exceptions.StopIteration
-            "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-            "SystemError": (28,),  # Python.Exceptions.SystemError
-            "TabError": (27,),  # Python.Exceptions.TabError
-            "TypeError": (29,),  # Python.Exceptions.TypeError
-            "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-            "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-            "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-            "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-            "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-            "VMSError": (13,),  # Python.Exceptions.VMSError
-            "ValueError": (30,),  # Python.Exceptions.ValueError
-            "WindowsError": (12,),  # Python.Exceptions.WindowsError
-            "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+            u'ArithmeticError': (3,),  # Python.Exceptions.ArithmeticError
+            u'AssertionError': (7,),  # Python.Exceptions.AssertionError
+            u'AttributeError': (8,),  # Python.Exceptions.AttributeError
+            u'BufferError': (2,),  # Python.Exceptions.BufferError
+            u'EOFError': (14,),  # Python.Exceptions.EOFError
+            u'EnvironmentError': (9,),  # Python.Exceptions.EnvironmentError
+            u'FloatingPointError': (4,),  # Python.Exceptions.FloatingPointError
+            u'IOError': (10,),  # Python.Exceptions.IOError
+            u'ImportError': (15,),  # Python.Exceptions.ImportError
+            u'IndentationError': (26,),  # Python.Exceptions.IndentationError
+            u'IndexError': (17,),  # Python.Exceptions.IndexError
+            u'KeyError': (18,),  # Python.Exceptions.KeyError
+            u'LookupError': (16,),  # Python.Exceptions.LookupError
+            u'MemoryError': (19,),  # Python.Exceptions.MemoryError
+            u'NameError': (20,),  # Python.Exceptions.NameError
+            u'NotImplementedError': (24,),  # Python.Exceptions.NotImplementedError
+            u'OSError': (11,),  # Python.Exceptions.OSError
+            u'OverflowError': (5,),  # Python.Exceptions.OverflowError
+            u'ReferenceError': (22,),  # Python.Exceptions.ReferenceError
+            u'RuntimeError': (23,),  # Python.Exceptions.RuntimeError
+            u'StandardError': (1,),  # Python.Exceptions.StandardError
+            u'StopIteration': (0,),  # Python.Exceptions.StopIteration
+            u'SyntaxError': (25,),  # Python.Exceptions.SyntaxError
+            u'SystemError': (28,),  # Python.Exceptions.SystemError
+            u'TabError': (27,),  # Python.Exceptions.TabError
+            u'TypeError': (29,),  # Python.Exceptions.TypeError
+            u'UnboundLocalError': (21,),  # Python.Exceptions.UnboundLocalError
+            u'UnicodeDecodeError': (32,),  # Python.Exceptions.UnicodeDecodeError
+            u'UnicodeEncodeError': (33,),  # Python.Exceptions.UnicodeEncodeError
+            u'UnicodeError': (31,),  # Python.Exceptions.UnicodeError
+            u'UnicodeTranslateError': (34,),  # Python.Exceptions.UnicodeTranslateError
+            u'VMSError': (13,),  # Python.Exceptions.VMSError
+            u'ValueError': (30,),  # Python.Exceptions.ValueError
+            u'WindowsError': (12,),  # Python.Exceptions.WindowsError
+            u'ZeroDivisionError': (6,)  # Python.Exceptions.ZeroDivisionError
           }.get(aux2, (35,)),  # Python.Exceptions.Other
           in0
         )
@@ -3285,8 +3289,8 @@ def _idris_Python_46_Exceptions_46_try_95__95__95__95__95_Python_95__95_Exceptio
       aux2 = _idris_Python_46_Fields_46__47__46_(
         None,
         None,
-        _idris_Python_46_Fields_46__47__46_(None, None, in0, "__class__", None),
-        "__name__",
+        _idris_Python_46_Fields_46__47__46_(None, None, in0, u'__class__', None),
+        u'__name__',
         None
       )
       return APPLY0(
@@ -3294,41 +3298,41 @@ def _idris_Python_46_Exceptions_46_try_95__95__95__95__95_Python_95__95_Exceptio
         (
           1,  # Python.Exceptions.Except
           {
-            "ArithmeticError": (3,),  # Python.Exceptions.ArithmeticError
-            "AssertionError": (7,),  # Python.Exceptions.AssertionError
-            "AttributeError": (8,),  # Python.Exceptions.AttributeError
-            "BufferError": (2,),  # Python.Exceptions.BufferError
-            "EOFError": (14,),  # Python.Exceptions.EOFError
-            "EnvironmentError": (9,),  # Python.Exceptions.EnvironmentError
-            "FloatingPointError": (4,),  # Python.Exceptions.FloatingPointError
-            "IOError": (10,),  # Python.Exceptions.IOError
-            "ImportError": (15,),  # Python.Exceptions.ImportError
-            "IndentationError": (26,),  # Python.Exceptions.IndentationError
-            "IndexError": (17,),  # Python.Exceptions.IndexError
-            "KeyError": (18,),  # Python.Exceptions.KeyError
-            "LookupError": (16,),  # Python.Exceptions.LookupError
-            "MemoryError": (19,),  # Python.Exceptions.MemoryError
-            "NameError": (20,),  # Python.Exceptions.NameError
-            "NotImplementedError": (24,),  # Python.Exceptions.NotImplementedError
-            "OSError": (11,),  # Python.Exceptions.OSError
-            "OverflowError": (5,),  # Python.Exceptions.OverflowError
-            "ReferenceError": (22,),  # Python.Exceptions.ReferenceError
-            "RuntimeError": (23,),  # Python.Exceptions.RuntimeError
-            "StandardError": (1,),  # Python.Exceptions.StandardError
-            "StopIteration": (0,),  # Python.Exceptions.StopIteration
-            "SyntaxError": (25,),  # Python.Exceptions.SyntaxError
-            "SystemError": (28,),  # Python.Exceptions.SystemError
-            "TabError": (27,),  # Python.Exceptions.TabError
-            "TypeError": (29,),  # Python.Exceptions.TypeError
-            "UnboundLocalError": (21,),  # Python.Exceptions.UnboundLocalError
-            "UnicodeDecodeError": (32,),  # Python.Exceptions.UnicodeDecodeError
-            "UnicodeEncodeError": (33,),  # Python.Exceptions.UnicodeEncodeError
-            "UnicodeError": (31,),  # Python.Exceptions.UnicodeError
-            "UnicodeTranslateError": (34,),  # Python.Exceptions.UnicodeTranslateError
-            "VMSError": (13,),  # Python.Exceptions.VMSError
-            "ValueError": (30,),  # Python.Exceptions.ValueError
-            "WindowsError": (12,),  # Python.Exceptions.WindowsError
-            "ZeroDivisionError": (6,)  # Python.Exceptions.ZeroDivisionError
+            u'ArithmeticError': (3,),  # Python.Exceptions.ArithmeticError
+            u'AssertionError': (7,),  # Python.Exceptions.AssertionError
+            u'AttributeError': (8,),  # Python.Exceptions.AttributeError
+            u'BufferError': (2,),  # Python.Exceptions.BufferError
+            u'EOFError': (14,),  # Python.Exceptions.EOFError
+            u'EnvironmentError': (9,),  # Python.Exceptions.EnvironmentError
+            u'FloatingPointError': (4,),  # Python.Exceptions.FloatingPointError
+            u'IOError': (10,),  # Python.Exceptions.IOError
+            u'ImportError': (15,),  # Python.Exceptions.ImportError
+            u'IndentationError': (26,),  # Python.Exceptions.IndentationError
+            u'IndexError': (17,),  # Python.Exceptions.IndexError
+            u'KeyError': (18,),  # Python.Exceptions.KeyError
+            u'LookupError': (16,),  # Python.Exceptions.LookupError
+            u'MemoryError': (19,),  # Python.Exceptions.MemoryError
+            u'NameError': (20,),  # Python.Exceptions.NameError
+            u'NotImplementedError': (24,),  # Python.Exceptions.NotImplementedError
+            u'OSError': (11,),  # Python.Exceptions.OSError
+            u'OverflowError': (5,),  # Python.Exceptions.OverflowError
+            u'ReferenceError': (22,),  # Python.Exceptions.ReferenceError
+            u'RuntimeError': (23,),  # Python.Exceptions.RuntimeError
+            u'StandardError': (1,),  # Python.Exceptions.StandardError
+            u'StopIteration': (0,),  # Python.Exceptions.StopIteration
+            u'SyntaxError': (25,),  # Python.Exceptions.SyntaxError
+            u'SystemError': (28,),  # Python.Exceptions.SystemError
+            u'TabError': (27,),  # Python.Exceptions.TabError
+            u'TypeError': (29,),  # Python.Exceptions.TypeError
+            u'UnboundLocalError': (21,),  # Python.Exceptions.UnboundLocalError
+            u'UnicodeDecodeError': (32,),  # Python.Exceptions.UnicodeDecodeError
+            u'UnicodeEncodeError': (33,),  # Python.Exceptions.UnicodeEncodeError
+            u'UnicodeError': (31,),  # Python.Exceptions.UnicodeError
+            u'UnicodeTranslateError': (34,),  # Python.Exceptions.UnicodeTranslateError
+            u'VMSError': (13,),  # Python.Exceptions.VMSError
+            u'ValueError': (30,),  # Python.Exceptions.ValueError
+            u'WindowsError': (12,),  # Python.Exceptions.WindowsError
+            u'ZeroDivisionError': (6,)  # Python.Exceptions.ZeroDivisionError
           }.get(aux2, (35,)),  # Python.Exceptions.Other
           in0
         )
@@ -3412,7 +3416,7 @@ def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95
         _idris_Prelude_46_Monad_46__62__62__61_(None, None, None, e18),
         _idris_Prelude_46_Interactive_46_putStr_39_(
           None,
-          (("thread " + (e20 + " starting")) + "\n")
+          ((u'thread ' + (e20 + u' starting')) + u'\u000a')
         )
       ),
       (65651, e18, e3, e20)  # {U_Main.{case block in main at ./examples/example.idr:59:44_lam3}1}
@@ -3429,7 +3433,7 @@ def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95
     if e42[0] == 11:  # Python.Exceptions.OSError
       return _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        (("  -> (1) everything's fine: " + _idris_Python_46_Exceptions_46_showException(e43)) + "\n")
+        ((u'  -> (1) everything\'s fine: ' + _idris_Python_46_Exceptions_46_showException(e43)) + u'\u000a')
       )
     else:
       return _idris_Python_46_Exceptions_46_raise(None, e43)
@@ -3448,7 +3452,7 @@ def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95
       if in0[0] == 11:  # Python.Exceptions.OSError
         return _idris_Prelude_46_Interactive_46_putStr_39_(
           None,
-          (("  -> (2) everything's fine: " + _idris_Python_46_Exceptions_46_showException(in1)) + "\n")
+          ((u'  -> (2) everything\'s fine: ' + _idris_Python_46_Exceptions_46_showException(in1)) + u'\u000a')
         )
       else:
         return _idris_Python_46_Exceptions_46_raise(None, in1)
@@ -3457,7 +3461,7 @@ def _idris_Main_46_main_95__95__95__95__95_examples_95__95_example_95__95_idr_95
       in2 = e44[1]
       return _idris_Prelude_46_Interactive_46_putStr_39_(
         None,
-        "Your root could probably use some security lessons!\n"
+        u'Your root could probably use some security lessons!\u000a'
       )
     return _idris_error("unreachable due to case in tail position")
 
