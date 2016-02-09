@@ -5,7 +5,7 @@ import Python.Telescope
 import Python.Fields
 import Python.Functions
 
-%access public
+%access public export
 %default total
 
 ||| The actual state of iteration.
@@ -90,7 +90,7 @@ iterate iterable st f = do
 ||| @ o The iterable object.
 ||| @ st Initial state.
 ||| @ f  PIO action called for every element, transforms the state.
-partial abstract
+partial export
 foreach :
   (o : Obj sig)
   -> (st : b)
@@ -107,6 +107,6 @@ foreach {a=a} {b=b} {sig=sig} iterable st f = do
       (MkRaw f)
 
 ||| Collect all elements of an iterator into a list.
-partial
+partial export
 collect : (it : Obj sig) -> {auto pf : sig "__iter__" = [] ~~> Obj (Iterator a)} -> PIO (List a)
 collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))

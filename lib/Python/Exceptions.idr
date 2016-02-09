@@ -5,7 +5,7 @@ import Python.Fields
 import Python.IO
 
 %default total
-%access public
+%access public export
 
 Exception : Signature
 Exception f = case f of
@@ -100,7 +100,7 @@ data Result : Type -> Type where
   Except : (etype : ExceptionType) -> (e : Obj Exception) -> Result a
 
 ||| Catch exceptions in the given PIO action.
-abstract
+export
 try : PIO a -> PIO (Result a)
 try {a = a} x = do
     MkRaw r <- foreign
@@ -121,7 +121,7 @@ try {a = a} x = do
         let et = e /. "__class__" /. "__name__"
         return $ Except (fromString et) e
 
-abstract
+export
 raise : Obj Exception -> PIO a
 raise {a = a} e = unRaw <$> foreign FFI_Py "_idris_raise" (Obj Exception -> PIO (Raw a)) e
 
@@ -132,7 +132,7 @@ catch action handler = do
   return result
 
 ||| Get basic information about the exception as `String`.
-abstract
+export
 showException : Obj Exception -> String
 showException e =
   unsafePerformIO

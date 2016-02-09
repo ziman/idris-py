@@ -980,9 +980,9 @@ def APPLY0(fn0, arg0):
                 elif fn0[0] == 65722:  # {U_Prelude.Basics..1}
                   P_c0, P_c1, P_c2, P_c3, P_c4 = fn0[1:]
                   return _idris_Prelude_46_Basics_46__46_(P_c0, P_c1, P_c2, P_c3, P_c4, arg0)
-                else:  # {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+                else:  # {U_Prelude.Functor.{Prelude.Monad.IO' ffi implementation of Prelude.Functor.Functor, method map_lam0}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
+                  return _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_implementation_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
                     P_c0, arg0
                   )
               else:
@@ -991,7 +991,7 @@ def APPLY0(fn0, arg0):
                   return _idris_Prelude_46_Interactive_46__123_putStr_39_0_125_(P_c0, arg0)
                 elif fn0[0] == 65725:  # {U_Prelude.Interactive.{putStr'1}1}
                   return _idris_Prelude_46_Interactive_46__123_putStr_39_1_125_(arg0)
-                else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+                else:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable1}
                   P_c0, P_c1, P_c2, P_c3 = fn0[1:]
                   return _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
                     P_c0, P_c1, P_c2, P_c3, arg0
@@ -1002,47 +1002,47 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65727:  # {U_Prelude.List.reverse, reverse'1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(P_c0, P_c1, arg0)
-                elif fn0[0] == 65728:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
+                elif fn0[0] == 65728:  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq1}
                   P_c0 = fn0[1]
                   return _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(P_c0, arg0)
-                else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+                else:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam0}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                     P_c0, arg0
                   )
               else:
-                if fn0[0] == 65730:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}
-                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+                if fn0[0] == 65730:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam1}1}
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                     arg0
                   )
-                elif fn0[0] == 65731:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+                elif fn0[0] == 65731:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam2}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                     P_c0, arg0
                   )
-                else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
-                  return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+                else:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam3}1}
+                  return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                     arg0
                   )
             else:
               if fn0[0] < 65736:
-                if fn0[0] == 65733:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+                if fn0[0] == 65733:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam0}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                  return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                     P_c0, arg0
                   )
-                elif fn0[0] == 65734:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}
-                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+                elif fn0[0] == 65734:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam1}1}
+                  return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                     arg0
                   )
-                else:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+                else:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam2}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                  return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                     P_c0, arg0
                   )
               else:
-                if fn0[0] == 65736:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
-                  return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+                if fn0[0] == 65736:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam3}1}
+                  return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                     arg0
                   )
                 elif fn0[0] == 65737:  # {U_Prelude.Show.{primNumShow0}1}
@@ -1324,20 +1324,20 @@ def APPLY0(fn0, arg0):
                   return unsafePerformIO0(arg0)
             else:
               if fn0[0] < 65828:
-                if fn0[0] == 65825:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+                if fn0[0] == 65825:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable2}
                   P_c0, P_c1, P_c2 = fn0[1:]
-                  return (65726, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
-                elif fn0[0] == 65826:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
-                  return (65728, arg0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
-                else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+                  return (65726, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable1}
+                elif fn0[0] == 65826:  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq2}
+                  return (65728, arg0)  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq1}
+                else:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable3}
                   P_c0, P_c1 = fn0[1:]
-                  return (65825, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+                  return (65825, P_c0, P_c1, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable2}
               else:
-                if fn0[0] == 65828:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                if fn0[0] == 65828:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable4}
                   P_c0 = fn0[1]
-                  return (65827, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
-                else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-                  return (65828, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                  return (65827, P_c0, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable3}
+                else:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable5}
+                  return (65828, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable4}
     return _idris_error("unreachable due to case in tail position")
 
 # {EVAL0}
@@ -1345,8 +1345,8 @@ def EVAL0(arg0):
   while True:
     return arg0
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
   while True:
@@ -1354,8 +1354,8 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       in0, in1
     )
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
   while True:
@@ -1363,15 +1363,15 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
       in0, in1
     )
 
-# Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}
-def _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_instance_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
+# Prelude.Functor.{Prelude.Monad.IO' ffi implementation of Prelude.Functor.Functor, method map_lam0}
+def _idris_Prelude_46_Functor_46__123_Prelude_46_Monad_46_IO_39__32_ffi_32_implementation_32_of_32_Prelude_46_Functor_46_Functor_44__32_method_32_map_95_lam0_125_(
   e3, in0
 ):
   while True:
     return (65802, None, None, APPLY0(e3, in0))  # {U_io_return1}
 
-# Prelude.Classes.{Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=_lam0}
-def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+# Prelude.Classes.{Prelude.Show.Prec implementation of Prelude.Classes.Ord, method >=_lam0}
+def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
   e0, e1
 ):
   while True:
@@ -1509,19 +1509,19 @@ def _idris_Python_46_Lib_46_Threading_46__123_wait0_125_(in0):
   while True:
     return (0,)  # Python.Telescope.Return
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
   while True:
-    return (65729, in0)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+    return (65729, in0)  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam0}1}
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
   while True:
-    return (65733, in0)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+    return (65733, in0)  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam0}1}
 
 # {Python.Lib.Threading.forkPIO, worker_lam1}
 def _idris__123_Python_46_Lib_46_Threading_46_forkPIO_44__32_worker_95_lam1_125_(
@@ -1616,8 +1616,8 @@ def unsafePerformIO1(e0, e1, e2):
   while True:
     return (65824,)  # {U_{unsafePerformIO0}1}
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
@@ -1637,8 +1637,8 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
@@ -1723,19 +1723,19 @@ def _idris_Python_46_Exceptions_46__123_try2_125_(in3):
   while True:
     return in3
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65731, in2)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+    return (65731, in2)  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam2}1}
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65735, in2)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+    return (65735, in2)  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam2}1}
 
 # {Python.Prim.iterate, iter_lam3}
 def _idris__123_Python_46_Prim_46_iterate_44__32_iter_95_lam3_125_(in5):
@@ -2855,37 +2855,37 @@ def _idris_Prelude_46_List_46_reverse_58_reverse_39__58_0(e0, e1, e2):
       return e1
     return _idris_error("unreachable due to case in tail position")
 
-# Decidable.Equality.Decidable.Equality.Char instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Char implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Char_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Int instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Int implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Int_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Integer instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Integer implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Integer_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.ManagedPtr instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.ManagedPtr implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_ManagedPtr_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Ptr instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Ptr implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Ptr_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.String instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.String implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_String_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Bool instance of Decidable.Equality.DecEq, method decEq
+# Decidable.Equality.Decidable.Equality.Bool implementation of Decidable.Equality.DecEq, method decEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Bool_58__33_decEq_58_0(
   e0, e1
 ):
@@ -2904,7 +2904,7 @@ def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Eq
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Eq, method ==
+# Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Eq, method ==
 def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
   e0, e1
 ):
@@ -2921,13 +2921,13 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_
         return False
       else:
         in1 = (e0 - 1)
-        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65826,)), in1), in0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65826,)), in1), in0)  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq2}
       return _idris_error("unreachable due to case in tail position")
     else:
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Eq, method ==
+# Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Eq, method ==
 def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Eq_36_Prec_58__33__61__61__58_0(
   e0, e1
 ):
@@ -2956,7 +2956,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Eq
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
+# Prelude.Foldable.Prelude.List.List implementation of Prelude.Foldable.Foldable, method foldr
 def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
   e0, e1, e2, e3, e4
 ):
@@ -2967,7 +2967,7 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
         APPLY0(e2, in0),
         APPLY0(
           APPLY0(
-            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65829,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65829,)), e2),  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable5}
             e3
           ),
           in1
@@ -2977,14 +2977,14 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
       return e3
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Functor.Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map
+# Prelude.Functor.Prelude.Monad.IO' ffi implementation of Prelude.Functor.Functor, method map
 def _idris_Prelude_46_Functor_46_Prelude_46_Monad_46__64_Prelude_46_Functor_46_Functor_36_IO_39__32_ffi_58__33_map_58_0(
   e0, e1, e2, e3, e4
 ):
   while True:
-    return (65801, None, None, None, e4, (65723, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.Monad.IO' ffi instance of Prelude.Functor.Functor, method map_lam0}1}
+    return (65801, None, None, None, e4, (65723, e3))  # {U_io_bind1}, {U_Prelude.Functor.{Prelude.Monad.IO' ffi implementation of Prelude.Functor.Functor, method map_lam0}1}
 
-# Prelude.Classes.Prelude.Classes.Integer instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Classes.Integer implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
   e0, e1
 ):
@@ -3011,7 +3011,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       return (1,)  # Prelude.Classes.EQ
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33_compare_58_0(
   e0, e1
 ):
@@ -3042,7 +3042,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=
+# Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method >=
 def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__61__58_0(
   e0, e1
 ):
@@ -3058,14 +3058,14 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Or
       e1
     )
     if not aux1:  # Prelude.Bool.False
-      return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
         e0, e1
       )
     else:  # Prelude.Bool.True
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33_compare_58_0(
   e0, e1
 ):
@@ -3090,7 +3090,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Or
       )
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Show.Prelude.Show.Nat instance of Prelude.Show.Show, method show
+# Prelude.Show.Prelude.Show.Nat implementation of Prelude.Show.Show, method show
 def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Nat_58__33_show_58_0(
   e0
 ):
@@ -3106,7 +3106,7 @@ def _idris__95_Prelude_46_Strings_46_strM_95_with_95_21(e0, e1):
       return _idris_really_95_believe_95_me(None, None, (1, e0[0]))  # Prelude.Strings.StrCons
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >
+# with block in Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method >
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__58_0_95_with_95_27(
   e0, e1, e2
 ):
@@ -3127,7 +3127,7 @@ def _idris__95_Prelude_46_Show_46_firstCharIs_95_with_95_44(e0, e1, e2):
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method >
+# with block in Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Ord, method >
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33__62__58_0_95_with_95_84(
   e0, e1, e2
 ):
@@ -3138,14 +3138,14 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Nat.Nat instance of Prelude.Classes.Eq
+# Prelude.Nat.Nat implementation of Prelude.Classes.Eq
 def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(meth0, meth1):
   while True:
     return _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
       meth0, meth1
     )
 
-# Prelude.List.List instance of Prelude.Foldable.Foldable
+# Prelude.List.List implementation of Prelude.Foldable.Foldable
 def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
   meth0, meth1, meth2, meth3, meth4
 ):
@@ -3154,15 +3154,15 @@ def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
       None, None, meth2, meth3, meth4
     )
 
-# Prelude.Nat.Nat instance of Prelude.Classes.Ord
+# Prelude.Nat.Nat implementation of Prelude.Classes.Ord
 def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat():
   while True:
-    return (0, (65730,), (65732,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
+    return (0, (65730,), (65732,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam3}1}
 
-# Prelude.Show.Prec instance of Prelude.Classes.Ord
+# Prelude.Show.Prec implementation of Prelude.Classes.Ord
 def _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec():
   while True:
-    return (0, (65734,), (65736,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
+    return (0, (65734,), (65736,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam3}1}
 
 # Python.Exceptions.case block in fromString at ./Python/Exceptions.idr:56:21
 def _idris_Python_46_Exceptions_46_fromString_95__95__95__95__95_Python_95__95_Exceptions_95__95_idr_95_56_95_21_95_case(

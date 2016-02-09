@@ -292,8 +292,9 @@ cgApp f args = f <> cgTuple maxWidth args
 -- we only deal with function definitions.
 cgDef :: M.Map Name Int -> (Name, DDecl) -> Doc
 cgDef ctors (n, DFun name' args body) =
+    empty
     $+$ (empty <?> "TCO exception for " ++ show name')
-    $+$ (text "class" <+> "_E" <> cgName n <> parens (text "Exception") <> colon)
+    $+$ (text "class" <+> text "_E" <> cgName n <> parens (text "Exception") <> colon)
     $+$ (indent (text "pass"))
     $+$ (empty <?> show name')
     $+$ (text "def" <+> cgApp (cgName n) (map cgName args) <> colon)

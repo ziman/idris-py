@@ -131,34 +131,34 @@ def _idris_Force(e0, e1, e2):
     in0 = EVAL0(e2)
     return in0
 
-# PE_(a, b) instance of Prelude.Show.Show_a94d79ab
-def _idris_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab():
+# PE_(a, b) implementation of Prelude.Show.Show_159bbfaf
+def _idris_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf():
   while True:
-    return (0, (65704,), (65719,))  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab12}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab26}1}
+    return (0, (65704,), (65719,))  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf12}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf26}1}
 
-# PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_42111bf0
-def _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a_95_42111bf0(
+# PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_e557f19a
+def _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a_95_e557f19a(
   e0, meth0, meth1
 ):
   while True:
     return _idris_Prelude_46_List_46__43__43_(None, meth0, meth1)
 
-# PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_5102bba8
-def _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f_95_5102bba8(
+# PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_ae124204
+def _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f_95_ae124204(
   meth0, meth1
 ):
   while True:
     return ConsList().cons(meth1)
 
-# PE_@@constructor of Prelude.Monad.Monad#Applicative m_d05ad59e
-def _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative_32_m_95_d05ad59e(
+# PE_@@constructor of Prelude.Monad.Monad#Applicative m_abd46658
+def _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative_32_m_95_abd46658(
   meth0, meth1
 ):
   while True:
     return ConsList().cons(meth1)
 
-# PE_Prelude.Show.(a, b) instance of Prelude.Show.Show, method show_cfed4029
-def _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_cfed4029(
+# PE_Prelude.Show.(a, b) implementation of Prelude.Show.Show, method show_8128b9ec
+def _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_8128b9ec(
   e0
 ):
   while True:
@@ -167,8 +167,8 @@ def _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_instance_32_of_32_Prel
     return (u'(' + (_idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in0) + (u', ' + (_idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in1) + u')'))))  # {U_prim__toStrInt1}, Prelude.Show.Open, {U_prim__toStrInt1}, Prelude.Show.Open
     return _idris_error("unreachable due to case in tail position")
 
-# PE_Prelude.Show.List a instance of Prelude.Show.Show, method show_54220539
-def _idris_PE_95_Prelude_46_Show_46_List_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_54220539(
+# PE_Prelude.Show.List a implementation of Prelude.Show.Show, method show_a9fea4bf
+def _idris_PE_95_Prelude_46_Show_46_List_32_a_32_implementation_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_a9fea4bf(
   e0
 ):
   while True:
@@ -176,24 +176,24 @@ def _idris_PE_95_Prelude_46_Show_46_List_32_a_32_instance_32_of_32_Prelude_46_Sh
       None,
       None,
       None,
-      _idris_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab(),
+      _idris_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf(),
       u'',
       e0
     ) + u']'))
 
-# PE_concatMap_af3155d1
-def _idris_PE_95_concatMap_95_af3155d1(e0, e1, e2, e3):
+# PE_concatMap_994c4fbe
+def _idris_PE_95_concatMap_95_994c4fbe(e0, e1, e2, e3):
   while True:
     return _idris_PE_95_foldr_95_c8d7af37(
       None,
       None,
-      (65728, e2),  # {U_{PE_concatMap_af3155d10}1}
-      _idris_PE_95_neutral_95_42111bf0(None),
+      (65728, e2),  # {U_{PE_concatMap_994c4fbe0}1}
+      _idris_PE_95_neutral_95_e557f19a(None),
       e3
     )
 
-# PE_empty_8ff8f7b3
-def _idris_PE_95_empty_95_8ff8f7b3(e0):
+# PE_empty_4bb299b7
+def _idris_PE_95_empty_95_4bb299b7(e0):
   while True:
     return ConsList()
 
@@ -204,8 +204,8 @@ def _idris_PE_95_foldr_95_c8d7af37(e0, e1, e2, e3, e4):
       None, None, e2, e3, e4
     )
 
-# PE_neutral_42111bf0
-def _idris_PE_95_neutral_95_42111bf0(e0):
+# PE_neutral_e557f19a
+def _idris_PE_95_neutral_95_e557f19a(e0):
   while True:
     return ConsList()
 
@@ -225,8 +225,8 @@ def _idris_PE_95_printLn_39__95_cfef5baf(e0, e1):
       (_idris_PE_95_show_95_24967653(e1) + u'\u000a')
     )
 
-# PE_printLn_48f3a70d
-def _idris_PE_95_printLn_95_48f3a70d(e0):
+# PE_printLn_32c49909
+def _idris_PE_95_printLn_95_32c49909(e0):
   while True:
     return _idris_PE_95_printLn_39__95_1452bb16(None, e0)
 
@@ -245,7 +245,7 @@ def _idris_PE_95_show_95_24967653(e0):
 # PE_show_78b4bfbe
 def _idris_PE_95_show_95_78b4bfbe(e0):
   while True:
-    return _idris_PE_95_Prelude_46_Show_46_List_32_a_32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_54220539(
+    return _idris_PE_95_Prelude_46_Show_46_List_32_a_32_implementation_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_a9fea4bf(
       e0
     )
 
@@ -320,7 +320,7 @@ def _idris_Main_46_main():
       None,
       None,
       None,
-      _idris_PE_95_printLn_95_48f3a70d(_idris_Main_46_pythag(100)),
+      _idris_PE_95_printLn_95_32c49909(_idris_Main_46_pythag(100)),
       (65640,)  # {U_Main.{main2}1}
     )
 
@@ -831,21 +831,21 @@ def APPLY0(fn0, arg0):
             if fn0[0] < 65647:
               if fn0[0] == 65644:  # {U_Main.{pythag3}1}
                 return _idris_Main_46__123_pythag3_125_(arg0)
-              elif fn0[0] == 65645:  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_42111bf01}
+              elif fn0[0] == 65645:  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_e557f19a1}
                 P_c0, P_c1 = fn0[1:]
-                return _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a_95_42111bf0(
+                return _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Algebra_46_Monoid_35_Semigroup_32_a_95_e557f19a(
                   P_c0, P_c1, arg0
                 )
-              else:  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_5102bba81}
+              else:  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_ae1242041}
                 P_c0 = fn0[1]
-                return _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f_95_5102bba8(
+                return _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Applicative_46_Alternative_35_Applicative_32_f_95_ae124204(
                   P_c0, arg0
                 )
             else:
               if fn0[0] < 65649:
-                if fn0[0] == 65647:  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_d05ad59e1}
+                if fn0[0] == 65647:  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_abd466581}
                   P_c0 = fn0[1]
-                  return _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative_32_m_95_d05ad59e(
+                  return _idris_PE_95__64__64_constructor_32_of_32_Prelude_46_Monad_46_Monad_35_Applicative_32_m_95_abd46658(
                     P_c0, arg0
                   )
                 else:  # {U_Prelude.Basics..1}
@@ -860,64 +860,64 @@ def APPLY0(fn0, arg0):
         else:
           if fn0[0] < 65657:
             if fn0[0] < 65654:
-              if fn0[0] == 65651:  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam0}1}
+              if fn0[0] == 65651:  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam0}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                return _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                   P_c0, arg0
                 )
-              elif fn0[0] == 65652:  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam1}1}
-                return _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+              elif fn0[0] == 65652:  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam1}1}
+                return _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                   arg0
                 )
-              else:  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam2}1}
+              else:  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam2}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                return _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                   P_c0, arg0
                 )
             else:
-              if fn0[0] == 65654:  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam3}1}
-                return _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+              if fn0[0] == 65654:  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam3}1}
+                return _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                   arg0
                 )
-              elif fn0[0] == 65655:  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam4}1}
+              elif fn0[0] == 65655:  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam4}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+                return _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
                   P_c0, arg0
                 )
-              else:  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam5}1}
-                return _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+              else:  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam5}1}
+                return _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
                   arg0
                 )
           else:
             if fn0[0] < 65660:
-              if fn0[0] == 65657:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}1}
+              if fn0[0] == 65657:  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam0}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                return _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                   P_c0, arg0
                 )
-              elif fn0[0] == 65658:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}1}
-                return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+              elif fn0[0] == 65658:  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam1}1}
+                return _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                   arg0
                 )
-              else:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}1}
+              else:  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam2}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                return _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                   P_c0, arg0
                 )
             else:
               if fn0[0] < 65662:
-                if fn0[0] == 65660:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}1}
-                  return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+                if fn0[0] == 65660:  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam3}1}
+                  return _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                     arg0
                   )
-                else:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam4}1}
+                else:  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam4}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+                  return _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
                     P_c0, arg0
                   )
               else:
-                if fn0[0] == 65662:  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam5}1}
-                  return _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+                if fn0[0] == 65662:  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam5}1}
+                  return _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
                     arg0
                   )
                 else:  # {U_Prelude.Interactive.{putStr'0}1}
@@ -929,42 +929,42 @@ def APPLY0(fn0, arg0):
             if fn0[0] < 65667:
               if fn0[0] == 65664:  # {U_Prelude.Interactive.{putStr'1}1}
                 return _idris_Prelude_46_Interactive_46__123_putStr_39_1_125_(arg0)
-              elif fn0[0] == 65665:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
+              elif fn0[0] == 65665:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable1}
                 P_c0, P_c1, P_c2, P_c3 = fn0[1:]
                 return _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
                   P_c0, P_c1, P_c2, P_c3, arg0
                 )
-              else:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
+              else:  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq1}
                 P_c0 = fn0[1]
                 return _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(P_c0, arg0)
             else:
-              if fn0[0] == 65667:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+              if fn0[0] == 65667:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam0}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                   P_c0, arg0
                 )
-              elif fn0[0] == 65668:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+              elif fn0[0] == 65668:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam1}1}
+                return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                   arg0
                 )
-              else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+              else:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam2}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                   P_c0, arg0
                 )
           else:
             if fn0[0] < 65673:
-              if fn0[0] == 65670:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+              if fn0[0] == 65670:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam3}1}
+                return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                   arg0
                 )
-              elif fn0[0] == 65671:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam4}1}
+              elif fn0[0] == 65671:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam4}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+                return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
                   P_c0, arg0
                 )
-              else:  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam5}1}
-                return _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+              else:  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam5}1}
+                return _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
                   arg0
                 )
             else:
@@ -972,49 +972,49 @@ def APPLY0(fn0, arg0):
                 if fn0[0] == 65673:  # {U_Prelude.Show.protectEsc1}
                   P_c0, P_c1 = fn0[1:]
                   return _idris_Prelude_46_Show_46_protectEsc(P_c0, P_c1, arg0)
-                else:  # {U_Prelude.Show.{Int instance of Prelude.Show.Show_lam0}1}
-                  return _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam0_125_(
+                else:  # {U_Prelude.Show.{Int implementation of Prelude.Show.Show_lam0}1}
+                  return _idris_Prelude_46_Show_46__123_Int_32_implementation_32_of_32_Prelude_46_Show_46_Show_95_lam0_125_(
                     arg0
                   )
               else:
-                if fn0[0] == 65675:  # {U_Prelude.Show.{Int instance of Prelude.Show.Show_lam1}1}
+                if fn0[0] == 65675:  # {U_Prelude.Show.{Int implementation of Prelude.Show.Show_lam1}1}
                   P_c0 = fn0[1]
-                  return _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam1_125_(
+                  return _idris_Prelude_46_Show_46__123_Int_32_implementation_32_of_32_Prelude_46_Show_46_Show_95_lam1_125_(
                     P_c0, arg0
                   )
-                else:  # {U_Prelude.Show.{Int instance of Prelude.Show.Show_lam2}1}
-                  return _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam2_125_(
+                else:  # {U_Prelude.Show.{Int implementation of Prelude.Show.Show_lam2}1}
+                  return _idris_Prelude_46_Show_46__123_Int_32_implementation_32_of_32_Prelude_46_Show_46_Show_95_lam2_125_(
                     arg0
                   )
         else:
           if fn0[0] < 65683:
             if fn0[0] < 65680:
-              if fn0[0] == 65677:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+              if fn0[0] == 65677:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam0}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+                return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
                   P_c0, arg0
                 )
-              elif fn0[0] == 65678:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+              elif fn0[0] == 65678:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam1}1}
+                return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
                   arg0
                 )
-              else:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+              else:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam2}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+                return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
                   P_c0, arg0
                 )
             else:
-              if fn0[0] == 65680:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+              if fn0[0] == 65680:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam3}1}
+                return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
                   arg0
                 )
-              elif fn0[0] == 65681:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam4}1}
+              elif fn0[0] == 65681:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam4}1}
                 P_c0 = fn0[1]
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+                return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
                   P_c0, arg0
                 )
-              else:  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam5}1}
-                return _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+              else:  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam5}1}
+                return _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
                   arg0
                 )
           else:
@@ -1076,142 +1076,142 @@ def APPLY0(fn0, arg0):
                 else:  # {U_prim__toStrInt1}
                   return _idris_prim_95__95_toStrInt(arg0)
               else:
-                if fn0[0] == 65701:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab0}1}
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab0_125_(
+                if fn0[0] == 65701:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf0}1}
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf0_125_(
                     arg0
                   )
-                else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab10}1}
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab10_125_(
+                else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf10}1}
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf10_125_(
                     arg0
                   )
         else:
           if fn0[0] < 65709:
             if fn0[0] < 65706:
-              if fn0[0] == 65703:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab11}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab11_125_(
+              if fn0[0] == 65703:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf11}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf11_125_(
                   arg0
                 )
-              elif fn0[0] == 65704:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab12}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab12_125_(
+              elif fn0[0] == 65704:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf12}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf12_125_(
                   arg0
                 )
-              else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab13}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab13_125_(
+              else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf13}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf13_125_(
                   arg0
                 )
             else:
-              if fn0[0] == 65706:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab14}1}
+              if fn0[0] == 65706:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf14}1}
                 P_c0 = fn0[1]
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab14_125_(
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf14_125_(
                   P_c0, arg0
                 )
-              elif fn0[0] == 65707:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab15}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab15_125_(
+              elif fn0[0] == 65707:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf15}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf15_125_(
                   arg0
                 )
-              else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab16}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab16_125_(
+              else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf16}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf16_125_(
                   arg0
                 )
           else:
             if fn0[0] < 65712:
-              if fn0[0] == 65709:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab17}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab17_125_(
+              if fn0[0] == 65709:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf17}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf17_125_(
                   arg0
                 )
-              elif fn0[0] == 65710:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab18}1}
+              elif fn0[0] == 65710:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf18}1}
                 P_c0 = fn0[1]
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab18_125_(
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf18_125_(
                   P_c0, arg0
                 )
-              else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab19}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab19_125_(
+              else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf19}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf19_125_(
                   arg0
                 )
             else:
               if fn0[0] < 65714:
-                if fn0[0] == 65712:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab1}1}
+                if fn0[0] == 65712:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf1}1}
                   P_c0 = fn0[1]
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab1_125_(
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf1_125_(
                     P_c0, arg0
                   )
-                else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab20}1}
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab20_125_(
+                else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf20}1}
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf20_125_(
                     arg0
                   )
               else:
-                if fn0[0] == 65714:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab21}1}
+                if fn0[0] == 65714:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf21}1}
                   P_c0 = fn0[1]
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab21_125_(
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf21_125_(
                     P_c0, arg0
                   )
-                else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab22}1}
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab22_125_(
+                else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf22}1}
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf22_125_(
                     arg0
                   )
       else:
         if fn0[0] < 65729:
           if fn0[0] < 65722:
             if fn0[0] < 65719:
-              if fn0[0] == 65716:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab23}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab23_125_(
+              if fn0[0] == 65716:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf23}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf23_125_(
                   arg0
                 )
-              elif fn0[0] == 65717:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab24}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab24_125_(
+              elif fn0[0] == 65717:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf24}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf24_125_(
                   arg0
                 )
-              else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab25}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab25_125_(
+              else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf25}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf25_125_(
                   arg0
                 )
             else:
-              if fn0[0] == 65719:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab26}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab26_125_(
+              if fn0[0] == 65719:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf26}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf26_125_(
                   arg0
                 )
-              elif fn0[0] == 65720:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab2}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab2_125_(
+              elif fn0[0] == 65720:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf2}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf2_125_(
                   arg0
                 )
-              else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab3}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab3_125_(
+              else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf3}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf3_125_(
                   arg0
                 )
           else:
             if fn0[0] < 65725:
-              if fn0[0] == 65722:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab4}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab4_125_(
+              if fn0[0] == 65722:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf4}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf4_125_(
                   arg0
                 )
-              elif fn0[0] == 65723:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab5}1}
+              elif fn0[0] == 65723:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf5}1}
                 P_c0 = fn0[1]
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab5_125_(
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf5_125_(
                   P_c0, arg0
                 )
-              else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab6}1}
-                return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab6_125_(
+              else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf6}1}
+                return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf6_125_(
                   arg0
                 )
             else:
               if fn0[0] < 65727:
-                if fn0[0] == 65725:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab7}1}
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab7_125_(
+                if fn0[0] == 65725:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf7}1}
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf7_125_(
                     arg0
                   )
-                else:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab8}1}
+                else:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf8}1}
                   P_c0 = fn0[1]
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab8_125_(
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf8_125_(
                     P_c0, arg0
                   )
               else:
-                if fn0[0] == 65727:  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab9}1}
-                  return _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab9_125_(
+                if fn0[0] == 65727:  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf9}1}
+                  return _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf9_125_(
                     arg0
                   )
-                else:  # {U_{PE_concatMap_af3155d10}1}
+                else:  # {U_{PE_concatMap_994c4fbe0}1}
                   P_c0 = fn0[1]
-                  return _idris__123_PE_95_concatMap_95_af3155d10_125_(P_c0, arg0)
+                  return _idris__123_PE_95_concatMap_95_994c4fbe0_125_(P_c0, arg0)
         else:
           if fn0[0] < 65736:
             if fn0[0] < 65732:
@@ -1230,35 +1230,35 @@ def APPLY0(fn0, arg0):
                   P_c0, P_c1, P_c2, P_c3, P_c4, P_c5 = fn0[1:]
                   return io_bind1(P_c0, P_c1, P_c2, P_c3, P_c4, P_c5, arg0)
               else:
-                if fn0[0] == 65734:  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_42111bf02}
+                if fn0[0] == 65734:  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_e557f19a2}
                   P_c0 = fn0[1]
-                  return (65645, P_c0, arg0)  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_42111bf01}
-                else:  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_5102bba82}
-                  return (65646, arg0)  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_5102bba81}
+                  return (65645, P_c0, arg0)  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_e557f19a1}
+                else:  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_ae1242042}
+                  return (65646, arg0)  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_ae1242041}
           else:
             if fn0[0] < 65739:
-              if fn0[0] == 65736:  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_d05ad59e2}
-                return (65647, arg0)  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_d05ad59e1}
-              elif fn0[0] == 65737:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
+              if fn0[0] == 65736:  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_abd466582}
+                return (65647, arg0)  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_abd466581}
+              elif fn0[0] == 65737:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable2}
                 P_c0, P_c1, P_c2 = fn0[1:]
-                return (65665, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable1}
-              else:  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
-                return (65666, arg0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq1}
+                return (65665, P_c0, P_c1, P_c2, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable1}
+              else:  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq2}
+                return (65666, arg0)  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq1}
             else:
               if fn0[0] < 65741:
-                if fn0[0] == 65739:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+                if fn0[0] == 65739:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable3}
                   P_c0, P_c1 = fn0[1:]
-                  return (65737, P_c0, P_c1, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable2}
-                else:  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                  return (65737, P_c0, P_c1, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable2}
+                else:  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable4}
                   P_c0 = fn0[1]
-                  return (65739, P_c0, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable3}
+                  return (65739, P_c0, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable3}
               else:
-                assert fn0[0] == 65741  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
-                return (65740, arg0)  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable4}
+                assert fn0[0] == 65741  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable5}
+                return (65740, arg0)  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable4}
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam0}
-def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+# Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
   while True:
@@ -1271,8 +1271,8 @@ def EVAL0(arg0):
   while True:
     return arg0
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}
-def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+# Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
   while True:
@@ -1280,8 +1280,8 @@ def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classe
       in0, in1
     )
 
-# Prelude.Show.{Int instance of Prelude.Show.Show_lam0}
-def _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam0_125_(
+# Prelude.Show.{Int implementation of Prelude.Show.Show_lam0}
+def _idris_Prelude_46_Show_46__123_Int_32_implementation_32_of_32_Prelude_46_Show_46_Show_95_lam0_125_(
   in0
 ):
   while True:
@@ -1296,8 +1296,8 @@ def _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_S
       in0
     )
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
   while True:
@@ -1305,18 +1305,18 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       in0, in1
     )
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab0}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab0_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf0}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf0_125_(
   in1
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in1)  # {U_prim__toStrInt1}, Prelude.Show.Open
 
-# {PE_concatMap_af3155d10}
-def _idris__123_PE_95_concatMap_95_af3155d10_125_(e2, in0):
+# {PE_concatMap_994c4fbe0}
+def _idris__123_PE_95_concatMap_95_994c4fbe0_125_(e2, in0):
   while True:
     return APPLY0(
-      _idris_Prelude_46_Algebra_46__60__43__62_(None, (65734, None)),  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_42111bf02}
+      _idris_Prelude_46_Algebra_46__60__43__62_(None, (65734, None)),  # {U_PE_@@constructor of Prelude.Algebra.Monoid#Semigroup a_e557f19a2}
       APPLY0(e2, in0)
     )
 
@@ -1327,8 +1327,8 @@ def _idris__123_PE_95_show_95_249676530_125_(in0):
       in0
     )
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam0}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam0_125_(
   in0, in1
 ):
   while True:
@@ -1336,8 +1336,8 @@ def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_
       in0, in1
     )
 
-# Prelude.Classes.{Prelude.Classes.Char instance of Prelude.Classes.Ord, method <=_lam0}
-def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
+# Prelude.Classes.{Prelude.Classes.Char implementation of Prelude.Classes.Ord, method <=_lam0}
+def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
   e0, e1
 ):
   while True:
@@ -1348,8 +1348,8 @@ def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_instance_32_
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.{Prelude.Classes.Char instance of Prelude.Classes.Ord, method >=_lam0}
-def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+# Prelude.Classes.{Prelude.Classes.Char implementation of Prelude.Classes.Ord, method >=_lam0}
+def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
   e0, e1
 ):
   while True:
@@ -1360,8 +1360,8 @@ def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_instance_32_
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.{Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=_lam0}
-def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
+# Prelude.Classes.{Prelude.Classes.Int implementation of Prelude.Classes.Ord, method <=_lam0}
+def _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
   e0, e1
 ):
   while True:
@@ -1377,8 +1377,8 @@ def _idris__123_Prelude_46_List_46_sortBy_44__32_splitRec_95_lam0_125_(in0, in6)
   while True:
     return in6.cons(in0)
 
-# Prelude.Classes.{Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=_lam0}
-def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+# Prelude.Classes.{Prelude.Show.Prec implementation of Prelude.Classes.Ord, method >=_lam0}
+def _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
   e0, e1
 ):
   while True:
@@ -1431,7 +1431,7 @@ def _idris_Prelude_46_Interactive_46__123_putStr_39_0_125_(e1, in0):
 def _idris_Main_46__123_pythag0_125_(in2, in1, in0, in3):
   while True:
     return APPLY0(
-      _idris_Prelude_46_Applicative_46_pure(None, None, (65736,)),  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_d05ad59e2}
+      _idris_Prelude_46_Applicative_46_pure(None, None, (65736,)),  # {U_PE_@@constructor of Prelude.Monad.Monad#Applicative m_abd466582}
       (in2, (in1, in0))
     )
 
@@ -1450,36 +1450,36 @@ def _idris_Prelude_46_Show_46__123_showLitString0_125_(in2):
   while True:
     return (u'\\"' + in2)
 
-# Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam1}
-def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+# Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
   while True:
-    return (65651, in0)  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam0}1}
+    return (65651, in0)  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam0}1}
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}
-def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+# Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
   while True:
-    return (65657, in0)  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam0}1}
+    return (65657, in0)  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam0}1}
 
-# Prelude.Show.{Int instance of Prelude.Show.Show_lam1}
-def _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam1_125_(
+# Prelude.Show.{Int implementation of Prelude.Show.Show_lam1}
+def _idris_Prelude_46_Show_46__123_Int_32_implementation_32_of_32_Prelude_46_Show_46_Show_95_lam1_125_(
   in1, in2
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), in1, in2)  # {U_prim__toStrInt1}
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
   while True:
-    return (65667, in0)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam0}1}
+    return (65667, in0)  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam0}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab1}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab1_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf1}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf1_125_(
   in2, in3
 ):
   while True:
@@ -1492,12 +1492,12 @@ def _idris__123_PE_95_show_95_249676531_125_(in2):
       in2
     )
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam1}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam1_125_(
   in0
 ):
   while True:
-    return (65677, in0)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam0}1}
+    return (65677, in0)  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam0}1}
 
 # {io_bind1}
 def io_bind1(e0, e1, e2, e3, e4, _idris_w, in0):
@@ -1529,9 +1529,9 @@ def _idris_Main_46__123_pythag1_125_(in1, in0, in2):
       aux3 = True
     aux1 = aux3
     if not aux1:  # Prelude.Bool.False
-      aux4 = _idris_PE_95_empty_95_8ff8f7b3(None)
+      aux4 = _idris_PE_95_empty_95_4bb299b7(None)
     else:  # Prelude.Bool.True
-      aux4 = APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, (65735,)), Unit)  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_5102bba82}
+      aux4 = APPLY0(_idris_Prelude_46_Applicative_46_pure(None, None, (65735,)), Unit)  # {U_PE_@@constructor of Prelude.Applicative.Alternative#Applicative f_ae1242042}
     return _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
       None,
       None,
@@ -1544,8 +1544,8 @@ def _idris_Prelude_46_Show_46__123_showLitChar1_125_(in1):
   while True:
     return (u'\\b' + in1)
 
-# Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam2}
-def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+# Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
@@ -1565,8 +1565,8 @@ def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Class
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}
-def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+# Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
@@ -1586,15 +1586,15 @@ def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classe
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Show.{Int instance of Prelude.Show.Show_lam2}
-def _idris_Prelude_46_Show_46__123_Int_32_instance_32_of_32_Prelude_46_Show_46_Show_95_lam2_125_(
+# Prelude.Show.{Int implementation of Prelude.Show.Show_lam2}
+def _idris_Prelude_46_Show_46__123_Int_32_implementation_32_of_32_Prelude_46_Show_46_Show_95_lam2_125_(
   in1
 ):
   while True:
-    return (65675, in1)  # {U_Prelude.Show.{Int instance of Prelude.Show.Show_lam1}1}
+    return (65675, in1)  # {U_Prelude.Show.{Int implementation of Prelude.Show.Show_lam1}1}
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
@@ -1614,20 +1614,20 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab2}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab2_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf2}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf2_125_(
   in2
 ):
   while True:
-    return (65712, in2)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab1}1}
+    return (65712, in2)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf1}1}
 
 # {PE_show_249676532}
 def _idris__123_PE_95_show_95_249676532_125_(in1):
   while True:
     return (65730,)  # {U_{PE_show_249676531}1}
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam2}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam2_125_(
   in2, in3
 ):
   while True:
@@ -1695,42 +1695,42 @@ def _idris_Prelude_46_Show_46__123_showLitChar2_125_(in2):
   while True:
     return (u'\\t' + in2)
 
-# Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam3}
-def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+# Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65653, in2)  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam2}1}
+    return (65653, in2)  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam2}1}
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}
-def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+# Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65659, in2)  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam2}1}
+    return (65659, in2)  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam2}1}
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65669, in2)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam2}1}
+    return (65669, in2)  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam2}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab3}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab3_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf3}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf3_125_(
   in4
 ):
   while True:
-    return _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_cfed4029(
+    return _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_8128b9ec(
       in4
     )
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam3}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam3_125_(
   in2
 ):
   while True:
-    return (65679, in2)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam2}1}
+    return (65679, in2)  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam2}1}
 
 # Main.{pythag3}
 def _idris_Main_46__123_pythag3_125_(in0):
@@ -1749,8 +1749,8 @@ def _idris_Prelude_46_Show_46__123_showLitChar3_125_(in3):
   while True:
     return (u'\\n' + in3)
 
-# Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam4}
-def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+# Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam4}
+def _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
   in4, in5
 ):
   while True:
@@ -1770,8 +1770,8 @@ def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Class
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam4}
-def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+# Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam4}
+def _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
   in4, in5
 ):
   while True:
@@ -1791,8 +1791,8 @@ def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classe
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam4}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam4}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
   in4, in5
 ):
   while True:
@@ -1812,15 +1812,15 @@ def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab4}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab4_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf4}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf4_125_(
   in7
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in7)  # {U_prim__toStrInt1}, Prelude.Show.Open
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam4}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam4}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam4_125_(
   in4, in5
 ):
   while True:
@@ -1845,60 +1845,60 @@ def _idris_Prelude_46_Show_46__123_showLitChar4_125_(in4):
   while True:
     return (u'\\v' + in4)
 
-# Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam5}
-def _idris_Prelude_46_Classes_46__123_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+# Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam5}
+def _idris_Prelude_46_Classes_46__123_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
   in4
 ):
   while True:
-    return (65655, in4)  # {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam4}1}
+    return (65655, in4)  # {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam4}1}
 
-# Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam5}
-def _idris_Prelude_46_Classes_46__123_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+# Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam5}
+def _idris_Prelude_46_Classes_46__123_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
   in4
 ):
   while True:
-    return (65661, in4)  # {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam4}1}
+    return (65661, in4)  # {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam4}1}
 
-# Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam5}
-def _idris_Prelude_46_Nat_46__123_Nat_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+# Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam5}
+def _idris_Prelude_46_Nat_46__123_Nat_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
   in4
 ):
   while True:
-    return (65671, in4)  # {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam4}1}
+    return (65671, in4)  # {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam4}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab5}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab5_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf5}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf5_125_(
   in8, in9
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), in8, in9)  # {U_prim__toStrInt1}
 
-# Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam5}
-def _idris_Prelude_46_Show_46__123_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
+# Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam5}
+def _idris_Prelude_46_Show_46__123_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_95_lam5_125_(
   in4
 ):
   while True:
-    return (65681, in4)  # {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam4}1}
+    return (65681, in4)  # {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam4}1}
 
 # Prelude.Show.{showLitChar5}
 def _idris_Prelude_46_Show_46__123_showLitChar5_125_(in5):
   while True:
     return (u'\\f' + in5)
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab6}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab6_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf6}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf6_125_(
   in8
 ):
   while True:
-    return (65723, in8)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab5}1}
+    return (65723, in8)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf5}1}
 
 # Prelude.Show.{showLitChar6}
 def _idris_Prelude_46_Show_46__123_showLitChar6_125_(in6):
   while True:
     return (u'\\r' + in6)
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab7}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab7_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf7}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf7_125_(
   in10
 ):
   while True:
@@ -1914,8 +1914,8 @@ def _idris_Prelude_46_Show_46__123_showLitChar7_125_(in7):
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab8}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab8_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf8}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf8_125_(
   in11, in12
 ):
   while True:
@@ -1926,20 +1926,20 @@ def _idris_Prelude_46_Show_46__123_showLitChar8_125_(in8):
   while True:
     return (u'\\\\' + in8)
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab9}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab9_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf9}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf9_125_(
   in11
 ):
   while True:
-    return (65726, in11)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab8}1}
+    return (65726, in11)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf8}1}
 
 # Prelude.Show.{showLitChar9}
 def _idris_Prelude_46_Show_46__123_showLitChar9_125_(in9):
   while True:
     return (u'\\DEL' + in9)
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab10}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab10_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf10}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf10_125_(
   in6
 ):
   while True:
@@ -1948,8 +1948,8 @@ def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46
       None,
       None,
       None,
-      (0, (65722,), (65724,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab4}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab6}1}
-      (0, (65725,), (65727,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab7}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab9}1}
+      (0, (65722,), (65724,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf4}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf6}1}
+      (0, (65725,), (65727,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf7}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf9}1}
       in6
     )
 
@@ -1958,15 +1958,15 @@ def _idris_Prelude_46_Show_46__123_showLitChar10_125_(in10, in11):
   while True:
     return (in10 + in11)
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab11}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab11_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf11}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf11_125_(
   in5
 ):
   while True:
-    return (65702,)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab10}1}
+    return (65702,)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf10}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab12}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab12_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf12}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf12_125_(
   in0
 ):
   while True:
@@ -1975,85 +1975,85 @@ def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46
       None,
       None,
       None,
-      (0, (65701,), (65720,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab0}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab2}1}
-      (0, (65721,), (65703,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab3}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab11}1}
+      (0, (65701,), (65720,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf0}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf2}1}
+      (0, (65721,), (65703,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf3}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf11}1}
       in0
     )
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab13}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab13_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf13}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf13_125_(
   in15
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in15)  # {U_prim__toStrInt1}, Prelude.Show.Open
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab14}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab14_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf14}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf14_125_(
   in16, in17
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), in16, in17)  # {U_prim__toStrInt1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab15}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab15_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf15}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf15_125_(
   in16
 ):
   while True:
-    return (65706, in16)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab14}1}
+    return (65706, in16)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf14}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab16}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab16_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf16}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf16_125_(
   in18
 ):
   while True:
-    return _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_cfed4029(
+    return _idris_PE_95_Prelude_46_Show_46__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_44__32_method_32_show_95_8128b9ec(
       in18
     )
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab17}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab17_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf17}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf17_125_(
   in21
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in21)  # {U_prim__toStrInt1}, Prelude.Show.Open
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab18}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab18_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf18}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf18_125_(
   in22, in23
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), in22, in23)  # {U_prim__toStrInt1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab19}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab19_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf19}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf19_125_(
   in22
 ):
   while True:
-    return (65710, in22)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab18}1}
+    return (65710, in22)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf18}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab20}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab20_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf20}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf20_125_(
   in24
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), (0,), in24)  # {U_prim__toStrInt1}, Prelude.Show.Open
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab21}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab21_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf21}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf21_125_(
   in25, in26
 ):
   while True:
     return _idris_Prelude_46_Show_46_primNumShow(None, (65700,), in25, in26)  # {U_prim__toStrInt1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab22}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab22_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf22}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf22_125_(
   in25
 ):
   while True:
-    return (65714, in25)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab21}1}
+    return (65714, in25)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf21}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab23}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab23_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf23}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf23_125_(
   in20
 ):
   while True:
@@ -2062,20 +2062,20 @@ def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46
       None,
       None,
       None,
-      (0, (65709,), (65711,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab17}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab19}1}
-      (0, (65713,), (65715,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab20}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab22}1}
+      (0, (65709,), (65711,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf17}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf19}1}
+      (0, (65713,), (65715,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf20}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf22}1}
       in20
     )
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab24}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab24_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf24}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf24_125_(
   in19
 ):
   while True:
-    return (65716,)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab23}1}
+    return (65716,)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf23}1}
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab25}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab25_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf25}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf25_125_(
   in14
 ):
   while True:
@@ -2084,49 +2084,49 @@ def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46
       None,
       None,
       None,
-      (0, (65705,), (65707,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab13}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab15}1}
-      (0, (65708,), (65717,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab16}1}, {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab24}1}
+      (0, (65705,), (65707,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf13}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf15}1}
+      (0, (65708,), (65717,)),  # constructor of Prelude.Show.Show, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf16}1}, {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf24}1}
       in14
     )
 
-# {PE_(a, b) instance of Prelude.Show.Show_a94d79ab26}
-def _idris__123_PE_95__40_a_44__32_b_41__32_instance_32_of_32_Prelude_46_Show_46_Show_95_a94d79ab26_125_(
+# {PE_(a, b) implementation of Prelude.Show.Show_159bbfaf26}
+def _idris__123_PE_95__40_a_44__32_b_41__32_implementation_32_of_32_Prelude_46_Show_46_Show_95_159bbfaf26_125_(
   in13
 ):
   while True:
-    return (65718,)  # {U_{PE_(a, b) instance of Prelude.Show.Show_a94d79ab25}1}
+    return (65718,)  # {U_{PE_(a, b) implementation of Prelude.Show.Show_159bbfaf25}1}
 
-# Decidable.Equality.Decidable.Equality.Char instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Char implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Char_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Int instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Int implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Int_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Integer instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Integer implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Integer_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.ManagedPtr instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.ManagedPtr implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_ManagedPtr_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.Ptr instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.Ptr implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Ptr_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Decidable.Equality.Decidable.Equality.String instance of Decidable.Equality.DecEq, method decEq, primitiveNotEq
+# Decidable.Equality.Decidable.Equality.String implementation of Decidable.Equality.DecEq, method decEq, primitiveNotEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_String_58__33_decEq_58_0_58_primitiveNotEq_58_0():
   while True:
     return None
 
-# Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo, go
+# Prelude.Prelude.Int implementation of Prelude.Enum, method enumFromTo, go
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0_58_go_58_0(
   e0, e1, e2, e3, e4
 ):
@@ -2140,7 +2140,7 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58
       return _idris_error("unreachable due to tail call")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Show.Prelude.Show.List a instance of Prelude.Show.Show, method show, show'
+# Prelude.Show.Prelude.Show.List a implementation of Prelude.Show.Show, method show, show'
 def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_List_32_a_58__33_show_58_0_58_show_39__58_0(
   e0, e1, e2, e3, e4, e5
 ):
@@ -2158,7 +2158,7 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
       return e4
     return _idris_error("unreachable due to case in tail position")
 
-# Decidable.Equality.Decidable.Equality.Bool instance of Decidable.Equality.DecEq, method decEq
+# Decidable.Equality.Decidable.Equality.Bool implementation of Decidable.Equality.DecEq, method decEq
 def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Equality_46_DecEq_36_Bool_58__33_decEq_58_0(
   e0, e1
 ):
@@ -2177,7 +2177,7 @@ def _idris_Decidable_46_Equality_46_Decidable_46_Equality_46__64_Decidable_46_Eq
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Prelude.Int instance of Prelude.Enum, method enumFromTo
+# Prelude.Prelude.Int implementation of Prelude.Enum, method enumFromTo
 def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58_0(
   e0, e1
 ):
@@ -2197,7 +2197,7 @@ def _idris_Prelude_46_Prelude_46__64_Prelude_46_Enum_36_Int_58__33_enumFromTo_58
       )
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Eq, method ==
+# Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Eq, method ==
 def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
   e0, e1
 ):
@@ -2214,13 +2214,13 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_
         return False
       else:
         in1 = (e0 - 1)
-        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65738,)), in1), in0)  # {U_Prelude.Nat.Nat instance of Prelude.Classes.Eq2}
+        return APPLY0(APPLY0(_idris_Prelude_46_Classes_46__61__61_(None, (65738,)), in1), in0)  # {U_Prelude.Nat.Nat implementation of Prelude.Classes.Eq2}
       return _idris_error("unreachable due to case in tail position")
     else:
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.Ordering instance of Prelude.Classes.Eq, method ==
+# Prelude.Classes.Prelude.Classes.Ordering implementation of Prelude.Classes.Eq, method ==
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Eq_36_Ordering_58__33__61__61__58_0(
   e0, e1
 ):
@@ -2247,7 +2247,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Eq, method ==
+# Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Eq, method ==
 def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Eq_36_Prec_58__33__61__61__58_0(
   e0, e1
 ):
@@ -2276,7 +2276,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Eq
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Foldable.Prelude.List.List instance of Prelude.Foldable.Foldable, method foldr
+# Prelude.Foldable.Prelude.List.List implementation of Prelude.Foldable.Foldable, method foldr
 def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List_58__33_foldr_58_0(
   e0, e1, e2, e3, e4
 ):
@@ -2287,7 +2287,7 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
         APPLY0(e2, in0),
         APPLY0(
           APPLY0(
-            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65741,)), e2),  # {U_Prelude.List.List instance of Prelude.Foldable.Foldable5}
+            APPLY0(_idris_Prelude_46_Foldable_46_foldr(None, None, None, (65741,)), e2),  # {U_Prelude.List.List implementation of Prelude.Foldable.Foldable5}
             e3
           ),
           in1
@@ -2297,14 +2297,14 @@ def _idris_Prelude_46_Foldable_46_Prelude_46_List_46__64_Prelude_46_Foldable_46_
       return e3
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Monad.Prelude.List instance of Prelude.Monad.Monad, method >>=
+# Prelude.Monad.Prelude.List implementation of Prelude.Monad.Monad, method >>=
 def _idris_Prelude_46_Monad_46_Prelude_46__64_Prelude_46_Monad_46_Monad_36_List_58__33__62__62__61__58_0(
   e0, e1, e2, e3
 ):
   while True:
-    return _idris_PE_95_concatMap_95_af3155d1(None, None, e3, e2)
+    return _idris_PE_95_concatMap_95_994c4fbe(None, None, e3, e2)
 
-# Prelude.Classes.Prelude.Classes.Char instance of Prelude.Classes.Ord, method <=
+# Prelude.Classes.Prelude.Classes.Char implementation of Prelude.Classes.Ord, method <=
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Char_58__33__60__61__58_0(
   e0, e1
 ):
@@ -2320,14 +2320,14 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       e1
     )
     if not aux1:  # Prelude.Bool.False
-      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
         e0, e1
       )
     else:  # Prelude.Bool.True
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.Char instance of Prelude.Classes.Ord, method >=
+# Prelude.Classes.Prelude.Classes.Char implementation of Prelude.Classes.Ord, method >=
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Char_58__33__62__61__58_0(
   e0, e1
 ):
@@ -2343,14 +2343,14 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       e1
     )
     if not aux1:  # Prelude.Bool.False
-      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Char_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
         e0, e1
       )
     else:  # Prelude.Bool.True
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.Char instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Classes.Char implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Char_58__33_compare_58_0(
   e0, e1
 ):
@@ -2377,7 +2377,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       return (1,)  # Prelude.Classes.EQ
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <=
+# Prelude.Classes.Prelude.Classes.Int implementation of Prelude.Classes.Ord, method <=
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__61__58_0(
   e0, e1
 ):
@@ -2393,14 +2393,14 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       e1
     )
     if not aux1:  # Prelude.Bool.False
-      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Classes_46_Int_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__60__61__95_lam0_125_(
         e0, e1
       )
     else:  # Prelude.Bool.True
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Classes.Int implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33_compare_58_0(
   e0, e1
 ):
@@ -2427,7 +2427,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       return (1,)  # Prelude.Classes.EQ
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.Integer instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Classes.Integer implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Integer_58__33_compare_58_0(
   e0, e1
 ):
@@ -2454,7 +2454,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       return (1,)  # Prelude.Classes.EQ
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33_compare_58_0(
   e0, e1
 ):
@@ -2485,7 +2485,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord
       return _idris_error("unreachable due to case in tail position")
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >=
+# Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method >=
 def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__61__58_0(
   e0, e1
 ):
@@ -2501,14 +2501,14 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Or
       e1
     )
     if not aux1:  # Prelude.Bool.False
-      return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_instance_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
+      return _idris_Prelude_46_Classes_46__123_Prelude_46_Show_46_Prec_32_implementation_32_of_32_Prelude_46_Classes_46_Ord_44__32_method_32__62__61__95_lam0_125_(
         e0, e1
       )
     else:  # Prelude.Bool.True
       return True
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33_compare_58_0(
   e0, e1
 ):
@@ -2533,7 +2533,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Or
       )
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Classes.Prelude.Classes.String instance of Prelude.Classes.Ord, method compare
+# Prelude.Classes.Prelude.Classes.String implementation of Prelude.Classes.Ord, method compare
 def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_String_58__33_compare_58_0(
   e0, e1
 ):
@@ -2560,7 +2560,7 @@ def _idris_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46
       return (1,)  # Prelude.Classes.EQ
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Show.Prelude.Show.(a, b) instance of Prelude.Show.Show, method show
+# Prelude.Show.Prelude.Show.(a, b) implementation of Prelude.Show.Show, method show
 def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36__40_a_44__32_b_41__58__33_show_58_0(
   e0, e1, e2, e3, e4, e5, e6
 ):
@@ -2570,7 +2570,7 @@ def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_
     return (u'(' + (APPLY0(_idris_Prelude_46_Show_46_show(None, e4), in0) + (u', ' + (APPLY0(_idris_Prelude_46_Show_46_show(None, e5), in1) + u')'))))
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Show.Prelude.Show.String instance of Prelude.Show.Show, method show
+# Prelude.Show.Prelude.Show.String implementation of Prelude.Show.Show, method show
 def _idris_Prelude_46_Show_46_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_String_58__33_show_58_0(
   e0
 ):
@@ -2652,7 +2652,7 @@ def _idris__95_Prelude_46_Strings_46_unpack_95_with_95_24(e0, e1):
       return ConsList()
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method <
+# with block in Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method <
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__60__58_0_95_with_95_25(
   e0, e1, e2
 ):
@@ -2663,7 +2663,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_4
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Show.Prec instance of Prelude.Classes.Ord, method >
+# with block in Prelude.Classes.Prelude.Show.Prec implementation of Prelude.Classes.Ord, method >
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec_58__33__62__58_0_95_with_95_27(
   e0, e1, e2
 ):
@@ -2684,7 +2684,7 @@ def _idris__95_Prelude_46_Show_46_firstCharIs_95_with_95_44(e0, e1, e2):
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method <
+# with block in Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Ord, method <
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33__60__58_0_95_with_95_82(
   e0, e1, e2
 ):
@@ -2695,7 +2695,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Nat.Nat instance of Prelude.Classes.Ord, method >
+# with block in Prelude.Classes.Prelude.Nat.Nat implementation of Prelude.Classes.Ord, method >
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat_58__33__62__58_0_95_with_95_84(
   e0, e1, e2
 ):
@@ -2706,7 +2706,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method <
+# with block in Prelude.Classes.Prelude.Classes.Int implementation of Prelude.Classes.Ord, method <
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__60__58_0_95_with_95_96(
   e0, e1, e2
 ):
@@ -2717,7 +2717,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classe
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Classes.Int instance of Prelude.Classes.Ord, method >
+# with block in Prelude.Classes.Prelude.Classes.Int implementation of Prelude.Classes.Ord, method >
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int_58__33__62__58_0_95_with_95_98(
   e0, e1, e2
 ):
@@ -2728,7 +2728,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classe
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Classes.Char instance of Prelude.Classes.Ord, method <
+# with block in Prelude.Classes.Prelude.Classes.Char implementation of Prelude.Classes.Ord, method <
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Char_58__33__60__58_0_95_with_95_129(
   e0, e1, e2
 ):
@@ -2739,7 +2739,7 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classe
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# with block in Prelude.Classes.Prelude.Classes.Char instance of Prelude.Classes.Ord, method >
+# with block in Prelude.Classes.Prelude.Classes.Char implementation of Prelude.Classes.Ord, method >
 def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Char_58__33__62__58_0_95_with_95_131(
   e0, e1, e2
 ):
@@ -2750,14 +2750,14 @@ def _idris__95_Prelude_46_Classes_46_Prelude_46_Classes_46__64_Prelude_46_Classe
       return False
     return _idris_error("unreachable due to case in tail position")
 
-# Prelude.Nat.Nat instance of Prelude.Classes.Eq
+# Prelude.Nat.Nat implementation of Prelude.Classes.Eq
 def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat(meth0, meth1):
   while True:
     return _idris_Prelude_46_Classes_46_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Eq_36_Nat_58__33__61__61__58_0(
       meth0, meth1
     )
 
-# Prelude.List.List instance of Prelude.Foldable.Foldable
+# Prelude.List.List implementation of Prelude.Foldable.Foldable
 def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
   meth0, meth1, meth2, meth3, meth4
 ):
@@ -2766,33 +2766,33 @@ def _idris_Prelude_46_List_46__64_Prelude_46_Foldable_46_Foldable_36_List(
       None, None, meth2, meth3, meth4
     )
 
-# Prelude.Classes.Char instance of Prelude.Classes.Ord
+# Prelude.Classes.Char implementation of Prelude.Classes.Ord
 def _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Char():
   while True:
-    return (0, (65652,), (65654,), (65656,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Classes.{Char instance of Prelude.Classes.Ord_lam5}1}
+    return (0, (65652,), (65654,), (65656,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Classes.{Char implementation of Prelude.Classes.Ord_lam5}1}
 
-# Prelude.Classes.Int instance of Prelude.Classes.Ord
+# Prelude.Classes.Int implementation of Prelude.Classes.Ord
 def _idris_Prelude_46_Classes_46__64_Prelude_46_Classes_46_Ord_36_Int():
   while True:
-    return (0, (65658,), (65660,), (65662,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Classes.{Int instance of Prelude.Classes.Ord_lam5}1}
+    return (0, (65658,), (65660,), (65662,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Classes.{Int implementation of Prelude.Classes.Ord_lam5}1}
 
-# Prelude.Nat.Nat instance of Prelude.Classes.Ord
+# Prelude.Nat.Nat implementation of Prelude.Classes.Ord
 def _idris_Prelude_46_Nat_46__64_Prelude_46_Classes_46_Ord_36_Nat():
   while True:
-    return (0, (65668,), (65670,), (65672,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Nat.{Nat instance of Prelude.Classes.Ord_lam5}1}
+    return (0, (65668,), (65670,), (65672,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Nat.{Nat implementation of Prelude.Classes.Ord_lam5}1}
 
-# Prelude.Show.Prec instance of Prelude.Classes.Ord
+# Prelude.Show.Prec implementation of Prelude.Classes.Ord
 def _idris_Prelude_46_Show_46__64_Prelude_46_Classes_46_Ord_36_Prec():
   while True:
-    return (0, (65678,), (65680,), (65682,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Show.{Prec instance of Prelude.Classes.Ord_lam5}1}
+    return (0, (65678,), (65680,), (65682,))  # constructor of Prelude.Classes.Ord, {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam1}1}, {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam3}1}, {U_Prelude.Show.{Prec implementation of Prelude.Classes.Ord_lam5}1}
 
-# Prelude.Show.Int instance of Prelude.Show.Show
+# Prelude.Show.Int implementation of Prelude.Show.Show
 def _idris_Prelude_46_Show_46__64_Prelude_46_Show_46_Show_36_Int():
   while True:
-    return (0, (65674,), (65676,))  # constructor of Prelude.Show.Show, {U_Prelude.Show.{Int instance of Prelude.Show.Show_lam0}1}, {U_Prelude.Show.{Int instance of Prelude.Show.Show_lam2}1}
+    return (0, (65674,), (65676,))  # constructor of Prelude.Show.Show, {U_Prelude.Show.{Int implementation of Prelude.Show.Show_lam0}1}, {U_Prelude.Show.{Int implementation of Prelude.Show.Show_lam2}1}
 
-# Prelude.List.case block in sortBy at ./Prelude/List.idr:775:22
-def _idris_Prelude_46_List_46_sortBy_95__95__95__95__95_Prelude_95__95_List_95__95_idr_95_775_95_22_95_case(
+# Prelude.List.case block in sortBy at ./Prelude/List.idr:779:22
+def _idris_Prelude_46_List_46_sortBy_95__95__95__95__95_Prelude_95__95_List_95__95_idr_95_779_95_22_95_case(
   e0, e1, e2, e3
 ):
   while True:
