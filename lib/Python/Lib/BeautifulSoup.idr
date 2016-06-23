@@ -3,7 +3,7 @@ module Python.Lib.BeautifulSoup
 import Python
 import Python.Prim
 
-%access public
+%access public export
 %default total
 
 namespace Parsers

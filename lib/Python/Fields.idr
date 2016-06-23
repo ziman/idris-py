@@ -6,7 +6,7 @@ import Python.IO
 import Language.Reflection
 
 %default total
-%access public
+%access public export
 %language ErrorReflection
 
 infixl 4 /.
@@ -14,7 +14,7 @@ infixl 4 /.
 |||
 ||| @ obj Obj with the given signature.
 ||| @ f   Name of the requested field.
-abstract
+export
 (/.) :
   (obj : Obj sig) -> (f : String)
   -> {auto pf : sig f = Attr t}
@@ -33,7 +33,7 @@ fpParams : FieldParams pt -> pt
 fpParams (FP n ps) = ps
 
 infixl 4 //.
-abstract
+export
 (//.) :
   (obj : Obj sig) -> (fps : FieldParams pt)
   -> {auto pf : sig (fpName fps) = PAttr pt tf}
@@ -47,6 +47,7 @@ infixl 4 /:
 |||
 ||| @ obj PIO action returning an object.
 ||| @ f   Name of the requested field.
+export
 (/:) :
   (obj : PIO (Obj sig)) -> (f : String)
   -> {auto pf : sig f = Attr t}
@@ -54,6 +55,7 @@ infixl 4 /:
 (/:) obj f = (/. f) <$> obj
 
 infixl 4 //:
+export
 (//:) :
   (obj : PIO (Obj sig)) -> (fps : FieldParams pt)
   -> {auto pf : sig (fpName fps) = PAttr pt tf}

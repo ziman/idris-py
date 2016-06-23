@@ -3,7 +3,7 @@ module Python.IO
 import Python.Objects
 
 %default total
-%access public
+%access public export
 
 unRaw : FFI_C.Raw a -> a
 unRaw (MkRaw x) = x

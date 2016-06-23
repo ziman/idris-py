@@ -6,7 +6,7 @@ import Python.Lib.Numpy
 
 import Data.Vect
 
-%access public
+%access public export
 %default total
 
 private
@@ -26,7 +26,7 @@ record DType (ty : Type) where
 DDouble : DType Double
 DDouble = MkDType "float" fromInteger id
 
-abstract
+export
 record Matrix (rows : Nat) (cols : Nat) (dtype : DType a) where
   constructor MkM
   arr : Obj NDArray
@@ -41,52 +41,54 @@ op : (f : String)
   -> Matrix r c dt -> Matrix r c dt -> Matrix r c dt
 op f (MkM x) (MkM y) = unsafeNp $ nda /. f $. [x, y]
 
-abstract
+export
 fill : {dt : DType a} -> a -> Matrix r c dt
 fill {r=r} {c=c} x = unsafeNp $ np /. "tile" $. [toDyn x, (r,c)]
 
+export
 fromInteger : Integer -> Matrix r c dt
 fromInteger {dt=dt} = fill . dtFromInteger dt
 
+export
 fromDouble : Double -> Matrix r c dt
 fromDouble {dt=dt} = fill . dtFromDouble dt
 
-abstract
+export
 singleton : {dt : DType a} -> a -> Matrix 1 1 dt
 singleton {a=a} {dt=dt} x =
   unsafeNp $
     np //. FP "array" a $. [pyList [pyList [x]], dtName dt]
 
-abstract
+export
 dot : Matrix r c dt -> Matrix c k dt -> Matrix r k dt
 dot (MkM x) (MkM y) = unsafeNp $ np /. "dot" $. [x,y]
 
-abstract
+export
 transpose : Matrix r c dt -> Matrix c r dt
 transpose (MkM x) = unsafeNp $ np /. "transpose" $. [x]
 
-abstract
+export
 array : (dt : DType a) -> Vect r (Vect c a) -> Matrix r c dt
 array {a=a} dt xs = unsafeNp $ np //. FP "array" a $. [c (map c xs), dtName dt]
   where
     c : {a : Type} -> Vect n a -> Obj (PyList a)
     c xs = pyList $ toList xs
 
-abstract
+export
 reshape : Matrix r c dt -> {auto pf : r*c = r'*c'} -> Matrix r' c' dt
 reshape {r'=r'} {c'=c'} (MkM x) =
   unsafeNp $
     np /. "reshape" $. [x, (r', c')]
 
-abstract
+export
 (/) : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
 (/) = op "__div__"
 
-abstract
+export
 minus : Matrix r c dt -> Matrix r c dt -> Matrix r c dt
 minus = op "__sub__"
 
-abstract
+export
 abs : Matrix r c dt -> Matrix r c dt
 abs (MkM x) = unsafeNp $ np /. "abs" $. [x]
 
