@@ -5,7 +5,7 @@ import Python.Prim
 import Data.Erased
 
 %default total
-%access public
+%access public export
 
 NDArray : Signature
 NDArray f = case f of

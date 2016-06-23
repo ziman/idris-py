@@ -3,7 +3,7 @@ module Python.Objects
 import Python.Telescope
 
 %default total
-%access public
+%access public export
 
 data Field : Type where
   PAttr : (pt : Type) -> (tf : pt -> Type) -> Field
@@ -30,7 +30,7 @@ implementation Monoid Signature where
 Dyn : Type
 Dyn = Ptr
 
-abstract
+export
 toDyn : a -> Dyn
 toDyn = believe_me
 

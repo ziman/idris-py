@@ -6,7 +6,7 @@ import Python.Telescope
 import Python.IO
 
 %default total
-%access public
+%access public export
 
 Function : (t : Telescope a) -> Signature
 Function {a = a} t f = case f of
@@ -34,7 +34,7 @@ strip (Bind (Default _ d) tf) (x ** xs) = toDyn x :: strip (tf $ fromMaybe d x) 
 
 infixl 4 $.
 ||| Duck-typed function call.
-abstract
+export
 ($.) :
   {t : Telescope a}
   -> (f : Obj sig)
@@ -50,6 +50,7 @@ abstract
 
 infixl 4 $:
 ||| Duck-typed function call, useful for chaining.
+export
 ($:) :
   {t : Telescope a}
   -> (f : PIO (Obj sig))
