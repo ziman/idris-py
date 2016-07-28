@@ -32,7 +32,7 @@ c_main :: Opts -> Idris ()
 c_main opts = do elabPrims
                  loadInputs (inputs opts) Nothing
                  mainProg <- elabMain
-                 ir <- compile (Via "python") (output opts) (Just mainProg)
+                 ir <- compile (Via IBCFormat "python") (output opts) (Just mainProg)
                  runIO $ codegenPython ir
 
 main :: IO ()
