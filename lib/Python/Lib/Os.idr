@@ -2,7 +2,7 @@ module Python.Lib.Os
 
 import Python
 
-%access public
+%access public export
 %default total
 
 Os : Signature

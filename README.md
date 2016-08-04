@@ -50,8 +50,33 @@
     - lazy `Text` seems to be about as fast as `String`
     - `String` is the simplest
 
+### Install using Stack
 
-### Install
+First, the codegen:
+```bash
+$ stack build
+```
+
+Then, the library:
+```bash
+$ cd lib
+$ stack exec idris -- --install python.ipkg
+```
+
+Some Python libraries for the example programs:
+```bash
+$ pip install requests bs4 numpy
+```
+
+#### Running the Examples
+
+Compile the example
+```bash
+$ cd examples/
+$ stack exec idris -- example.idr -p python --codegen python -o example.py
+```
+
+### Install using Cabal
 
 First, the codegen:
 ```bash
@@ -75,7 +100,7 @@ Finally, set up your path appropriately:
 $ export PATH="$PATH:$IDRIS_PATH/.cabal-sandbox/bin/"
 ```
 
-## Examples
+#### Running the Examples
 
 Compile the example
 ```bash

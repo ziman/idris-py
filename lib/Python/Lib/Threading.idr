@@ -7,7 +7,7 @@ import Python.Exceptions
 import Python.Lib.Queue
 
 %default total
-%access public
+%access public export
 
 Thread : Signature
 Thread f = case f of

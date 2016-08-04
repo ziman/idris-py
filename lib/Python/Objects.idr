@@ -3,7 +3,7 @@ module Python.Objects
 import Python.Telescope
 
 %default total
-%access public
+%access public export
 
 data Field : Type where
   PAttr : (pt : Type) -> (tf : pt -> Type) -> Field
