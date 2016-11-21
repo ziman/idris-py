@@ -5,7 +5,7 @@ import Python.Fields
 import Python.IO
 
 %default total
-%access public
+%access public export
 
 Exception : Signature
 Exception f = case f of

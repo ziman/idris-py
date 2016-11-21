@@ -2,7 +2,7 @@ module Python.Lib.Requests
 
 import Python
 
-%access public
+%access public export
 %default total
 
 Response : Signature

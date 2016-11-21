@@ -4,7 +4,7 @@ import Python
 import Data.Erased
 
 %default total
-%access public
+%access public export
 
 Queue : Type -> Signature
 Queue a f = case f of
