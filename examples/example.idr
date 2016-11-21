@@ -48,7 +48,7 @@ main = do
     -- collect : Iterator a -> PIO (List a)
     line <- concat <$> collect (li /. "strings")
     putStrLn' $ show (i+1) ++ ". " ++ line
-    return $ i + 1
+    pure $ i + 1
 
   putStrLn' $ "Total number of features: " ++ show count
   putStrLn' ""
@@ -60,7 +60,7 @@ main = do
     putStrLn' $ "thread " ++ name ++ " starting"
     html <- session /. "get" $. ["http://idris-lang.org"] /: "text"
     putStrLn' $ "thread " ++ name ++ " done"
-    return $ length html
+    pure $ length html
 
   thrA <- forkPIO $ thread "A"
   thrB <- forkPIO $ thread "B"

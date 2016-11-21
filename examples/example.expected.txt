@@ -4,7 +4,7 @@ Idris has got the following exciting features:
 3. Compiler-supported interactive editing: the compiler helps you write code using the types
 4. where clauses, with rule, simple case expressions, pattern matching let and lambda bindings
 5. Dependent records with projection and update
-6. Type classes
+6. Interfaces (similar to type classes in Haskell)
 7. Type-driven overloading resolution
 8. do notation and idiom brackets
 9. Indentation significant syntax
@@ -18,8 +18,8 @@ thread A starting
 thread B starting
 thread A or B done
 thread A or B done
-thread A says 10383
-thread B says 10383
+thread A says 11024
+thread B says 11024
 
 And now, let's fail!
   -> (1) everything's fine: [Errno 13] Permission denied: '/root/hello'
