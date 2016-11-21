@@ -14,13 +14,13 @@
       the number of stack frames but it's even slower.
 * principled codegen monad makes it easy to compile from `DExp`
 * allows typechecked use of Python libraries
-  ([example](https://github.com/ziman/idris-py/blob/master/example.idr))
+  ([example](https://github.com/ziman/idris-py/blob/master/examples/example.idr))
 	- thanks to signatures for Python objects
-      ([example](https://github.com/ziman/idris-py/blob/master/Python/Lib/BeautifulSoup.idr)).
+      ([example](https://github.com/ziman/idris-py/blob/master/lib/Python/Lib/BeautifulSoup.idr)).
     - fully dependent type signatures are supported
-      ([example](https://github.com/ziman/idris-py/blob/master/Python/Lib/Queue.idr#L18)),
+      ([example](https://github.com/ziman/idris-py/blob/master/lib/Python/Lib/Queue.idr#L18)),
       including arguments with defaults
-* allows duck typing ([example](https://github.com/ziman/idris-py/blob/master/Python/Functions.idr#L30))
+* allows duck typing ([example](https://github.com/ziman/idris-py/blob/master/lib/Python/Functions.idr#L30))
 * error reflection yields messages like:
     - `Field "gets" does not exist in object signature "Session"`
     - `Iterable Int is not mixed into signature "Response"`
@@ -33,13 +33,13 @@
 * comments in the generated Python code show the meaning of low-level code
     - constructor names next to numeric constructor tags
     - readable names next to mangled names
-* exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L80))
-* threading, message passing and `forkPIO` ([example](https://github.com/ziman/idris-py/blob/master/example.idr#L62))
+* exceptions (no hierarchy yet, though) ([example](https://github.com/ziman/idris-py/blob/master/examples/example.idr#L80))
+* threading, message passing and `forkPIO` ([example](https://github.com/ziman/idris-py/blob/master/examples/example.idr#L62))
 * `Just x` compiles to `x`, `Nothing` compiles to `None`
     - this gives choice to FFI authors to say whether they care about `None`
       by having FFI functions take/return either bare values or maybe-values.
 * calling Idris from Python
-    ([exports](https://github.com/ziman/idris-py/blob/master/example.idr#L105),
+    ([exports](https://github.com/ziman/idris-py/blob/master/examples/example.idr#L105),
      [usage](#calling-idris-from-python))
 
 ## Observations
