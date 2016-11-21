@@ -32,7 +32,7 @@ forkPIO {a = a} work = do
     thread <- Threading.import_ /: "Thread" $: [Nothing, marshalPIO $ worker queue]
     thread /. "start" $. []
 
-    return queue
+    pure queue
   where
     worker : (Obj $ Queue a) -> PIO ()
     worker queue = do

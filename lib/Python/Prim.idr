@@ -59,9 +59,9 @@ obj x = believe_me x
 next : Obj (Iterator a) -> PIO (Maybe a)
 next {a = a} it = do
   OK x <- try (it /. "next" $. [])
-    | Except StopIteration e => return Nothing
+    | Except StopIteration e => pure Nothing
     | Except _ e => raise e
-  return $ Just x
+  pure $ Just x
 
 ||| A left-fold over an iterable object, implemented in Idris.
 ||| This is not very efficient (TCO does not kick in here)
@@ -81,7 +81,7 @@ iterate iterable st f = do
     partial
     iter : Obj (Iterator a) -> (st : b) -> (f : b -> a -> PIO b) -> PIO b
     iter it st f = do
-      Just x <- next it | Nothing => return st
+      Just x <- next it | Nothing => pure st
       st' <- f st x
       iter it st' f
 
@@ -109,4 +109,4 @@ foreach {a=a} {b=b} {sig=sig} iterable st f = do
 ||| Collect all elements of an iterator into a list.
 partial
 collect : (it : Obj sig) -> {auto pf : sig "__iter__" = [] ~~> Obj (Iterator a)} -> PIO (List a)
-collect it = reverse <$> foreach it List.Nil (\xs, x => return (x :: xs))
+collect it = reverse <$> foreach it List.Nil (\xs, x => pure (x :: xs))

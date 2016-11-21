@@ -30,7 +30,7 @@ implementation Monoid Signature where
 Dyn : Type
 Dyn = Ptr
 
-abstract
+export
 toDyn : a -> Dyn
 toDyn = believe_me
 

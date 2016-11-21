@@ -100,7 +100,7 @@ data Result : Type -> Type where
   Except : (etype : ExceptionType) -> (e : Obj Exception) -> Result a
 
 ||| Catch exceptions in the given PIO action.
-abstract
+export
 try : PIO a -> PIO (Result a)
 try {a = a} x = do
     MkRaw r <- foreign
@@ -116,12 +116,12 @@ try {a = a} x = do
       (MkRaw . Right . unRaw)
 
     case r of
-      Right x => return $ OK x
+      Right x => pure $ OK x
       Left e => do
         let et = e /. "__class__" /. "__name__"
-        return $ Except (fromString et) e
+        pure $ Except (fromString et) e
 
-abstract
+export
 raise : Obj Exception -> PIO a
 raise {a = a} e = unRaw <$> foreign FFI_Py "_idris_raise" (Obj Exception -> PIO (Raw a)) e
 
@@ -129,10 +129,10 @@ catch : PIO (Result a) -> (ExceptionType -> Obj Exception -> PIO a) -> PIO a
 catch action handler = do
   OK result <- action
     | Except etype e => handler etype e
-  return result
+  pure result
 
 ||| Get basic information about the exception as `String`.
-abstract
+export
 showException : Obj Exception -> String
 showException e =
   unsafePerformIO
