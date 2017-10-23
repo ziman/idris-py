@@ -468,7 +468,7 @@ cgTailCall argNames args = do
     return $ cgError "unreachable due to tail call"
 
 cgExp :: Bool -> DExp -> CG Expr
-cgExp tailPos (DV var) = return $ cgVar var
+cgExp tailPos (DV var) = return $ cgVar (Glob var)
 cgExp tailPos (DApp tc n args) = do
     tag <- ctorTag n
     case tag of
@@ -491,13 +491,13 @@ cgExp tailPos (DC _ tag n args)
 
 -- if the scrutinee is something big, save it into a variable
 -- because we'll copy it into a possibly long chain of if-elif-...
-cgExp tailPos (DCase caseType (DV var) alts) = cgCase tailPos var alts
+cgExp tailPos (DCase caseType (DV var) alts) = cgCase tailPos (Glob var) alts
 cgExp tailPos (DCase caseType e alts) = do
     scrutinee <- fresh
     emit . cgAssign scrutinee =<< cgExp False e
     cgCase tailPos scrutinee alts
 
-cgExp tailPos (DChkCase (DV var) alts) = cgCase tailPos var alts
+cgExp tailPos (DChkCase (DV var) alts) = cgCase tailPos (Glob var) alts
 cgExp tailPos (DChkCase e alts) = do
     scrutinee <- fresh
     emit . cgAssign scrutinee =<< cgExp False e

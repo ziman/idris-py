@@ -5,6 +5,7 @@ import Idris.AbsSyntax
 import Idris.ElabDecls
 import Idris.REPL
 import Idris.Main
+import Idris.Options
 
 import IRTS.Compiler
 import IRTS.CodegenPython

@@ -1,4 +1,4 @@
-resolver: lts-6.9
+resolver: lts-9.0
 
 packages:
   - location: .
@@ -12,8 +12,10 @@ flags:
     GMP: true
 
 extra-deps:
-  - libffi-0.1
-  - trifecta-1.6
+#  - libffi-0.1
+#  - trifecta-1.6
+   - binary-0.8.5.1
+   - cheapskate-0.1.1
   
 nix:
   enable: false
